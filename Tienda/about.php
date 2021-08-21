@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="site-section border-bottom" data-aos="fade">
+    <!-- <div class="site-section border-bottom" data-aos="fade">
       <div class="container">
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 site-section-heading text-center pt-4">
@@ -119,9 +119,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   
-
+<!-- 
     <div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
       <div class="container">
         <div class="row">
@@ -154,9 +154,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <?php include("./layouts/footer.php"); ?> 
+    <!-- <?php include("./layouts/footer.php"); ?>  -->
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>

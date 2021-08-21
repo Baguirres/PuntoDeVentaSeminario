@@ -49,6 +49,7 @@
   <div class="container-fluid">
       <div class="row">
           <div class="login col-3 100vh">
+
                 <form action="">
                     <label for="">Usuario</label>
                     <input type="text" class="form-control"></input>
