@@ -26,7 +26,7 @@
                 <div class="col-md-12">
                     <div class="box">
                       <div class="box-header with-border">
-                            <h1 class="box-title">Articulo 
+                            <h1 class="box-title">Promoción 
                               <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)">
                                 <i class="fa fa-plus-circle"></i> 
                                 Agregar
@@ -44,49 +44,44 @@
                           <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
                               <th>Opciones</th>
-                              <th>Nombre</th>
-                              <th>Categoria</th>
-                              <th>Stock</th>
-                              <th>Imagen</th>
-                              <th>Estado</th>
+                              <th>Fecha Inicio</th>
+                              <th>Fecha Final</th>
+                              <th>Producto</th>
+                              <th>Descuento</th>
                             </thead>
                             <tbody>
 
                             </tbody>
                             <tfoot>
                             <th>Opciones</th>
-                              <th>Nombre</th>
-                              <th>Categoria</th>
-                              <th>Stock</th>
-                              <th>Imagen</th>
-                              <th>Estado</th>
+                            <th>Fecha Inicio</th>
+                              <th>Fecha Final</th>
+                              <th>Producto</th>
+                              <th>Descuento</th>
                             </tfoot>
                           </table>
                       </div>
                       <div class="panel-body"  id="formularioregistros">
                           <form name="formulario" id="formulario" method="POST">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Nombre:</label>
-                              <input type="hidden" name="idarticulo" id="idarticulo">
-                              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
+                              <label>Fecha Inicio:</label>
+                              <input type="hidden" name="idpromocion" id="idpromocion">
+                              <input type="date" class="form-control" name="fechai" id="fechai" required>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Categoria:</label>
-                              <select name="idcategoria" id="idcategoria" data-live-search="true" class="form-control selectpicker" required></select>
+                              <label>Fecha Final:</label>
+                              <input type="date" class="form-control" name="fechaf" id="fechaf" required>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Precio:</label>
-                              <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
+                              <label>Producto:</label>
+                              <select name="idproducto" id="idproducto" data-live-search="true" class="form-control selectpicker" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Imagen:</label>
-                              <input type="file" class="form-control" name="imagen" id="imagen">
-                              <input type="hidden" class="form-control" name="imagenactual" id="imagenactual">
-                              <img src="" width="150px" height="120px" id="imagenmuestra">
+                              <label>Descuento:</label>
+                              <input type="number" class="form-control" name="descuento" id="descuento" placeholder="Descuento" required>
                             </div>
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
-
                               <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                             </div>
                           </form>
@@ -114,7 +109,7 @@
     require 'footer.php';
   ?>
   
-  <script src="./scripts/articulo.js"></script>
+  <script src="./scripts/promocion.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>
   <script src="../public/js/jquery.PrintArea.js"></script>
 

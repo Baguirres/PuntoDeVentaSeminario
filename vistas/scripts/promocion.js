@@ -13,17 +13,15 @@ function init()
 
     //Cargamos los items al select categoria
     $.post(
-        "../ajax/articulo.php?op=selectCategoria",
+        "../ajax/promocion.php?op=selectCategoria",
         function(data)
         {        
             
             //console.log(data);
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
+            $("#idproducto").html(data);
+            $("#idproducto").selectpicker('refresh');
         }
     );
-
-    $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
@@ -86,7 +84,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/promocion.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -111,7 +109,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/promocion.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -132,44 +130,38 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(idpromocion)
 {
     $.post(
-        "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
+        "../ajax/promocion.php?op=mostrar",
+        {idpromocion:idpromocion},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
            
-            $("#idcategoria").val(data.idCategoria);
-            $('#idcategoria').selectpicker('refresh');
+            $("#idproducto").val(data.idproducto);
+            $('#idproducto').selectpicker('refresh');
 
-            $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
+            $("#fechai").val(data.fechaInicio);
+            $("#fechaf").val(data.fechaFinal);
+            $("#descuento").val(data.descuento);
 
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
-
-            
+            $("#idpromocion").val(data.idPromocion);            
 
         }
     );
 }
 
 //funcion para descativar categorias
-function desactivar(idarticulo)
+function desactivar(idpromocion)
 {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
+    bootbox.confirm("¿Estas seguro de desactivar la promocion?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
+                "../ajax/promocion.php?op=desactivar",
+                {idpromocion:idpromocion},
                 function(e)
                 {
                     bootbox.alert(e);
@@ -187,7 +179,7 @@ function activar(idarticulo)
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=activar",
+                "../ajax/promocion.php?op=activar",
                 {idarticulo:idarticulo},
                 function(e)
                 {
