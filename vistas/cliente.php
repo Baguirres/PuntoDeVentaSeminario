@@ -37,10 +37,10 @@
                           <thead>
                             <th>Opciones</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Numero Doc.</th>
-                            <th>Telefono</th>
+                            <th>Apellido</th>
                             <th>Email</th>
+                            <th>Telefono</th>
+                            <th>Nit</th>
                           </thead>
                           <tbody>
 
@@ -48,10 +48,10 @@
                           <tfoot>
                             <th>Opciones</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Numero Doc.</th>
-                            <th>Telefono</th>
+                            <th>Apellido</th>
                             <th>Email</th>
+                            <th>Telefono</th>
+                            <th>Nit</th>
                           </tfoot>
                         </table>
                     </div>
@@ -59,34 +59,35 @@
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre:</label>
-                            <input type="hidden" name="idpersona" id="idpersona">
-                            <input type="hidden" name="tipo_persona" id="tipo_persona" value="Cliente">
+                            <input type="hidden" name="idcliente" id="idcliente">
                             <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre Cliente" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Tipo Documento:</label>
-                                <select name="tipo_documento" id="tipo_documento" class="form-control select-picker" required>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="CEDULA">CEDULA</option>
-                                </select>
+                            <label>Apellido:</label>
+                            <input type="text" class="form-control" name="apellido" id="apellido" maxlength="100" placeholder="Apellido Cliente" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Numero Documento:</label>
-                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Num. Documento" required>
+                            <label>Fecha Nacimiento:</label>
+                            <input type="date" class="form-control" name="fechan" id="fechan" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Direccion:</label>
-                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Direccion" required>
+                            <label>Email:</label>
+                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Telefono:</label>
                             <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Telefono" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Email:</label>
-                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email" required>
+                            <label>Direccion:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Direccion" required>
                           </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Nit:</label>
+                            <input type="text" class="form-control" name="nit" id="nit" maxlength="70" placeholder="Nit" required>
+                          </div>
+
+  
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 

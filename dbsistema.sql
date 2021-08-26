@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -53,7 +52,7 @@ CREATE TABLE `categoria` (
 --
 
 CREATE TABLE `cliente` (
-  `idCliente` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `Apellido` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `FechaNacimiento` date NOT NULL,
@@ -61,7 +60,8 @@ CREATE TABLE `cliente` (
   `Telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `Direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `NIT` varchar(45) COLLATE utf8_spanish2_ci NOT NULL
+  `NIT` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -179,11 +179,12 @@ CREATE TABLE `municipio` (
 --
 
 CREATE TABLE `producto` (
-  `idProducto` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `Precio` double NOT NULL,
   `idCategoria` int(11) NOT NULL,
-  `imagen` varchar(45) COLLATE utf8_spanish2_ci NOT NULL
+  `imagen` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  PRIMARY KEY(`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -193,11 +194,12 @@ CREATE TABLE `producto` (
 --
 
 CREATE TABLE `promocion` (
-  `idPromocion` int(11) NOT NULL,
+  `idPromocion` int(11) NOT NULL AUTO_INCREMENT,
   `fechaInicio` date NOT NULL,
   `fechaFinal` date NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `descuento` double NOT NULL
+  `descuento` double NOT NULL,
+  PRIMARY KEY (`idPromocion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -207,12 +209,13 @@ CREATE TABLE `promocion` (
 --
 
 CREATE TABLE `proveedor` (
-  `idProveedor` int(11) NOT NULL,
+  `idProveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `nit` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL
+  `correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  PRIMARY KEY (`idProveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -367,7 +370,7 @@ ALTER TABLE `usuario_permiso`
   ADD KEY `fk_usuario_permiso_permiso_idx` (`idpermiso`),
   ADD KEY `fk_usuario_permiso_usuario_idx` (`idusuario`);
   
-  
+
 --
 -- Filtros para la tabla `usuario_permiso`
 --
@@ -375,7 +378,13 @@ ALTER TABLE `usuario_permiso`
   ADD CONSTRAINT `fk_usuario_permiso_permiso` FOREIGN KEY (`idpermiso`) REFERENCES `permiso` (`idpermiso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_permiso_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+ALTER TABLE `categoria` ADD PRIMARY KEY (`idCateogira`);
 
+ALTER TABLE `producto` ADD CONSTRAINT fk_producto_categoria FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCateogira`);
+
+ALTER TABLE `promocion` ADD CONSTRAINT fk_producto_promocion FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
