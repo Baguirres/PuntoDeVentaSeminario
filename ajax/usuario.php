@@ -7,16 +7,11 @@
     $usuario = new Usuario();
 
     $idusuario=isset($_POST["idusuario"])? limpiarCadena($_POST["idusuario"]):"";
-    $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
-    $tipo_documento=isset($_POST["tipo_documento"])? limpiarCadena($_POST["tipo_documento"]):"";
-    $num_documento=isset($_POST["num_documento"])? limpiarCadena($_POST["num_documento"]):"";
-    $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
-    $telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
-    $email=isset($_POST["email"])? limpiarCadena($_POST["email"]):"";
-    $cargo=isset($_POST["cargo"])? limpiarCadena($_POST["cargo"]):"";
-    $login=isset($_POST["login"])? limpiarCadena($_POST["login"]):"";
+    $nombre=isset($_POST["usuario"])? limpiarCadena($_POST["usuario"]):"";
     $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
     $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
+    //$permiso=isset($_POST["permiso"])? limpiarCadena($_POST["permiso"]):"";
+    $idempleado=isset($_POST["Empleado"])? limpiarCadena($_POST["Empleado"]):"";
 
     switch($_GET["op"])
     {
@@ -40,11 +35,13 @@
             $clavehash = hash("SHA256",$clave);
 
             if (empty($idusuario)){
-                $rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
+                $rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$_POST['permiso']);
                 echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
             }
             else {
-                $rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
+                echo 'permiso';
+                //echo $_POST['permiso'];
+                $rspta=$usuario->editar($idusuario,$nombre,$clavehash,$imagen,$idempleado,$_POST['permiso']);
                 echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
             }
         break;
@@ -52,6 +49,18 @@
         case 'desactivar':
                 $rspta = $usuario->desactivar($idusuario);
                 echo $rspta ? "Usuario desactivado" : "Usuario no se pudo desactivar";
+        break;
+
+        case 'selectEmpleado':
+            require_once '../modelos/Trabajador.php';
+            $trabajador = new Trabajador();
+
+            $rspta = $trabajador->listarp();
+
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idempleado.'>'.$reg->nombre.' '.$reg->apellido.'</option>';
+            }
         break;
 
         case 'activar':
@@ -71,22 +80,16 @@
                 $data[] = array(
                     "0"=> ($reg->condicion) ? 
                         '<button class="btn btn-warning" onclick="mostrar('.$reg->idusuario.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idusuario.')"><li class="fa fa-close"></li></button>'
+                        '<button class="btn btn-danger" onclick="desactivar('.$reg->idusuario.')"><li class="fa fa-close"></li></button>'
                         :
                         '<button class="btn btn-warning" onclick="mostrar('.$reg->idusuario.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-primary" onclick="activar('.$reg->idusuario.')"><li class="fa fa-check"></li></button>'
+                        '<button class="btn btn-primary" onclick="activar('.$reg->idusuario.')"><li class="fa fa-check"></li></button>'
                         ,
-                    "1"=>$reg->nombre,
-                    "2"=>$reg->tipo_documento,
-                    "3"=>$reg->num_documento,
-                    "4"=>$reg->telefono,
-                    "5"=>$reg->email,
-                    "6"=>$reg->login,
-                    "7"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
-                    "8"=>($reg->condicion) ?
-                         '<span class="label bg-green">Activado</span>'
-                         :      
-                         '<span class="label bg-red">Desactivado</span>'
+                    "1"=>$reg->usuario,
+                    "2"=>$reg->nombre.' '.$reg->apellido,
+                    "3"=>$reg->correo,
+                    "4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+                    "5"=>($reg->condicion) ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
                 );
             }
             $results = array(

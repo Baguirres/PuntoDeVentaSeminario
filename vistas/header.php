@@ -167,7 +167,7 @@
                     <ul class="treeview-menu">
                       <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
                       <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
-                      
+                      <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajadores</a></li>
                     </ul>
                   </li>'
                  ;
@@ -198,6 +198,16 @@
                     <ul class="treeview-menu">
                       <li><a href="ventasfechacliente.php"><i class="fa fa-circle-o"></i> Consulta Ventas</a></li>                
                     </ul>
+                  </li>'
+                 ;
+              }
+              if($_SESSION['consultav'] == 1)
+              {
+                echo 
+                '<li>
+                    <a href="configuracion.php">
+                      <i class="fa fa-gear"></i> <span>Configuración</span>
+                    </a>
                   </li>'
                  ;
               }

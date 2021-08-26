@@ -13,15 +13,6 @@ function init()
 
     $("#imagenmuestra").hide();
 
-    $.post(
-        "../ajax/usuario.php?op=selectEmpleado",
-        function(data)
-        {
-            $("#Empleado").html(data);
-            $("#Empleado").selectpicker('refresh');
-        }
-    );
-
     //Mostramos los permisos
     $.post(
         "../ajax/usuario.php?op=permisos&id=",
@@ -38,9 +29,12 @@ function limpiar()
     $("#nombre").val("");
     $("#email").val("");
     $("#clave").val("");
-    $("#Empleado").val("");
+
     $("#imagenmuestra").attr("src","");
     $("#imagenactual").val("");
+
+    $("#idusuario").val("");
+
 }
 
 //funcion mostrar formulario
@@ -86,7 +80,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/usuario.php?op=listar',
+                    url: '../ajax/configuracion.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -109,7 +103,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/usuario.php?op=guardaryeditar",
+        url: "../ajax/configuracion.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -130,71 +124,27 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idusuario)
+function mostrar(idempresa)
 {
-    $.post("../ajax/usuario.php?op=mostrar",{idusuario:idusuario},function(data,status)
+    $.post("../ajax/configuracion.php?op=mostrar",{idempresa:idempresa},function(data,status)
         {
             console.log(data);
             data = JSON.parse(data);
             mostrarform(true);
-            console.log(data);
-            $("#usuario").val(data.usuario);
-            $("#clave").val(data.clave)
-            $("#email").val(data.correo)
-            $("#Empleado").val(data.nombre);
-            $("#Empleado").selectpicker('refresh');
-            $("#clave").val(data.clave);
+            $("#empresa").val(data.nombre);
+            $("#Eslogan").val(data.eslogan);
+            $("#nit").val(data.nit);
+            $("#mision").val(data.mision);
+            $("#vision").val(data.vision);
+            $("#Valores").val(data.valores);
+
             $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-            $("#imagenactual").val(data.imagen);
-            $("#idusuario").val(data.idusuario);
+            $("#imagenmuestra").attr("src","../files/usuarios/"+data.logo); //agregamos el atributo src para mostrar la imagen
+            $("#imagenactual").val(data.logo);
+            $("#idempresa").val(data.idempresa);
         }
     );
 
-    $.post("../ajax/usuario.php?op=permisos&id="+idusuario,function(data)
-        {
-            $("#permisos").html(data);
-        }
-    );
-}
-
-//funcion para descativar categorias
-function desactivar(idusuario)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Usuario?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/usuario.php?op=desactivar",
-                {idusuario:idusuario},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
-}
-
-function activar(idusuario)
-{
-    bootbox.confirm("¿Estas seguro de activar el Usuario?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/usuario.php?op=activar",
-                {idusuario:idusuario},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
 }
 
 init();

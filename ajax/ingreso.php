@@ -8,7 +8,7 @@
 
     $ingreso = new Ingreso();
 
-    $idingreso=isset($_POST["idingreso"])? limpiarCadena($_POST["idingreso"]):"";
+    $idcompraencabezado=isset($_POST["idcompraencabezado"])? limpiarCadena($_POST["idcompraencabezado"]):"";
     $idproveedor=isset($_POST["idproveedor"])? limpiarCadena($_POST["idproveedor"]):"";
     $idusuario= $_SESSION['idusuario'];
     $tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
@@ -27,19 +27,19 @@
     switch($_GET["op"])
     {
         case 'guardaryeditar':
-            if (empty($idingreso)){
+            /*if (empty($idingreso)){
                 $rspta=$ingreso->insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$idarticulo,$cantidad,$precio_compra,$precio_venta);
                 echo $rspta ? "Ingreso registrado" : "Ingreso no se pudo registrar";
-            }
+            }*/
         break;
 
         case 'anular':
-                $rspta = $ingreso->anular($idingreso);
+                $rspta = $ingreso->anular($idcompraencabezado);
                 echo $rspta ? "Ingreso anulado" : "Ingreso no se pudo anular";
         break;
 
         case 'mostrar':
-            $rspta = $ingreso->mostrar($idingreso);
+            $rspta = $ingreso->mostrar($idcompraencabezado);
             echo json_encode($rspta);
         break;
 
@@ -67,13 +67,13 @@
                             <td></td> 
                             <td>'.$reg->nombre.'</td> 
                             <td>'.$reg->cantidad.'</td> 
-                            <td>'.$reg->precio_compra.'</td> 
-                            <td>'.$reg->precio_venta.'</td> 
-                            <td>'.$reg->precio_compra * $reg->cantidad.'</td> 
+                            <td>Q '.$reg->precio.'</td> 
+                            <td>Q '.$reg->precio.'</td> 
+                            <td>Q '.$reg->precio * $reg->cantidad.'</td> 
                         </tr>
                       </tbody>';
 
-                $total += ($reg->precio_compra*$reg->cantidad);
+                $total += ($reg->precio*$reg->cantidad);
             }
 
             echo '<tfoot>
@@ -83,7 +83,7 @@
                     <th></th>
                     <th></th>
                     <th>
-                    <h4 id="total">$ '.$total.'</h4>
+                    <h4 id="total">Q '.$total.'</h4>
                     <input type="hidden" name="total_compra" id="total_compra">
                     </th>
                 </tfoot>';
@@ -95,18 +95,16 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> ($reg->estado == 'Aceptado') ? 
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idingreso.')"><li class="fa fa-eye"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="anular('.$reg->idingreso.')"><li class="fa fa-close"></li></button>'
+                    "0"=> ($reg->estado == 1) ? 
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="anular('.$reg->idcompraencabezado.')"><li class="fa fa-close"></li></button>'
                         :
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idingreso.')"><li class="fa fa-eye"></li></button>',
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>',
                     "1"=>$reg->fecha,
                     "2"=>$reg->proveedor,
                     "3"=>$reg->usuario,
-                    "4"=>$reg->tipo_comprobante,
-                    "5"=>$reg->serie_comprobante.'-'.$reg->num_comprobante,
-                    "6"=>$reg->total_compra,
-                    "7"=>($reg->estado=='Aceptado') ?
+                    "4"=>'Q '.$reg->total,
+                    "5"=>($reg->estado==1) ?
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'
@@ -123,7 +121,7 @@
 
         case 'selectProveedor':
             
-            require_once '../modelos/Persona.php';
+            /*require_once '../modelos/Persona.php';
             $persona = new Persona();
 
             $rspta = $persona->listarp();
@@ -131,12 +129,12 @@
             while($reg = $rspta->fetch_object())
             {
                 echo '<option value='.$reg->idpersona.'>'.$reg->nombre.'</option>';
-            }
+            }*/
         break;
 
         case 'listarArticulos':
 
-            require_once '../modelos/Articulo.php';
+            /*require_once '../modelos/Articulo.php';
             $articulo = new Articulo();
 
             $rspta = $articulo->listarActivos();
@@ -160,7 +158,7 @@
                 "iTotalDisplayRecords" => count($data), //enviamos el total de registros a visualizar
                 "aaData" =>$data
             );
-            echo json_encode($results);
+            echo json_encode($results);*/
 
         break;
     }

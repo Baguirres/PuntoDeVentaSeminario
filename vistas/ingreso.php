@@ -26,7 +26,7 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Ingreso <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Compras <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -39,22 +39,18 @@
                             <th>Fecha</th>
                             <th>Proveedor</th>
                             <th>Usuario</th>
-                            <th>Documento</th>
-                            <th>Numero Doc.</th>
-                            <th>Total Compra</th>
+                            <th>Total</th>
                             <th>Estado</th>
                           </thead>
                           <tbody>
 
                           </tbody>
                           <tfoot>
-                            <th>Opciones</th>
+                          <th>Opciones</th>
                             <th>Fecha</th>
                             <th>Proveedor</th>
                             <th>Usuario</th>
-                            <th>Documento</th>
-                            <th>Numero Doc.</th>
-                            <th>Total Compra</th>
+                            <th>Total</th>
                             <th>Estado</th>
                           </tfoot>
                         </table>
@@ -63,32 +59,23 @@
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <label>Proveedor(*):</label>
-                            <input type="hidden" name="idingreso" id="idcategoria">
-                            <select name="idproveedor" id="idproveedor" class="form-control selectpicker" data-live-search="true" required></select>
+                            <input  class="form-control" name="proveedor" id="proveedor" required="">
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <label>Fecha(*):</label>
-                            <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required>
+                            <label>Fecha:</label>
+                            <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Tipo Comprobante(*):</label>
-                            <select class="form-control selectpicker" name="tipo_comprobante" id="tipo_comprobante" required>
-                              <option value="Boleta">Boleta</option>
-                              <option value="Factura">Factura</option>
-                              <option value="Ticket">Ticket</option>
-                            </select>
+                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <label>Trabajador:</label>
+                            <input type="text" class="form-control" name="usuario" id="usuario" required="">
                           </div>
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Serie:</label>
-                            <input type="text" class="form-control" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Serie">
+                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <label>Código:</label>
+                            <input type="text" class="form-control" name="idcompraencabezado" id="idcompraencabezado" maxlength="7" placeholder="Serie">
                           </div>
-                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label>Numero:</label>
-                            <input type="text" class="form-control" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Numero">
-                          </div>
-                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label>Impuesto:</label>
-                            <input type="text" class="form-control" name="impuesto" id="impuesto" required>
+                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <label>Total:</label>
+                            <input type="text" class="form-control" name="total" id="total" maxlength="10" placeholder="Número" required="">
                           </div>
 
                           <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -117,7 +104,7 @@
                                   <th></th>
                                   <th></th>
                                   <th>
-                                    <h4 id="total">$ 0.00</h4>
+                                    <h4 id="total">Q 0.00</h4>
                                     <input type="hidden" name="total_compra" id="total_compra">
                                   </th>
                                 </tfoot>

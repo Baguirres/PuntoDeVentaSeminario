@@ -9,38 +9,19 @@ function init()
     $("#formulario").on("submit",function(e)
     {
         guardaryeditar(e);
-    })
-
-    $("#imagenmuestra").hide();
-
-    $.post(
-        "../ajax/usuario.php?op=selectEmpleado",
-        function(data)
-        {
-            $("#Empleado").html(data);
-            $("#Empleado").selectpicker('refresh');
-        }
-    );
-
-    //Mostramos los permisos
-    $.post(
-        "../ajax/usuario.php?op=permisos&id=",
-        function(data)
-        {
-            $("#permisos").html(data);
-        }
-    );
+    });
 }
 
 //funcion limpiar
 function limpiar()
 {
     $("#nombre").val("");
-    $("#email").val("");
-    $("#clave").val("");
-    $("#Empleado").val("");
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
+    $("#fechanac").val("");
+    $("#fechaing").val("");
+    $("#correo").val("");
+    $("#telefono").val("");
+    $("#direccion").val("");
+    $("#idempleado").val("");
 }
 
 //funcion mostrar formulario
@@ -86,7 +67,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/usuario.php?op=listar',
+                    url: '../ajax/trabajador.php?op=listarp',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -109,7 +90,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/usuario.php?op=guardaryeditar",
+        url: "../ajax/trabajador.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -130,71 +111,43 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idusuario)
+function mostrar(idempleado)
 {
-    $.post("../ajax/usuario.php?op=mostrar",{idusuario:idusuario},function(data,status)
+    $.post("../ajax/trabajador.php?op=mostrar",{idempleado:idempleado},
+        function(data,status)
         {
-            console.log(data);
             data = JSON.parse(data);
             mostrarform(true);
-            console.log(data);
-            $("#usuario").val(data.usuario);
-            $("#clave").val(data.clave)
-            $("#email").val(data.correo)
-            $("#Empleado").val(data.nombre);
-            $("#Empleado").selectpicker('refresh');
-            $("#clave").val(data.clave);
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-            $("#imagenactual").val(data.imagen);
-            $("#idusuario").val(data.idusuario);
-        }
-    );
 
-    $.post("../ajax/usuario.php?op=permisos&id="+idusuario,function(data)
-        {
-            $("#permisos").html(data);
+            $("#nombre").val(data.nombre);
+            $("#apellido").val(data.apellido);
+            $("#fechanac").val(data.fechanacimiento);
+            $("#fechaing").val(data.fechaingreso);
+            $("#correo").val(data.correo);
+            $("#telefono").val(data.telefono);
+            $("#direccion").val(data.direccion);
+            $("#idempleado").val(data.idempleado);
         }
     );
 }
 
-//funcion para descativar categorias
-function desactivar(idusuario)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Usuario?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/usuario.php?op=desactivar",
-                {idusuario:idusuario},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
-}
 
-function activar(idusuario)
+function eliminar(idpersona)
 {
-    bootbox.confirm("¿Estas seguro de activar el Usuario?",function(result){
+    /*bootbox.confirm("¿Estas seguro de eliminar el Proveedor?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/usuario.php?op=activar",
-                {idusuario:idusuario},
+                "../ajax/persona.php?op=eliminar",
+                {idpersona:idpersona},
                 function(e)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
                 }
             );
         }
-    });
+    });*/
 }
 
 init();

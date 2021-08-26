@@ -24,12 +24,11 @@ function init()
 //funcion limpiar
 function limpiar()
 {
-    $("#idproveedor").val("");
     $("#proveedor").val("");
-    $("#serie_comprobante").val("");
-    $("#num_comprobante").val("");
+    $("#usuario").val("");
     $("#fecha_hora").val("");
-    $("#impuesto").val("0");
+    $("#total").val("");
+    $("#idcompraencabezado").val("");
 
     $("#total_compra").val("");
     $(".filas").remove();
@@ -41,10 +40,6 @@ function limpiar()
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear()+"-"+(month)+"-"+(day);
     $("#fecha_hora").val(today);
-
-    //Marcar el primer tipo de documento
-    $("#tipo_comprobante").val("Boleta");
-    $("#tipo_comprobante").selectpicker('refresh');
 
 }
 
@@ -115,7 +110,7 @@ function listar()
 
 function listarArticulos()
 {
-    tabla = $('#tblarticulos')
+    /*tabla = $('#tblarticulos')
         .dataTable(
             {
                 "aProcessing":true, //Activamos el procesamiento del datatables
@@ -137,13 +132,13 @@ function listarArticulos()
                 "order": [[0,"desc"]] //Ordenar (Columna, orden)
             
             })
-        .DataTable();
+        .DataTable();*/
 }
 
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
-    e.preventDefault(); //No se activará la acción predeterminada del evento
+    /*e.preventDefault(); //No se activará la acción predeterminada del evento
 	//$("#btnGuardar").prop("disabled",true);
     var formData = new FormData($("#formulario")[0]);
     
@@ -167,31 +162,24 @@ function guardaryeditar(e)
         } 
     });
 
-    limpiar();
+    limpiar();*/
 }
 
-function mostrar(idingreso)
+function mostrar(idcompraencabezado)
 {
     $.post(
-        "../ajax/ingreso.php?op=mostrar",
-        {idingreso:idingreso},
-        function(data,status)
+        "../ajax/ingreso.php?op=mostrar",{idcompraencabezado:idcompraencabezado},function(data,status)
         {
-
-            data = JSON.parse(data);
+            
+            data = JSON.parse(data);            
             mostrarform(true);
 
-            $("#idproveedor").val(data.idproveedor);
-            $("#idproveedor").selectpicker('refresh');
-
-            $("#tipo_comprobante").val(data.tipo_comprobante);
-            $("#tipo_comprobante").selectpicker('refresh');
+            $("#proveedor").val(data.proveedor);
             
-            $("#serie_comprobante").val(data.serie_comprobante);
-            $("#num_comprobante").val(data.num_comprobante);
+            $("#usuario").val(data.usuario);
             $("#fecha_hora").val(data.fecha);
-            $("#impuesto").val(data.impuesto);            
-            $("#idingreso").val(data.ingreso); 
+            $("#total").val('Q '+data.total);            
+            $("#idcompraencabezado").val(data.idcompraencabezado); 
             
             //Ocultar y mostrar botones
             $("#btnGuardar").hide();
@@ -199,9 +187,9 @@ function mostrar(idingreso)
             $("#btnAgregarArt").hide();
 
             $.post(
-                "../ajax/ingreso.php?op=listarDetalle&id="+idingreso,
-                function(r)
+                "../ajax/ingreso.php?op=listarDetalle&id="+idcompraencabezado,function(r)
                 {
+                    console.log(r);
                     $("#detalles").html("");
                     $("#detalles").html(r);
                 }
@@ -216,16 +204,15 @@ function mostrar(idingreso)
 }
 
 
-function anular(idingreso)
+function anular(idcompraencabezado)
 {
     bootbox.confirm("¿Estas seguro de anular el Ingreso?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/ingeso.php?op=anular",
-                {idingreso:idingreso},
-                function(e)
+                "../ajax/ingreso.php?op=anular",{idcompraencabezado:idcompraencabezado}, function(e)
                 {
+                    console.log(e);
                     bootbox.alert(e);
                     tabla.ajax.reload();
         
@@ -245,7 +232,7 @@ $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
 {
-    var tipo_comprobante = $("#tipo_comprobante option:selected").text();
+    /*var tipo_comprobante = $("#tipo_comprobante option:selected").text();
     if(tipo_comprobante == 'Factura')
     {
         $("#impuesto").val(impuesto);
@@ -253,12 +240,12 @@ function marcarImpuesto()
     else
     {
         $("#impuesto").val('0');
-    }
+    }*/
 }
 
 function agregarDetalle(idarticulo,articulo)
 {
-    var cantidad = 1;
+    /*var cantidad = 1;
     var precio_compra = 1;
     var precio_venta = 1;
 
@@ -300,12 +287,12 @@ function agregarDetalle(idarticulo,articulo)
     else
     {
         alert("Error al ingresar el detalle, revisar los ddatos del articulo");
-    }
+    }*/
 }
 
 function modificarSubtotales()
 {
-    var cant = document.getElementsByName("cantidad[]");
+    /*var cant = document.getElementsByName("cantidad[]");
     var prec = document.getElementsByName("precio_compra[]");
     var sub = document.getElementsByName("subtotal");
 
@@ -321,12 +308,12 @@ function modificarSubtotales()
         document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
     }
 
-    calcularTotales();
+    calcularTotales();*/
 }
 
 function calcularTotales()
 {
-    var sub = document.getElementsByName("subtotal");
+    /*var sub = document.getElementsByName("subtotal");
     var total = 0.0;
 
     var tamSub = sub.length;
@@ -338,12 +325,12 @@ function calcularTotales()
     $("#total").html("$ "+ total);
     $("#total_compra").val(total);
 
-    evaluar();
+    evaluar();*/
 }
 
 function evaluar()
 {
-    if(detalles > 0)
+    /*if(detalles > 0)
     {
         $("#btnGuardar").show();
     }
@@ -351,16 +338,16 @@ function evaluar()
     {
         $("#btnGuardar").hide();
         cont = 0;
-    }
+    }*/
 }
 
 function eliminarDetalle(indice)
 {
-    $("#fila" + indice).remove();
+    /*$("#fila" + indice).remove();
 
     detalles -= 1;
 
-    calcularTotales();
+    calcularTotales();*/
 
     
 }
