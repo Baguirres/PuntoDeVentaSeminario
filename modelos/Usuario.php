@@ -120,7 +120,6 @@
             return ejecutarConsulta($sql);
         }
 
-    
         public function mostrar($idusuario)
         {
             $sql = "SELECT 

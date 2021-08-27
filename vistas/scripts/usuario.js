@@ -140,6 +140,7 @@ function mostrar(idusuario)
             console.log(data);
             $("#usuario").val(data.usuario);
             $("#clave").val(data.clave)
+            $("#secretclave").val(data.clave)
             $("#email").val(data.correo)
             $("#Empleado").val(data.nombre);
             $("#Empleado").selectpicker('refresh');

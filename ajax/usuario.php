@@ -9,6 +9,7 @@
     $idusuario=isset($_POST["idusuario"])? limpiarCadena($_POST["idusuario"]):"";
     $nombre=isset($_POST["usuario"])? limpiarCadena($_POST["usuario"]):"";
     $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
+    $secretclave=isset($_POST["secretclave"])? limpiarCadena($_POST["secretclave"]):"";
     $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
     //$permiso=isset($_POST["permiso"])? limpiarCadena($_POST["permiso"]):"";
     $idempleado=isset($_POST["Empleado"])? limpiarCadena($_POST["Empleado"]):"";
@@ -39,10 +40,13 @@
                 echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
             }
             else {
-                echo 'permiso';
-                //echo $_POST['permiso'];
-                $rspta=$usuario->editar($idusuario,$nombre,$clavehash,$imagen,$idempleado,$_POST['permiso']);
+                if($clave==$secretclave){
+                    $rspta=$usuario->editar($idusuario,$nombre,$clave,$imagen,$idempleado,$_POST['permiso']);
+                }else{
+                    $rspta=$usuario->editar($idusuario,$nombre,$clavehash,$imagen,$idempleado,$_POST['permiso']);
+                }
                 echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
+               
             }
         break;
 
