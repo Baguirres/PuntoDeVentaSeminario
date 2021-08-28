@@ -75,8 +75,7 @@
                         <label for="">Dirección</label>
                         <input type="text" class="form-control">
                     </div>
-                    <button class="btn btn-primary inicio">Registrarse</button>
-
+                    <button class="btn btn-primary inicio"><a href="index.php" style="color: white;">Registrarse</a></button>
                 </form>
           </div>
       </div>

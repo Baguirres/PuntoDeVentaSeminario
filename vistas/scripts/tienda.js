@@ -37,7 +37,7 @@ function limpiar()
 
     $("#print").hide();
 
-    $("#idarticulo").val("");
+    $("#idtienda").val("");
 
 }
 

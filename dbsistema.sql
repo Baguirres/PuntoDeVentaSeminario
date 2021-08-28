@@ -214,7 +214,7 @@ CREATE TABLE `municipio` (
   PRIMARY KEY (`idMunicipio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-INSERT INTO `inventario` VALUES
+INSERT INTO `municipio` VALUES
 (1, 'San jose del golfo',1);
 -- --------------------------------------------------------
 
