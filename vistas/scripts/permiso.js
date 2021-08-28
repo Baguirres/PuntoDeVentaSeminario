@@ -53,7 +53,7 @@ function listar()
                     }
                 },
                 "bDestroy": true,
-                "iDisplayLength": 5, //Paginacion
+                "iDisplayLength": 7, //Paginacion
                 "order": [[0,"desc"]] //Ordenar (Columna, orden)
             
             })

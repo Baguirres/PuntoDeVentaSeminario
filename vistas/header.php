@@ -98,7 +98,7 @@
           <ul class="sidebar-menu">
             <li class="header"></li>
             <?php
-              if($_SESSION['escritorio'] == 1)
+              /*if($_SESSION['escritorio'] == 1)
               {
                 echo 
                 '<li>
@@ -106,7 +106,7 @@
                     <i class="fa fa-tasks"></i> <span>Escritorio</span>
                   </a>
                 </li>';
-              }
+              }*/
 
               if($_SESSION['almacen'] == 1)
               {
@@ -173,7 +173,7 @@
                   </li>'
                  ;
               }
-              if($_SESSION['consultac'] == 1)
+              /*if($_SESSION['consultac'] == 1)
               {
                 echo 
                 '<li class="treeview">
@@ -201,7 +201,7 @@
                     </ul>
                   </li>'
                  ;
-              }
+              }*/
               if($_SESSION['consultav'] == 1)
               {
                 echo 
@@ -214,7 +214,7 @@
               }
             ?>                                
           
-            <li>
+            <!-- <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
@@ -225,7 +225,7 @@
                 <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
                 <small class="label pull-right bg-yellow">IT</small>
               </a>
-            </li>
+            </li> -->
                         
           </ul>
         </section>

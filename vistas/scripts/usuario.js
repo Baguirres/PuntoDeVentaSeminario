@@ -35,9 +35,11 @@ function init()
 //funcion limpiar
 function limpiar()
 {
-    $("#nombre").val("");
     $("#email").val("");
     $("#clave").val("");
+    $("#idusuario").val("");
+    $("#secretclave").val("");
+    $("#usuario").val("");
     $("#Empleado").val("");
     $("#imagenmuestra").attr("src","");
     $("#imagenactual").val("");
@@ -141,7 +143,6 @@ function mostrar(idusuario)
             $("#usuario").val(data.usuario);
             $("#clave").val(data.clave)
             $("#secretclave").val(data.clave)
-            $("#email").val(data.correo)
             $("#Empleado").val(data.nombre);
             $("#Empleado").selectpicker('refresh');
             $("#clave").val(data.clave);

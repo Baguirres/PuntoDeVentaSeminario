@@ -17,7 +17,6 @@
                     Correo,
                     Telefono,
                     Direccion,
-                    idUsuario,
                     NIT
                    ) 
                     VALUES (
@@ -27,7 +26,6 @@
                         '$email',
                         '$telefono',
                         '$direccion',
-                        '',
                         '$nit'
                         )";
             

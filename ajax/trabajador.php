@@ -42,8 +42,8 @@
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
                     "0"=>
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idempleado.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idempleado.')"><li class="fa fa-trash"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idempleado.')"><li class="fa fa-pencil"></li></button>'/*.
+                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idempleado.')"><li class="fa fa-trash"></li></button>'*/
                         ,
                     "1"=>$reg->idempleado,
                     "2"=>$reg->nombre.' '.$reg->apellido,

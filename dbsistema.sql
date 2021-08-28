@@ -44,13 +44,14 @@ CREATE TABLE `bitacora` (
 CREATE TABLE `categoria` (
   `idCateogira` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`idCateogira`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `categoria` VALUES
-(1, 'Lacteos'),
-(2, 'Personales'),
-(3, 'Libreria');
+(1, 'Lacteos','Derivados de la leche'),
+(2, 'Personales','Articulos personales'),
+(3, 'Libreria','Articulos personales');
 -- --------------------------------------------------------
 
 --
@@ -65,7 +66,7 @@ CREATE TABLE `cliente` (
   `Correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `Telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `Direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `idUsuario` int(11) NOT NULL,
+  `idUsuario` int(11) NULL,
   `NIT` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -99,11 +100,13 @@ CREATE TABLE `compraencabezado` (
   `idCompraEncabezado` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` datetime NOT NULL,
   `idProveedor` int(11) NOT NULL,
+  `total` float NOT NULL,
+  `idUsuario` int(11) NOT NULL,
   `estado` tinyint COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`idCompraEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO `compraencabezado` VALUES
-(1, '02/05/1998',1,1);
+(1, '02/05/1998',1,1500.50,1,1);
 -- --------------------------------------------------------
 
 --
@@ -133,12 +136,18 @@ CREATE TABLE `empleado` (
   `Correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `idUsuario` int(11) NOT NULL,
+  `idUsuario` int(11) NULL,
+  `estado` int(1) NOT NULL DEFAULT 1,
+  
   PRIMARY KEY (`idEmpleado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `empleado` VALUES
-(1, 'Carlos','Laib','10/01/1997','02/09/2020','claib@gmail.com','12345678','su casa',1);
+(1, 'Carlos','Laib','10/01/1997','02/09/2020','claib@gmail.com','12345678','su casa',1,1),
+(2, 'Bruno','Diaz','10/01/1997','02/09/2020','bdiazb@gmail.com','13485156','baticueva',NULL,1),
+(3, 'John','Stewart','10/01/1997','02/09/2020','jtewart@gmail.com','14781','linterna',NULL,1),
+(4, 'Clark','Dent','10/01/1997','02/09/2020','cdent@gmail.com','12345678','en la jefatura',NULL,1),
+(5, 'Hal','Jordan','10/01/1997','02/09/2020','hjordan@gmail.com','12345678','lilnterna verde',2,1);
 
 -- --------------------------------------------------------
 
@@ -329,13 +338,13 @@ CREATE TABLE `tipodepago` (
 CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo_documento` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `num_documento` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(70) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `telefono` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `cargo` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `login` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo_documento` varchar(20) COLLATE utf8_spanish_ci  NULL,
+  `num_documento` varchar(20) COLLATE utf8_spanish_ci  NULL,
+  `direccion` varchar(70) COLLATE utf8_spanish_ci  NULL,
+  `telefono` varchar(20) COLLATE utf8_spanish_ci  NULL,
+  `email` varchar(50) COLLATE utf8_spanish_ci  NULL,
+  `cargo` varchar(20) COLLATE utf8_spanish_ci  NULL,
+  `login` varchar(20) COLLATE utf8_spanish_ci  NULL,
   `clave` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `condicion` tinyint(1) NOT NULL DEFAULT '1',
@@ -396,13 +405,16 @@ CREATE TABLE `ventaencabezado` (
   `idVentaEncabezado` int(11) NOT NULL,
   `idCliente` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
+  `total` float NOT NULL,
+  `descuento` float NOT NULL,
+  `iva` float NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `idTipoDePago` int(11) NOT NULL,
   PRIMARY KEY(`idVentaEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `ventaencabezado` VALUES
-( 1,1,'02/05/1998',1,1);
+( 1,1,'02/05/1998',1000,10,1,1,1);
 
 CREATE TABLE `permiso` (
   `idpermiso` int(11) NOT NULL AUTO_INCREMENT,

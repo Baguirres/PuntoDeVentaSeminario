@@ -8,30 +8,16 @@
 
         }
 
-        public function insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$permisos)
+        public function insertar($nombre,$clave,$imagen,$idempleado,$permisos)
         {
-            /*$sql = "INSERT INTO usuario (
+            $sql = "INSERT INTO usuario (
                         nombre,
-                        tipo_documento,
-                        num_documento,
-                        direccion,
-                        telefono,
-                        email,
-                        cargo,
-                        login,
                         clave,
                         imagen,
                         condicion
                     ) 
                     VALUES (
                         '$nombre',
-                        '$tipo_documento',
-                        '$num_documento',
-                        '$direccion',
-                        '$telefono',
-                        '$email',
-                        '$cargo',
-                        '$login',
                         '$clave',
                         '$imagen',
                         '1'
@@ -39,6 +25,12 @@
             
             //return ejecutarConsulta($sql);
             $idusuarionew = ejecutarConsulta_retornarID($sql);
+
+            $sql2 = "UPDATE empleado SET 
+                    idusuario='$idusuarionew'
+                    WHERE idempleado='$idempleado'";
+            
+            ejecutarConsulta($sql2);
 
             $num_elementos = 0;
             $sw = true;
@@ -59,7 +51,7 @@
                 $num_elementos = $num_elementos + 1;
             }
 
-            return $sw;*/
+            return $sw;
         }
 
         public function editar($idusuario,$nombre,$clave,$imagen,$idempleado,$permisos)
@@ -128,7 +120,6 @@
                         u.nombre as usuario,
                         t.nombre,
                         t.apellido,
-                        t.correo,
                         u.imagen,
                         u.condicion     
                     FROM usuario u

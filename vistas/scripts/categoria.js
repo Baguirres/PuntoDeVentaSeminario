@@ -120,7 +120,6 @@ function mostrar(idcategoria)
             $("#nombre").val(data.nombre);
             $("#descripcion").val(data.descripcion);
             $("#idcategoria").val(data.idcategoria);
-
         }
     );
 }
@@ -128,7 +127,7 @@ function mostrar(idcategoria)
 //funcion para descativar categorias
 function desactivar(idcategoria)
 {
-    bootbox.confirm("¿Estas seguro de desactivar la Categoria?",function(result){
+    /*bootbox.confirm("¿Estas seguro de desactivar la Categoria?",function(result){
         if(result)
         {
             $.post(
@@ -142,12 +141,12 @@ function desactivar(idcategoria)
                 }
             );
         }
-    });
+    });*/
 }
 
 function activar(idcategoria)
 {
-    bootbox.confirm("¿Estas seguro de activar la Categoria?",function(result){
+    /*bootbox.confirm("¿Estas seguro de activar la Categoria?",function(result){
         if(result)
         {
             $.post(
@@ -161,7 +160,7 @@ function activar(idcategoria)
                 }
             );
         }
-    });
+    });*/
 }
 
 init();

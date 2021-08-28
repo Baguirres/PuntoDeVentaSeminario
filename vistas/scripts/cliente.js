@@ -16,6 +16,7 @@ function init()
 function limpiar()
 {
     $("#nombre").val("");
+    $("#idcliente").val("");
     $("#num_documento").val("");
     $("#direccion").val("");
     $("#telefono").val("");

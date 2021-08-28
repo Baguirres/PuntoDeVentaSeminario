@@ -48,7 +48,6 @@
                               <th>Categoria</th>
                               <th>Stock</th>
                               <th>Imagen</th>
-                              <th>Estado</th>
                             </thead>
                             <tbody>
 
@@ -59,7 +58,6 @@
                               <th>Categoria</th>
                               <th>Stock</th>
                               <th>Imagen</th>
-                              <th>Estado</th>
                             </tfoot>
                           </table>
                       </div>

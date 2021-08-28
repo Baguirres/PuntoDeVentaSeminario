@@ -11,7 +11,6 @@
     $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
     $secretclave=isset($_POST["secretclave"])? limpiarCadena($_POST["secretclave"]):"";
     $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
-    //$permiso=isset($_POST["permiso"])? limpiarCadena($_POST["permiso"]):"";
     $idempleado=isset($_POST["Empleado"])? limpiarCadena($_POST["Empleado"]):"";
 
     switch($_GET["op"])
@@ -36,7 +35,7 @@
             $clavehash = hash("SHA256",$clave);
 
             if (empty($idusuario)){
-                $rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$_POST['permiso']);
+                $rspta=$usuario->insertar($nombre,$clave,$imagen,$idempleado,$_POST['permiso']);
                 echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
             }
             else {
@@ -46,7 +45,6 @@
                     $rspta=$usuario->editar($idusuario,$nombre,$clavehash,$imagen,$idempleado,$_POST['permiso']);
                 }
                 echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
-               
             }
         break;
 
