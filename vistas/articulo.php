@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label>Precio:</label>
-                              <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
+                              <input type="number" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" required>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label>Imagen:</label>

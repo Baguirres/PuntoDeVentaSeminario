@@ -27,18 +27,9 @@ function init()
 //funcion limpiar
 function limpiar()
 {
-    $("#codigo").val("");
-    $("#nombre").val("");
-    $("#descripcion").val("");
-    $("#stock").val("");
-
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
-
-    $("#print").hide();
-
     $("#idtienda").val("");
-
+    $("#nombre").val("");
+    $("#direccion").val("");
 }
 
 //funcion mostrar formulario

@@ -17,11 +17,12 @@ function limpiar()
 {
     $("#nombre").val("");
     $("#idcliente").val("");
-    $("#num_documento").val("");
-    $("#direccion").val("");
-    $("#telefono").val("");
+    $("#apellido").val("");
+    $("#fechan").val("");
     $("#email").val("");
-    $("#idpersona").val("");
+    $("#telefono").val("");
+    $("#direccion").val("");
+    $("#nit").val("");
 }
 
 //funcion mostrar formulario
