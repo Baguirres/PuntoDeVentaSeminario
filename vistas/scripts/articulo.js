@@ -28,9 +28,8 @@ function init()
 //funcion limpiar
 function limpiar()
 {
-    $("#codigo").val("");
+    $("#idarticulo").val("");
     $("#nombre").val("");
-    $("#descripcion").val("");
     $("#stock").val("");
 
     $("#imagenmuestra").attr("src","");
@@ -38,7 +37,6 @@ function limpiar()
 
     $("#print").hide();
 
-    $("#idarticulo").val("");
 
 }
 

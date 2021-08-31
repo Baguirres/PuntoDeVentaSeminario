@@ -10,19 +10,26 @@ function init()
     {
         guardaryeditar(e);
     })
+
+    //Cargamos los items al select categoria
+    $.post(
+        "../ajax/tienda.php?op=selectCategoria",
+        function(data)
+        {        
+            //console.log(data);
+            $("#idmunicipio").html(data);
+            $("#idmunicipio").selectpicker('refresh');
+        }
+    );
+
 }
 
 //funcion limpiar
 function limpiar()
 {
+    $("#idtienda").val("");
     $("#nombre").val("");
-    $("#idcliente").val("");
-    $("#apellido").val("");
-    $("#fechan").val("");
-    $("#email").val("");
-    $("#telefono").val("");
     $("#direccion").val("");
-    $("#nit").val("");
 }
 
 //funcion mostrar formulario
@@ -68,7 +75,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/persona.php?op=listarc',
+                    url: '../ajax/bitacora.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -83,6 +90,8 @@ function listar()
         .DataTable();
 }
 
+
+
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
@@ -91,7 +100,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/persona.php?op=guardaryeditar",
+        url: "../ajax/tienda.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -112,48 +121,77 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idpersona)
+function mostrar(idtienda)
 {
     $.post(
-        "../ajax/persona.php?op=mostrar",
-        {idpersona:idpersona},
+        "../ajax/tienda.php?op=mostrar",
+        {idtienda:idtienda},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
-
+           
+            $("#idtienda").val(data.idTienda);
+            $("#idmunicipio").val(data.idMunicipio);
+            $('#idmunicipio').selectpicker('refresh');
             $("#nombre").val(data.nombre);
-
-            $("#tipo_documento").val(data.tipo_documento);
-            $("#tipo_documento").selectpicker('refresh');
-
-            $("#num_documento").val(data.num_documento);
-            $("#direccion").val(data.direccion);
-            $("#telefono").val(data.telefono);
-            $("#email").val(data.email);
-            $("#idpersona").val(data.idpersona);
+            $("#direccion").val(data.direccion);    
 
         }
     );
 }
 
-
-function eliminar(idpersona)
+//funcion para descativar categorias
+function desactivar(idtienda)
 {
-    bootbox.confirm("¿Estas seguro de eliminar el Cliente?",function(result){
+    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/persona.php?op=eliminar",
-                {idpersona:idpersona},
+                "../ajax/tienda.php?op=desactivar",
+                {idtienda:idtienda},
                 function(e)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
+        
                 }
             );
         }
     });
 }
+
+function activar(idarticulo)
+{
+    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/tienda.php?op=activar",
+                {idarticulo:idarticulo},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
+
+function generarbarcode()
+{
+    var codigo = $("#codigo").val();
+    JsBarcode("#barcode",codigo);
+    $("#print").show();
+}
+
+function imprimir()
+{
+    $("#print").printArea();
+}
+
+
 
 init();

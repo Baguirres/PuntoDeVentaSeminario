@@ -168,7 +168,12 @@
                     <ul class="treeview-menu">
                       <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
                       <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
+<<<<<<< Updated upstream
                       
+=======
+                      <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajadores</a></li>
+                      <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
+>>>>>>> Stashed changes
                     </ul>
                   </li>'
                  ;

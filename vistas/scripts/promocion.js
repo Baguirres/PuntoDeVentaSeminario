@@ -10,19 +10,27 @@ function init()
     {
         guardaryeditar(e);
     })
+
+    //Cargamos los items al select categoria
+    $.post(
+        "../ajax/promocion.php?op=selectCategoria",
+        function(data)
+        {        
+            
+            //console.log(data);
+            $("#idproducto").html(data);
+            $("#idproducto").selectpicker('refresh');
+        }
+    );
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#nombre").val("");
-    $("#idcliente").val("");
-    $("#apellido").val("");
-    $("#fechan").val("");
-    $("#email").val("");
-    $("#telefono").val("");
-    $("#direccion").val("");
-    $("#nit").val("");
+    $("#idpromocion").val("");
+    $("#fechai").val("");
+    $("#fechaf").val("");
+    $("#descuento").val("");
 }
 
 //funcion mostrar formulario
@@ -68,7 +76,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/persona.php?op=listarc',
+                    url: '../ajax/promocion.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -83,6 +91,8 @@ function listar()
         .DataTable();
 }
 
+
+
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
@@ -91,7 +101,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/persona.php?op=guardaryeditar",
+        url: "../ajax/promocion.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -112,48 +122,80 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idpersona)
+function mostrar(idpromocion)
 {
     $.post(
-        "../ajax/persona.php?op=mostrar",
-        {idpersona:idpersona},
+        "../ajax/promocion.php?op=mostrar",
+        {idpromocion:idpromocion},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
+           
+            $("#idproducto").val(data.idproducto);
+            $('#idproducto').selectpicker('refresh');
 
-            $("#nombre").val(data.nombre);
+            $("#fechai").val(data.fechaInicio);
+            $("#fechaf").val(data.fechaFinal);
+            $("#descuento").val(data.descuento);
 
-            $("#tipo_documento").val(data.tipo_documento);
-            $("#tipo_documento").selectpicker('refresh');
-
-            $("#num_documento").val(data.num_documento);
-            $("#direccion").val(data.direccion);
-            $("#telefono").val(data.telefono);
-            $("#email").val(data.email);
-            $("#idpersona").val(data.idpersona);
+            $("#idpromocion").val(data.idPromocion);            
 
         }
     );
 }
 
-
-function eliminar(idpersona)
+//funcion para descativar categorias
+function desactivar(idpromocion)
 {
-    bootbox.confirm("¿Estas seguro de eliminar el Cliente?",function(result){
+    bootbox.confirm("¿Estas seguro de desactivar la promocion?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/persona.php?op=eliminar",
-                {idpersona:idpersona},
+                "../ajax/promocion.php?op=desactivar",
+                {idpromocion:idpromocion},
                 function(e)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
+        
                 }
             );
         }
     });
 }
+
+function activar(idarticulo)
+{
+    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/promocion.php?op=activar",
+                {idarticulo:idarticulo},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
+
+function generarbarcode()
+{
+    var codigo = $("#codigo").val();
+    JsBarcode("#barcode",codigo);
+    $("#print").show();
+}
+
+function imprimir()
+{
+    $("#print").printArea();
+}
+
+
 
 init();
