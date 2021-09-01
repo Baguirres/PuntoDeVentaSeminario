@@ -27,18 +27,10 @@ function init()
 //funcion limpiar
 function limpiar()
 {
-    $("#codigo").val("");
-    $("#nombre").val("");
-    $("#descripcion").val("");
-    $("#stock").val("");
-
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
-
-    $("#print").hide();
-
-    $("#idarticulo").val("");
-
+    $("#idpromocion").val("");
+    $("#fechai").val("");
+    $("#fechaf").val("");
+    $("#descuento").val("");
 }
 
 //funcion mostrar formulario
@@ -142,7 +134,6 @@ function mostrar(idpromocion)
            
             $("#idproducto").val(data.idproducto);
             $('#idproducto').selectpicker('refresh');
-
             $("#fechai").val(data.fechaInicio);
             $("#fechaf").val(data.fechaFinal);
             $("#descuento").val(data.descuento);

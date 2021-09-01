@@ -26,11 +26,11 @@
                 <div class="col-md-12">
                     <div class="box">
                       <div class="box-header with-border">
-                            <h1 class="box-title">Promoción 
-                              <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)">
+                            <h1 class="box-title">Bitacora 
+                              <!-- <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)">
                                 <i class="fa fa-plus-circle"></i> 
                                 Agregar
-                              </button>
+                              </button> -->
                               <a target="_blank" href="../reportes/rptarticulos.php">
                                 <button class="btn btn-info">Reporte</button>
                               </a>
@@ -44,48 +44,43 @@
                           <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
                               <th>Opciones</th>
-                              <th>Fecha Inicio</th>
-                              <th>Fecha Final</th>
-                              <th>Producto</th>
-                              <th>Descuento</th>
+                              <th>Usuario</th>
+                              <th>Fecha</th>
+                              <th>Accion</th>
                             </thead>
                             <tbody>
 
                             </tbody>
                             <tfoot>
-                            <th>Opciones</th>
-                            <th>Fecha Inicio</th>
-                              <th>Fecha Final</th>
-                              <th>Producto</th>
-                              <th>Descuento</th>
+                             <th>Opciones</th>
+                             <th>Usuario</th>
+                              <th>Fecha</th>
+                              <th>Accion</th>
                             </tfoot>
                           </table>
                       </div>
-                      <div class="panel-body"  id="formularioregistros">
+                      <!-- <div class="panel-body"  id="formularioregistros">
                           <form name="formulario" id="formulario" method="POST">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Fecha Inicio:</label>
-                              <input type="hidden" name="idpromocion" id="idpromocion">
-                              <input type="date" class="form-control" name="fechai" id="fechai" required>
+                              <label>Nombre:</label>
+                              <input type="hidden" name="idtienda" id="idtienda">
+                              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Fecha Final:</label>
-                              <input type="date" class="form-control" name="fechaf" id="fechaf" required>
+                              <label>Municipio:</label>
+                              <select name="idmunicipio" id="idmunicipio" data-live-search="true" class="form-control selectpicker" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Producto:</label>
-                              <select name="idproducto" id="idproducto" data-live-search="true" class="form-control selectpicker" required></select>
-                            </div>
-                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Descuento:</label>
-                              <input type="number" step="any" class="form-control" name="descuento" id="descuento" placeholder="Descuento" required>
+                              <label>Direccion:</label>
+                              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección" required>
                             </div>
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+
                               <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                             </div>
                           </form>
-                      </div>
+                      </div> -->
                       <!--Fin centro -->
                     </div><!-- /.box -->
                 </div><!-- /.col -->
@@ -109,7 +104,7 @@
     require 'footer.php';
   ?>
   
-  <script src="./scripts/promocion.js"></script>
+  <script src="./scripts/bitacora.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>
   <script src="../public/js/jquery.PrintArea.js"></script>
 

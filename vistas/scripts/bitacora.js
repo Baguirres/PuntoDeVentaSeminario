@@ -13,32 +13,23 @@ function init()
 
     //Cargamos los items al select categoria
     $.post(
-        "../ajax/articulo.php?op=selectCategoria",
+        "../ajax/tienda.php?op=selectCategoria",
         function(data)
         {        
-            
             //console.log(data);
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
+            $("#idmunicipio").html(data);
+            $("#idmunicipio").selectpicker('refresh');
         }
     );
 
-    $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#idarticulo").val("");
+    $("#idtienda").val("");
     $("#nombre").val("");
-    $("#stock").val("");
-
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
-
-    $("#print").hide();
-
-
+    $("#direccion").val("");
 }
 
 //funcion mostrar formulario
@@ -84,7 +75,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/bitacora.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -109,7 +100,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/tienda.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -130,44 +121,35 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(idtienda)
 {
     $.post(
-        "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
+        "../ajax/tienda.php?op=mostrar",
+        {idtienda:idtienda},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
            
-            $("#idcategoria").val(data.idCategoria);
-            $('#idcategoria').selectpicker('refresh');
-
+            $("#idtienda").val(data.idTienda);
+            $("#idmunicipio").val(data.idMunicipio);
+            $('#idmunicipio').selectpicker('refresh');
             $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
-
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
-
-            
+            $("#direccion").val(data.direccion);    
 
         }
     );
 }
 
 //funcion para descativar categorias
-function desactivar(idarticulo)
+function desactivar(idtienda)
 {
     bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
+                "../ajax/tienda.php?op=desactivar",
+                {idtienda:idtienda},
                 function(e)
                 {
                     bootbox.alert(e);
@@ -185,7 +167,7 @@ function activar(idarticulo)
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=activar",
+                "../ajax/tienda.php?op=activar",
                 {idarticulo:idarticulo},
                 function(e)
                 {

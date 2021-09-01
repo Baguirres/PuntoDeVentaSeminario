@@ -58,17 +58,12 @@
         {
             $nombre = $reg->nombre;
             $categoria = $reg->categoria;
-            $codigo = $reg->codigo;
-            $stock = $reg->stock;
-            $descripcion = $reg->descripcion;
+            $stock = $reg->precio;
 
             $pdf->SetFont('Arial','',10);
             $pdf->Row(array(
                 utf8_decode($nombre),
-                utf8_decode($categoria),
-                $codigo,
-                $stock,
-                utf8_decode($descripcion),
+                utf8_decode($categoria)
             ));
         }
 
