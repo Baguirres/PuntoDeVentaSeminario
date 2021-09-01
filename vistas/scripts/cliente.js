@@ -68,7 +68,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/persona.php?op=listarc',
+                    url: '../ajax/cliente.php?op=listarp',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -91,7 +91,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/persona.php?op=guardaryeditar",
+        url: "../ajax/cliente.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -112,40 +112,38 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idpersona)
+function mostrar(idcliente)
 {
     $.post(
-        "../ajax/persona.php?op=mostrar",
-        {idpersona:idpersona},
+        "../ajax/cliente.php?op=mostrar",
+        {idcliente:idcliente},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
 
-            $("#nombre").val(data.nombre);
-
-            $("#tipo_documento").val(data.tipo_documento);
-            $("#tipo_documento").selectpicker('refresh');
-
-            $("#num_documento").val(data.num_documento);
-            $("#direccion").val(data.direccion);
-            $("#telefono").val(data.telefono);
-            $("#email").val(data.email);
-            $("#idpersona").val(data.idpersona);
+            $("#nombre").val(data.Nombre);
+            $("#apellido").val(data.Apellido);
+            $("#fechan").val(data.FechaNacimiento);
+            $("#direccion").val(data.Direccion);
+            $("#telefono").val(data.Telefono);
+            $("#email").val(data.Correo);
+            $("#nit").val(data.NIT);
+            $("#idcliente").val(data.idCliente);
 
         }
     );
 }
 
 
-function eliminar(idpersona)
+function eliminar(idcliente)
 {
     bootbox.confirm("¿Estas seguro de eliminar el Cliente?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/persona.php?op=eliminar",
-                {idpersona:idpersona},
+                "../ajax/cliente.php?op=eliminar",
+                {idcliente:idcliente},
                 function(e)
                 {
                     bootbox.alert(e);

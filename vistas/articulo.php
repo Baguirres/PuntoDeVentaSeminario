@@ -16,7 +16,7 @@
     if($_SESSION['almacen'] == 1)
     {
 ?>
-
+ 
   <!--Contenido-->
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">        
@@ -46,10 +46,8 @@
                               <th>Opciones</th>
                               <th>Nombre</th>
                               <th>Categoria</th>
-                              <th>Codigo</th>
                               <th>Stock</th>
                               <th>Imagen</th>
-                              <th>Estado</th>
                             </thead>
                             <tbody>
 
@@ -58,10 +56,8 @@
                             <th>Opciones</th>
                               <th>Nombre</th>
                               <th>Categoria</th>
-                              <th>Codigo</th>
                               <th>Stock</th>
                               <th>Imagen</th>
-                              <th>Estado</th>
                             </tfoot>
                           </table>
                       </div>
@@ -86,23 +82,16 @@
 >>>>>>> Stashed changes
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>DescripciÃ³n:</label>
-                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="DescripciÃ³n">
+                              <label>Descripción:</label>
+                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
+                              <label>Precio:</label>
+                              <input type="number" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" required>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label>Imagen:</label>
                               <input type="file" class="form-control" name="imagen" id="imagen">
                               <input type="hidden" class="form-control" name="imagenactual" id="imagenactual">
                               <img src="" width="150px" height="120px" id="imagenmuestra">
-                            </div>
-                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Codigo:</label>
-                              <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Codigo de barras">
-                              <button class="btn btn-success" type="button" onclick="generarbarcode()">Generar</button>
-                              <button class="btn btn-info" type="button" onclick="imprimir()">Imprimir</button>
-                              <div id="print">
-                                <svg id="barcode"></svg>
-                              </div>
                             </div>
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
@@ -120,7 +109,6 @@
       </div><!-- /.content-wrapper -->
     <!--Fin-Contenido-->
 
-
   <?php
 
 
@@ -134,9 +122,12 @@
      
     require 'footer.php';
   ?>
+  
+  <script src="./scripts/articulo.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>
   <script src="../public/js/jquery.PrintArea.js"></script>
-  <script src="./scripts/articulo.js"></script>
+
+     
 
 <?php
 

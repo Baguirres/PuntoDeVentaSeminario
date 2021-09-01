@@ -66,7 +66,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/persona.php?op=listarp',
+                    url: '../ajax/proveedor.php?op=listarp',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -89,7 +89,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/persona.php?op=guardaryeditar",
+        url: "../ajax/proveedor.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -113,7 +113,7 @@ function guardaryeditar(e)
 function mostrar(idpersona)
 {
     $.post(
-        "../ajax/persona.php?op=mostrar",
+        "../ajax/proveedor.php?op=mostrar",
         {idpersona:idpersona},
         function(data,status)
         {
@@ -122,14 +122,11 @@ function mostrar(idpersona)
 
             $("#nombre").val(data.nombre);
 
-            $("#tipo_documento").val(data.tipo_documento);
-            $("#tipo_documento").selectpicker('refresh');
-
-            $("#num_documento").val(data.num_documento);
             $("#direccion").val(data.direccion);
             $("#telefono").val(data.telefono);
-            $("#email").val(data.email);
-            $("#idpersona").val(data.idpersona);
+            $("#nit").val(data.nit);
+            $("#email").val(data.correo);
+            $("#idpersona").val(data.idProveedor);
 
         }
     );
@@ -142,7 +139,7 @@ function eliminar(idpersona)
         if(result)
         {
             $.post(
-                "../ajax/persona.php?op=eliminar",
+                "../ajax/proveedor.php?op=eliminar",
                 {idpersona:idpersona},
                 function(e)
                 {

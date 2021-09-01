@@ -9,36 +9,19 @@ function init()
     $("#formulario").on("submit",function(e)
     {
         guardaryeditar(e);
-    })
-
-    //Cargamos los items al select categoria
-    $.post(
-        "../ajax/articulo.php?op=selectCategoria",
-        function(data)
-        {        
-            
-            //console.log(data);
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
-        }
-    );
-
-    $("#imagenmuestra").hide();
+    });
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#idarticulo").val("");
     $("#nombre").val("");
-    $("#stock").val("");
-
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
-
-    $("#print").hide();
-
-
+    $("#fechanac").val("");
+    $("#fechaing").val("");
+    $("#correo").val("");
+    $("#telefono").val("");
+    $("#direccion").val("");
+    $("#idempleado").val("");
 }
 
 //funcion mostrar formulario
@@ -84,7 +67,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/trabajador.php?op=listarp',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -99,8 +82,6 @@ function listar()
         .DataTable();
 }
 
-
-
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
@@ -109,7 +90,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/trabajador.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -130,86 +111,43 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(idempleado)
 {
-    $.post(
-        "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
+    $.post("../ajax/trabajador.php?op=mostrar",{idempleado:idempleado},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
-           
-            $("#idcategoria").val(data.idCategoria);
-            $('#idcategoria').selectpicker('refresh');
 
             $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
-
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
-
-            
-
+            $("#apellido").val(data.apellido);
+            $("#fechanac").val(data.fechanacimiento);
+            $("#fechaing").val(data.fechaingreso);
+            $("#correo").val(data.correo);
+            $("#telefono").val(data.telefono);
+            $("#direccion").val(data.direccion);
+            $("#idempleado").val(data.idempleado);
         }
     );
 }
 
-//funcion para descativar categorias
-function desactivar(idarticulo)
+
+function eliminar(idpersona)
 {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
+    /*bootbox.confirm("¿Estas seguro de eliminar el Proveedor?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
+                "../ajax/persona.php?op=eliminar",
+                {idpersona:idpersona},
                 function(e)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
                 }
             );
         }
-    });
+    });*/
 }
-
-function activar(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/articulo.php?op=activar",
-                {idarticulo:idarticulo},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
-}
-
-function generarbarcode()
-{
-    var codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
-    $("#print").show();
-}
-
-function imprimir()
-{
-    $("#print").printArea();
-}
-
-
 
 init();

@@ -10,35 +10,14 @@ function init()
     {
         guardaryeditar(e);
     })
-
-    //Cargamos los items al select categoria
-    $.post(
-        "../ajax/articulo.php?op=selectCategoria",
-        function(data)
-        {        
-            
-            //console.log(data);
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
-        }
-    );
-
-    $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#idarticulo").val("");
+    $("#idcategoria").val("");
     $("#nombre").val("");
-    $("#stock").val("");
-
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
-
-    $("#print").hide();
-
-
+    $("#descripcion").val("");
 }
 
 //funcion mostrar formulario
@@ -84,7 +63,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/tipoPago.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -99,8 +78,6 @@ function listar()
         .DataTable();
 }
 
-
-
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
@@ -109,7 +86,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/tipoPago.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -130,44 +107,32 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(idcategoria)
 {
     $.post(
-        "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
+        "../ajax/tipoPago.php?op=mostrar",
+        {idcategoria:idcategoria},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
-           
-            $("#idcategoria").val(data.idCategoria);
-            $('#idcategoria').selectpicker('refresh');
 
             $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
-
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
-
-            
-
+            $("#descripcion").val(data.descripcion);
+            $("#idcategoria").val(data.idtipopago);
         }
     );
 }
 
 //funcion para descativar categorias
-function desactivar(idarticulo)
+function desactivar(idcategoria)
 {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
+    bootbox.confirm("¿Estas seguro de desactivar el tipo de Pago?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
+                "../ajax/tipoPago.php?op=desactivar",
+                {idcategoria:idcategoria},
                 function(e)
                 {
                     bootbox.alert(e);
@@ -179,14 +144,14 @@ function desactivar(idarticulo)
     });
 }
 
-function activar(idarticulo)
+function activar(idcategoria)
 {
-    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
+    bootbox.confirm("¿Estas seguro de activar tipo de Pago?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=activar",
-                {idarticulo:idarticulo},
+                "../ajax/tipoPago.php?op=activar",
+                {idcategoria:idcategoria},
                 function(e)
                 {
                     bootbox.alert(e);
@@ -197,19 +162,5 @@ function activar(idarticulo)
         }
     });
 }
-
-function generarbarcode()
-{
-    var codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
-    $("#print").show();
-}
-
-function imprimir()
-{
-    $("#print").printArea();
-}
-
-
 
 init();

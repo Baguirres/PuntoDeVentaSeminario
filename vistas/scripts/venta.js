@@ -19,11 +19,12 @@ function init(){
 //Función limpiar
 function limpiar()
 {
+
 	$("#idcliente").val("");
-	$("#cliente").val("");
-	$("#serie_comprobante").val("");
-	$("#num_comprobante").val("");
-	$("#impuesto").val("0");
+	$("#codigo").val("");
+	$("#descuento").val("");
+	$("#total").val("");
+	$("#iva").val("");
 
 	$("#total_venta").val("");
 	$(".filas").remove();
@@ -36,9 +37,6 @@ function limpiar()
 	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
     $('#fecha_hora').val(today);
 
-    //Marcamos el primer tipo_documento
-    $("#tipo_comprobante").val("Boleta");
-	$("#tipo_comprobante").selectpicker('refresh');
 }
 
 //Función mostrar formulario
@@ -132,7 +130,7 @@ function listarArticulos()
 
 function guardaryeditar(e)
 {
-	e.preventDefault(); //No se activará la acción predeterminada del evento
+	/*e.preventDefault(); //No se activará la acción predeterminada del evento
 	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
 
@@ -151,44 +149,41 @@ function guardaryeditar(e)
 	    }
 
 	});
-	limpiar();
+	limpiar();*/
 }
 
-function mostrar(idventa)
+function mostrar(idventaencabezado)
 {
-	$.post("../ajax/venta.php?op=mostrar",{idventa : idventa}, function(data, status)
+	
+	$.post("../ajax/venta.php?op=mostrar",{idventaencabezado : idventaencabezado}, function(data, status)
 	{
 		data = JSON.parse(data);		
+		
 		mostrarform(true);
-
-		$("#idcliente").val(data.idcliente);
-		$("#idcliente").selectpicker('refresh');
-		$("#tipo_comprobante").val(data.tipo_comprobante);
-		$("#tipo_comprobante").selectpicker('refresh');
-		$("#serie_comprobante").val(data.serie_comprobante);
-		$("#num_comprobante").val(data.num_comprobante);
+		$("#cliente").val(data.nombre+' '+data.apellido);
+		$("#codigo").val(data.idventaencabezado);
+		$("#descuento").val('Q '+data.descuento);
+		$("#total").val('Q '+data.total);
+		$("#iva").val('Q '+data.iva);
 		$("#fecha_hora").val(data.fecha);
-		$("#impuesto").val(data.impuesto);
-		$("#idventa").val(data.idventa);
-
-		//Ocultar y mostrar los botones
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
 		$("#btnAgregarArt").hide();
  	});
 
- 	$.post("../ajax/venta.php?op=listarDetalle&id="+idventa,function(r){
+ 	$.post("../ajax/venta.php?op=listarDetalle&id="+idventaencabezado,function(r){
 	        $("#detalles").html(r);
 	});	
 }
 
 //Función para anular registros
-function anular(idventa)
+function anular(idventaencabezado)
 {
 	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/venta.php?op=anular", {idventa : idventa}, function(e){
+        	$.post("../ajax/venta.php?op=anular", {idventaencabezado : idventaencabezado}, function(e){
+				console.log(e);
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -207,7 +202,7 @@ $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
   {
-  	var tipo_comprobante=$("#tipo_comprobante option:selected").text();
+  	/*var tipo_comprobante=$("#tipo_comprobante option:selected").text();
   	if (tipo_comprobante=='Factura')
     {
         $("#impuesto").val(impuesto); 
@@ -215,12 +210,12 @@ function marcarImpuesto()
     else
     {
         $("#impuesto").val("0"); 
-    }
+    }*/
   }
 
 function agregarDetalle(idarticulo,articulo,precio_venta)
   {
-  	var cantidad=1;
+  	/*var cantidad=1;
     var descuento=0;
 
     if (idarticulo!="")
@@ -243,12 +238,12 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     else
     {
     	alert("Error al ingresar el detalle, revisar los datos del artículo");
-    }
+    }*/
   }
 
   function modificarSubototales()
   {
-  	var cant = document.getElementsByName("cantidad[]");
+  	/*var cant = document.getElementsByName("cantidad[]");
     var prec = document.getElementsByName("precio_venta[]");
     var desc = document.getElementsByName("descuento[]");
     var sub = document.getElementsByName("subtotal");
@@ -262,11 +257,11 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     	inpS.value=(inpC.value * inpP.value)-inpD.value;
     	document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
     }
-    calcularTotales();
+    calcularTotales();*/
 
   }
   function calcularTotales(){
-  	var sub = document.getElementsByName("subtotal");
+  	/*var sub = document.getElementsByName("subtotal");
   	var total = 0.0;
 
   	for (var i = 0; i <sub.length; i++) {
@@ -274,11 +269,11 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
 	}
 	$("#total").html("S/. " + total);
     $("#total_venta").val(total);
-    evaluar();
+    evaluar();*/
   }
 
   function evaluar(){
-  	if (detalles>0)
+  	/*if (detalles>0)
     {
       $("#btnGuardar").show();
     }
@@ -286,14 +281,14 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     {
       $("#btnGuardar").hide(); 
       cont=0;
-    }
+    }*/
   }
 
   function eliminarDetalle(indice){
-  	$("#fila" + indice).remove();
+  	/*$("#fila" + indice).remove();
   	calcularTotales();
   	detalles=detalles-1;
-  	evaluar()
+  	evaluar()*/
   }
 
 init();

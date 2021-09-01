@@ -13,7 +13,7 @@
     {
       require 'header.php';
 
-      if($_SESSION['ventas'] == 1)
+      if($_SESSION['compras'] == 1)
       {
 ?>
 
@@ -26,7 +26,7 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Cliente <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Trabajadores <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -36,22 +36,28 @@
                         <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Opciones</th>
+                            <th>Código</th>
                             <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Email</th>
-                            <th>Telefono</th>
-                            <th>Nit</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Fecha de Ingreso</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>
 
                           </tbody>
                           <tfoot>
-                            <th>Opciones</th>
+                          <th>Opciones</th>
+                            <th>Código</th>
                             <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Email</th>
-                            <th>Telefono</th>
-                            <th>Nit</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Fecha de Ingreso</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>
@@ -59,35 +65,33 @@
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre:</label>
-                            <input type="hidden" name="idcliente" id="idcliente">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre Cliente" required>
+                            <input type="hidden" name="idempleado" id="idempleado">
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Apellido:</label>
-                            <input type="text" class="form-control" name="apellido" id="apellido" maxlength="100" placeholder="Apellido Cliente" required>
+                            <input type="text" class="form-control" name="apellido" id="apellido" maxlength="100" placeholder="Apellido" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Fecha Nacimiento:</label>
-                            <input type="date" class="form-control" name="fechan" id="fechan" required>
+                            <label>Fecha de Nacimiento:</label>
+                            <input type="date" class="form-control" name="fechanac" id="fechanac" maxlength="100"  required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Email:</label>
-                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email" required>
+                            <label>Fecha de Ingreso:</label>
+                            <input type="date" class="form-control" name="fechaing" id="fechaing" maxlength="100"  required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Telefono:</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Telefono" required>
+                            <label>Correo:</label>
+                            <input type="text" class="form-control" name="correo" id="correo" maxlength="100" placeholder="Correo" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Direccion:</label>
-                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Direccion" required>
+                            <label>Teléfono:</label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="100" placeholder="Teléfono" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Nit:</label>
-                            <input type="text" class="form-control" name="nit" id="nit" maxlength="70" placeholder="Nit" required>
+                            <label>Dirección:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="100" placeholder="Dirección" required>
                           </div>
-
-  
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 
@@ -117,7 +121,7 @@
   require 'footer.php';
 ?>
 
-<script src="./scripts/cliente.js"></script>
+<script src="./scripts/trabajador.js"></script>
 
 
 <?php

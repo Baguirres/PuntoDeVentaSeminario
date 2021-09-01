@@ -28,7 +28,7 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Categoria <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Tipo de Pago <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -40,6 +40,7 @@
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>
 
@@ -48,6 +49,7 @@
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>
@@ -91,7 +93,7 @@
   require 'footer.php';
 ?>
 
-<script src="./scripts/categoria.js"></script>
+<script src="./scripts/tipoPago.js"></script>
 
 <?php
   }

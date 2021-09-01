@@ -1,8 +1,8 @@
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
+          <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2013-2017 <a href="#">AdminLTE</a>.</strong> All rights reserved.
+        <strong>GRUPO BC</strong> 
     </footer>    
     <!-- jQuery 3.1.1 -->
     <script src="../public/js/jquery-3.1.1.min.js"></script>

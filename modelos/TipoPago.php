@@ -1,7 +1,7 @@
 <?php
     require '../config/conexion.php';
 
-    Class Categoria 
+    Class TipoPago 
     {
         public function __construct()
         {
@@ -10,7 +10,7 @@
 
         public function insertar($nombre, $descripcion)
         {
-            $sql = "INSERT INTO categoria (nombre,descripcion) 
+            $sql = "INSERT INTO tipodepago (nombre,descripcion) 
                     VALUES ('$nombre','$descripcion')";
             
             return ejecutarConsulta($sql);
@@ -18,8 +18,8 @@
 
         public function editar($idCategoria,$nombre, $descripcion)
         {
-            $sql = "UPDATE categoria SET nombre='$nombre', descripcion='$descripcion'
-                    WHERE idcateogira='$idCategoria'";
+            $sql = "UPDATE tipodepago SET nombre='$nombre', descripcion='$descripcion'
+                    WHERE idtipodepago='$idCategoria'";
             
             return ejecutarConsulta($sql);
         }
@@ -27,27 +27,27 @@
         //METODOS PARA ACTIVAR CATEGORIAS
         public function desactivar($idCategoria)
         {
-            /*$sql= "UPDATE categoria SET condicion='0' 
-                   WHERE idcategoria='$idCategoria'";
+            $sql= "UPDATE tipodepago SET estado='0' 
+                   WHERE idtipodepago='$idCategoria'";
             
-            return ejecutarConsulta($sql);*/
+            return ejecutarConsulta($sql);
         }
 
         public function activar($idCategoria)
         {
-            /*$sql= "UPDATE categoria SET condicion='1' 
-                   WHERE idcategoria='$idCategoria'";
+            $sql= "UPDATE tipodepago SET estado='1' 
+                   WHERE idtipodepago='$idCategoria'";
             
-            return ejecutarConsulta($sql);*/
+            return ejecutarConsulta($sql);
         }
 
         //METODO PARA MOSTRAR LOS DATOS DE UN REGISTRO A MODIFICAR
         public function mostrar($idCategoria)
         {
             $sql = "SELECT 
-                        idcateogira as idcategoria, nombre, descripcion
-                     FROM categoria 
-                    WHERE idcateogira='$idCategoria'";
+                        idtipodepago as idtipopago, nombre, descripcion
+                     FROM tipodepago 
+                    WHERE idtipodepago='$idCategoria'";
 
             return ejecutarConsultaSimpleFila($sql);
         }
@@ -55,7 +55,7 @@
         //METODO PARA LISTAR LOS REGISTROS
         public function listar()
         {
-            $sql = "SELECT * FROM categoria";
+            $sql = "SELECT idtipodepago, nombre,descripcion, estado FROM tipodepago";
 
             return ejecutarConsulta($sql);
         }

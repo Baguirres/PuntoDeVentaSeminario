@@ -26,7 +26,7 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Usuarios <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Configuración </h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -36,53 +36,48 @@
                         <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Opciones</th>
-                            <th>Usuario</th>
-                            <th>Empleado</th>
-                            <th>Email</th>
-                            <th>Foto</th>
-                            <th>Estado</th>
+                            <th>Nombre de Empresa</th>
+                            <th>NIT</th>
+                            <th>Eslogan</th>
+                            <th>Logo</th>
+                            <th>Misión</th>
+                            <th>Visión</th>
+                            <th>Valores</th>
                           </thead>
                           <tbody>
-
                           </tbody>
-                          <tfoot>
-                            <th>Opciones</th>
-                            <th>Usuario</th>
-                            <th>Empleado</th>
-                            <th>Email</th>
-                            <th>Foto</th>
-                            <th>Estado</th>
-                          </tfoot>
                         </table>
                     </div>
                     <div class="panel-body"  id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <label>Usuario(*):</label>
-                            <input type="hidden" name="idusuario" id="idusuario">
-                            <input type="hidden" name="secretclave" id="secretclave">
-                            <input type="text" class="form-control" name="usuario" id="usuario" maxlength="100" placeholder="Usuario" required>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Nombre de la Empresa(*):</label>
+                            <input type="hidden" name="idempresa" id="idempresa">
+                            <input type="text" class="form-control" name="empresa" id="empresa" maxlength="45" placeholder="Nombre de Empresa u Organización" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>NIT:</label>
+                            <input type="text" class="form-control" name="nit" id="nit" maxlength="8" placeholder="NIT" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Eslogan:</label>
+                            <input type="text" class="form-control" name="Eslogan" id="Eslogan" maxlength="45" placeholder="Eslogan" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Misión:</label>
+                            <input type="text" class="form-control" name="mision" id="mision" maxlength="8" placeholder="Misión" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Visión:</label>
+                            <input type="text" class="form-control" name="vision" id="vision" maxlength="45" placeholder="Visión" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Valores:</label>
+                            <input type="text" class="form-control" name="Valores" id="Valores" maxlength="8" placeholder="Valores" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Empleado:</label>
-                            <select name="Empleado" id="Empleado" data-live-search="true" class="form-control selectpicker" required>
-                            </select>
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Clave(*):</label>
-                            <input type="password" class="form-control" name="clave" id="clave" maxlength="64" placeholder="Clave" required>
-                          </div>
-
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Permisos:</label>
-                            <ul style="list-style:none;" id="permisos">
-                            </ul>
-                          </div>
-
-
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Imagen:</label>
-                            <input type="file" class="form-control" name="imagen" id="imagen">
+                            <label>Logo:</label>
+                            <input type="file" class="form-control" name="Logo" id="Logo">
                             <input type="hidden" class="form-control" name="imagenactual" id="imagenactual">
                             <img src="" width="150px" height="120px" id="imagenmuestra">
                           </div>
@@ -114,7 +109,7 @@
 
   require 'footer.php';
 ?>
-<script src="./scripts/usuario.js"></script>
+<script src="./scripts/configuracion.js"></script>
 
 <?php
 

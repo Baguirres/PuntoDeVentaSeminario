@@ -9,111 +9,52 @@ Class Venta
 	{
 
 	}
-
-	//Implementamos un método para insertar registros
-	public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$idarticulo,$cantidad,$precio_venta,$descuento)
-	{
-		$sql="INSERT INTO venta (
-				idcliente,
-				idusuario,
-				tipo_comprobante,
-				serie_comprobante,
-				num_comprobante,
-				fecha_hora,
-				impuesto,
-				total_venta,estado
-				)
-				VALUES (
-					'$idcliente',
-					'$idusuario',
-					'$tipo_comprobante',
-					'$serie_comprobante',
-					'$num_comprobante',
-					'$fecha_hora',
-					'$impuesto',
-					'$total_venta',
-					'Aceptado')";
-
-		$idventanew=ejecutarConsulta_retornarID($sql);
-
-		$num_elementos=0;
-		$sw=true;
-
-		while ($num_elementos < count($idarticulo))
-		{
-			$sql_detalle = "INSERT INTO detalle_venta (
-								idventa, 
-								idarticulo,
-								cantidad,
-								precio_venta,
-								descuento
-							   ) 
-							   VALUES (
-								   '$idventanew', 
-								   '$idarticulo[$num_elementos]',
-								   '$cantidad[$num_elementos]',
-								   '$precio_venta[$num_elementos]',
-								   '$descuento[$num_elementos]'
-								   )";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-		}
-
-		return $sw;
-	}
-
 	
 	//Implementamos un método para anular la venta
-	public function anular($idventa)
+	public function anular($idventaencabezado)
 	{
-		$sql="UPDATE venta 
-			  SET estado='Anulado' 
-			  WHERE idventa='$idventa'";
+		$sql="UPDATE ventaencabezado 
+			  SET estado=0 
+			  WHERE idventaencabezado='$idventaencabezado'";
 
 		return ejecutarConsulta($sql);
 	}
 
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idventa)
+	public function mostrar($idventaencabezado)
 	{
 		$sql="SELECT 
-					v.idventa,
-					DATE(v.fecha_hora) as fecha,
+					v.idventaencabezado,
+					DATE(v.fecha) as fecha,
 					v.idcliente,
-					p.nombre as cliente,
-					u.idusuario,
-					u.nombre as usuario,
-					v.tipo_comprobante,
-					v.serie_comprobante,
-					v.num_comprobante,
-					v.total_venta,
-					v.impuesto,
+					c.nombre,
+					c.apellido,
+					v.total,
+					v.descuento,
+					v.iva,
 					v.estado 
-			    FROM venta v 
-				INNER JOIN persona p 
-				ON v.idcliente=p.idpersona 
-				INNER JOIN usuario u 
-				ON v.idusuario=u.idusuario 
-				WHERE v.idventa='$idventa'";
+				FROM ventaencabezado v 
+				INNER JOIN cliente c
+				ON v.idcliente=c.idcliente
+				WHERE v.idventaencabezado='$idventaencabezado'";
 
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function listarDetalle($idventa)
+	public function listarDetalle($idventaencabezado)
 	{
 		$sql="SELECT 
-				dv.idventa,
-				dv.idarticulo,
-				a.nombre,
+				dv.idventaencabezado,
+				dv.idproducto,
+				p.nombre,
 				dv.cantidad,
-				dv.precio_venta,
-				dv.descuento,
-				(dv.cantidad*dv.precio_venta-dv.descuento) as subtotal 
-				FROM detalle_venta dv 
-				inner join articulo a 
-				on dv.idarticulo=a.idarticulo 
-				where dv.idventa='$idventa'";
+				p.precio,
+				(dv.cantidad*p.precio) as subtotal 
+				FROM ventadetalle dv 
+				inner join producto p 
+				on dv.idproducto=p.idproducto 
+				where dv.idventaencabezado='$idventaencabezado'";
 
 		return ejecutarConsulta($sql);
 	}
@@ -122,31 +63,25 @@ Class Venta
 	public function listar()
 	{
 		$sql="SELECT 
-					v.idventa,
-					DATE(v.fecha_hora) as fecha,
-					v.idcliente,
-					p.nombre as cliente,
-					u.idusuario,
-					u.nombre as usuario,
-					v.tipo_comprobante,
-					v.serie_comprobante,
-					v.num_comprobante,
-					v.total_venta,
-					v.impuesto,
+					v.idventaencabezado,
+					DATE(v.fecha) as fecha,
+					c.nombre,
+					c.apellido,
+					v.total,
+					v.descuento,
+					v.iva,
 					v.estado 
-			   FROM venta v 
-			   INNER JOIN persona p 
-			   ON v.idcliente=p.idpersona 
-			   INNER JOIN usuario u 
-			   ON v.idusuario=u.idusuario 
-			   ORDER by v.idventa desc";
+			   FROM ventaencabezado v 
+			   INNER JOIN cliente c
+			   ON v.idcliente=c.idcliente
+			   ORDER by v.fecha desc";
 			   
 		return ejecutarConsulta($sql);		
 	}
 
 	public function ventaCabecera($idventa)
 	{
-		$sql= "SELECT 
+		/*$sql= "SELECT 
 				v.idventa,
 				v.idcliente,
 				p.nombre as cliente,
@@ -176,12 +111,12 @@ Class Venta
 		      WHERE
 			  	v.idventa = '$idventa'";
 
-		return ejecutarConsulta($sql);
+		return ejecutarConsulta($sql);*/
 	}
 	
 	public function ventaDetalle($idventa)
 	{
-		$sql = "SELECT
+		/*$sql = "SELECT
 					a.nombre as articulo,
 					a.codigo,
 					d.cantidad,
@@ -197,7 +132,7 @@ Class Venta
 				WHERE
 					d.idventa = '$idventa'";
 
-		return ejecutarConsulta($sql);
+		return ejecutarConsulta($sql);*/
 	}
 }
 ?>

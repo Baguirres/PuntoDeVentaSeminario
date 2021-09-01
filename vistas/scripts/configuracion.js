@@ -11,33 +11,29 @@ function init()
         guardaryeditar(e);
     })
 
-    //Cargamos los items al select categoria
+    $("#imagenmuestra").hide();
+
+    //Mostramos los permisos
     $.post(
-        "../ajax/articulo.php?op=selectCategoria",
+        "../ajax/usuario.php?op=permisos&id=",
         function(data)
-        {        
-            
-            //console.log(data);
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
+        {
+            $("#permisos").html(data);
         }
     );
-
-    $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#idarticulo").val("");
     $("#nombre").val("");
-    $("#stock").val("");
+    $("#email").val("");
+    $("#clave").val("");
 
     $("#imagenmuestra").attr("src","");
     $("#imagenactual").val("");
 
-    $("#print").hide();
-
+    $("#idusuario").val("");
 
 }
 
@@ -84,7 +80,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/configuracion.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -99,8 +95,6 @@ function listar()
         .DataTable();
 }
 
-
-
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
@@ -109,7 +103,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/configuracion.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -130,86 +124,27 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(idempresa)
 {
-    $.post(
-        "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
-        function(data,status)
+    $.post("../ajax/configuracion.php?op=mostrar",{idempresa:idempresa},function(data,status)
         {
+            console.log(data);
             data = JSON.parse(data);
             mostrarform(true);
-           
-            $("#idcategoria").val(data.idCategoria);
-            $('#idcategoria').selectpicker('refresh');
-
-            $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
+            $("#empresa").val(data.nombre);
+            $("#Eslogan").val(data.eslogan);
+            $("#nit").val(data.nit);
+            $("#mision").val(data.mision);
+            $("#vision").val(data.vision);
+            $("#Valores").val(data.valores);
 
             $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
-
-            
-
+            $("#imagenmuestra").attr("src","../files/usuarios/"+data.logo); //agregamos el atributo src para mostrar la imagen
+            $("#imagenactual").val(data.logo);
+            $("#idempresa").val(data.idempresa);
         }
     );
+
 }
-
-//funcion para descativar categorias
-function desactivar(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
-}
-
-function activar(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/articulo.php?op=activar",
-                {idarticulo:idarticulo},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
-}
-
-function generarbarcode()
-{
-    var codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
-    $("#print").show();
-}
-
-function imprimir()
-{
-    $("#print").printArea();
-}
-
-
 
 init();

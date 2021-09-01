@@ -13,6 +13,15 @@ function init()
 
     $("#imagenmuestra").hide();
 
+    $.post(
+        "../ajax/usuario.php?op=selectEmpleado",
+        function(data)
+        {
+            $("#Empleado").html(data);
+            $("#Empleado").selectpicker('refresh');
+        }
+    );
+
     //Mostramos los permisos
     $.post(
         "../ajax/usuario.php?op=permisos&id=",
@@ -26,20 +35,14 @@ function init()
 //funcion limpiar
 function limpiar()
 {
-    $("#nombre").val("");
-    $("#num_documento").val("");
-    $("#direccion").val("");
-    $("#telefono").val("");
     $("#email").val("");
-    $("#cargo").val("");
-    $("#login").val("");
     $("#clave").val("");
-
+    $("#idusuario").val("");
+    $("#secretclave").val("");
+    $("#usuario").val("");
+    $("#Empleado").val("");
     $("#imagenmuestra").attr("src","");
     $("#imagenactual").val("");
-
-    $("#idusuario").val("");
-
 }
 
 //funcion mostrar formulario
@@ -131,39 +134,26 @@ function guardaryeditar(e)
 
 function mostrar(idusuario)
 {
-    $.post(
-        "../ajax/usuario.php?op=mostrar",
-        {idusuario:idusuario},
-        function(data,status)
+    $.post("../ajax/usuario.php?op=mostrar",{idusuario:idusuario},function(data,status)
         {
+            console.log(data);
             data = JSON.parse(data);
             mostrarform(true);
-
-            $("#nombre").val(data.nombre);
-
-            $("#tipo_documento").val(data.tipo_documento);
-            $("#tipo_documento").selectpicker('refresh');
-
-            $("#num_documento").val(data.num_documento);
-            $("#direccion").val(data.direccion);
-            $("#telefono").val(data.telefono);
-            $("#email").val(data.email);
-            $("#cargo").val(data.cargo);
-            $("#login").val(data.login);
+            console.log(data);
+            $("#usuario").val(data.usuario);
+            $("#clave").val(data.clave)
+            $("#secretclave").val(data.clave)
+            $("#Empleado").val(data.nombre);
+            $("#Empleado").selectpicker('refresh');
             $("#clave").val(data.clave);
-
             $("#imagenmuestra").show(); 
             $("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen); //agregamos el atributo src para mostrar la imagen
             $("#imagenactual").val(data.imagen);
-
             $("#idusuario").val(data.idusuario);
-
         }
     );
 
-    $.post(
-        "../ajax/usuario.php?op=permisos&id="+idusuario,
-        function(data)
+    $.post("../ajax/usuario.php?op=permisos&id="+idusuario,function(data)
         {
             $("#permisos").html(data);
         }

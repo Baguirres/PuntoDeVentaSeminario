@@ -37,10 +37,9 @@
                           <thead>
                             <th>Opciones</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Numero Doc.</th>
                             <th>Telefono</th>
-                            <th>Email</th>
+                            <th>Nit</th>
+                            <th>Correo</th>
                           </thead>
                           <tbody>
 
@@ -48,10 +47,9 @@
                           <tfoot>
                             <th>Opciones</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Numero Doc.</th>
                             <th>Telefono</th>
-                            <th>Email</th>
+                            <th>Nit</th>
+                            <th>Correo</th>
                           </tfoot>
                         </table>
                     </div>
@@ -60,20 +58,11 @@
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre:</label>
                             <input type="hidden" name="idpersona" id="idpersona">
-                            <input type="hidden" name="tipo_persona" id="tipo_persona" value="Proveedor">
                             <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre Proveedor" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Tipo Documento:</label>
-                                <select name="tipo_documento" id="tipo_documento" class="form-control select-picker" required>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="CEDULA">CEDULA</option>
-                                </select>
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Numero Documento:</label>
-                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Num. Documento" required>
+                            <label>Nit:</label>
+                            <input type="text" class="form-control" name="nit" id="nit" maxlength="70" placeholder="Nit" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Direccion:</label>

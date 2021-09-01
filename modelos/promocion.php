@@ -1,39 +1,39 @@
 <?php
     require '../config/conexion.php';
 
-    Class Articulo 
+    Class Promocion 
     {
         public function __construct()
         {
 
         }
 
-        public function insertar($idcategoria,$nombre,$stock,$imagen)
+        public function insertar($fechai,$fechaf,$idproducto,$descuento)
         {
             $sql = "INSERT INTO 
-                        producto (
-                            nombre,
-                            idCategoria,
-                            precio,
-                            imagen
+                        promocion (
+                            fechaInicio,
+                            fechaFinal,
+                            idProducto,
+                            descuento
                         ) 
                     VALUES (
-                        '$nombre',
-                        '$idcategoria',
-                        '$stock',
-                        '$imagen')";
+                        '$fechai',
+                        '$fechaf',
+                        '$idproducto',
+                        '$descuento')";
             
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idarticulo,$idcategoria,$nombre,$stock,$imagen)
+        public function editar($idpromocion,$fechai,$fechaf,$idproducto,$descuento)
         {
-            $sql = "UPDATE producto SET 
-                    idCategoria ='$idcategoria',
-                    nombre = '$nombre', 
-                    precio = '$stock', 
-                    imagen = '$imagen' 
-                    WHERE idproducto='$idarticulo'";
+            $sql = "UPDATE promocion SET 
+                    fechaInicio ='$fechai',
+                    fechaFinal = '$fechaf', 
+                    idProducto = '$idproducto', 
+                    descuento = '$descuento' 
+                    WHERE idpromocion='$idpromocion'";
             
             return ejecutarConsulta($sql);
         }
@@ -41,8 +41,8 @@
         //METODOS PARA ACTIVAR ARTICULOS
         public function desactivar($idarticulo)
         {
-            $sql= "DELETE from producto 
-            WHERE idproducto='$idarticulo'";
+            $sql= "DELETE from promocion 
+            WHERE idpromocion='$idarticulo'";
             // $sql= "UPDATE articulo SET condicion='0' 
             //        WHERE idarticulo='$idarticulo'";
             
@@ -60,8 +60,9 @@
         //METODO PARA MOSTRAR LOS DATOS DE UN REGISTRO A MODIFICAR
         public function mostrar($idarticulo)
         {
-            $sql = "SELECT * FROM producto 
-                    WHERE idproducto='$idarticulo'";
+
+            $sql = "SELECT * FROM promocion 
+                    WHERE idpromocion='$idarticulo'";
 
             return ejecutarConsultaSimpleFila($sql);
         }
@@ -69,53 +70,35 @@
         //METODO PARA LISTAR LOS REGISTROS
         public function listar()
         {
-
             $sql = "SELECT 
-                    p.idproducto, 
-                    p.idcategoria, 
-                    c.nombre as categoria,
-                    p.nombre,
-                    p.precio,
-                    p.imagen
-                    FROM producto p
-                    INNER JOIN categoria c 
-                    ON p.idcategoria = c.idcateogira";
+                        pr.idpromocion, 
+                        pr.fechaInicio, 
+                        pr.fechaFinal,
+                        p.nombre as producto, 
+                        pr.descuento 
+                        from promocion pr, producto p 
+                        WHERE pr.idproducto=p.idproducto;";
 
             return ejecutarConsulta($sql);
         }
 
-        public function listarProducto(){
- 
-            $sql = "SELECT * from producto";
-
-            return ejecutarConsulta($sql);
-        }
         //Listar registros activos
         public function listarActivos()
         {
             $sql = "SELECT 
-                    p.idproducto, 
-                    p.idcategoria, 
-                    c.nombre as categoria,
-                    p.nombre,
-                    p.precio,
-                    p.imagen
-                    FROM producto p
-                    INNER JOIN categoria c 
-                    ON p.idcategoria = c.idcateogira";
-            /*$sql = "SELECT 
-                    a.idproducto, 
+                    a.idarticulo, 
                     a.idcategoria, 
                     c.nombre as categoria,
+                    a.codigo,
                     a.nombre,
-                    a.precio,
-                    /* a.descripcion, 
-                    a.imagen
-                    /* a.condicion 
-                    FROM producto a 
+                    a.stock,
+                    a.descripcion,
+                    a.imagen,
+                    a.condicion 
+                    FROM articulo a 
                     INNER JOIN categoria c 
                     ON a.idcategoria = c.idcategoria
-                    /* WHERE a.condicion = '1' ";*/
+                    WHERE a.condicion = '1'";
 
             return ejecutarConsulta($sql);
         }
@@ -123,17 +106,6 @@
         public function listarActivosVenta()
         {
             $sql = "SELECT 
-                    p.idproducto, 
-                    p.idcategoria, 
-                    c.nombre as categoria,
-                    p.nombre,
-                    p.precio,
-                    p.imagen
-                    FROM producto p
-                    INNER JOIN categoria c 
-                    ON p.idcategoria = c.idcateogira";
-
-            /*$sql = "SELECT 
                     a.idarticulo, 
                     a.idcategoria, 
                     c.nombre as categoria,
@@ -154,7 +126,7 @@
                     FROM articulo a 
                     INNER JOIN categoria c 
                     ON a.idcategoria = c.idcategoria
-                    WHERE a.condicion = '1'";*/
+                    WHERE a.condicion = '1'";
 
             return ejecutarConsulta($sql);
         }

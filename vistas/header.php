@@ -79,7 +79,7 @@
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="../ajax/usuario.php?op=salir" class="btn btn-default btn-flat">Cerrar</a>
+                      <a href="../ajax/usuario.php?op=salir" class="btn btn-default btn-flat"><i class="fa fa-power-off"></i><span>  Cerrar Sesión</span></a>
                     </div>
                   </li>
                 </ul>
@@ -98,7 +98,7 @@
           <ul class="sidebar-menu">
             <li class="header"></li>
             <?php
-              if($_SESSION['escritorio'] == 1)
+              /*if($_SESSION['escritorio'] == 1)
               {
                 echo 
                 '<li>
@@ -106,7 +106,7 @@
                     <i class="fa fa-tasks"></i> <span>Escritorio</span>
                   </a>
                 </li>';
-              }
+              }*/
 
               if($_SESSION['almacen'] == 1)
               {
@@ -120,6 +120,7 @@
                     <ul class="treeview-menu">
                       <li><a href="articulo.php"><i class="fa fa-circle-o"></i> Artículos</a></li>
                       <li><a href="categoria.php"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                      <li><a href="promocion.php"><i class="fa fa-circle-o"></i> Promoción</a></li>
                     </ul>
                   </li>'
                  ;
@@ -153,6 +154,23 @@
                       <li><a href="venta.php"><i class="fa fa-circle-o"></i> Ventas</a></li>
                       <li><a href="cliente.php"><i class="fa fa-circle-o"></i> Clientes</a></li>
                       <li><a href="tienda.php"><i class="fa fa-circle-o"></i> Tienda</a></li>
+                      <li><a href="tipoPago.php"><i class="fa fa-circle-o"></i> Tipo de Pago</a></li>
+                    </ul>
+                  </li>'
+                 ;
+              }
+              //cambiar permiso a recursos humanos
+              if($_SESSION['ventas'] == 1)
+              {
+                echo 
+                '<li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-users"></i>
+                      <span>Recursos Humanos</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                    <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajadores</a></li>
                     </ul>
                   </li>'
                  ;
@@ -173,7 +191,7 @@
                   </li>'
                  ;
               }
-              if($_SESSION['consultac'] == 1)
+              /*if($_SESSION['consultac'] == 1)
               {
                 echo 
                 '<li class="treeview">
@@ -201,10 +219,25 @@
                     </ul>
                   </li>'
                  ;
+              }*/
+              if($_SESSION['consultav'] == 1)
+              {
+                echo 
+                '<li>
+                    <a href="configuracion.php">
+                      <i class="fa fa-gear"></i> <span>Configuración</span>
+                    </a>
+                  </li>'
+                 ;
               }
-            ?>                                
-          
+            ?>  
+            <!-- arreglar lo de cerrar session -->                              
             <li>
+              <a href="../ajax/usuario.php?op=salir">
+                <i class="fa fa-power-off"></i> <span>Cerrar Sesión</span>
+              </a>
+            </li>
+            <!-- <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
@@ -215,7 +248,7 @@
                 <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
                 <small class="label pull-right bg-yellow">IT</small>
               </a>
-            </li>
+            </li> -->
                         
           </ul>
         </section>

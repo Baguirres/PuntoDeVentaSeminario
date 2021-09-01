@@ -8,30 +8,16 @@
 
         }
 
-        public function insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$permisos)
+        public function insertar($nombre,$clave,$imagen,$idempleado,$permisos)
         {
             $sql = "INSERT INTO usuario (
                         nombre,
-                        tipo_documento,
-                        num_documento,
-                        direccion,
-                        telefono,
-                        email,
-                        cargo,
-                        login,
                         clave,
                         imagen,
                         condicion
                     ) 
                     VALUES (
                         '$nombre',
-                        '$tipo_documento',
-                        '$num_documento',
-                        '$direccion',
-                        '$telefono',
-                        '$email',
-                        '$cargo',
-                        '$login',
                         '$clave',
                         '$imagen',
                         '1'
@@ -39,6 +25,12 @@
             
             //return ejecutarConsulta($sql);
             $idusuarionew = ejecutarConsulta_retornarID($sql);
+
+            $sql2 = "UPDATE empleado SET 
+                    idusuario='$idusuarionew'
+                    WHERE idempleado='$idempleado'";
+            
+            ejecutarConsulta($sql2);
 
             $num_elementos = 0;
             $sw = true;
@@ -62,22 +54,21 @@
             return $sw;
         }
 
-        public function editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$permisos)
+        public function editar($idusuario,$nombre,$clave,$imagen,$idempleado,$permisos)
         {
             $sql = "UPDATE usuario SET 
                     nombre='$nombre', 
-                    tipo_documento='$tipo_documento',
-                    num_documento='$num_documento',
-                    direccion='$direccion',
-                    telefono='$telefono',
-                    email='$email',
-                    cargo='$cargo',
-                    login='$login',
                     clave='$clave',
                     imagen='$imagen'
                     WHERE idusuario='$idusuario'";
             
             ejecutarConsulta($sql);
+
+            $sql2 = "UPDATE empleado SET 
+                    idusuario='$idusuario'
+                    WHERE idempleado='$idempleado'";
+            
+            ejecutarConsulta($sql2);
 
             //Eliminamos todos los permisos asignados para volverlos a registrar
             $sqldel = "DELETE FROM usuario_permiso
@@ -107,7 +98,7 @@
 
         public function desactivar($idusuario)
         {
-            $sql= "UPDATE usuario SET condicion='0' 
+            $sql= "UPDATE usuario SET condicion=0 
                    WHERE idusuario='$idusuario'";
             
             return ejecutarConsulta($sql);
@@ -115,31 +106,50 @@
 
         public function activar($idusuario)
         {
-            $sql= "UPDATE usuario SET condicion='1' 
+            $sql= "UPDATE usuario SET condicion=1 
                    WHERE idusuario='$idusuario'";
             
             return ejecutarConsulta($sql);
         }
 
-    
         public function mostrar($idusuario)
         {
-            $sql = "SELECT * FROM usuario 
-                    WHERE idusuario='$idusuario'";
+            $sql = "SELECT 
+                        u.idusuario,
+                        u.clave,
+                        u.nombre as usuario,
+                        t.nombre,
+                        t.apellido,
+                        u.imagen,
+                        u.condicion     
+                    FROM usuario u
+                    INNER JOIN empleado t
+                    ON t.idusuario=u.idusuario
+                    WHERE u.idusuario='$idusuario'";
 
             return ejecutarConsultaSimpleFila($sql);
         }
 
         public function listar()
         {
-            $sql = "SELECT * FROM usuario";
+            $sql = "SELECT 
+                        u.idusuario,
+                        u.nombre as usuario,
+                        t.nombre,
+                        t.apellido,
+                        t.correo,
+                        u.imagen,
+                        u.condicion 
+                    FROM usuario u
+                    INNER JOIN empleado t
+                    ON t.idusuario=u.idusuario";
 
             return ejecutarConsulta($sql);
         }
 
         public function listarmarcados($idusuario)
         {
-            $sql = "SELECT * FROM usuario_permiso
+           $sql = "SELECT * FROM usuario_permiso
                     WHERE idusuario='$idusuario'";
             
             return ejecutarConsulta($sql);
