@@ -73,17 +73,12 @@
                               <select name="idcategoria" id="idcategoria" data-live-search="true" class="form-control selectpicker" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-<<<<<<< Updated upstream
-                              <label>Stock:</label>
-                              <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
-=======
                               <label>Precio:</label>
                               <input type="number" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" required>
->>>>>>> Stashed changes
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Descripción:</label>
-                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
+                              <label>Descripciï¿½n:</label>
+                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripciï¿½n">
                               <label>Precio:</label>
                               <input type="number" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" required>
                             </div>
