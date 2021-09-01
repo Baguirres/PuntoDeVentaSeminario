@@ -73,10 +73,6 @@
                               <select name="idcategoria" id="idcategoria" data-live-search="true" class="form-control selectpicker" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Precio:</label>
-                              <input type="number" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" required>
-                            </div>
-                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label>Descripci�n:</label>
                               <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripci�n">
                               <label>Precio:</label>
