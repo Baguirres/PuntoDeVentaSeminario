@@ -94,19 +94,28 @@
         public function listarActivos()
         {
             $sql = "SELECT 
-                    a.idarticulo, 
+                    p.idproducto, 
+                    p.idcategoria, 
+                    c.nombre as categoria,
+                    p.nombre,
+                    p.precio,
+                    p.imagen
+                    FROM producto p
+                    INNER JOIN categoria c 
+                    ON p.idcategoria = c.idcateogira";
+            /*$sql = "SELECT 
+                    a.idproducto, 
                     a.idcategoria, 
                     c.nombre as categoria,
-                    a.codigo,
                     a.nombre,
-                    a.stock,
-                    a.descripcion,
-                    a.imagen,
-                    a.condicion 
-                    FROM articulo a 
+                    a.precio,
+                    /* a.descripcion, 
+                    a.imagen
+                    /* a.condicion 
+                    FROM producto a 
                     INNER JOIN categoria c 
                     ON a.idcategoria = c.idcategoria
-                    WHERE a.condicion = '1'";
+                    /* WHERE a.condicion = '1' ";*/
 
             return ejecutarConsulta($sql);
         }
@@ -114,6 +123,17 @@
         public function listarActivosVenta()
         {
             $sql = "SELECT 
+                    p.idproducto, 
+                    p.idcategoria, 
+                    c.nombre as categoria,
+                    p.nombre,
+                    p.precio,
+                    p.imagen
+                    FROM producto p
+                    INNER JOIN categoria c 
+                    ON p.idcategoria = c.idcateogira";
+
+            /*$sql = "SELECT 
                     a.idarticulo, 
                     a.idcategoria, 
                     c.nombre as categoria,
@@ -134,7 +154,7 @@
                     FROM articulo a 
                     INNER JOIN categoria c 
                     ON a.idcategoria = c.idcategoria
-                    WHERE a.condicion = '1'";
+                    WHERE a.condicion = '1'";*/
 
             return ejecutarConsulta($sql);
         }

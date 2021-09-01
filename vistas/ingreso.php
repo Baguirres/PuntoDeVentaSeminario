@@ -144,7 +144,7 @@
                  <th>Opciones</th>
                  <th>Nombre</th>
                  <th>Categoria</th>
-                 <th>Codigo</th>
+                 <th>Precio</th>
                  <th>Stock</th>
                  <th>Imagen</th>
                </thead>
@@ -155,7 +155,7 @@
                  <th>Opciones</th>
                  <th>Nombre</th>
                  <th>Categoria</th>
-                 <th>Codigo</th>
+                 <th>Precio</th>
                  <th>Stock</th>
                  <th>Imagen</th>
                </tfoot>

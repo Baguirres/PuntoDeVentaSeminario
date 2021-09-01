@@ -79,7 +79,7 @@
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="../ajax/usuario.php?op=salir" class="btn btn-default btn-flat">Cerrar</a>
+                      <a href="../ajax/usuario.php?op=salir" class="btn btn-default btn-flat"><i class="fa fa-power-off"></i><span>  Cerrar Sesión</span></a>
                     </div>
                   </li>
                 </ul>
@@ -154,6 +154,23 @@
                       <li><a href="venta.php"><i class="fa fa-circle-o"></i> Ventas</a></li>
                       <li><a href="cliente.php"><i class="fa fa-circle-o"></i> Clientes</a></li>
                       <li><a href="tienda.php"><i class="fa fa-circle-o"></i> Tienda</a></li>
+                      <li><a href="tipoPago.php"><i class="fa fa-circle-o"></i> Tipo de Pago</a></li>
+                    </ul>
+                  </li>'
+                 ;
+              }
+              //cambiar permiso a recursos humanos
+              if($_SESSION['ventas'] == 1)
+              {
+                echo 
+                '<li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-users"></i>
+                      <span>Recursos Humanos</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                    <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajadores</a></li>
                     </ul>
                   </li>'
                  ;
@@ -169,7 +186,6 @@
                     <ul class="treeview-menu">
                       <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
                       <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
-                      <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajadores</a></li>
                     </ul>
                   </li>'
                  ;
@@ -213,8 +229,13 @@
                   </li>'
                  ;
               }
-            ?>                                
-          
+            ?>  
+            <!-- arreglar lo de cerrar session -->                              
+            <li>
+              <a href="../ajax/usuario.php?op=salir">
+                <i class="fa fa-power-off"></i> <span>Cerrar Sesión</span>
+              </a>
+            </li>
             <!-- <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>

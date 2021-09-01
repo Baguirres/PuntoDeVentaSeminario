@@ -127,7 +127,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listarArticulosVenta':
-		/*require_once "../modelos/Articulo.php";
+		require_once "../modelos/Articulo.php";
 		$articulo=new Articulo();
 
 		$rspta=$articulo->listarActivosVenta();
@@ -136,12 +136,12 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idarticulo.',\''.$reg->nombre.'\',\''.$reg->precio_venta.'\')"><span class="fa fa-plus"></span></button>',
+ 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->precio.'\')"><span class="fa fa-plus"></span></button>',
  				"1"=>$reg->nombre,
  				"2"=>$reg->categoria,
- 				"3"=>$reg->codigo,
- 				"4"=>$reg->stock,
- 				"5"=>$reg->precio_venta,
+ 				"3"=>$reg->precio,
+ 				"4"=>$reg->precio,
+ 				"5"=>$reg->precio,
  				"6"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px' >"
  				);
  		}
@@ -150,7 +150,7 @@ switch ($_GET["op"]){
  			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
- 		echo json_encode($results);*/
+ 		echo json_encode($results);
 	break;
 }
 ?>

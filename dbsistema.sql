@@ -102,7 +102,7 @@ CREATE TABLE `compraencabezado` (
   `idProveedor` int(11) NOT NULL,
   `total` float NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `estado` tinyint COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCompraEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO `compraencabezado` VALUES
@@ -326,8 +326,13 @@ INSERT INTO `tienda` VALUES
 CREATE TABLE `tipodepago` (
   `idTipoDePago` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idTipoDePago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `tipodepago` VALUES
+(1, 'tarjeta de credito','tarjetas de credito varias',1);
 
 -- --------------------------------------------------------
 

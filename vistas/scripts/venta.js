@@ -104,7 +104,7 @@ function listar()
 //Función ListarArticulos
 function listarArticulos()
 {
-	/*tabla=$('#tblarticulos').dataTable(
+	tabla=$('#tblarticulos').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -124,7 +124,7 @@ function listarArticulos()
 		"bDestroy": true,
 		"iDisplayLength": 5,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-	}).DataTable();*/
+	}).DataTable();
 }
 //Función para guardar o editar
 

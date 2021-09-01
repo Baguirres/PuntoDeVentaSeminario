@@ -110,7 +110,7 @@ function listar()
 
 function listarArticulos()
 {
-    /*tabla = $('#tblarticulos')
+    tabla = $('#tblarticulos')
         .dataTable(
             {
                 "aProcessing":true, //Activamos el procesamiento del datatables
@@ -132,7 +132,7 @@ function listarArticulos()
                 "order": [[0,"desc"]] //Ordenar (Columna, orden)
             
             })
-        .DataTable();*/
+        .DataTable();
 }
 
 //funcion para guardar o editar
