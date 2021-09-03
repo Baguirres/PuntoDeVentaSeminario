@@ -43,15 +43,16 @@ CREATE TABLE `bitacora` (
 
 CREATE TABLE `categoria` (
   `idCateogira` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCateogira`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `categoria` VALUES
-(1, 'Lacteos','Derivados de la leche'),
-(2, 'Personales','Articulos personales'),
-(3, 'Libreria','Articulos personales');
+(1, 'Lacteos','Derivados de la leche',1),
+(2, 'Personales','Articulos personales',1),
+(3, 'Libreria','Articulos personales',1);
 -- --------------------------------------------------------
 
 --
@@ -64,26 +65,37 @@ CREATE TABLE `cliente` (
   `Apellido` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `FechaNacimiento` date NOT NULL,
   `Correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `Telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `Telefono` int(8) COLLATE utf8_spanish2_ci NOT NULL,
   `Direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `idUsuario` int(11) NULL,
-  `NIT` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `NIT` varchar(8) COLLATE utf8_spanish2_ci NOT NULL,
+   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `cliente` VALUES
-(1, 'Bryan','Aguire','02/05/1998','bryanorlando@hotmail.com','12345678','Mi casa',1,'682479-6');
+(1, 'Bryan','Aguire','02/05/1998','bryanorlando@hotmail.com','12345678','Mi casa','682479-6',1),
+(2, 'Bryana','Aguire','02/05/1999','bryanaorlando@hotmail.com','12345679','Mi casa','682479-6',1);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `compradetalle`
 --
+CREATE TABLE `tipoMoneda`(
+	`idTipoMoneda` int(2) NOT NULL AUTO_INCREMENT,
+    `moneda` varchar(45) NOT NULL,
+    `simbolo` varchar(1) NOT NULL,
+    `tipoCambio` double NOT NULL,
+    `estado` tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (`idTipoMoneda`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+INSERT INTO `tipoMoneda` VALUES
+(1, 'Quetzal','Q',1,1);
 
 CREATE TABLE `compradetalle` (
   `idProducto` int(11) NOT NULL,
   `idCompraEncabezado` int(11) NOT NULL,
-  `cantidad` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `cantidad` int(5) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`idProducto`,`idCompraEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -102,11 +114,13 @@ CREATE TABLE `compraencabezado` (
   `idProveedor` int(11) NOT NULL,
   `total` float NOT NULL,
   `idUsuario` int(11) NOT NULL,
+  `idTipoMoneda` int(2) NOT NULL,
+  `impuesto` double NOT NULL,
   `estado` tinyint COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCompraEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO `compraencabezado` VALUES
-(1, '02/05/1998',1,1500.50,1,1);
+(1, '02/05/1998',1,1500.50,1,1,12,1);
 -- --------------------------------------------------------
 
 --
@@ -134,20 +148,19 @@ CREATE TABLE `empleado` (
   `FechaNacimiento` date NOT NULL,
   `FechaIngreso` date NOT NULL,
   `Correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `telefono` int(8) COLLATE utf8_spanish2_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `idUsuario` int(11) NULL,
   `estado` int(1) NOT NULL DEFAULT 1,
   
   PRIMARY KEY (`idEmpleado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `empleado` VALUES
-(1, 'Carlos','Laib','10/01/1997','02/09/2020','claib@gmail.com','12345678','su casa',1,1),
-(2, 'Bruno','Diaz','10/01/1997','02/09/2020','bdiazb@gmail.com','13485156','baticueva',NULL,1),
-(3, 'John','Stewart','10/01/1997','02/09/2020','jtewart@gmail.com','14781','linterna',NULL,1),
-(4, 'Clark','Dent','10/01/1997','02/09/2020','cdent@gmail.com','12345678','en la jefatura',NULL,1),
-(5, 'Hal','Jordan','10/01/1997','02/09/2020','hjordan@gmail.com','12345678','lilnterna verde',2,1);
+(1, 'Carlos','Laib','10/01/1997','02/09/2020','claib@gmail.com','12345678','su casa',1),
+(2, 'Bruno','Diaz','10/01/1997','02/09/2020','bdiazb@gmail.com','13485156','baticueva',1),
+(3, 'John','Stewart','10/01/1997','02/09/2020','jtewart@gmail.com','14781','linterna',1),
+(4, 'Clark','Dent','10/01/1997','02/09/2020','cdent@gmail.com','12345678','en la jefatura',1),
+(5, 'Hal','Jordan','10/01/1997','02/09/2020','hjordan@gmail.com','12345678','lilnterna verde',1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +171,7 @@ INSERT INTO `empleado` VALUES
 CREATE TABLE `empresa` (
   `idEmpresa` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `nit` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `nit` varchar(8) COLLATE utf8_spanish2_ci NOT NULL,
   `eslogan` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
   `logo` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `mision` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
@@ -179,11 +192,12 @@ INSERT INTO `empresa` VALUES
 CREATE TABLE `faseseguimiento` (
   `idFaseSeguimiento` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` varchar(45) NOT NULL,
   PRIMARY KEY (`idFaseSeguimiento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `faseseguimiento` VALUES
-(1, 'En proceso');
+(1, 'En proceso','Pos en proceso');
 
 -- --------------------------------------------------------
 
@@ -222,17 +236,37 @@ INSERT INTO `municipio` VALUES
 -- Table structure for table `producto`
 --
 
+CREATE TABLE `proveedor` (
+  `idProveedor` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `telefono` int(8) COLLATE utf8_spanish2_ci NOT NULL,
+  `nit` varchar(8) COLLATE utf8_spanish2_ci NOT NULL,
+  `correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  PRIMARY KEY (`idProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `proveedor` VALUES
+(1, 'Coca cola','su empresa','12345678','01050-k','COCA@GMAIL.COM');
+
+
+
 CREATE TABLE `producto` (
   `idProducto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` varchar(45) NOT NULL,
   `Precio` double NOT NULL,
+  `precioCompra` double NOT NULL,
   `idCategoria` int(11) NOT NULL,
-  `imagen` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `imagen` varchar(21844) COLLATE utf8_spanish2_ci NOT NULL,
+  `idProveedor` int(11) NOT NULL,
+  `caracteristicas` varchar(21844) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `producto` VALUES
-(1, 'Chocolates hershey',1.50,1,'chocolate.jpg');
+(1, 'Chocolates hershey','Son cafes',1.50,1.50,1,'chocolate.jpg',1,'',1);
 -- --------------------------------------------------------
 
 --
@@ -245,43 +279,32 @@ CREATE TABLE `promocion` (
   `fechaFinal` date NOT NULL,
   `idProducto` int(11) NOT NULL,
   `descuento` double NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idPromocion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `promocion` VALUES
-(1, '01/01/2005','02/01/2006',1,50);
+(1, '01/01/2005','02/01/2006',1,50,1);
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `proveedor`
 --
 
-CREATE TABLE `proveedor` (
-  `idProveedor` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `telefono` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `nit` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
-INSERT INTO `proveedor` VALUES
-(1, 'Coca cola','su empresa','12345678','01050-k','COCA@GMAIL.COM');
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `proveedorproducto`
 --
 
-CREATE TABLE `proveedorproducto` (
+/*CREATE TABLE `proveedorproducto` (
   `idProveedor` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   PRIMARY KEY(`idProveedor`,`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `proveedorproducto` VALUES
-(1, 1);
+(1, 1);*/
 
 -- --------------------------------------------------------
 
@@ -312,11 +335,12 @@ CREATE TABLE `tienda` (
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idTienda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `tienda` VALUES
-(1, 'de la capital','esta en la capital',1);
+(1, 'de la capital','esta en la capital',1,1);
 -- --------------------------------------------------------
 
 --
@@ -327,7 +351,7 @@ CREATE TABLE `tipodepago` (
   `idTipoDePago` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `estado` tinyint(4) NOT NULL DEFAULT '1',
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idTipoDePago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -343,24 +367,35 @@ INSERT INTO `tipodepago` VALUES
 CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo_documento` varchar(20) COLLATE utf8_spanish_ci  NULL,
-  `num_documento` varchar(20) COLLATE utf8_spanish_ci  NULL,
-  `direccion` varchar(70) COLLATE utf8_spanish_ci  NULL,
-  `telefono` varchar(20) COLLATE utf8_spanish_ci  NULL,
-  `email` varchar(50) COLLATE utf8_spanish_ci  NULL,
   `cargo` varchar(20) COLLATE utf8_spanish_ci  NULL,
   `login` varchar(20) COLLATE utf8_spanish_ci  NULL,
   `clave` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `idEmpleado` int(11) NOT NULL,
   `condicion` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-INSERT INTO `usuario` ( `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`) VALUES
-( 'Admin', 'DNI', '63238', 'Conocido', '27386126', 'admin@gmail.com', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg', 1),
-( 'Bryan', 'DNI', '132', 'Conocido', '27386126', 'admin@gmail.com', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg', 1);
+INSERT INTO `usuario` ( `nombre`, `cargo`, `login`, `clave`, `imagen`,`idEmpleado`,`condicion`) VALUES
+( 'Admin', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',1, 1),
+( 'Bryan', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',2, 1);
 ;
 
+/*usuario cliente*/
+CREATE TABLE `usuarioCliente` (
+  `idUsuarioCliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `clave` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
+  `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `condicion` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY(`idUsuarioCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO `usuarioCliente` ( `nombre`, `clave`, `imagen`, `idCliente`, `condicion`) VALUES
+( 'Admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',1, 1),
+( 'Bryan', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',2, 1);
+;
 -- --------------------------------------------------------
 
 --
@@ -394,7 +429,7 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 CREATE TABLE `ventadetalle` (
   `idVentaEncabezado` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `cantidad` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `cantidad` int(5) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY(`idVentaEncabezado`,`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -413,7 +448,7 @@ CREATE TABLE `ventaencabezado` (
   `total` float NOT NULL,
   `descuento` float NOT NULL,
   `iva` float NOT NULL,
-  `estado` tinyint(4) NOT NULL,
+  `estado` tinyint(1) NOT NULL,
   `idTipoDePago` int(11) NOT NULL,
   PRIMARY KEY(`idVentaEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
