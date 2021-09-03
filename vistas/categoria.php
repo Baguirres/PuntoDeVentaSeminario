@@ -40,6 +40,7 @@
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>
 
@@ -48,6 +49,7 @@
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>

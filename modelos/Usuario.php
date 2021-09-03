@@ -14,12 +14,14 @@
                         nombre,
                         clave,
                         imagen,
+                        idempleado,
                         condicion
                     ) 
                     VALUES (
                         '$nombre',
                         '$clave',
                         '$imagen',
+                        '$idempleado',
                         '1'
                         )";
             
@@ -59,16 +61,11 @@
             $sql = "UPDATE usuario SET 
                     nombre='$nombre', 
                     clave='$clave',
+                    idempleado='$idempleado',
                     imagen='$imagen'
                     WHERE idusuario='$idusuario'";
             
             ejecutarConsulta($sql);
-
-            $sql2 = "UPDATE empleado SET 
-                    idusuario='$idusuario'
-                    WHERE idempleado='$idempleado'";
-            
-            ejecutarConsulta($sql2);
 
             //Eliminamos todos los permisos asignados para volverlos a registrar
             $sqldel = "DELETE FROM usuario_permiso
@@ -124,7 +121,7 @@
                         u.condicion     
                     FROM usuario u
                     INNER JOIN empleado t
-                    ON t.idusuario=u.idusuario
+                    ON t.idempleado=u.idempleado
                     WHERE u.idusuario='$idusuario'";
 
             return ejecutarConsultaSimpleFila($sql);
@@ -142,8 +139,16 @@
                         u.condicion 
                     FROM usuario u
                     INNER JOIN empleado t
-                    ON t.idusuario=u.idusuario";
+                    ON t.idempleado=u.idempleado";
 
+            return ejecutarConsulta($sql);
+        }
+
+        public function eliminar($idusuario)
+        {
+            $sql= "DELETE FROM usuario 
+                   WHERE idusuario='$idusuario'";
+            
             return ejecutarConsulta($sql);
         }
 
@@ -156,16 +161,14 @@
         }
 
         //Verficacion de acceso
-        public function verificar($login,$clave)
+        public function verificar($usuario,$clave)
         {
             $sql = "SELECT 
                         idusuario,
                         nombre,
-                        cargo,
-                        imagen,
-                        login
+                        imagen
                     FROM usuario
-                    WHERE login='$login' 
+                    WHERE nombre='$usuario' 
                     AND clave='$clave'
                     AND condicion='1'";
             

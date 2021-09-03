@@ -73,6 +73,22 @@
                
             }
         break;
+
+        case 'selectTienda':
+            require_once "../modelos/Tienda.php";
+            $tienda = new Tienda();
+
+            $rspta = $tienda->listar();
+
+            echo '<option value="null">General</option>';
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idtienda.'>'
+                        .$reg->nombre.
+                      '</option>';
+               
+            }
+        break;
     }
 
 ?>

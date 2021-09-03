@@ -27,8 +27,20 @@
         break;
 
         case 'eliminar':
-                /*$rspta = $persona->eliminar($idpersona);
-                echo $rspta ? "Persona eliminada" : "Persona no se pudo eliminar";*/
+                $rspta = $trabajador->eliminar($idempleado);
+                echo $rspta ? "Trabajador eliminado" : "Trabajador no se pudo eliminar";
+        break;
+
+        case 'desactivar':
+            $rspta = $trabajador->desactivar($idempleado);
+            echo 'idempleado';
+            echo $idempleado;
+            echo $rspta ? "Trabajador inactivado" : "Trabajador no se pudo inactivar";
+        break;
+
+        case 'activar':
+            $rspta = $trabajador->activar($idempleado);
+            echo $rspta ? "Trabajador activado" : "Trabajador no se pudo activar";
         break;
 
         case 'mostrar':
@@ -41,9 +53,14 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=>
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idempleado.')"><li class="fa fa-pencil"></li></button>'/*.
-                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idempleado.')"><li class="fa fa-trash"></li></button>'*/
+                    "0"=> ($reg->estado) ? 
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idempleado.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idempleado.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idempleado.')" title="inactivar"><li class="fa fa-close"></li></button>'
+                        :
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idempleado.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idempleado.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                        ' <button class="btn btn-primary" onclick="activar('.$reg->idempleado.')" title="activar"><li class="fa fa-check"></li></button>'
                         ,
                     "1"=>$reg->idempleado,
                     "2"=>$reg->nombre.' '.$reg->apellido,
@@ -52,7 +69,7 @@
                     "5"=>$reg->correo,
                     "6"=> $reg->telefono,
                     "7"=> $reg->direccion,
-                    "8"=>($reg->estado) ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
+                    "8"=>($reg->estado) ?'<span class="label bg-green">Activo</span>':'<span class="label bg-red">Inactivo</span>'
                 );
             }
             $results = array(

@@ -1,11 +1,11 @@
 $("#frmAcceso").on('submit',function(e){
     e.preventDefault();
-    logina = $("#logina").val();
+    usuarioa = $("#usuarioa").val();
     clavea = $("#clavea").val();
 
     $.post("../ajax/usuario.php?op=verificar",
         {
-            logina:logina,
+            usuarioa:usuarioa,
             clavea:clavea
         },
         function(data)
@@ -13,7 +13,7 @@ $("#frmAcceso").on('submit',function(e){
             if(data != 'null')
             {
                 $(location).attr("href","usuario.php");
-                //bootbox.alert("Todo bien");
+                bootbox.alert("Todo bien");
             }
             else
             {

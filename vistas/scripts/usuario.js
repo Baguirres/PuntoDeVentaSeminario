@@ -199,4 +199,22 @@ function activar(idusuario)
     });
 }
 
+function eliminar(idusuario)
+{
+    bootbox.confirm("¿Estas seguro de eliminar el Usuario?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/usuario.php?op=eliminar",
+                {idusuario:idusuario},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+                }
+            );
+        }
+    });
+}
+
 init();

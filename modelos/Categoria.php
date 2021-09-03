@@ -27,18 +27,18 @@
         //METODOS PARA ACTIVAR CATEGORIAS
         public function desactivar($idCategoria)
         {
-            /*$sql= "UPDATE categoria SET condicion='0' 
-                   WHERE idcategoria='$idCategoria'";
+            $sql= "UPDATE categoria SET estado='0' 
+                   WHERE idcateogira='$idCategoria'";
             
-            return ejecutarConsulta($sql);*/
+            return ejecutarConsulta($sql);
         }
 
         public function activar($idCategoria)
         {
-            /*$sql= "UPDATE categoria SET condicion='1' 
-                   WHERE idcategoria='$idCategoria'";
+            $sql= "UPDATE categoria SET estado='1' 
+                   WHERE idcateogira='$idCategoria'";
             
-            return ejecutarConsulta($sql);*/
+            return ejecutarConsulta($sql);
         }
 
         //METODO PARA MOSTRAR LOS DATOS DE UN REGISTRO A MODIFICAR

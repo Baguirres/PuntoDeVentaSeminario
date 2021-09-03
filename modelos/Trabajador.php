@@ -48,12 +48,28 @@
         }
 
         
-        public function eliminar($idpersona)
+        public function eliminar($idempleado)
         {
-            /*$sql= "DELETE FROM persona 
-                   WHERE idpersona='$idpersona'";
+            $sql= "DELETE FROM empleado 
+                   WHERE idempleado='$idempleado'";
             
-            return ejecutarConsulta($sql);*/
+            return ejecutarConsulta($sql);
+        }
+
+        public function desactivar($idempleado)
+        {
+            $sql= "UPDATE empleado SET estado='0' 
+                   WHERE idempleado='$idempleado'";
+            
+            return ejecutarConsulta($sql);
+        }
+
+        public function activar($idempleado)
+        {
+            $sql= "UPDATE empleado SET estado='1' 
+                   WHERE idempleado='$idempleado'";
+            
+            return ejecutarConsulta($sql);
         }
 
 
@@ -72,7 +88,7 @@
         public function listarp()
         {
             $sql = "SELECT 
-                        idempleado,nombre, apellido, fechanacimiento, fechaingreso, correo, telefono, direccion, estado
+                        idempleado, nombre, apellido, fechanacimiento, fechaingreso, correo, telefono, direccion, estado
                     FROM Empleado";
             return ejecutarConsulta($sql);
         }

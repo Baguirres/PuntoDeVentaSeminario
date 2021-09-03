@@ -22,13 +22,13 @@
         break;
 
         case 'desactivar':
-               /* $rspta = $categoria->desactivar($idcategoria);
-                echo $rspta ? "Categoria desactivada" : "Categoria no se pudos desactivar";*/
+                $rspta = $categoria->desactivar($idcategoria);
+                echo $rspta ? "Categoria desactivada" : "Categoria no se pudo desactivar";
         break;
 
         case 'activar':
-            /*$rspta = $categoria->activar($idcategoria);
-            echo $rspta ? "Categoria activada" : "Categoria no se pudos activar";*/
+            $rspta = $categoria->activar($idcategoria);
+            echo $rspta ? "Categoria activada" : "Categoria no se pudo activar";
         break;
 
         case 'mostrar':
@@ -41,15 +41,16 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> /*($reg->condicion) ? 
-                        */'<button class="btn btn-warning" onclick="mostrar('.$reg->idCateogira.')"><li class="fa fa-pencil"></li></button>'/*.
-                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idCateogira.')"><li class="fa fa-close"></li></button>'
+                    "0"=> ($reg->estado) ? 
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idCateogira.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idCateogira.')" title="inactivar"><li class="fa fa-close"></li></button>'
                         :
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idCateogira.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-primary" onclick="activar('.$reg->idCateogira.')"><li class="fa fa-check"></li></button>'*/
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idCateogira.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-primary" onclick="activar('.$reg->idCateogira.')" title="activar"><li class="fa fa-check"></li></button>'
                         ,
                     "1"=>$reg->nombre,
-                    "2"=>$reg->descripcion
+                    "2"=>$reg->descripcion,
+                    "3"=>($reg->estado) ?'<span class="label bg-green">Activo</span>':'<span class="label bg-red">Inactivo</span>'
                 );
             }
             $results = array(

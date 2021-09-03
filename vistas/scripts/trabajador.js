@@ -131,15 +131,52 @@ function mostrar(idempleado)
     );
 }
 
-
-function eliminar(idpersona)
+function desactivar(idempleado)
 {
-    /*bootbox.confirm("¿Estas seguro de eliminar el Proveedor?",function(result){
+    bootbox.confirm("¿Estas seguro de inactivar el trabajador?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/persona.php?op=eliminar",
-                {idpersona:idpersona},
+                "../ajax/trabajador.php?op=desactivar",
+                {idempleado:idempleado},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
+
+function activar(idempleado)
+{
+    bootbox.confirm("¿Estas seguro de activar el trabajador?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/trabajador.php?op=activar",
+                {idempleado:idempleado},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
+
+function eliminar(idempleado)
+{
+    bootbox.confirm("¿Estas seguro de eliminar el Trabajador? ",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/trabajador.php?op=eliminar",
+                {idempleado:idempleado},
                 function(e)
                 {
                     bootbox.alert(e);
@@ -147,7 +184,7 @@ function eliminar(idpersona)
                 }
             );
         }
-    });*/
+    });
 }
 
 init();

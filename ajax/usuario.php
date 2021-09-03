@@ -75,23 +75,30 @@
             echo json_encode($rspta);
         break;
 
+        case 'eliminar':
+            $rspta = $usuario->eliminar($idusuario);
+            echo $rspta ? "Usuario eliminado" : "Usuario no se pudo eliminar";
+        break;
+
         case 'listar':
             $rspta = $usuario->listar();
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
                     "0"=> ($reg->condicion) ? 
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idusuario.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idusuario.')"><li class="fa fa-close"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idusuario.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idusuario.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idusuario.')" title="inactivar"><li class="fa fa-close"></li></button>'
                         :
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idusuario.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-primary" onclick="activar('.$reg->idusuario.')"><li class="fa fa-check"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idusuario.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idusuario.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                        ' <button class="btn btn-primary" onclick="activar('.$reg->idusuario.')" title="activar"><li class="fa fa-check"></li></button>'
                         ,
                     "1"=>$reg->usuario,
                     "2"=>$reg->nombre.' '.$reg->apellido,
                     "3"=>$reg->correo,
                     "4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
-                    "5"=>($reg->condicion) ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
+                    "5"=>($reg->condicion) ?'<span class="label bg-green">Activo</span>':'<span class="label bg-red">Inactivo</span>'
                 );
             }
             $results = array(
@@ -135,13 +142,13 @@
 
 
         case 'verificar':
-            $logina = $_POST['logina'];
+            $usuarioa = $_POST['usuarioa'];
             $clavea = $_POST['clavea'];
 
             //Desencriptar clave SHA256
             $clavehash = hash("SHA256",$clavea);
 
-            $rspta = $usuario->verificar($logina, $clavehash);
+            $rspta = $usuario->verificar($usuarioa, $clavehash);
 
             $fetch = $rspta->fetch_object();
 
@@ -151,7 +158,6 @@
                 $_SESSION['idusuario'] = $fetch->idusuario;
                 $_SESSION['nombre'] = $fetch->nombre;
                 $_SESSION['imagen'] = $fetch->imagen;
-                $_SESSION['login'] = $fetch->login;
 
                 //Obtenemos los permisos del usuario
                 $permisos = $usuario->listarmarcados($fetch->idusuario);

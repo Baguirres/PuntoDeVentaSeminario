@@ -42,11 +42,11 @@
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
                     "0"=> ($reg->estado) ? 
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idtipodepago.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idtipodepago.')"><li class="fa fa-close"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idtipodepago.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-danger" onclick="desactivar('.$reg->idtipodepago.')" title="inactivar"><li class="fa fa-close"></li></button>'
                         :
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idtipodepago.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-primary" onclick="activar('.$reg->idtipodepago.')"><li class="fa fa-check"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idtipodepago.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                        ' <button class="btn btn-primary" onclick="activar('.$reg->idtipodepago.')" title="activar"><li class="fa fa-check"></li></button>'
                         ,
                     "1"=>$reg->nombre,
                     "2"=>$reg->descripcion,

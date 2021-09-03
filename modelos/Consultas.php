@@ -62,6 +62,44 @@
             return ejecutarConsulta($sql);
         }
 
+        public function inventarioxtienda($idtienda)
+        {
+            $sql = "SELECT 
+                        p.nombre,
+                        p.precio,
+                        p.descripcion,
+                        pr.nombre as proveedor,
+                        p.estado,
+                        i.cantidad
+                    FROM inventario i
+                    INNER JOIN producto p
+                    ON i.idproducto = p.idproducto
+                    INNER JOIN proveedor pr
+                    ON pr.idproveedor = p.idproveedor
+                    WHERE i.idtienda='$idtienda'";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function inventario()
+        {
+            $sql = "SELECT 
+                        p.nombre,
+                        p.precio,
+                        p.descripcion,
+                        pr.nombre as proveedor,
+                        p.estado,
+                        SUM(i.cantidad) as cantidad
+                    FROM inventario i
+                    INNER JOIN producto p
+                    ON i.idproducto = p.idproducto
+                    INNER JOIN proveedor pr
+                    ON pr.idproveedor = p.idproveedor
+                    GROUP BY p.idproducto";
+
+            return ejecutarConsulta($sql);
+        }
+
         public function totalCompraHoy()
         {
             $sql= "SELECT 

@@ -367,8 +367,6 @@ INSERT INTO `tipodepago` VALUES
 CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `cargo` varchar(20) COLLATE utf8_spanish_ci  NULL,
-  `login` varchar(20) COLLATE utf8_spanish_ci  NULL,
   `clave` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `idEmpleado` int(11) NOT NULL,
@@ -376,9 +374,9 @@ CREATE TABLE `usuario` (
   PRIMARY KEY(`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-INSERT INTO `usuario` ( `nombre`, `cargo`, `login`, `clave`, `imagen`,`idEmpleado`,`condicion`) VALUES
-( 'Admin', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',1, 1),
-( 'Bryan', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',2, 1);
+INSERT INTO `usuario` ( `nombre`, `clave`, `imagen`,`idEmpleado`,`condicion`) VALUES
+( 'Admin',  '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',1, 1),
+( 'Bryan',  '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',2, 1);
 ;
 
 /*usuario cliente*/
