@@ -258,9 +258,9 @@ CREATE TABLE `producto` (
   `Precio` double NOT NULL,
   `precioCompra` double NOT NULL,
   `idCategoria` int(11) NOT NULL,
-  `imagen` varchar(21844) COLLATE utf8_spanish2_ci NOT NULL,
+  `imagen` text(21844) COLLATE utf8_spanish2_ci NOT NULL,
   `idProveedor` int(11) NOT NULL,
-  `caracteristicas` varchar(21844) NOT NULL,
+  `caracteristicas` text(21844) NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;

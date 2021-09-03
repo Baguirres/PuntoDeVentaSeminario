@@ -161,10 +161,6 @@
             $sql = "SELECT 
                         idusuario,
                         nombre,
-                        tipo_documento,
-                        num_documento,
-                        telefono,
-                        email,
                         cargo,
                         imagen,
                         login
