@@ -19,17 +19,28 @@ function init()
             $("#idproveedor").selectpicker('refresh');
         }
     );
+
+    $.post(
+        "../ajax/ingreso.php?op=selectTienda",
+        function(data)
+        {
+            $("#idtienda").html(data);
+            $("#idtienda").selectpicker('refresh');
+        }
+    );
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#proveedor").val("");
-    $("#usuario").val("");
+    $("#idproveedor").val(0);
+    $("#idproveedor").selectpicker('refresh');
+    //$("#usuario").val("");
     $("#fecha_hora").val("");
     $("#total").val("");
     $("#idcompraencabezado").val("");
-
+    $("#btnAgregarArt").prop("disabled",true);
+    $("#btnAgregarArt").prop("title",'Seleccione primero el proveedor y la tienda');
     $("#total_compra").val("");
     $(".filas").remove();
     $("#total").html(0);
@@ -54,7 +65,7 @@ function mostrarform(flag)
         $("#formularioregistros").show();
         //$("#btnGuardar").prop("disabled",false);
         $("#btnagregar").hide();
-        listarArticulos();
+        
 
         $("#btnguardar").show();
         $("#btnCancelar").show();
@@ -74,6 +85,40 @@ function cancelarform()
 {
     limpiar();
     mostrarform(false);
+}
+
+//Funcion bloquear
+function bloquear()
+{
+    if($("#idproveedor").val()!=0){
+        $("#idproveedor").prop("disabled",true);
+    }
+    combosSelected();
+}
+
+function bloquearTienda()
+{
+    if($("#idtienda").val()!=0){
+        $("#idtienda").prop("disabled",true);
+    }
+    combosSelected();
+}
+
+function combosSelected(){
+    if($("#idtienda").val()!=0 && $("#idproveedor").val()!=0){
+        listarArticulos();
+        $("#btnAgregarArt").prop("title",'Agregar artículos');
+        $("#btnAgregarArt").prop("disabled",false);
+    }
+}
+
+function desbloquear()
+{
+    $("#idproveedor").prop("disabled",false);
+    $("#idtienda").prop("disabled",false);
+   //falta limpiar
+   limpiar();
+   bootbox.alert("Datos limpiados\n Proveedor y tienda desbloqueados");
 }
 
 //Funcion listar
@@ -110,6 +155,7 @@ function listar()
 
 function listarArticulos()
 {
+    var idproveedor = $("#idproveedor").val();
     tabla = $('#tblarticulos')
         .dataTable(
             {
@@ -121,6 +167,7 @@ function listarArticulos()
                 ],
                 "ajax":{
                     url: '../ajax/ingreso.php?op=listarArticulos',
+                    data:{idproveedor:idproveedor},
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -167,7 +214,7 @@ function guardaryeditar(e)
 
 function mostrar(idcompraencabezado)
 {
-    $.post(
+    /*$.post(
         "../ajax/ingreso.php?op=mostrar",{idcompraencabezado:idcompraencabezado},function(data,status)
         {
             
@@ -196,17 +243,14 @@ function mostrar(idcompraencabezado)
             );
 
         }
-    );
-
-    
-
+    );*/
 
 }
 
 
 function anular(idcompraencabezado)
 {
-    bootbox.confirm("¿Estas seguro de anular el Ingreso?",function(result){
+    /*bootbox.confirm("¿Estas seguro de anular el Ingreso?",function(result){
         if(result)
         {
             $.post(
@@ -219,7 +263,7 @@ function anular(idcompraencabezado)
                 }
             );
         }
-    });
+    });*/
 }
 
 //Variables

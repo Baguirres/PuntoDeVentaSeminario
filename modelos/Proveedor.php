@@ -63,7 +63,7 @@
         //METODO PARA LISTAR LOS REGISTROS
         public function listarp()
         {
-            $sql = "SELECT * FROM proveedor";
+            $sql = "SELECT idproveedor, nombre FROM proveedor";
 
             return ejecutarConsulta($sql);
         }

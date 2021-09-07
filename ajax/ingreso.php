@@ -34,17 +34,17 @@
         break;
 
         case 'anular':
-                $rspta = $ingreso->anular($idcompraencabezado);
-                echo $rspta ? "Ingreso anulado" : "Ingreso no se pudo anular";
+                /*$rspta = $ingreso->anular($idcompraencabezado);
+                echo $rspta ? "Ingreso anulado" : "Ingreso no se pudo anular";*/
         break;
 
         case 'mostrar':
-            $rspta = $ingreso->mostrar($idcompraencabezado);
-            echo json_encode($rspta);
+           /* $rspta = $ingreso->mostrar($idcompraencabezado);
+            echo json_encode($rspta);*/
         break;
 
         case 'listarDetalle':
-            //Recibimos el idingreso
+            /*//Recibimos el idingreso
             $id=$_GET['id'];
 
             $rspta = $ingreso->listarDetalle($id);
@@ -86,7 +86,7 @@
                     <h4 id="total">Q '.$total.'</h4>
                     <input type="hidden" name="total_compra" id="total_compra">
                     </th>
-                </tfoot>';
+                </tfoot>';*/
 
         break;
 
@@ -101,10 +101,12 @@
                         :
                         '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>',
                     "1"=>$reg->fecha,
-                    "2"=>$reg->proveedor,
-                    "3"=>$reg->usuario,
-                    "4"=>'Q '.$reg->total,
-                    "5"=>($reg->estado==1) ?
+                    "2"=>$reg->idcompraencabezado,
+                    "3"=>$reg->proveedor,
+                    "4"=>$reg->usuario,
+                    "5"=>$reg->cantidadprod,
+                    "6"=>'Q '.$reg->total,
+                    "7"=>($reg->estado==1) ?
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'
@@ -120,24 +122,34 @@
         break;
 
         case 'selectProveedor':
-            
-            /*require_once '../modelos/Persona.php';
-            $persona = new Persona();
+            require_once '../modelos/Proveedor.php';
+            $proveedor = new Proveedor();
 
-            $rspta = $persona->listarp();
-
+            $rspta = $proveedor->listarp();
+            echo '<option value=0></option>';
             while($reg = $rspta->fetch_object())
             {
-                echo '<option value='.$reg->idpersona.'>'.$reg->nombre.'</option>';
-            }*/
+                echo '<option value='.$reg->idproveedor.'>'.$reg->nombre.'</option>';
+            }
+        break;
+
+        case 'selectTienda':
+            require_once '../modelos/Tienda.php';
+            $tienda = new Tienda();
+
+            $rspta = $tienda->listar();
+            echo '<option value=0></option>';
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idtienda.'>'.$reg->nombre.'</option>';
+            }
         break;
 
         case 'listarArticulos':
-
             require_once '../modelos/Articulo.php';
+            $idproveedor = $_REQUEST["idproveedor"];
             $articulo = new Articulo();
-
-            $rspta = $articulo->listarActivos();
+            $rspta = $articulo->listarxProveedor($idproveedor);
             $data = Array();
 
             while ($reg = $rspta->fetch_object()) {
@@ -149,6 +161,35 @@
                     "2"=>$reg->categoria,
                     "3"=>$reg->precio,
                     "4"=>$reg->precio,
+                    "5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>"
+                );
+            }
+            $results = array(
+                "sEcho"=>1, //Informacion para el datable
+                "iTotalRecords" =>count($data), //enviamos el total de registros al datatable
+                "iTotalDisplayRecords" => count($data), //enviamos el total de registros a visualizar
+                "aaData" =>$data
+            );
+            echo json_encode($results);
+
+        break;
+
+        case 'listarArticulosBodega':
+            require_once '../modelos/Articulo.php';
+            $idbodega = $_REQUEST["idbodega"];
+            $articulo = new Articulo();
+            $rspta = $articulo->listarxBodega($idbodega);
+            $data = Array();
+
+            while ($reg = $rspta->fetch_object()) {
+                $data[] = array(
+                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\')">
+                                <span class="fa fa-plus"></span>
+                            </button>',
+                    "1"=>$reg->nombre,
+                    "2"=>$reg->categoria,
+                    "3"=>$reg->precio,
+                    "4"=>$reg->cantidad,
                     "5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>"
                 );
             }

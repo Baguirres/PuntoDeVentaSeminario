@@ -213,7 +213,8 @@ CREATE TABLE `inventario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `inventario` VALUES
-(1, 1,100);
+(1, 1,100),
+(1, 2,50);
 
 -- --------------------------------------------------------
 
@@ -335,12 +336,14 @@ CREATE TABLE `tienda` (
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
+  `tipoTienda` tinyint(1) NOT NULL DEFAULT '1',
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idTienda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `tienda` VALUES
-(1, 'de la capital','esta en la capital',1,1);
+(1, 'de la capital','esta en la capital',1,1,1),
+(2, 'de la florida','esta en la florida',1,0,1);
 -- --------------------------------------------------------
 
 --

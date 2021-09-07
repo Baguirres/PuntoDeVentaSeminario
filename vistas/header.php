@@ -122,6 +122,8 @@
                       <li><a href="categoria.php"><i class="fa fa-circle-o"></i> Categorías</a></li>
                       <li><a href="promocion.php"><i class="fa fa-circle-o"></i> Promoción</a></li>
                       <li><a href="inventario.php"><i class="fa fa-circle-o"></i> Inventarios</a></li>
+                      <li><a href="bodega.php"><i class="fa fa-circle-o"></i> Bodegas</a></li>
+                      <li><a href="bodegaTienda.php"><i class="fa fa-circle-o"></i> Artículos de Bodega a Tienda</a></li>
                     </ul>
                   </li>'
                  ;

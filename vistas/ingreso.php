@@ -15,6 +15,7 @@
 
     if($_SESSION['compras'] == 1)
     {
+      $variable= $_SESSION["nombre"];
 ?>
 
 <!--Contenido-->
@@ -37,8 +38,10 @@
                           <thead>
                             <th>Opciones</th>
                             <th>Fecha</th>
+                            <th>Número de Referencia</th>
                             <th>Proveedor</th>
                             <th>Usuario</th>
+                            <th>Cantidad de Productos</th>
                             <th>Total</th>
                             <th>Estado</th>
                           </thead>
@@ -46,10 +49,12 @@
 
                           </tbody>
                           <tfoot>
-                          <th>Opciones</th>
+                            <th>Opciones</th>
                             <th>Fecha</th>
+                            <th>Número de Referencia</th>
                             <th>Proveedor</th>
                             <th>Usuario</th>
+                            <th>Cantidad de Productos</th>
                             <th>Total</th>
                             <th>Estado</th>
                           </tfoot>
@@ -57,25 +62,27 @@
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Proveedor(*):</label>
-                            <input  class="form-control" name="proveedor" id="proveedor" required="">
+                            <select name="idproveedor" id="idproveedor" data-live-search="true" class="form-control selectpicker" onchange="bloquear()" required>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Tienda:</label>
+                            <select name="idtienda" id="idtienda" data-live-search="true" class="form-control selectpicker" onchange="bloquearTienda()" required>
+                            </select>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Fecha:</label>
                             <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
                           </div>
-                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label>Trabajador:</label>
-                            <input type="text" class="form-control" name="usuario" id="usuario" required="">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Usuario:</label>
+                            <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $variable; ?>" disabled required="">
                           </div>
-                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label>Código:</label>
-                            <input type="text" class="form-control" name="idcompraencabezado" id="idcompraencabezado" maxlength="7" placeholder="Serie">
-                          </div>
-                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <label>Total:</label>
-                            <input type="text" class="form-control" name="total" id="total" maxlength="10" placeholder="Número" required="">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Impuestos:</label>
+                            <input type="number" class="form-control" name="impuestos" id="impuestos" maxlength="10" placeholder="Impuestos" required="">
                           </div>
 
                           <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -117,6 +124,7 @@
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
                             <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                            <button class="btn btn-info" onclick="desbloquear()" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
                           </div>
                         </form>
                     </div>

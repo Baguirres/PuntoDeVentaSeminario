@@ -25,6 +25,25 @@
             return ejecutarConsulta($sql);
         }
 
+        public function insertarBodega($nombre,$direccion,$idmunicipio)
+        {
+            $sql = "INSERT INTO 
+                        tienda (
+                            nombre,
+                            direccion,
+                            idMunicipio,
+                            tipoTienda
+                        ) 
+                    VALUES (
+                        '$nombre',
+                        '$direccion',
+                        '$idmunicipio',
+                        0
+                        )";
+            
+            return ejecutarConsulta($sql);
+        }
+
         public function editar($idtienda,$nombre,$direccion,$idmunicipio)
         {
             $sql = "UPDATE tienda SET 
@@ -68,7 +87,17 @@
         public function listar()
         {
 
-            $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio";
+            $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio
+            and tipotienda=1";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function listarBodega()
+        {
+
+            $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio
+            and tipotienda=0";
 
             return ejecutarConsulta($sql);
         }

@@ -91,7 +91,7 @@
             return ejecutarConsulta($sql);
         }
         //Listar registros activos
-        public function listarActivos()
+        public function listarxProveedor($idproveedor)
         {
             $sql = "SELECT 
                     p.idproducto, 
@@ -102,20 +102,28 @@
                     p.imagen
                     FROM producto p
                     INNER JOIN categoria c 
-                    ON p.idcategoria = c.idcateogira";
-            /*$sql = "SELECT 
-                    a.idproducto, 
-                    a.idcategoria, 
+                    ON p.idcategoria = c.idcateogira
+                    WHERE p.idproveedor='$idproveedor'";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function listarxBodega($idbodega)
+        {
+            $sql = "SELECT 
+                    p.idproducto, 
+                    p.idcategoria, 
                     c.nombre as categoria,
-                    a.nombre,
-                    a.precio,
-                    /* a.descripcion, 
-                    a.imagen
-                    /* a.condicion 
-                    FROM producto a 
+                    p.nombre,
+                    p.precio,
+                    p.imagen,
+                    i.cantidad
+                    FROM producto p
                     INNER JOIN categoria c 
-                    ON a.idcategoria = c.idcategoria
-                    /* WHERE a.condicion = '1' ";*/
+                    ON p.idcategoria = c.idcateogira
+                    INNER JOIN inventario i 
+                    ON i.idproducto = p.idproducto
+                    WHERE i.idtienda='$idbodega'";
 
             return ejecutarConsulta($sql);
         }
