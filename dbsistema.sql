@@ -421,7 +421,8 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 (85, 1, 4),
 (86, 1, 5),
 (87, 1, 6),
-(88, 1, 7);
+(88, 1, 7),
+(89, 1, 8);
 -- --------------------------------------------------------
 --
 -- Table structure for table `ventadetalle`
@@ -474,7 +475,8 @@ INSERT INTO `permiso` (`idpermiso`, `nombre`) VALUES
 (4, 'Ventas'),
 (5, 'Acceso'),
 (6, 'Consultas Compras'),
-(7, 'Consulta Ventas');
+(7, 'Consulta Ventas'),
+(8, 'Pagos');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
