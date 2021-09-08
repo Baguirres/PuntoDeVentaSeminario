@@ -8,18 +8,21 @@
 
         }
 
-        /*public function insertar($nombre, $descripcion)
+        public function insertar($nombre, $simbolo, $tcambio)
         {
-            $sql = "INSERT INTO tipodepago (nombre,descripcion) 
-                    VALUES ('$nombre','$descripcion')";
+            $sql = "INSERT INTO tipomoneda (moneda,simbolo,tipoCambio) 
+                    VALUES ('$nombre','$simbolo','$tcambio')";
             
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idCategoria,$nombre, $descripcion)
+        public function editar($idmoneda,$nombre, $descripcion)
         {
-            $sql = "UPDATE tipodepago SET nombre='$nombre', descripcion='$descripcion'
-                    WHERE idtipodepago='$idCategoria'";
+            $sql = "UPDATE tipomoneda SET 
+                    nombre='$nombre', 
+                    simbolo='$simbolo',
+                    tipoCambio=''$tcambio
+                    WHERE idtipomoneda='$idmoneda'";
             
             return ejecutarConsulta($sql);
         }
@@ -27,16 +30,24 @@
         //METODOS PARA ACTIVAR CATEGORIAS
         public function desactivar($idCategoria)
         {
-            $sql= "UPDATE tipodepago SET estado='0' 
-                   WHERE idtipodepago='$idCategoria'";
+            $sql= "DELETE FROM tipomoneda
+                   WHERE idtipomoneda='$idCategoria'";
+            
+            return ejecutarConsulta($sql);
+        }
+        //METODOS PARA ACTIVAR CATEGORIAS
+        public function desactivarP($idCategoria)
+        {
+            $sql= "UPDATE tipomoneda SET estado='0' 
+                   WHERE idtipomoneda='$idCategoria'";
             
             return ejecutarConsulta($sql);
         }
 
         public function activar($idCategoria)
         {
-            $sql= "UPDATE tipodepago SET estado='1' 
-                   WHERE idtipodepago='$idCategoria'";
+            $sql= "UPDATE tipomoneda SET estado='1' 
+                   WHERE idtipomoneda='$idCategoria'";
             
             return ejecutarConsulta($sql);
         }
@@ -45,12 +56,12 @@
         public function mostrar($idCategoria)
         {
             $sql = "SELECT 
-                        idtipodepago as idtipopago, nombre, descripcion
-                     FROM tipodepago 
-                    WHERE idtipodepago='$idCategoria'";
+                        idtipomoneda, moneda, simbolo,tipoCambio
+                     FROM tipomoneda 
+                    WHERE idtipomoneda='$idCategoria'";
 
             return ejecutarConsultaSimpleFila($sql);
-        }*/
+        } 
 
         //METODO PARA LISTAR LOS REGISTROS
         public function listar()

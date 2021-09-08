@@ -11,48 +11,15 @@ function init()
         guardaryeditar(e);
     })
 
-    //Cargamos los items al select categoria
-    $.post(
-        "../ajax/articulo.php?op=selectCategoria",
-        function(data)
-        {        
-            
-            //console.log(data);
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
-        }
-    );
-    //Cargamos los items al select categoria
-    $.post(
-        "../ajax/articulo.php?op=selectProveedor",
-        function(data)
-        {        
-            
-            //console.log(data);
-            $("#idproveedor").html(data);
-            $("#idproveedor").selectpicker('refresh');
-        }
-    );
-
-    $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
 function limpiar()
 {
-    $("#idarticulo").val("");
+    $("#idmoneda").val("");
     $("#nombre").val("");
-    $("#stock").val("");
-    $("#descripcion").val("");
-    $("#precioC").val("");
-    $("#caracteristicas").val("");
-
-    $("#imagenmuestra").attr("src","");
-    $("#imagenactual").val("");
-
-    $("#print").hide();
-
-
+    $("#simbolo").val("");
+    $("#tcambio").val("");
 }
 
 //funcion mostrar formulario
@@ -98,7 +65,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/moneda.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -123,7 +90,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/moneda.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -144,50 +111,53 @@ function guardaryeditar(e)
     limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(idmoneda)
 {
     $.post(
-        "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
+        "../ajax/moneda.php?op=mostrar",
+        {idmoneda:idmoneda},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
-           
-            $("#idcategoria").val(data.idCategoria);
-            $('#idcategoria').selectpicker('refresh');
 
-            $("#idproveedor").val(data.idProveedor);
-            $('#idproveedor').selectpicker('refresh');
-
-            $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
-            $("#descripcion").val(data.descripcion);
-            $("#precioC").val(data.precioCompra);
-            $("#caracteristicas").val(data.caracteristicas);
-
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
-
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
-
-            
+            $("#idmoneda").val(data.idtipomoneda);
+            $("#nombre").val(data.moneda);
+            $("#simbolo").val(data.simbolo);
+            $("#tcambio").val(data.tipoCambio);        
 
         }
     );
 }
 
 //funcion para descativar categorias
-function desactivar(idarticulo)
+function desactivar(idmoneda)
 {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
+    bootbox.confirm("¿Estas seguro de eliminar la moneda?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
+                "../ajax/moneda.php?op=desactivar",
+                {idmoneda:idmoneda},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
+//funcion para descativar categorias
+function desactivarP(idmoneda)
+{
+    bootbox.confirm("¿Estas seguro de desactivar la moneda?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/moneda.php?op=desactivarP",
+                {idmoneda:idmoneda},
                 function(e)
                 {
                     bootbox.alert(e);
@@ -199,33 +169,14 @@ function desactivar(idarticulo)
     });
 }
 
-function desactivarP(idarticulo)
+function activar(idmoneda)
 {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
+    bootbox.confirm("¿Estas seguro de activar el moneda?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivarP",
-                {idarticulo:idarticulo},
-                function(e)
-                {
-                    bootbox.alert(e);
-                    tabla.ajax.reload();
-        
-                }
-            );
-        }
-    });
-}
-
-function activar(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
-        if(result)
-        {
-            $.post(
-                "../ajax/articulo.php?op=activar",
-                {idarticulo:idarticulo},
+                "../ajax/moneda.php?op=activar",
+                {idmoneda:idmoneda},
                 function(e)
                 {
                     bootbox.alert(e);

@@ -8,17 +8,25 @@
 
         }
 
-        public function insertar($idcategoria,$nombre,$stock,$imagen)
+        public function insertar($idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caracteristicas)
         {
             $sql = "INSERT INTO 
                         producto (
                             nombre,
+                            descripcion,
+                            precioCompra,
+                            idProveedor,
+                            caracteristicas,
                             idCategoria,
                             precio,
                             imagen
                         ) 
                     VALUES (
                         '$nombre',
+                        '$descripcion',
+                        '$precioC',
+                        '$idproveedor',
+                        '$caracteristicas',
                         '$idcategoria',
                         '$stock',
                         '$imagen')";
@@ -26,13 +34,17 @@
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idarticulo,$idcategoria,$nombre,$stock,$imagen)
+        public function editar($idarticulo,$idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caracteristicas)
         {
             $sql = "UPDATE producto SET 
                     idCategoria ='$idcategoria',
                     nombre = '$nombre', 
                     precio = '$stock', 
-                    imagen = '$imagen' 
+                    imagen = '$imagen',
+                    descripcion = '$descripcion',
+                    precioCompra = '$precioC',
+                    idProveedor = '$idproveedor',
+                    caracteristicas = '$caracteristicas'
                     WHERE idproducto='$idarticulo'";
             
             return ejecutarConsulta($sql);

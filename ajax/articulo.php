@@ -6,10 +6,12 @@
 
     $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
     $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
-    $codigo=isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
+    $idproveedor=isset($_POST["idproveedor"])? limpiarCadena($_POST["idproveedor"]):"";
     $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
     $stock=isset($_POST["stock"])? limpiarCadena($_POST["stock"]):"";
+    $precioC=isset($_POST["precioC"])? limpiarCadena($_POST["precioC"]):"";
     $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
+    $caracteristicas=isset($_POST["caracteristicas"])? limpiarCadena($_POST["caracteristicas"]):"";
     $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 
     switch($_GET["op"])
@@ -31,11 +33,11 @@
 
 
             if (empty($idarticulo)){
-                $rspta=$articulo->insertar($idcategoria,$nombre,$stock,$imagen);
-                echo $rspta ? "Aritculo registrado" : "Aritculo no se pudo registrar";
+                $rspta=$articulo->insertar($idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caracteristicas);
+                echo $rspta ? "Articulo registrado" : "Articulo no se pudo registrar";
             }
             else {
-                $rspta=$articulo->editar($idarticulo,$idcategoria,$nombre,$stock,$imagen);
+                $rspta=$articulo->editar($idarticulo,$idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caracteristicas);
                 echo $rspta ? "Articulo actualizado" : "Articulo no se pudo actualizar";
             }
         break;

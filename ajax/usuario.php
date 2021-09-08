@@ -151,7 +151,7 @@
             $rspta = $usuario->verificar($usuarioa, $clavehash);
 
             $fetch = $rspta->fetch_object();
-
+            
             if(isset($fetch))
             {
                 //Declarando variables de session
@@ -178,6 +178,7 @@
                 in_array(5,$valores) ? $_SESSION['acceso'] = 1 : $_SESSION['acceso'] = 0;
                 in_array(6,$valores) ? $_SESSION['consultac'] = 1 : $_SESSION['consultac'] = 0;
                 in_array(7,$valores) ? $_SESSION['consultav'] = 1 : $_SESSION['consultav'] = 0;
+                in_array(8,$valores) ? $_SESSION['pagos'] = 1 : $_SESSION['pagos'] = 0;
             }
 
             echo json_encode($fetch); //Retornando JSON
