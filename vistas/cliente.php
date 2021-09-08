@@ -41,6 +41,7 @@
                             <th>Email</th>
                             <th>Telefono</th>
                             <th>Nit</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>
 
@@ -52,6 +53,7 @@
                             <th>Email</th>
                             <th>Telefono</th>
                             <th>Nit</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>

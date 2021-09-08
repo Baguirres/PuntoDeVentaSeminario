@@ -31,16 +31,6 @@
                 $rspta=$ingreso->insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$idarticulo,$cantidad,$precio_compra,$precio_venta);
                 echo $rspta ? "Ingreso registrado" : "Ingreso no se pudo registrar";
             }*/
-            $idproveedor = $_REQUEST["idproveedor"];
-            $idtienda = $_REQUEST["idtienda"];
-            $impuesto = $_REQUEST["impuesto"];
-            $usuario = $_REQUEST["usuario"];
-            $moneda = $_REQUEST["moneda"];
-            $total = $_REQUEST["total"];
-            $articulos = $_REQUEST["articulos"];
-            $cantidad = $_REQUEST["cantidad"];
-            $rspta=$ingreso->insertar($idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
-            echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
         break;
 
         case 'anular':
@@ -154,18 +144,6 @@
                 echo '<option value='.$reg->idtienda.'>'.$reg->nombre.'</option>';
             }
         break;
-        
-        case 'selectMoneda':
-            require_once '../modelos/Moneda.php';
-            $moneda = new Moneda();
-
-            $rspta = $moneda->listar();
-            echo '<option value=0></option>';
-            while($reg = $rspta->fetch_object())
-            {
-                echo '<option value='.$reg->idtipomoneda.'>'.$reg->moneda.'</option>';
-            }
-        break;
 
         case 'listarArticulos':
             require_once '../modelos/Articulo.php';
@@ -176,12 +154,12 @@
 
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->preciocompra.'\',\''.$reg->precio.'\')">
+                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\')">
                                 <span class="fa fa-plus"></span>
                             </button>',
                     "1"=>$reg->nombre,
                     "2"=>$reg->categoria,
-                    "3"=>$reg->preciocompra,
+                    "3"=>$reg->precio,
                     "4"=>$reg->precio,
                     "5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>"
                 );
@@ -199,14 +177,13 @@
         case 'listarArticulosBodega':
             require_once '../modelos/Articulo.php';
             $idbodega = $_REQUEST["idbodega"];
-            $idtienda = $_REQUEST["idtienda"];
             $articulo = new Articulo();
-            $rspta = $articulo->listarxBodega($idbodega,$idtienda);
+            $rspta = $articulo->listarxBodega($idbodega);
             $data = Array();
 
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->cantidad.'\',\''.$reg->stocktienda.'\')">
+                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\')">
                                 <span class="fa fa-plus"></span>
                             </button>',
                     "1"=>$reg->nombre,

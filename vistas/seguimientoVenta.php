@@ -26,14 +26,14 @@
                 <div class="col-md-12">
                     <div class="box">
                       <div class="box-header with-border">
-                            <h1 class="box-title">Tienda 
-                              <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)">
+                            <h1 class="box-title">Seguimiento de Ventas 
+                              <!-- <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)">
                                 <i class="fa fa-plus-circle"></i> 
                                 Agregar
                               </button>
                               <a target="_blank" href="../reportes/rptarticulos.php">
                                 <button class="btn btn-info">Reporte</button>
-                              </a>
+                              </a> -->
                             </h1>
                           <div class="box-tools pull-right">
                           </div>
@@ -44,37 +44,41 @@
                           <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
                               <th>Opciones</th>
-                              <th>Nombre</th>
-                              <th>Direccion</th>
-                              <th>Municipio</th>
-                              <th>Estado</th>
+                              <th>Fecha</th>
+                              <th>Fase de la Venta</th>
+                              <th>No. de la Venta</th>
+                              <th>Comentarios</th>
                             </thead>
                             <tbody>
 
                             </tbody>
                             <tfoot>
-                            <th>Opciones</th>
-                              <th>Nombre</th>
-                              <th>Direccion</th>
-                              <th>Municipio</th>
-                              <th>Estado</th>
+                              <th>Opciones</th>
+                              <th>Fecha</th>
+                              <th>Fase de la Venta</th>
+                              <th>No. de la Venta</th>
+                              <th>Comentarios</th>
                             </tfoot>
                           </table>
                       </div>
                       <div class="panel-body"  id="formularioregistros">
                           <form name="formulario" id="formulario" method="POST">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Nombre:</label>
-                              <input type="hidden" name="idtienda" id="idtienda">
-                              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
+                              <label>Fecha:</label>
+                              <input type="hidden" name="idarticulo" id="idarticulo">
+                              <input type="date" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" readOnly>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Municipio:</label>
-                              <select name="idmunicipio" id="idmunicipio" data-live-search="true" class="form-control selectpicker" required></select>
+                              <label>Fase de la Venta:</label>
+                              <select name="idcategoria" id="idcategoria" data-live-search="true" class="form-control selectpicker" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Direccion:</label>
-                              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección" required>
+                              <label>No. de la Venta:</label>
+                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción" readOnly>
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">                
+                              <label>Comentarios:</label>
+                              <input type="text" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" readOnly>
                             </div>
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
@@ -106,7 +110,7 @@
     require 'footer.php';
   ?>
   
-  <script src="./scripts/tienda.js"></script>
+  <script src="./scripts/seguimientoVenta.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>
   <script src="../public/js/jquery.PrintArea.js"></script>
 

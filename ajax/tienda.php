@@ -33,19 +33,13 @@
             }
         break;
 
-        case 'moverProductos':
-            $idbodega = $_REQUEST["idbodega"];
-            $idtienda = $_REQUEST["idtienda"];
-            $articulos = $_REQUEST["articulos"];
-            $cantidad = $_REQUEST["cantidad"];
-            $stockBodega = $_REQUEST["stockBodega"];
-            $stockTienda = $_REQUEST["stockTienda"];
-            $rspta=$tienda->moverProductos($idbodega,$idtienda,$articulos,$cantidad,$stockBodega,$stockTienda);
-            echo $rspta ? "Productos movidos" : "Productos no se pudieron mover";
-        break;
-
         case 'desactivar':
                 $rspta = $tienda->desactivar($idtienda);
+                echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
+        break;
+
+        case 'desactivarP':
+                $rspta = $tienda->desactivarP($idtienda);
                 echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
         break;
 
@@ -54,7 +48,7 @@
             echo $rspta ? "Bodega inactivada" : "Bodega no se pudo inactivar";
         break;
 
-        case 'activar':
+        case 'activarP':
             $rspta = $tienda->activar($idtienda);
             echo $rspta ? "Tienda activado" : "Tienda no se pudo activar";
         break;
@@ -75,11 +69,22 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idtienda.')"><li class="fa fa-pencil"></li></button>'.
-                    ' <button class="btn btn-primary" onclick="desactivar('.$reg->idtienda.')"><li class="fa fa-close"></li></button>',
+                    "0"=> ($reg->estado) ? 
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idtienda.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idtienda.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivarP('.$reg->idtienda.')" title="inactivar"><li class="fa fa-close"></li></button>'
+                    :
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idtienda.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idtienda.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-primary" onclick="activarP('.$reg->idtienda.')" title="activar"><li class="fa fa-check"></li></button>'
+                    ,
                      "1"=>$reg->nombre,
                      "2"=>$reg->direccion,
-                     "3"=>$reg->municipio
+                     "3"=>$reg->municipio,
+                     "4"=>($reg->estado) ?
+                     '<span class="label bg-green">Activado</span>'
+                     :      
+                     '<span class="label bg-red">Desactivado</span>'
                 );
             }
             $results = array(

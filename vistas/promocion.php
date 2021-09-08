@@ -48,6 +48,7 @@
                               <th>Fecha Final</th>
                               <th>Producto</th>
                               <th>Descuento</th>
+                              <th>Estado</th>
                             </thead>
                             <tbody>
 
@@ -58,6 +59,7 @@
                               <th>Fecha Final</th>
                               <th>Producto</th>
                               <th>Descuento</th>
+                              <th>Estado</th>
                             </tfoot>
                           </table>
                       </div>

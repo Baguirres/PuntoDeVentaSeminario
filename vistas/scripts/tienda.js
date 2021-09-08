@@ -161,14 +161,34 @@ function desactivar(idtienda)
     });
 }
 
-function activar(idarticulo)
+//funcion para descativar categorias
+function desactivarP(idtienda)
+{
+    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/tienda.php?op=desactivarP",
+                {idtienda:idtienda},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
+
+function activarP(idtienda)
 {
     bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
         if(result)
         {
             $.post(
-                "../ajax/tienda.php?op=activar",
-                {idarticulo:idarticulo},
+                "../ajax/tienda.php?op=activarP",
+                {idtienda:idtienda},
                 function(e)
                 {
                     bootbox.alert(e);

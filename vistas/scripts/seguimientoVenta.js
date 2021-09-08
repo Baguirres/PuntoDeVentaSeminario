@@ -10,10 +10,9 @@ function init()
     {
         guardaryeditar(e);
     })
-
     //Cargamos los items al select categoria
     $.post(
-        "../ajax/articulo.php?op=selectCategoria",
+        "../ajax/seguimientoVenta.php?op=selectCategoria",
         function(data)
         {        
             
@@ -22,19 +21,6 @@ function init()
             $("#idcategoria").selectpicker('refresh');
         }
     );
-    //Cargamos los items al select categoria
-    $.post(
-        "../ajax/articulo.php?op=selectProveedor",
-        function(data)
-        {        
-            
-            //console.log(data);
-            $("#idproveedor").html(data);
-            $("#idproveedor").selectpicker('refresh');
-        }
-    );
-
-    $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
@@ -95,7 +81,7 @@ function listar()
                     'pdf'
                 ],
                 "ajax":{
-                    url: '../ajax/articulo.php?op=listar',
+                    url: '../ajax/seguimientoVenta.php?op=listar',
                     type: "get",
                     dataType:"json",
                     error: function(e) {
@@ -120,7 +106,7 @@ function guardaryeditar(e)
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/seguimientoVenta.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -144,25 +130,22 @@ function guardaryeditar(e)
 function mostrar(idarticulo)
 {
     $.post(
-        "../ajax/articulo.php?op=mostrar",
+        "../ajax/seguimientoVenta.php?op=mostrar",
         {idarticulo:idarticulo},
         function(data,status)
         {
             data = JSON.parse(data);
             mostrarform(true);
            
-            $("#idcategoria").val(data.idCategoria);
+            $("#idcategoria").val(data.idFaseSeguimiento);
             $('#idcategoria').selectpicker('refresh');
 
-            $("#nombre").val(data.nombre);
-            $("#stock").val(data.Precio);
+            $("#nombre").val(data.fecha);
+            $("#descripcion").val(data.idVentaEncabezado);
+            $("#stock").val(data.comentarios);
 
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
 
-            $("#imagenactual").val(data.imagen);
-
-            $("#idarticulo").val(data.idProducto);
+            $("#idarticulo").val(data.idSeguimientoVenta);
 
             
 
@@ -177,7 +160,7 @@ function desactivar(idarticulo)
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivar",
+                "../ajax/seguimientoVenta.php?op=desactivar",
                 {idarticulo:idarticulo},
                 function(e)
                 {
@@ -196,7 +179,7 @@ function desactivarP(idarticulo)
         if(result)
         {
             $.post(
-                "../ajax/articulo.php?op=desactivarP",
+                "../ajax/seguimientoVenta.php?op=desactivarP",
                 {idarticulo:idarticulo},
                 function(e)
                 {

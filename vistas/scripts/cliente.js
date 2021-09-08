@@ -154,4 +154,40 @@ function eliminar(idcliente)
     });
 }
 
+function desactivar(idcliente)
+{
+    bootbox.confirm("¿Estas seguro de desactivar el Cliente?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/cliente.php?op=desactivar",
+                {idcliente:idcliente},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+                }
+            );
+        }
+    });
+}
+
+function activar(idcliente)
+{
+    bootbox.confirm("¿Estas seguro de activar el Cliente?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/cliente.php?op=activar",
+                {idcliente:idcliente},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+                }
+            );
+        }
+    });
+}
+
 init();

@@ -1,7 +1,7 @@
 <?php
     require '../config/conexion.php';
 
-    Class Articulo 
+    Class SeguimientoVenta 
     {
         public function __construct()
         {
@@ -26,14 +26,11 @@
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idarticulo,$idcategoria,$nombre,$stock,$imagen)
+        public function editar($idarticulo,$idcategoria)
         {
-            $sql = "UPDATE producto SET 
-                    idCategoria ='$idcategoria',
-                    nombre = '$nombre', 
-                    precio = '$stock', 
-                    imagen = '$imagen' 
-                    WHERE idproducto='$idarticulo'";
+            $sql = "UPDATE seguimientoventa SET 
+                    idfaseseguimiento ='$idcategoria'
+                    WHERE idseguimientoventa='$idarticulo'";
             
             return ejecutarConsulta($sql);
         }
@@ -69,8 +66,9 @@
         //METODO PARA MOSTRAR LOS DATOS DE UN REGISTRO A MODIFICAR
         public function mostrar($idarticulo)
         {
-            $sql = "SELECT * FROM producto 
-                    WHERE idproducto='$idarticulo'";
+            $sql = "SELECT sv.idSeguimientoVenta, DATE(sv.fecha) as fecha, sv.idVentaEncabezado,
+                    sv.comentarios, sv.idFaseSeguimiento FROM seguimientoventa sv
+                    WHERE idseguimientoventa='$idarticulo'";
 
             return ejecutarConsultaSimpleFila($sql);
         }
@@ -80,23 +78,20 @@
         {
 
             $sql = "SELECT 
-                    p.idproducto, 
-                    p.idcategoria, 
-                    c.nombre as categoria,
-                    p.nombre,
-                    p.precio,
-                    p.imagen,
-                    p.estado
-                    FROM producto p
-                    INNER JOIN categoria c 
-                    ON p.idcategoria = c.idcateogira";
+                    sv.idseguimientoventa as id,
+                    DATE(sv.fecha) as fecha,
+                    fs.nombre as faseseguimiento,
+                    sv.idventaencabezado,
+                    sv.comentarios
+                    FROM seguimientoventa sv, faseseguimiento fs
+                    WHERE sv.idfaseseguimiento=fs.idfaseseguimiento";
 
             return ejecutarConsulta($sql);
         }
 
-        public function listarProducto(){
+        public function listarPP(){
  
-            $sql = "SELECT * from producto";
+            $sql = "SELECT * from faseseguimiento";
 
             return ejecutarConsulta($sql);
         }

@@ -49,10 +49,19 @@
             return ejecutarConsulta($sql);
         }
 
+        //METODOS PARA ACTIVAR ARTICULOS
+        public function desactivarP($idarticulo)
+        {
+            $sql= "UPDATE promocion SET estado='0' 
+                   WHERE idpromocion='$idarticulo'";
+            
+            return ejecutarConsulta($sql);
+        }
+
         public function activar($idarticulo)
         {
-            $sql= "UPDATE articulo SET condicion='1' 
-                   WHERE idarticulo='$idarticulo'";
+            $sql= "UPDATE promocion SET estado='1' 
+                   WHERE idpromocion='$idarticulo'";
             
             return ejecutarConsulta($sql);
         }
@@ -75,7 +84,8 @@
                         pr.fechaInicio, 
                         pr.fechaFinal,
                         p.nombre as producto, 
-                        pr.descuento 
+                        pr.descuento,
+                        pr.estado 
                         from promocion pr, producto p 
                         WHERE pr.idproducto=p.idproducto;";
 

@@ -45,6 +45,11 @@
                 echo $rspta ? "Articulo desactivada" : "Articulo no se pudo desactivar";
         break;
 
+        case 'desactivarP':
+                $rspta = $articulo->desactivarP($idarticulo);
+                echo $rspta ? "Articulo desactivada" : "Articulo no se pudo desactivar";
+        break;
+
         case 'activar':
             $rspta = $articulo->activar($idarticulo);
             echo $rspta ? "Articulo activado" : "Articulo no se pudo activar";
@@ -60,24 +65,24 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idproducto.')"><li class="fa fa-pencil"></li></button>'.
-                    ' <button class="btn btn-primary" onclick="desactivar('.$reg->idproducto.')"><li class="fa fa-close"></li></button>',
-                    // "0"=> ($reg->condicion) ? 
-                    //     '<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><li class="fa fa-pencil"></li></button>'.
-                    //     ' <button class="btn btn-danger" onclick="desactivar('.$reg->idarticulo.')"><li class="fa fa-close"></li></button>'
-                    //     :
-                        // '<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><li class="fa fa-pencil"></li></button>'.
-                        // ' <button class="btn btn-primary" onclick="activar('.$reg->idarticulo.')"><li class="fa fa-check"></li></button>'
-                    //     ,
+                    "0"=> ($reg->estado) ? 
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idproducto.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idproducto.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivarP('.$reg->idproducto.')" title="inactivar"><li class="fa fa-close"></li></button>'
+                    :
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idproducto.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idproducto.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-primary" onclick="activar('.$reg->idproducto.')" title="activar"><li class="fa fa-check"></li></button>'
+                    ,
                      "1"=>$reg->nombre,
                      "2"=>$reg->categoria,
                     // "3"=>$reg->codigo,
                      "3"=>$reg->precio,
                      "4"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>",
-                    // "6"=>($reg->condicion) ?
-                    //      '<span class="label bg-green">Activado</span>'
-                    //      :      
-                    //      '<span class="label bg-red">Desactivado</span>'
+                    "5"=>($reg->estado) ?
+                         '<span class="label bg-green">Activado</span>'
+                         :      
+                         '<span class="label bg-red">Desactivado</span>'
                 );
             }
             $results = array(
@@ -98,6 +103,21 @@
             while($reg = $rspta->fetch_object())
             {
                 echo '<option value='.$reg->idCateogira.'>'
+                        .$reg->nombre.
+                      '</option>';
+               
+            }
+        break;
+
+        case 'selectProveedor':
+            require_once "../modelos/Proveedor.php";
+            $proveedor = new Proveedor();
+
+            $rspta = $proveedor->listarp();
+
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idProveedor.'>'
                         .$reg->nombre.
                       '</option>';
                

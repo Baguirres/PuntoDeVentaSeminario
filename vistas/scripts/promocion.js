@@ -148,7 +148,7 @@ function mostrar(idpromocion)
 //funcion para descativar categorias
 function desactivar(idpromocion)
 {
-    bootbox.confirm("¿Estas seguro de desactivar la promocion?",function(result){
+    bootbox.confirm("¿Estas seguro de eliminar la promocion?",function(result){
         if(result)
         {
             $.post(
@@ -164,15 +164,34 @@ function desactivar(idpromocion)
         }
     });
 }
+//funcion para descativar categorias
+function desactivarP(idpromocion)
+{
+    bootbox.confirm("¿Estas seguro de desactivar la promocion?",function(result){
+        if(result)
+        {
+            $.post(
+                "../ajax/promocion.php?op=desactivarP",
+                {idpromocion:idpromocion},
+                function(e)
+                {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+        
+                }
+            );
+        }
+    });
+}
 
-function activar(idarticulo)
+function activar(idpromocion)
 {
     bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
         if(result)
         {
             $.post(
                 "../ajax/promocion.php?op=activar",
-                {idarticulo:idarticulo},
+                {idpromocion:idpromocion},
                 function(e)
                 {
                     bootbox.alert(e);

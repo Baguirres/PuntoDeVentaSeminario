@@ -114,14 +114,13 @@ CREATE TABLE `compraencabezado` (
   `idProveedor` int(11) NOT NULL,
   `total` float NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `idTienda` int(11) NOT NULL,
   `idTipoMoneda` int(2) NOT NULL,
   `impuesto` double NOT NULL,
   `estado` tinyint COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCompraEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO `compraencabezado` VALUES
-(1, '02/05/1998',1,1500.50,1,1,1,12,1);
+(1, '02/05/1998',1,1500.50,1,1,12,1);
 -- --------------------------------------------------------
 
 --
@@ -215,8 +214,7 @@ CREATE TABLE `inventario` (
 
 INSERT INTO `inventario` VALUES
 (1, 1,100),
-(1, 2,50),
-(2, 2,10);
+(1, 2,50);
 
 -- --------------------------------------------------------
 
@@ -269,8 +267,7 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `producto` VALUES
-(1, 'Chocolates hershey','Son cafes',1.50,1.50,1,'chocolate.jpg',1,'',1),
-(2, 'Chocolates hershey blanco','Son blancos',3,3,1,'chocolate.jpg',1,'',1);
+(1, 'Chocolates hershey','Son cafes',1.50,1.50,1,'chocolate.jpg',1,'',1);
 -- --------------------------------------------------------
 
 --

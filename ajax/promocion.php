@@ -28,6 +28,11 @@
                 echo $rspta ? "Promocion desactivada" : "Promocion no se pudo desactivar";
         break;
 
+        case 'desactivarP':
+                $rspta = $promocion->desactivarP($idpromocion);
+                echo $rspta ? "Promocion desactivada" : "Promocion no se pudo desactivar";
+        break;
+
         case 'activar':
             $rspta = $promocion->activar($idpromocion);
             echo $rspta ? "Promocion activado" : "Promocion no se pudo activar";
@@ -43,12 +48,23 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idpromocion.')"><li class="fa fa-pencil"></li></button>'.
-                    ' <button class="btn btn-primary" onclick="desactivar('.$reg->idpromocion.')"><li class="fa fa-close"></li></button>',
+                    "0"=> ($reg->estado) ? 
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idpromocion.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idpromocion.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivarP('.$reg->idpromocion.')" title="inactivar"><li class="fa fa-close"></li></button>'
+                    :
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idpromocion.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idpromocion.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-primary" onclick="activar('.$reg->idpromocion.')" title="activar"><li class="fa fa-check"></li></button>'
+                    ,
                      "1"=>$reg->fechaInicio,
                      "2"=>$reg->fechaFinal,
                      "3"=>$reg->producto,
                      "4"=>$reg->descuento,
+                     "5"=>($reg->estado) ?
+                     '<span class="label bg-green">Activado</span>'
+                     :      
+                     '<span class="label bg-red">Desactivado</span>'
                 );
             }
             $results = array(

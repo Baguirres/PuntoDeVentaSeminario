@@ -55,6 +55,22 @@
             
             return ejecutarConsulta($sql);
         }
+        
+        public function desactivar($idpersona)
+        {
+            $sql= "UPDATE cliente SET estado='0'
+                   WHERE idCliente='$idpersona'";
+            
+            return ejecutarConsulta($sql);
+        }
+        
+        public function activar($idpersona)
+        {
+            $sql= "UPDATE cliente SET estado='1'
+                   WHERE idCliente='$idpersona'";
+            
+            return ejecutarConsulta($sql);
+        }
 
 
         //METODO PARA MOSTRAR LOS DATOS DE UN REGISTRO A MODIFICAR

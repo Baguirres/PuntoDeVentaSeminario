@@ -48,6 +48,7 @@
                               <th>Categoria</th>
                               <th>Stock</th>
                               <th>Imagen</th>
+                              <th>Estado</th>
                             </thead>
                             <tbody>
 
@@ -58,6 +59,7 @@
                               <th>Categoria</th>
                               <th>Stock</th>
                               <th>Imagen</th>
+                              <th>Estado</th>
                             </tfoot>
                           </table>
                       </div>
@@ -73,10 +75,20 @@
                               <select name="idcategoria" id="idcategoria" data-live-search="true" class="form-control selectpicker" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label>Descripci�n:</label>
-                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripci�n">
+                              <label>Descripción:</label>
+                              <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
                               <label>Precio:</label>
                               <input type="number" step="any" class="form-control" name="stock" id="stock" placeholder="Precio" required>
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <label>Precio Compra:</label>
+                              <input type="number" step="any" class="form-control" name="precioC" id="precioC" placeholder="Precio Compra" required>
+                              <label>Proveedor:</label>
+                              <select name="idproveedor" id="idproveedor" data-live-search="true" class="form-control selectpicker" required></select>
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <label>Caracteristicas:</label> <br>
+                              <textarea name="caracteristicas" id="caracteristicas" cols="64" rows="10"></textarea>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label>Imagen:</label>
