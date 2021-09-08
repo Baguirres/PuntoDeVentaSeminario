@@ -6,10 +6,10 @@ function init()
     mostrarform(false);
     listar();
 
-    $("#formulario").on("submit",function(e)
+    /*$("#formulario").on("submit",function(e)
     {
         guardaryeditar(e);
-    });
+    });*/
 
     $.post(
         "../ajax/ingreso.php?op=selectProveedor",
@@ -26,6 +26,15 @@ function init()
         {
             $("#idtienda").html(data);
             $("#idtienda").selectpicker('refresh');
+        }
+    );
+
+    $.post(
+        "../ajax/ingreso.php?op=selectMoneda",
+        function(data)
+        {        
+            $("#idmoneda").html(data);
+            $("#idmoneda").selectpicker('refresh');
         }
     );
 }
@@ -67,7 +76,7 @@ function mostrarform(flag)
         $("#btnagregar").hide();
         
 
-        $("#btnguardar").show();
+        $("#btnGuardar").hide();
         $("#btnCancelar").show();
         detalles = 0;
         $("#btnAgregarArt").show();
@@ -185,31 +194,29 @@ function listarArticulos()
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
-    /*e.preventDefault(); //No se activará la acción predeterminada del evento
-	//$("#btnGuardar").prop("disabled",true);
-    var formData = new FormData($("#formulario")[0]);
-    
-    $.ajax({
-        url: "../ajax/ingreso.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(datos)
+    var idproveedor = $("#idproveedor").val();
+    var idtienda = $("#idtienda").val();
+    var impuesto = $("#impuestos").val();
+    var usuario = $("#usuario").val();
+    var moneda = $("#idmoneda").val();
+    var total = $("#total_compra").val();
+    var articulos = [];
+    var cantidad = [];
+    for(var i=0; i<cont;i++){
+        articulos.push($('#idarticulo'+i).val());
+        cantidad.push($('#cantidad'+i).val());
+    }
+    $.post(
+        "../ajax/tienda.php?op=guardaryeditar",
+        {idproveedor:idproveedor,idtienda:idtienda,articulos:articulos,cantidad:cantidad,impuesto:impuesto, usuario:usuario, moneda:moneda, total:total},
+        function(e)
         {
-            //console.log("succes");
-            bootbox.alert(datos);
-            mostrarform(false);
-            listar();
+            bootbox.alert(e);
+            desbloquear(false);
+        }
+    );
 
-        },
-        error: function(error)
-        {
-            console.log("error: " + error);
-        } 
-    });
-
-    limpiar();*/
+    //limpiar();*/
 }
 
 function mostrar(idcompraencabezado)
@@ -271,7 +278,6 @@ var impuesto = 16;
 var cont = 0;
 var detalles= 0;
 
-$("#btnGuardar").hide();
 $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
@@ -287,39 +293,32 @@ function marcarImpuesto()
     }*/
 }
 
-function agregarDetalle(idarticulo,articulo)
+function agregarDetalle(idarticulo,articulo,preciocompra,precioventa)
 {
-    /*var cantidad = 1;
-    var precio_compra = 1;
-    var precio_venta = 1;
 
     if(idarticulo != "")
     {
-        var subtotal = cantidad * precio_compra;
+        var subtotal = 1 * preciocompra;
         var fila = '<tr class="filas" id="fila'+cont+'"> ' +
                       '<td>'+
                            '<button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button>'+
                        '</td>'+
                       '<td>' +
-                          '<input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+
+                          '<input type="hidden" name="idarticulo'+cont+'" id="idarticulo'+cont+'" value="'+idarticulo+'">'+
                            articulo +
                        '</td>'+
                       '<td>' +
-                          '<input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'">'+
+                          '<input type="number" name="cantidad'+cont+'" id="cantidad'+cont+'" onchange="modificarSubtotales()" min="1" value=1>'+
                        '</td>'+
                       '<td>' +
-                          '<input type="number" name="precio_compra[]" id="precio_compra[]" value="'+precio_compra+'">'+
+                            '<input type="hidden" name="precio'+cont+'" id="precio'+cont+'" value="'+preciocompra+'">'+
+                            preciocompra+
                        '</td>'+
                       '<td>' +
-                          '<input type="number" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'">'+
+                            precioventa+
                        '</td>'+
                       '<td>' +
-                          '<span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span>'+
-                       '</td>'+
-                      '<td>' +
-                          '<button type="button" class="btn btn-info" onclick="modificarSubtotales()">'+
-                            '<i class="fa fa-refresh"></i>'+
-                          '</button>'+
+                          '<span name="subtotal'+cont+'" id="subtotal'+cont+'">'+subtotal+'</span>'+
                        '</td>'+
                    '</tr>';
 
@@ -331,50 +330,39 @@ function agregarDetalle(idarticulo,articulo)
     else
     {
         alert("Error al ingresar el detalle, revisar los ddatos del articulo");
-    }*/
+    }
 }
 
 function modificarSubtotales()
 {
-    /*var cant = document.getElementsByName("cantidad[]");
-    var prec = document.getElementsByName("precio_compra[]");
-    var sub = document.getElementsByName("subtotal");
-
-    var tamañoCant = cant.length;
-
-    for (var i = 0; i < tamañoCant; i++) 
-    {
-        var inpC = cant[i];
-        var inpP = prec[i];
-        var inpS = sub[i];
-
-        inpS.value = inpC.value * inpP.value;
-        document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
+    var subtotal=0;
+    for(var i=0; i<cont;i++){
+        var cantidad= $('#cantidad'+i).val();
+        var precio= $('#precio'+i).val();
+        subtotal= parseInt(cantidad)*parseFloat(precio);
+        $('#subtotal'+i).html(subtotal);
     }
-
-    calcularTotales();*/
+    calcularTotales();
 }
 
 function calcularTotales()
 {
-    /*var sub = document.getElementsByName("subtotal");
-    var total = 0.0;
-
-    var tamSub = sub.length;
-
-    for (var i = 0; i < tamSub; i++) {
-        total += document.getElementsByName("subtotal")[i].value;
-    }
-
-    $("#total").html("$ "+ total);
+    var total=0;
+    if (cont>0){
+        for(var i=0; i<cont;i++){
+            var subtotal= $('#subtotal'+i).html();
+            total += parseFloat(subtotal);
+        }
+    }    
+    $("#total").html('Q '+total);
     $("#total_compra").val(total);
 
-    evaluar();*/
+    evaluar();
 }
 
 function evaluar()
 {
-    /*if(detalles > 0)
+    if(detalles > 0)
     {
         $("#btnGuardar").show();
     }
@@ -382,18 +370,15 @@ function evaluar()
     {
         $("#btnGuardar").hide();
         cont = 0;
-    }*/
+    }
 }
 
 function eliminarDetalle(indice)
 {
-    /*$("#fila" + indice).remove();
-
+    $("#fila" + indice).remove();
+    cont--;
     detalles -= 1;
-
-    calcularTotales();*/
-
-    
+    calcularTotales();    
 }
 
 init();

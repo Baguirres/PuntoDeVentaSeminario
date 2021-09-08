@@ -94,10 +94,9 @@
                           </div>
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-exchange"></i> Mover</button>
-
+                              <button class="btn btn-primary" onclick="guardaryeditar()" type="button" id="btnGuardar"><i class="fa fa-exchange"></i> Mover</button>
                               <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
-                              <button class="btn btn-info" onclick="desbloquear()" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
+                              <button class="btn btn-info" onclick="desbloquear(true)" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
                             </div>
                           </form>
                       </div>

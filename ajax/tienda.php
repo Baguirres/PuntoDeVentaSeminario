@@ -33,6 +33,17 @@
             }
         break;
 
+        case 'moverProductos':
+            $idbodega = $_REQUEST["idbodega"];
+            $idtienda = $_REQUEST["idtienda"];
+            $articulos = $_REQUEST["articulos"];
+            $cantidad = $_REQUEST["cantidad"];
+            $stockBodega = $_REQUEST["stockBodega"];
+            $stockTienda = $_REQUEST["stockTienda"];
+            $rspta=$tienda->moverProductos($idbodega,$idtienda,$articulos,$cantidad,$stockBodega,$stockTienda);
+            echo $rspta ? "Productos movidos" : "Productos no se pudieron mover";
+        break;
+
         case 'desactivar':
                 $rspta = $tienda->desactivar($idtienda);
                 echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
