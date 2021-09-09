@@ -60,6 +60,7 @@
                       </div>
                     </a>
                   </div>
+  
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
                     <a class="block-2-item" href="#">
                       <figure class="image">
@@ -110,20 +111,29 @@
               </div>
             </div>
             <div class="row mb-5">
-
+            <?php 
+                    include('./php/conexion.php');
+                    $resultado = $conexion -> query("SELECT * from producto") or die ($conexion -> error);
+                    while ($fila = mysqli_fetch_array($resultado)) {
+                    
+                    
+                  ?>
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
-                    <a href="shop-single.php"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                    <a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>">
+                      <img src="../files/articulos/<?php echo $fila['imagen']; ?>"
+                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid">
+                    </a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="shop-single.php">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
+                    <h3><a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>"><?php echo $fila['nombre']; ?></a></h3>
+                    <p class="mb-0"><?php echo $fila['descripcion']; ?></p>
+                    <p class="text-primary font-weight-bold">Q<?php echo $fila['Precio']; ?></p>
                   </div>
                 </div>
               </div>
-            
+            <?php } ?>
 
 
             </div>
