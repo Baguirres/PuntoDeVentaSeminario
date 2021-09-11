@@ -67,10 +67,10 @@
         public function mostrar($idcompraencabezado)
         {
             $sql = "SELECT i.idcompraencabezado, DATE(i.fecha) as fecha, i.idproveedor, u.nombre as usuario,
-                        i.idtienda, i.idtipomoneda, i.impuesto,i.total, i.estado 
-                    FROM compraencabezado i
-                    INNER JOIN usuario u ON i.idusuario = u.idusuario
-                    WHERE i.idcompraencabezado='$idcompraencabezado'";
+            i.idtienda, i.idtipomoneda, i.impuesto,i.total, i.estado 
+        FROM compraencabezado i
+        INNER JOIN usuario u ON i.idusuario = u.idusuario
+        WHERE i.idcompraencabezado='$idcompraencabezado'";
 
             return ejecutarConsultaSimpleFila($sql);
         }

@@ -6,10 +6,10 @@ function init()
     mostrarform(false);
     listar();
 
-    $("#formulario").on("submit",function(e)
+    /*$("#formulario").on("submit",function(e)
     {
         guardaryeditar(e);
-    });
+    });*/
 
     $.post(
         "../ajax/ingreso.php?op=selectProveedor",
@@ -26,6 +26,15 @@ function init()
         {
             $("#idtienda").html(data);
             $("#idtienda").selectpicker('refresh');
+        }
+    );
+
+    $.post(
+        "../ajax/ingreso.php?op=selectMoneda",
+        function(data)
+        {        
+            $("#idmoneda").html(data);
+            $("#idmoneda").selectpicker('refresh');
         }
     );
 }
@@ -72,7 +81,7 @@ function mostrarform(flag)
         $("#btnagregar").hide();
         
 
-        $("#btnguardar").show();
+        $("#btnGuardar").hide();
         $("#btnCancelar").show();
         detalles = 0;
         $("#btnAgregarArt").show();
@@ -229,11 +238,12 @@ function guardaryeditar(e)
             {
                 bootbox.alert(e);
                 desbloquear(false);
+                detalles=0;
             }
         );
     }
-    detalles=0;
-    desbloquear();
+    
+    //desbloquear();
 }
 
 function mostrar(idcompraencabezado)
@@ -311,7 +321,6 @@ var impuesto = 16;
 var cont = 0;
 var detalles= 0;
 
-$("#btnGuardar").hide();
 $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
@@ -327,7 +336,7 @@ function marcarImpuesto()
     }*/
 }
 
-function agregarDetalle(idarticulo,articulo)
+function agregarDetalle(idarticulo,articulo,preciocompra,precioventa)
 {
     if(!yaExiste(idarticulo)){
         if(idarticulo != "")
@@ -370,40 +379,29 @@ function agregarDetalle(idarticulo,articulo)
 
 function modificarSubtotales()
 {
-    /*var cant = document.getElementsByName("cantidad[]");
-    var prec = document.getElementsByName("precio_compra[]");
-    var sub = document.getElementsByName("subtotal");
-
-    var tamañoCant = cant.length;
-
-    for (var i = 0; i < tamañoCant; i++) 
-    {
-        var inpC = cant[i];
-        var inpP = prec[i];
-        var inpS = sub[i];
-
-        inpS.value = inpC.value * inpP.value;
-        document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
+    var subtotal=0;
+    for(var i=0; i<cont;i++){
+        var cantidad= $('#cantidad'+i).val();
+        var precio= $('#precio'+i).val();
+        subtotal= parseInt(cantidad)*parseFloat(precio);
+        $('#subtotal'+i).html(subtotal);
     }
-
-    calcularTotales();*/
+    calcularTotales();
 }
 
 function calcularTotales()
 {
-    /*var sub = document.getElementsByName("subtotal");
-    var total = 0.0;
-
-    var tamSub = sub.length;
-
-    for (var i = 0; i < tamSub; i++) {
-        total += document.getElementsByName("subtotal")[i].value;
-    }
-
-    $("#total").html("$ "+ total);
+    var total=0;
+    if (cont>0){
+        for(var i=0; i<cont;i++){
+            var subtotal= $('#subtotal'+i).html();
+            total += parseFloat(subtotal);
+        }
+    }    
+    $("#total").html('Q '+total);
     $("#total_compra").val(total);
 
-    evaluar();*/
+    evaluar();
 }
 
 function yaExiste(idarticulo)
@@ -420,7 +418,7 @@ function yaExiste(idarticulo)
 
 function evaluar()
 {
-    /*if(detalles > 0)
+    if(detalles > 0)
     {
         $("#btnGuardar").show();
     }
@@ -428,18 +426,15 @@ function evaluar()
     {
         $("#btnGuardar").hide();
         cont = 0;
-    }*/
+    }
 }
 
 function eliminarDetalle(indice)
 {
-    /*$("#fila" + indice).remove();
-
+    $("#fila" + indice).remove();
+    cont--;
     detalles -= 1;
-
-    calcularTotales();*/
-
-    
+    calcularTotales();    
 }
 
 init();

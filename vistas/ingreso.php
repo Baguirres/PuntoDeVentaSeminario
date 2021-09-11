@@ -77,7 +77,7 @@
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Impuestos:</label>
-                            <input type="number" class="form-control" name="impuestos" id="impuestos" maxlength="10" placeholder="Impuestos" required="">
+                            <input type="number" class="form-control" name="impuestos" id="impuestos" maxlength="10" placeholder="Impuestos" required>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Moneda:</label>
@@ -131,7 +131,7 @@
                           </div>
                           
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+                            <button class="btn btn-primary" onclick="guardaryeditar()" type="button" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
                             <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                             <button class="btn btn-info" onclick="desbloquear(true)" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
                           </div>
@@ -161,8 +161,8 @@
                  <th>Opciones</th>
                  <th>Nombre</th>
                  <th>Categoria</th>
-                 <th>Precio</th>
-                 <th>Stock</th>
+                 <th>Precio Compra</th>
+                 <th>Precio Venta</th>
                  <th>Imagen</th>
                </thead>
                <tbody>
@@ -172,8 +172,8 @@
                  <th>Opciones</th>
                  <th>Nombre</th>
                  <th>Categoria</th>
-                 <th>Precio</th>
-                 <th>Stock</th>
+                 <th>Precio Compra</th>
+                 <th>Precio Venta</th>
                  <th>Imagen</th>
                </tfoot>
              </table>

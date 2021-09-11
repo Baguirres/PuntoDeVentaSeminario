@@ -33,8 +33,6 @@
 
         case 'desactivar':
             $rspta = $trabajador->desactivar($idempleado);
-            echo 'idempleado';
-            echo $idempleado;
             echo $rspta ? "Trabajador inactivado" : "Trabajador no se pudo inactivar";
         break;
 

@@ -114,13 +114,14 @@ CREATE TABLE `compraencabezado` (
   `idProveedor` int(11) NOT NULL,
   `total` float NOT NULL,
   `idUsuario` int(11) NOT NULL,
+  `idTienda` int(11) NOT NULL,
   `idTipoMoneda` int(2) NOT NULL,
   `impuesto` double NOT NULL,
   `estado` tinyint COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idCompraEncabezado`)
+  PRIMARY KEY (idCompraEncabezado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-INSERT INTO `compraencabezado` VALUES
-(1, '02/05/1998',1,1500.50,1,1,12,1);
+INSERT INTO compraencabezado VALUES
+(1, '02/05/1998',1,1500.50,1,1,1,12,1);
 -- --------------------------------------------------------
 
 --
@@ -181,7 +182,7 @@ CREATE TABLE `empresa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `empresa` VALUES
-(1, 'Chocolates Milky','123456-6','eslogan','logo.jpg','mision','vision','valores');
+(1, 'Chocolates Milky','123456-6','eslogan','logo.jpg','«El Grupo Adidas se esfuerza por ser el líder mundial en la industria de artículos deportivos con marcas basadas en la pasión por el deporte y el estilo de vida deportivo».','«Somos líderes en innovación y diseño que buscan ayudar a los atletas de todos los niveles de habilidad a lograr el máximo rendimiento con cada producto que traemos al mercado».','«Seguridad, colaboración y creatividad».');
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,8 @@ CREATE TABLE `faseseguimiento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `faseseguimiento` VALUES
-(1, 'En proceso','Pos en proceso');
+(1, 'En proceso','Pos en proceso'),
+(2, 'Completado','Pos completado');
 
 -- --------------------------------------------------------
 
@@ -212,9 +214,20 @@ CREATE TABLE `inventario` (
   PRIMARY KEY (`idProducto`,`idTienda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-INSERT INTO `inventario` VALUES
+INSERT INTO inventario VALUES
 (1, 1,100),
-(1, 2,50);
+(1, 2,50),
+(1, 3,50),
+(2, 1,50),
+(2, 2,50),
+(3, 3,50),
+(3, 1,50),
+(4, 2,50),
+(4, 3,50),
+(5, 1,50),
+(5, 2,50),
+(6, 3,50),
+(6, 1,50);
 
 -- --------------------------------------------------------
 
@@ -255,13 +268,13 @@ INSERT INTO `proveedor` VALUES
 CREATE TABLE `producto` (
   `idProducto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `descripcion` varchar(21844) NOT NULL,
+  `descripcion` varchar(21000) NOT NULL,
   `Precio` double NOT NULL,
   `precioCompra` double NOT NULL,
   `idCategoria` int(11) NOT NULL,
-  `imagen` text(21844) COLLATE utf8_spanish2_ci NOT NULL,
+  `imagen` text(21000) COLLATE utf8_spanish2_ci NOT NULL,
   `idProveedor` int(11) NOT NULL,
-  `caracteristicas` text(21844) NOT NULL,
+  `caracteristicas` text(21000) NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -269,9 +282,9 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` VALUES
 (1, 'Chocolates hershey','Es el alimento que se obtiene mezclando azúcar con dos productos que derivan de la manipulación de las semillas del cacao: la masa del cacao y la manteca de cacao.',1.50,1.50,1,'chocolate.jpeg',1,'',1),
 (2, 'Camisa Manga Corta Roja','Prenda de vestir de tela que cubre el torso , abotonada por delante , generalmente con cuello y mangas',15,150,2,'camisa.jpg',1,'',1),
-(3, 'Lapices Mongol Triangulares','Es un instrumento de escritura o dibujo que presenta una barra de grafito encerrada en un cilindro de madera u otro material.',20,25,1,'lapiz.jpg',3,'',1),
-(4, 'Tenis Deportivo','Es una pieza de calzado que protege al pie, brindándole comodidad a la persona a la hora de llevar a cabo diferentes acciones',30,35,1,'tenis.jpg',2,'',1),
-(5, 'Sandalia','Es un tipo de calzado, conocido desde la antigüedad, que consiste en una suela resistente atada al pie mediante cuerdas, cintas o bandas de material ligero, quedando los dedos y otras partes del pie al descubierto.',40,45,1,'chanclas.jpg',2,'',1);
+(3, 'Lapices Mongol Triangulares','Es un instrumento de escritura o dibujo que presenta una barra de grafito encerrada en un cilindro de madera u otro material.',20,25,1,'lapiz.jpg',1,'',1),
+(4, 'Tenis Deportivo','Es una pieza de calzado que protege al pie, brindándole comodidad a la persona a la hora de llevar a cabo diferentes acciones',30,35,1,'tenis.jpg',1,'',1),
+(5, 'Sandalia','Es un tipo de calzado, conocido desde la antigüedad, que consiste en una suela resistente atada al pie mediante cuerdas, cintas o bandas de material ligero, quedando los dedos y otras partes del pie al descubierto.',40,45,1,'chanclas.jpg',1,'',1);
 -- --------------------------------------------------------
 
 --
@@ -346,8 +359,11 @@ CREATE TABLE `tienda` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `tienda` VALUES
-(1, 'de la capital','esta en la capital',1,1,1),
-(2, 'de la florida','esta en la florida',1,0,1);
+(1, 'Capital','esta en la capital',1,1,1),
+(2, 'Bodega Central','esta en la florida',1,0,1),
+(3, 'Naranjo Mall','esta en la florida',1,1,1),
+(4, 'Oakland Mall','esta en la florida',1,1,1),
+(5, 'Cayala','esta en la florida',1,1,1);
 -- --------------------------------------------------------
 
 --

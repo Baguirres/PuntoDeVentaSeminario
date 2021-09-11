@@ -16,7 +16,7 @@
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idmoneda,$nombre, $descripcion)
+        public function editar($idmoneda,$nombre, $simbolo,$tcambio)
         {
             $sql = "UPDATE tipomoneda SET 
                     nombre='$nombre', 

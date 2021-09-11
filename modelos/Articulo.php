@@ -121,16 +121,18 @@
                     c.nombre as categoria,
                     p.nombre,
                     p.precio,
+                    p.preciocompra,
                     p.imagen
                     FROM producto p
                     INNER JOIN categoria c 
                     ON p.idcategoria = c.idcateogira
                     WHERE p.idproveedor='$idproveedor'";
+            return ejecutarConsulta($sql);
 
             return ejecutarConsulta($sql);
         }
 
-        public function listarxBodega($idbodega)
+        public function listarxBodega($idbodega,$idtienda)
         {
             $sql = "SELECT 
                     p.idproducto, 
@@ -139,13 +141,14 @@
                     p.nombre,
                     p.precio,
                     p.imagen,
-                    i.cantidad
+                    i.cantidad,
+                    (SELECT CANTIDAD FROM INVENTARIO WHERE IDTIENDA='$idtienda' and idproducto=p.idproducto) as stocktienda
                     FROM producto p
                     INNER JOIN categoria c 
                     ON p.idcategoria = c.idcateogira
                     INNER JOIN inventario i 
                     ON i.idproducto = p.idproducto
-                    WHERE i.idtienda='$idbodega'";
+                    WHERE i.idtienda='$idbodega' AND i.cantidad>0";
 
             return ejecutarConsulta($sql);
         }

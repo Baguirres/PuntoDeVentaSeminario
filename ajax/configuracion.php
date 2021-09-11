@@ -55,7 +55,7 @@
                     "4"=>$reg->mision,
                     "5"=>$reg->vision,
                     "6"=>$reg->valores,
-                    "7"=>"<img src='../files/usuarios/".$reg->logo."' height='50px' width='50px'>",
+                    "7"=>"<img src='../files/empresa/".$reg->logo."' height='50px' width='50px'>",
                 );
             }
             $results = array(

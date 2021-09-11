@@ -155,7 +155,7 @@
             echo '<option value=0></option>';
             while($reg = $rspta->fetch_object())
             {
-                echo '<option value='.$reg->idproveedor.'>'.$reg->nombre.'</option>';
+                echo '<option value='.$reg->idProveedor.'>'.$reg->nombre.'</option>';
             }
         break;
 
@@ -170,6 +170,18 @@
                 echo '<option value='.$reg->idtienda.'>'.$reg->nombre.'</option>';
             }
         break;
+        
+        case 'selectMoneda':
+            require_once '../modelos/Moneda.php';
+            $moneda = new Moneda();
+
+            $rspta = $moneda->listar();
+            echo '<option value=0></option>';
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idtipomoneda.'>'.$reg->moneda.'</option>';
+            }
+        break;
 
         case 'listarArticulos':
             require_once '../modelos/Articulo.php';
@@ -180,12 +192,12 @@
 
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\')">
+                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->preciocompra.'\',\''.$reg->precio.'\')">
                                 <span class="fa fa-plus"></span>
                             </button>',
                     "1"=>$reg->nombre,
                     "2"=>$reg->categoria,
-                    "3"=>$reg->precio,
+                    "3"=>$reg->preciocompra,
                     "4"=>$reg->precio,
                     "5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>"
                 );
@@ -203,13 +215,14 @@
         case 'listarArticulosBodega':
             require_once '../modelos/Articulo.php';
             $idbodega = $_REQUEST["idbodega"];
+            $idtienda = $_REQUEST["idtienda"];
             $articulo = new Articulo();
-            $rspta = $articulo->listarxBodega($idbodega);
+            $rspta = $articulo->listarxBodega($idbodega,$idtienda);
             $data = Array();
 
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\')">
+                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->cantidad.'\',\''.$reg->stocktienda.'\')">
                                 <span class="fa fa-plus"></span>
                             </button>',
                     "1"=>$reg->nombre,

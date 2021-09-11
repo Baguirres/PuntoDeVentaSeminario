@@ -6,7 +6,7 @@ function init()
     listar();
 
     //Cargamos los items al select proveedor
-    $.post("../ajax/tienda.php?op=selectTienda", function (r) {
+    $.post("../ajax/tienda.php?op=selectTiendas", function (r) {
         $("#idtienda").html(r);
         $('#idtienda').selectpicker('refresh');
     });	
@@ -17,7 +17,7 @@ function listar()
 {
     var idtienda = $("#idtienda").val();
     console.log(idtienda);
-    if(idtienda==null || idtienda=='' || idtienda=='null'){
+    if(idtienda==null || idtienda=='' || idtienda=='null' || idtienda==0){
         tabla = $('#tblistado')
         .dataTable(
             {

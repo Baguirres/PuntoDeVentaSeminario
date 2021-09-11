@@ -134,8 +134,8 @@ Class Venta
 					v.total_venta,
 					v.impuesto,
 					v.estado 
-			   FROM venta v 
-			   INNER JOIN persona p 
+			   FROM ventaencabezado v 
+			   INNER JOIN cliente p 
 			   ON v.idcliente=p.idpersona 
 			   INNER JOIN usuario u 
 			   ON v.idusuario=u.idusuario 

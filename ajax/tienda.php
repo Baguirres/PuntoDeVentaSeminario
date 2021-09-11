@@ -33,13 +33,19 @@
             }
         break;
 
-        case 'desactivar':
-                $rspta = $tienda->desactivar($idtienda);
-                echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
+        case 'moverProductos':
+            $idbodega = $_REQUEST["idbodega"];
+            $idtienda = $_REQUEST["idtienda"];
+            $articulos = $_REQUEST["articulos"];
+            $cantidad = $_REQUEST["cantidad"];
+            $stockBodega = $_REQUEST["stockBodega"];
+            $stockTienda = $_REQUEST["stockTienda"];
+            $rspta=$tienda->moverProductos($idbodega,$idtienda,$articulos,$cantidad,$stockBodega,$stockTienda);
+            echo $rspta ? "Productos movidos" : "Productos no se pudieron mover";
         break;
 
-        case 'desactivarP':
-                $rspta = $tienda->desactivarP($idtienda);
+        case 'desactivar':
+                $rspta = $tienda->desactivar($idtienda);
                 echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
         break;
 
@@ -48,7 +54,7 @@
             echo $rspta ? "Bodega inactivada" : "Bodega no se pudo inactivar";
         break;
 
-        case 'activarP':
+        case 'activar':
             $rspta = $tienda->activar($idtienda);
             echo $rspta ? "Tienda activado" : "Tienda no se pudo activar";
         break;
@@ -83,7 +89,7 @@
                      "3"=>$reg->municipio,
                      "4"=>($reg->estado) ?
                      '<span class="label bg-green">Activado</span>'
-                     :      
+                     :
                      '<span class="label bg-red">Desactivado</span>'
                 );
             }
@@ -94,6 +100,16 @@
                 "aaData" =>$data
             );
             echo json_encode($results);
+        break;
+
+        case 'desactivarP':
+            $rspta = $tienda->desactivarP($idtienda);
+            echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
+        break;
+
+        case 'activarP':
+            $rspta = $tienda->activar($idtienda);
+            echo $rspta ? "Tienda activado" : "Tienda no se pudo activar";
         break;
 
         case 'listarBodega':
@@ -138,6 +154,21 @@
 
             $rspta = $tienda->listar();
             echo '<option value=0></option>';
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idtienda.'>'
+                        .$reg->nombre.
+                      '</option>';
+               
+            }
+        break;
+
+        case 'selectTiendas':
+            require_once "../modelos/Tienda.php";
+            $tienda = new Tienda();
+
+            $rspta = $tienda->listarAll();
+            echo '<option value=0>General</option>';
             while($reg = $rspta->fetch_object())
             {
                 echo '<option value='.$reg->idtienda.'>'

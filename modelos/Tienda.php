@@ -44,6 +44,36 @@
             return ejecutarConsulta($sql);
         }
 
+        public function moverProductos($idbodega,$idtienda,$articulos,$cantidad,$stockBodega,$stockTienda)
+        {
+            $contador=0;
+            $sw = true;
+            while($contador< count($articulos)){
+                $cant = (int)$cantidad[$contador];
+                $art = (int)$articulos[$contador];
+                if ($stockTienda[$contador] == ''){
+                    $st=(int)$stockTienda[$contador];
+                    $sql = "INSERT INTO inventario VALUES ('$art','$idtienda','$cant')";
+                    ejecutarConsulta($sql) or $sw = false;
+                }else{
+                    $suma = $cant+ (int)$stockTienda[$contador];
+                    $sqlsuma = "UPDATE inventario
+                        SET cantidad= '$suma'
+                        WHERE idtienda='$idtienda' AND idproducto='$art'";
+                    ejecutarConsulta($sqlsuma) or $sw = false;
+                }
+                $resta = (int)$stockBodega[$contador] - $cant;
+                $sqlresta = "UPDATE inventario
+                        SET cantidad= '$resta'
+                        WHERE idtienda='$idbodega' AND idproducto='$art'";
+                ejecutarConsulta($sqlresta) or $sw = false;
+                $contador++;
+            }
+            return $sw;
+
+            //return ejecutarConsulta($sql);*/
+        }
+
         public function editar($idtienda,$nombre,$direccion,$idmunicipio)
         {
             $sql = "UPDATE tienda SET 
@@ -65,12 +95,12 @@
             
             return ejecutarConsulta($sql);
         }
-        //METODOS PARA ACTIVAR ARTICULOS
+
         public function desactivarP($idarticulo)
         {
             $sql= "UPDATE tienda SET estado='0' 
                    WHERE idtienda='$idarticulo'";
-            
+
             return ejecutarConsulta($sql);
         }
 
@@ -78,7 +108,7 @@
         {
             $sql= "UPDATE tienda SET estado='1' 
                    WHERE idtienda='$idarticulo'";
-            
+
             return ejecutarConsulta($sql);
         }
 
@@ -97,6 +127,14 @@
 
             $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio, t.estado from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio
             and tipotienda=1";
+
+            return ejecutarConsulta($sql);
+        }
+        public function listarAll()
+        {
+
+            $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio
+            ";
 
             return ejecutarConsulta($sql);
         }

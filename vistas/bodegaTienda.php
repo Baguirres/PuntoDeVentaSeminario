@@ -3,16 +3,13 @@
   ob_start();
   //iniciamos las variables de session
   session_start();
-
   if(!isset($_SESSION["nombre"]))
   {
     header("Location: login.html");
   }
-
   else  //Agrega toda la vista
   {
     require 'header.php';
-
     if($_SESSION['almacen'] == 1)
     {
 ?>
@@ -42,7 +39,6 @@
                               <th>Municipio</th>
                             </thead>
                             <tbody>
-
                             </tbody>
                             <tfoot>
                             <th>Opciones</th>
@@ -62,7 +58,6 @@
                               <label>Tienda:</label>
                               <select name="idtienda" id="idtienda" data-live-search="true" class="form-control selectpicker" onchange="bloquearTienda()" required></select>
                             </div>
-
                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                               <a data-toggle="modal" href="#myModal" >
                                 <button id="btnAgregarArt" type="button" class="btn btn-primary">
@@ -71,7 +66,6 @@
                                 </button>
                               </a>
                           </div>
-
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                                 <thead style="background-color:#A9D0F5">
@@ -88,16 +82,14 @@
                                   </th>
                                 </tfoot>
                                 <tbody>
-
                                 </tbody>
                               </table>
                           </div>
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-exchange"></i> Mover</button>
-
+                              <button class="btn btn-primary" onclick="guardaryeditar()" type="button" id="btnGuardar"><i class="fa fa-exchange"></i> Mover</button>
                               <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
-                              <button class="btn btn-info" onclick="desbloquear()" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
+                              <button class="btn btn-info" onclick="desbloquear(true)" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
                             </div>
                           </form>
                       </div>
@@ -106,10 +98,8 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </section><!-- /.content -->
-
       </div><!-- /.content-wrapper -->
     <!--Fin-Contenido-->
-
     <!--VENTANA MODAL-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
        <div class="modal-dialog">
@@ -118,7 +108,6 @@
              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
              <h4 class="modal-title">Seleccione un articulo</h4>
            </div>
-
            <div class="modal-body">
              <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
                <thead>
@@ -130,30 +119,22 @@
                  <th>Imagen</th>
                </thead>
                <tbody>
-
                </tbody>
              </table>
            </div>
-
            <div class="modal-footer">
              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
            </div>
-
          </div>
        </div>
      </div>
   <!--FIN VENTANA MODAL-->
-
   <?php
-
-
      } //Llave de la condicion if de la variable de session
-
      else
      {
        require 'noacceso.php';
      }
-
      
     require 'footer.php';
   ?>
@@ -161,11 +142,8 @@
   <script src="./scripts/bodegaTienda.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>
   <script src="../public/js/jquery.PrintArea.js"></script>
-
      
-
 <?php
-
   }
   ob_end_flush(); //liberar el espacio del buffer
 ?>

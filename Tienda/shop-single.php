@@ -1,18 +1,3 @@
-<?php 
-  include("./php/conexion.php");
-  if( isset($_GET['id'])){
-    $resultado = $conexion -> query("SELECT * FROM producto where idProducto=".$_GET['id'])or die($conexion->error);
-    if (mysqli_num_rows($resultado)>0) {
-      $fila = mysqli_fetch_row($resultado);
-    } else {
-      header("Location: ./index.php");
-    }
-    
-  }else{
-    header("Location: ./index.php");
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,7 +21,22 @@
   <body>
   
   <div class="site-wrap">
-    <?php include("./layouts/header.php"); ?> 
+    <?php include("./layouts/header.php"); 
+      include("./php/conexion.php");
+      if( isset($_GET['id'])){
+        $resultado = $conexion -> query("SELECT * FROM producto where idProducto=".$_GET['id'])or die($conexion->error);
+        if (mysqli_num_rows($resultado)>0) {
+          $fila = mysqli_fetch_row($resultado);
+          echo '<script>console.log("bien")</script>';
+          echo '<script>console.log("'.$fila[6].'")</script>';
+          echo mysqli_num_rows($resultado);
+        } else {
+          header("Location: ./index.php");
+        }
+        
+      }else{
+        header("Location: ./index.php");
+      }?> 
 
     <div class="site-section">
       <div class="container">
@@ -47,7 +47,7 @@
           <div class="col-md-6">
             <h2 class="text-black"><?php echo $fila[1]; ?></h2>
             <p><?php echo $fila[2]; ?></p>
-            <p><strong class="text-primary h4">Q<?php echo $fila[3]; ?></strong></p>
+            <p><strong class="text-primary h4">Q<?php echo $fila[3]; echo '<script>console.log("'.$fila[6].'")</script>';?></strong></p>
             <div class="mb-1 d-flex">
               <!-- <label for="option-sm" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
