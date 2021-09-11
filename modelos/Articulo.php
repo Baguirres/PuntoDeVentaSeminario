@@ -150,7 +150,7 @@
             return ejecutarConsulta($sql);
         }
 
-        public function listarActivosVenta()
+        public function listarActivosVenta($idtienda)
         {
             $sql = "SELECT 
                     p.idproducto, 
@@ -158,33 +158,14 @@
                     c.nombre as categoria,
                     p.nombre,
                     p.precio,
-                    p.imagen
+                    p.imagen,
+                    i.cantidad as stock
                     FROM producto p
                     INNER JOIN categoria c 
-                    ON p.idcategoria = c.idcateogira";
-
-            /*$sql = "SELECT 
-                    a.idarticulo, 
-                    a.idcategoria, 
-                    c.nombre as categoria,
-                    a.codigo,
-                    a.nombre,
-                    a.stock,
-                    (
-                        SELECT precio_venta 
-                        FROM detalle_ingreso
-                        WHERE idarticulo = a.idarticulo
-                        ORDER BY iddetalle_ingreso 
-                        desc limit 0,1 
-
-                    ) as precio_venta, 
-                    a.descripcion,
-                    a.imagen,
-                    a.condicion
-                    FROM articulo a 
-                    INNER JOIN categoria c 
-                    ON a.idcategoria = c.idcategoria
-                    WHERE a.condicion = '1'";*/
+                    ON p.idcategoria = c.idcateogira
+                    INNER JOIN inventario i 
+                    ON i.idproducto = p.idproducto
+                    WHERE i.idtienda='$idtienda' AND i.cantidad>0 and p.estado=1";
 
             return ejecutarConsulta($sql);
         }

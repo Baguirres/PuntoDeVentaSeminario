@@ -74,7 +74,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` VALUES
 (1, 'Bryan','Aguire','02/05/1998','bryanorlando@hotmail.com','12345678','Mi casa','682479-6',1),
-(2, 'Bryana','Aguire','02/05/1999','bryanaorlando@hotmail.com','12345679','Mi casa','682479-6',1);
+(2, 'Bryana','Aguire','02/05/1999','bryanaorlando@hotmail.com','12345679','Mi casa','682479-7',1);
 
 -- --------------------------------------------------------
 
@@ -436,11 +436,12 @@ CREATE TABLE `ventadetalle` (
   `idVentaEncabezado` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `cantidad` int(5) COLLATE utf8_spanish2_ci NOT NULL,
+  `descuento` float NOT NULL,
   PRIMARY KEY(`idVentaEncabezado`,`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `ventadetalle` VALUES
-( 1,1,150);
+( 1,1,150,3.5);
 -- --------------------------------------------------------
 
 --
@@ -455,12 +456,15 @@ CREATE TABLE `ventaencabezado` (
   `descuento` float NOT NULL,
   `iva` float NOT NULL,
   `estado` tinyint(1) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `idTienda` int(11) NOT NULL,
   `idTipoDePago` int(11) NOT NULL,
+  `idTipoMoneda` int(2) NOT NULL,
   PRIMARY KEY(`idVentaEncabezado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `ventaencabezado` VALUES
-( 1,1,'02/05/1998',1000,10,1,1,1);
+( 1,1,'02/05/1998',1000,10,1,1,1,1,1,1);
 
 CREATE TABLE `permiso` (
   `idpermiso` int(11) NOT NULL AUTO_INCREMENT,

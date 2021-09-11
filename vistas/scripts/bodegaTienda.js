@@ -261,39 +261,78 @@ var cont = 0;
 function agregarDetalle(idarticulo,articulo)
 {
     var cantidad = 1;
-    var precio_compra = 1;
-    var precio_venta = 1;
+    if(!yaExiste(idarticulo)){
+        if(idarticulo != "")
+        {
+            var fila = '<tr class="filas" id="fila'+cont+'"> ' +
+                        '<td>'+
+                            '<button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button>'+
+                        '</td>'+
+                        '<td>' +
+                            '<input type="hidden" name="idarticulo'+cont+'" id="idarticulo'+cont+'" value="'+idarticulo+'">'+
+                            articulo +
+                        '</td>'+
+                        '<td>' +
+                                '<input type="hidden" name="stock'+cont+'" id="stock'+cont+'" value="'+stock+'">'+
+                                '<input type="hidden" name="stockTienda'+cont+'" id="stockTienda'+cont+'" value="'+stocktienda+'">'+
+                            '<input type="number" name="cantidad'+cont+'" id="cantidad'+cont+'" onchange="calcularTotales()" min="1" max="'+stock+'"  value="'+cantidad+'"  >'+
+                        '</td>'
+                    '</tr>';
 
-    if(idarticulo != "")
-    {
-        var subtotal = cantidad * precio_compra;
-        var fila = '<tr class="filas" id="fila'+cont+'"> ' +
-                      '<td>'+
-                           '<button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button>'+
-                       '</td>'+
-                      '<td>' +
-                          '<input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+
-                           articulo +
-                       '</td>'+
-                      '<td>' +
-                          '<input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'">'+
-                       '</td>'+
-                      '<td>' +
-                          '<button type="button" class="btn btn-info" onclick="modificarSubtotales()">'+
-                            '<i class="fa fa-refresh"></i>'+
-                          '</button>'+
-                       '</td>'+
-                   '</tr>';
+            cont++;
+            detalles++;
+            $("#detalles").append(fila);
+            calcularTotales(); 
+        }
+        else
+        {
+            alert("Error al ingresar el detalle, revisar los ddatos del articulo");
+        }
+    }
+    
+}
 
-        cont++;
-        detalles++;
-        $("#detalles").append(fila);
-        modificarSubtotales(); 
+function yaExiste(idarticulo)
+{
+    for(var i=0; i<cont;i++){
+        var id= $('#idarticulo'+i).val();
+        if(id==idarticulo){
+            bootbox.alert('Este producto ya está agregado');
+            return true;
+        }
     }
-    else
-    {
-        alert("Error al ingresar el detalle, revisar los ddatos del articulo");
+    return false;
+}
+
+function eliminarDetalle(indice)
+{
+    $("#fila" + indice).remove();
+    cont--;
+    calcularTotales();
+}
+
+function calcularTotales()
+{
+    var total=0;
+    for(var i=0; i<cont;i++){
+        var cantidad= $('#cantidad'+i).val();
+        var stock= $('#stock'+i).val();
+        if(parseInt(cantidad)>parseInt(stock)){
+            bootbox.alert('La cantidad no puede ser mayor a la de stock, se pondrá el valor máximo');
+            $('#cantidad'+i).val(stock);
+            cantidad = stock;
+        }else if(parseInt(cantidad)<1){
+            bootbox.alert('La cantidad no puede ser menor a 1');
+            $('#cantidad'+i).val(1);
+            cantidad = 1;
+        }
+        total += parseInt(cantidad);
     }
+    
+    $("#total").html(total);
+    $("#total_compra").val(total);
+
+    //evaluar();
 }
 
 function generarbarcode()

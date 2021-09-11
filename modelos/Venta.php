@@ -26,17 +26,15 @@ Class Venta
 	{
 		$sql="SELECT 
 					v.idventaencabezado,
+					v.idtienda,
 					DATE(v.fecha) as fecha,
-					v.idcliente,
-					c.nombre,
-					c.apellido,
-					v.total,
-					v.descuento,
-					v.iva,
-					v.estado 
+					u.nombre as usuario,
+					c.nit,
+					v.idtipomoneda,
+					v.idtipodepago
 				FROM ventaencabezado v 
-				INNER JOIN cliente c
-				ON v.idcliente=c.idcliente
+				INNER JOIN usuario u ON v.idusuario=u.idusuario
+				INNER JOIN cliente c ON v.idcliente=c.idcliente
 				WHERE v.idventaencabezado='$idventaencabezado'";
 
 		return ejecutarConsultaSimpleFila($sql);
@@ -50,10 +48,12 @@ Class Venta
 				p.nombre,
 				dv.cantidad,
 				p.precio,
-				(dv.cantidad*p.precio) as subtotal 
+				dv.descuento,
+				(p.precio*dv.cantidad)*0.12 as iva,
+				(dv.cantidad*p.precio)-dv.descuento as subtotal 
 				FROM ventadetalle dv 
 				inner join producto p 
-				on dv.idproducto=p.idproducto 
+				on dv.idproducto=p.idproducto
 				where dv.idventaencabezado='$idventaencabezado'";
 
 		return ejecutarConsulta($sql);
@@ -62,19 +62,15 @@ Class Venta
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT 
-					v.idventaencabezado,
-					DATE(v.fecha) as fecha,
-					c.nombre,
-					c.apellido,
-					v.total,
-					v.descuento,
-					v.iva,
-					v.estado 
-			   FROM ventaencabezado v 
-			   INNER JOIN cliente c
-			   ON v.idcliente=c.idcliente
-			   ORDER by v.fecha desc";
+		$sql="SELECT v.idventaencabezado, DATE(v.fecha) as fecha, c.nombre, c.apellido, v.total, 
+					v.descuento, v.iva, v.estado, SUM(vd.cantidad) as cantidadprod, m.moneda, t.nombre as tienda, p.nombre as pago 
+					FROM ventaencabezado v 
+					INNER JOIN ventadetalle vd ON v.idVentaEncabezado=vd.idVentaEncabezado 
+					INNER JOIN cliente c ON v.idcliente=c.idcliente 
+					INNER JOIN tipomoneda m ON v.idtipomoneda = m.idtipomoneda 
+					INNER JOIN tienda t ON v.idtienda = t.idtienda 
+					INNER JOIN tipodepago p ON v.idtipodepago = p.idtipodepago 
+					ORDER by v.fecha desc";
 			   
 		return ejecutarConsulta($sql);		
 	}

@@ -51,19 +51,24 @@ switch ($_GET["op"]){
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
+									<th>Descuento</th>
+									<th>IVA</th>
                                     <th>Subtotal</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<tr class="filas"><td></td><td>'.$reg->nombre.'</td><td>'.$reg->cantidad.'</td><td>Q'.$reg->precio.'</td><td>Q'.$reg->subtotal.'</td></tr>';
-					$total=$total+($reg->precio*$reg->cantidad);
+					echo '<tr class="filas"><td></td><td>'.$reg->nombre.'</td><td>'.$reg->cantidad.'</td><td>Q'.$reg->precio.'</td>
+					<td>Q'.$reg->descuento.'</td><td>Q'.$reg->iva.'</td><td>Q'.$reg->subtotal.'</td></tr>';
+					$total+=($reg->precio*$reg->cantidad)-$reg->descuento;
 				}
 		echo '<tfoot>
                                     <th>TOTAL</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
+									<th></th>
+									<th></th>
                                     <th><h4 id="total">Q.'.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
                                 </tfoot>';
 	break;
@@ -98,10 +103,14 @@ switch ($_GET["op"]){
 					"1"=>$reg->idventaencabezado,
 					"2"=>$reg->fecha,
 					"3"=>$reg->nombre.' '.$reg->apellido,
-					"4"=>'Q '.$reg->descuento,
-					"5"=>'Q '.$reg->iva,
-					"6"=>'Q '.$reg->total,
-					"7"=>($reg->estado==1)?'<span class="label bg-green">Aceptado</span>':
+					"4"=>$reg->cantidadprod,
+					"5"=>'Q '.$reg->descuento,
+					"6"=>'Q '.$reg->iva,
+					"7"=>'Q '.$reg->total,
+					"8"=>$reg->tienda,
+					"9"=>$reg->pago,
+					"10"=>$reg->moneda,
+					"11"=>($reg->estado==1)?'<span class="label bg-green">Aceptado</span>':
 					'<span class="label bg-red">Anulado</span>'
 					);
  		}
@@ -115,32 +124,45 @@ switch ($_GET["op"]){
 	break;
 
 	case 'selectCliente':
-		/*require_once "../modelos/Persona.php";
-		$persona = new Persona();
+		require_once "../modelos/Cliente.php";
+		$cliente = new Cliente();
 
-		$rspta = $persona->listarC();
-
+		$rspta = $cliente->listarp();
+		echo '<option value=0></option>';
 		while ($reg = $rspta->fetch_object())
 				{
-				echo '<option value=' . $reg->idpersona . '>' . $reg->nombre . '</option>';
-				}*/
+				echo '<option value=' . $reg->nit . '>' . $reg->nombre .' '.$reg->apellido. '</option>';
+				}
 	break;
+
+	case 'selectPago':
+		require_once "../modelos/TipoPago.php";
+		$tipoPago = new TipoPago();
+
+		$rspta = $tipoPago->listar();
+		echo '<option value=0></option>';
+		while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->idtipodepago . '>' . $reg->nombre . '</option>';
+				}
+	break;
+	
 
 	case 'listarArticulosVenta':
 		require_once "../modelos/Articulo.php";
 		$articulo=new Articulo();
-
-		$rspta=$articulo->listarActivosVenta();
+		$idtienda = $_REQUEST["idtienda"];
+		$rspta=$articulo->listarActivosVenta($idtienda);
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->precio.'\')"><span class="fa fa-plus"></span></button>',
+ 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->precio.'\',\''.$reg->stock.'\')"><span class="fa fa-plus"></span></button>',
  				"1"=>$reg->nombre,
  				"2"=>$reg->categoria,
- 				"3"=>$reg->precio,
- 				"4"=>$reg->precio,
+ 				"3"=>$reg->idproducto,
+ 				"4"=>$reg->stock,
  				"5"=>$reg->precio,
  				"6"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px' >"
  				);
