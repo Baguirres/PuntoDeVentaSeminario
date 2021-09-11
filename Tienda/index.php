@@ -123,7 +123,8 @@
                   <figure class="block-4-image">
                     <a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>">
                       <img src="../files/articulos/<?php echo $fila['imagen']; ?>"
-                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid">
+                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid"
+                      style="width=100%; height:200px;">
                     </a>
                   </figure>
                   <div class="block-4-text p-4">
@@ -143,10 +144,10 @@
                   <ul>
                     <li><a href="#">&lt;</a></li>
                     <li class="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
+                    <!-- <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+                    <li><a href="#">5</a></li> -->
                     <li><a href="#">&gt;</a></li>
                   </ul>
                 </div>
@@ -170,7 +171,7 @@
                 <div id="slider-range" class="border-primary"></div>
                 <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
               </div>
-
+<!-- 
               <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Tamaño</h3>
                 <label for="s_sm" class="d-flex">
@@ -192,7 +193,7 @@
                 <a href="#" class="d-flex color-item align-items-center" >
                   <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Green (2,298)</span>
                 </a>
-              </div>
+              </div> -->
 
             </div>
           </div>
