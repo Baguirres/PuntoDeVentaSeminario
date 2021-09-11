@@ -65,15 +65,15 @@
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <label>Misión:</label>
-                            <input type="text" class="form-control" name="mision" id="mision" maxlength="8" placeholder="Misión" required>
+                            <input type="text" class="form-control" name="mision" id="mision" maxlength="500" placeholder="Misión" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <label>Visión:</label>
-                            <input type="text" class="form-control" name="vision" id="vision" maxlength="45" placeholder="Visión" required>
+                            <input type="text" class="form-control" name="vision" id="vision" maxlength="500" placeholder="Visión" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <label>Valores:</label>
-                            <input type="text" class="form-control" name="Valores" id="Valores" maxlength="8" placeholder="Valores" required>
+                            <input type="text" class="form-control" name="Valores" id="Valores" maxlength="500" placeholder="Valores" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Logo:</label>

@@ -9,13 +9,21 @@
                 <input type="text" class="form-control border-0" placeholder="Buscar">
               </form>
             </div>
-
+            <?php 
+                    include('./php/conexion.php');
+                    $resultado = $conexion -> query("SELECT * from empresa") or die ($conexion -> error);
+                    while ($fila = mysqli_fetch_array($resultado)) {
+                    
+                    
+                  ?>
             <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
-              <div class="site-logo">
-                <a href="index.php" class="js-logo-clone">La famosa</a>
+              <div class="site-logo">               
+                <img src="../files/empresa/<?php echo $fila['logo']; ?>"
+                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid" style="height:50px;">
+               
               </div>
             </div>
-
+            <?php } ?>      
             <div class="col-6 col-md-4 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>

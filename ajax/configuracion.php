@@ -29,7 +29,7 @@
                 if($_FILES['Logo']['type'] == "image/jpg" || $_FILES['Logo']['type'] == "image/jpeg" || $_FILES['Logo']['type'] == "image/png")
                 {
                     $Logo = round(microtime(true)).'.'.end($ext);
-                    move_uploaded_file($_FILES['Logo']['tmp_name'], "../files/usuarios/" . $Logo);
+                    move_uploaded_file($_FILES['Logo']['tmp_name'], "../files/empresa/" . $Logo);
                 }
             }
 
