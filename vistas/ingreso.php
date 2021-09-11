@@ -15,7 +15,8 @@
 
     if($_SESSION['compras'] == 1)
     {
-      $variable= $_SESSION["nombre"];
+      $user= $_SESSION["nombre"];
+      $iduser=$_SESSION['idusuario']
 ?>
 
 <!--Contenido-->
@@ -27,7 +28,7 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Compras <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Compras <h1 id="referencia" type="hidden" class="box-title"># de Referencia: </h1><h1 id="idcompraencabezado" class="box-title"></h1>  <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -38,26 +39,19 @@
                           <thead>
                             <th>Opciones</th>
                             <th>Fecha</th>
-                            <th>Número de Referencia</th>
+                            <th>No. de Referencia</th>
                             <th>Proveedor</th>
                             <th>Usuario</th>
+                            <th>Tienda</th>
                             <th>Cantidad de Productos</th>
+                            <th>Impuesto</th>
                             <th>Total</th>
+                            <th>Moneda</th>
                             <th>Estado</th>
                           </thead>
                           <tbody>
 
                           </tbody>
-                          <tfoot>
-                            <th>Opciones</th>
-                            <th>Fecha</th>
-                            <th>Número de Referencia</th>
-                            <th>Proveedor</th>
-                            <th>Usuario</th>
-                            <th>Cantidad de Productos</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                          </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
@@ -78,7 +72,8 @@
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Usuario:</label>
-                            <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $variable; ?>" disabled required>
+                            <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $iduser; ?>" disabled required>
+                            <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $user; ?>" disabled required>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Impuestos:</label>
@@ -87,6 +82,16 @@
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Moneda:</label>
                             <select name="idmoneda" id="idmoneda" data-live-search="true" class="form-control selectpicker" required>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12" id="estado">
+                            <label>Estado:</label>
+                            <select name="idestado" id="idestado" data-live-search="true" class="form-control selectpicker" required>
+                              <option value=0></option>
+                              <option value=1>Inactiva</option>
+                              <option value=2>Activa</option>
+                              <option value=3>Recibida</option>
+                              <option value=4>Devuelta</option>
                             </select>
                           </div>
                           <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -128,7 +133,7 @@
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" onclick="guardaryeditar()" type="button" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
                             <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
-                            <button class="btn btn-info" onclick="desbloquear()" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
+                            <button class="btn btn-info" onclick="desbloquear(true)" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
                           </div>
                         </form>
                     </div>

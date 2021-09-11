@@ -8,29 +8,25 @@
 
         }
 
-        public function insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$idarticulo,$cantidad,$precio_compra,$precio_venta)
+        public function insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad)
         {
-            /*$sql = "INSERT INTO ingreso (
+            $sql = "INSERT INTO compraencabezado (
+                        fecha,
                         idproveedor,
+                        total,
                         idusuario,
-                        tipo_comprobante,
-                        serie_comprobante,
-                        num_comprobante,
-                        fecha_hora,
-                        impuesto,
-                        total_compra,
-                        estado
+                        idtienda,
+                        idtipomoneda,
+                        impuesto
                     ) 
                     VALUES (
+                        '$fecha',
                         '$idproveedor',
-                        '$idusuario',
-                        '$tipo_comprobante',
-                        '$serie_comprobante',
-                        '$num_comprobante',
-                        '$fecha_hora',
-                        '$impuesto',
-                        '$total_compra',
-                        'Aceptado'
+                        '$total',
+                        '$usuario',
+                        '$idtienda',
+                        '$moneda',
+                        '$impuesto'
                         )";
             
             //Devuelve id registrado
@@ -38,30 +34,26 @@
 
             $num_elementos = 0;
             $sw = true;
-
-            while($num_elementos < count($idarticulo))
+            while($num_elementos < count($articulos))
             {
-                $sql_detalle ="INSERT INTO detalle_ingreso (
-                                    idingreso,
-                                    idarticulo,
-                                    cantidad,
-                                    precio_compra,
-                                    precio_venta
+                $idarticulo = $articulos[$num_elementos];
+                $cantart = $cantidad[$num_elementos];
+                $sql_detalle ="INSERT INTO compradetalle (
+                                    idproducto,
+                                    idcompraencabezado,
+                                    cantidad
                                 )
                                 VALUES (
+                                    '$idarticulo',
                                     '$idingresonew',
-                                    '$idarticulo[$num_elementos]',
-                                    '$cantidad[$num_elementos]',
-                                    '$precio_compra[$num_elementos]',
-                                    '$precio_venta[$num_elementos]'
+                                    '$cantart'
                                 )";
 
                 ejecutarConsulta($sql_detalle) or $sw = false;
-
                 $num_elementos = $num_elementos + 1;
             }
 
-            return $sw;*/
+            return $sw;
         }
 
         public function anular($idcompraencabezado)
@@ -74,34 +66,36 @@
     
         public function mostrar($idcompraencabezado)
         {
-            /*$sql = "SELECT i.idcompraencabezado, DATE(i.fecha) as fecha, i.idproveedor, p.nombre as proveedor, u.idusuario, u.nombre as usuario,
-                            i.total, i.estado 
+            $sql = "SELECT i.idcompraencabezado, DATE(i.fecha) as fecha, i.idproveedor, u.nombre as usuario,
+                        i.idtienda, i.idtipomoneda, i.impuesto,i.total, i.estado 
                     FROM compraencabezado i
-                    INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
                     INNER JOIN usuario u ON i.idusuario = u.idusuario
                     WHERE i.idcompraencabezado='$idcompraencabezado'";
 
-            return ejecutarConsultaSimpleFila($sql);*/
+            return ejecutarConsultaSimpleFila($sql);
         }
 
         public function listarDetalle($idcompraencabezado)
         {
-            /*$sql = "SELECT di.idcompraencabezado, di.idproducto, a.nombre, di.cantidad, a.precio
+            $sql = "SELECT di.idcompraencabezado, di.idproducto, a.nombre, di.cantidad, a.precio
                     FROM compradetalle di
                     INNER JOIN producto a ON di.idproducto = a.idproducto
                     WHERE di.idcompraencabezado='$idcompraencabezado'";
 
-            return ejecutarConsulta($sql);*/
+            return ejecutarConsulta($sql);
         }
 
         public function listar()
         {
             $sql = "SELECT i.idcompraencabezado, DATE(i.fecha) as fecha, p.nombre as proveedor, u.idusuario, u.nombre as usuario,
-            SUM(d.cantidad) as cantidadprod ,i.total, i.estado 
+            SUM(d.cantidad) as cantidadprod ,i.total, i.estado, i.impuesto, m.moneda, t.nombre as tienda
             FROM compraencabezado i
             INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
             INNER JOIN usuario u ON i.idusuario = u.idusuario
             INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
+            INNER JOIN tipomoneda m ON i.idtipomoneda = m.idtipomoneda
+            INNER JOIN tienda t ON i.idtienda = t.idtienda
+            group by i.idCompraEncabezado
             ORDER BY i.fecha desc";
 
             return ejecutarConsulta($sql);

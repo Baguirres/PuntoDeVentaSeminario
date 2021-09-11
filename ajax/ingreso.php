@@ -31,6 +31,7 @@
                 $rspta=$ingreso->insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$idarticulo,$cantidad,$precio_compra,$precio_venta);
                 echo $rspta ? "Ingreso registrado" : "Ingreso no se pudo registrar";
             }*/
+            $fecha = $_REQUEST["fecha"];
             $idproveedor = $_REQUEST["idproveedor"];
             $idtienda = $_REQUEST["idtienda"];
             $impuesto = $_REQUEST["impuesto"];
@@ -39,7 +40,22 @@
             $total = $_REQUEST["total"];
             $articulos = $_REQUEST["articulos"];
             $cantidad = $_REQUEST["cantidad"];
-            $rspta=$ingreso->insertar($idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
+            /*echo 'fecha';
+            echo $fecha;
+            echo 'proveedor';
+            echo $idproveedor;
+            echo 'idtienda';
+            echo $idtienda;
+            echo 'impuesto';
+            echo $impuesto;
+            echo 'usuario';
+            echo $usuario;
+            echo 'moneda';
+            echo $moneda;
+            echo 'total';
+            echo $total;*/
+            
+            $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
             echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
         break;
 
@@ -49,12 +65,12 @@
         break;
 
         case 'mostrar':
-           /* $rspta = $ingreso->mostrar($idcompraencabezado);
-            echo json_encode($rspta);*/
+            $rspta = $ingreso->mostrar($idcompraencabezado);
+            echo json_encode($rspta);
         break;
 
         case 'listarDetalle':
-            /*//Recibimos el idingreso
+            //Recibimos el idingreso
             $id=$_GET['id'];
 
             $rspta = $ingreso->listarDetalle($id);
@@ -62,7 +78,6 @@
             $total = 0;
             
             echo '<thead style="background-color:#A9D0F5">
-                    <th>Opciones</th>
                     <th>Articulos</th>
                     <th>Cantidad</th>
                     <th>Precio Compra</th>
@@ -74,7 +89,6 @@
             {
                 echo '<tbody>
                         <tr class="filas">
-                            <td></td> 
                             <td>'.$reg->nombre.'</td> 
                             <td>'.$reg->cantidad.'</td> 
                             <td>Q '.$reg->precio.'</td> 
@@ -91,12 +105,11 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
                     <th>
                     <h4 id="total">Q '.$total.'</h4>
                     <input type="hidden" name="total_compra" id="total_compra">
                     </th>
-                </tfoot>';*/
+                </tfoot>';
 
         break;
 
@@ -114,9 +127,12 @@
                     "2"=>$reg->idcompraencabezado,
                     "3"=>$reg->proveedor,
                     "4"=>$reg->usuario,
-                    "5"=>$reg->cantidadprod,
-                    "6"=>'Q '.$reg->total,
-                    "7"=>($reg->estado==1) ?
+                    "5"=>$reg->tienda,
+                    "6"=>$reg->cantidadprod,
+                    "7"=>'Q'.$reg->impuesto,
+                    "8"=>'Q'.$reg->total,
+                    "9"=>$reg->moneda,
+                    "10"=>($reg->estado==1) ?
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'
