@@ -35,16 +35,21 @@ function limpiar()
 {
     $("#idproveedor").val(0);
     $("#idproveedor").selectpicker('refresh');
-    //$("#usuario").val("");
+    $("#idtienda").val(0);
+    $("#idtienda").selectpicker('refresh');
+    $("#idmoneda").val(0);
+    $("#idmoneda").selectpicker('refresh');
+    $("#idestado").val(0);
+    $("#idestado").selectpicker('refresh');
     $("#fecha_hora").val("");
     $("#total").val("");
-    $("#idcompraencabezado").val("");
+    $("#impuestos").val("");
     $("#btnAgregarArt").prop("disabled",true);
     $("#btnAgregarArt").prop("title",'Seleccione primero el proveedor y la tienda');
     $("#total_compra").val("");
     $(".filas").remove();
     $("#total").html(0);
-
+    evaluar();
     //obtenemos la fecha actual
     var now = new Date();
     var day = ("0" + now.getDate()).slice(-2);
@@ -71,12 +76,24 @@ function mostrarform(flag)
         $("#btnCancelar").show();
         detalles = 0;
         $("#btnAgregarArt").show();
+        $("#estado").css('display',"none");
+        $("#referencia").css('display',"inline");
+        $("#idcompraencabezado").css('display',"inline");
+        $("#idproveedor").prop("disabled",false);
+        $("#idtienda").prop("disabled",false);
+        $("#fecha_hora").prop("disabled",false);
+        $("#usuario").prop("disabled",false);
+        $("#usuario").prop("disabled",false);
+        $("#idmoneda").prop("disabled",false);
+        $("#impuestos").prop("disabled",false);
     }
     else
     {
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
         $("#btnagregar").show();
+        $("#referencia").css('display',"none");
+        $("#idcompraencabezado").css('display',"none");
     }
 }
 
@@ -112,13 +129,15 @@ function combosSelected(){
     }
 }
 
-function desbloquear()
+function desbloquear(mensaje)
 {
     $("#idproveedor").prop("disabled",false);
     $("#idtienda").prop("disabled",false);
    //falta limpiar
    limpiar();
-   bootbox.alert("Datos limpiados\n Proveedor y tienda desbloqueados");
+   if(mensaje){
+    bootbox.alert("Datos limpiados\n Proveedor y tienda desbloqueados");
+   }
 }
 
 //Funcion listar
@@ -185,65 +204,86 @@ function listarArticulos()
 //funcion para guardar o editar
 function guardaryeditar(e)
 {
-    /*e.preventDefault(); //No se activará la acción predeterminada del evento
-	//$("#btnGuardar").prop("disabled",true);
-    var formData = new FormData($("#formulario")[0]);
-    
-    $.ajax({
-        url: "../ajax/ingreso.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(datos)
-        {
-            //console.log("succes");
-            bootbox.alert(datos);
-            mostrarform(false);
-            listar();
-
-        },
-        error: function(error)
-        {
-            console.log("error: " + error);
-        } 
-    });
-
-    limpiar();*/
+    var fecha = $("#fecha_hora").val();
+    var idproveedor = $("#idproveedor").val();
+    var idtienda = $("#idtienda").val();
+    var impuesto = $("#impuestos").val();
+    var usuario = $("#idusuario").val();
+    var moneda = $("#idmoneda").val();
+    var total = $("#total_compra").val();
+    var articulos = [];
+    var cantidad = [];
+    for(var i=0; i<cont;i++){
+        articulos.push($('#idarticulo'+i).val());
+        cantidad.push($('#cantidad'+i).val());
+    }
+    if (impuesto==''){
+        bootbox.alert('Debe de llenar el impuesto');
+    }else if(moneda==0 || moneda==null || moneda==''){
+        bootbox.alert('Debe de seleccionar la moneda');
+    }else{
+        $.post(
+            "../ajax/ingreso.php?op=guardaryeditar",
+            {fecha:fecha,idproveedor:idproveedor,idtienda:idtienda,articulos:articulos,cantidad:cantidad,impuesto:impuesto, usuario:usuario, moneda:moneda, total:total},
+            function(e)
+            {
+                bootbox.alert(e);
+                desbloquear(false);
+            }
+        );
+    }
+    detalles=0;
+    desbloquear();
 }
 
 function mostrar(idcompraencabezado)
 {
-    /*$.post(
+    $.post(
         "../ajax/ingreso.php?op=mostrar",{idcompraencabezado:idcompraencabezado},function(data,status)
         {
             
             data = JSON.parse(data);            
             mostrarform(true);
 
-            $("#proveedor").val(data.proveedor);
-            
+            $("#idproveedor").val(data.idproveedor);
+            $("#idproveedor").selectpicker('refresh');
+            $("#idtienda").val(data.idtienda);
+            $("#idtienda").selectpicker('refresh');
+            $("#idmoneda").val(data.idtipomoneda);
+            $("#idmoneda").selectpicker('refresh');
+            $("#idestado").val(parseInt(data.estado)+1);
+            $("#idestado").selectpicker('refresh');
+
+            $("#impuestos").val(data.impuesto);            
             $("#usuario").val(data.usuario);
             $("#fecha_hora").val(data.fecha);
-            $("#total").val('Q '+data.total);            
-            $("#idcompraencabezado").val(data.idcompraencabezado); 
+            $("#total").html('Q '+data.total);            
+            $("#idcompraencabezado").html(data.idcompraencabezado); 
             
             //Ocultar y mostrar botones
             $("#btnGuardar").hide();
             $("#btnCancelar").show();
             $("#btnAgregarArt").hide();
+            $("#estado").css('display',"block");
+            $("#idproveedor").prop("disabled",true);
+            $("#idtienda").prop("disabled",true);
+            $("#fecha_hora").prop("disabled",true);
+            $("#usuario").prop("disabled",true);
+            $("#usuario").prop("disabled",true);
+            $("#idmoneda").prop("disabled",true);
+            $("#impuestos").prop("disabled",true);
 
             $.post(
                 "../ajax/ingreso.php?op=listarDetalle&id="+idcompraencabezado,function(r)
                 {
-                    console.log(r);
+                    //console.log(r);
                     $("#detalles").html("");
                     $("#detalles").html(r);
                 }
             );
 
         }
-    );*/
+    );
 
 }
 
@@ -289,49 +329,43 @@ function marcarImpuesto()
 
 function agregarDetalle(idarticulo,articulo)
 {
-    /*var cantidad = 1;
-    var precio_compra = 1;
-    var precio_venta = 1;
+    if(!yaExiste(idarticulo)){
+        if(idarticulo != "")
+        {
+            var subtotal = 1 * preciocompra;
+            var fila = '<tr class="filas" id="fila'+cont+'"> ' +
+                        '<td>'+
+                            '<button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button>'+
+                        '</td>'+
+                        '<td>' +
+                            '<input type="hidden" name="idarticulo'+cont+'" id="idarticulo'+cont+'" value="'+idarticulo+'">'+
+                            articulo +
+                        '</td>'+
+                        '<td>' +
+                            '<input type="number" name="cantidad'+cont+'" id="cantidad'+cont+'" onchange="modificarSubtotales()" min="1" value=1>'+
+                        '</td>'+
+                        '<td>' +
+                                '<input type="hidden" name="precio'+cont+'" id="precio'+cont+'" value="'+preciocompra+'">'+
+                                preciocompra+
+                        '</td>'+
+                        '<td>' +
+                                precioventa+
+                        '</td>'+
+                        '<td>' +
+                            '<span name="subtotal'+cont+'" id="subtotal'+cont+'">'+subtotal+'</span>'+
+                        '</td>'+
+                    '</tr>';
 
-    if(idarticulo != "")
-    {
-        var subtotal = cantidad * precio_compra;
-        var fila = '<tr class="filas" id="fila'+cont+'"> ' +
-                      '<td>'+
-                           '<button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button>'+
-                       '</td>'+
-                      '<td>' +
-                          '<input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+
-                           articulo +
-                       '</td>'+
-                      '<td>' +
-                          '<input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'">'+
-                       '</td>'+
-                      '<td>' +
-                          '<input type="number" name="precio_compra[]" id="precio_compra[]" value="'+precio_compra+'">'+
-                       '</td>'+
-                      '<td>' +
-                          '<input type="number" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'">'+
-                       '</td>'+
-                      '<td>' +
-                          '<span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span>'+
-                       '</td>'+
-                      '<td>' +
-                          '<button type="button" class="btn btn-info" onclick="modificarSubtotales()">'+
-                            '<i class="fa fa-refresh"></i>'+
-                          '</button>'+
-                       '</td>'+
-                   '</tr>';
-
-        cont++;
-        detalles++;
-        $("#detalles").append(fila);
-        modificarSubtotales(); 
+            cont++;
+            detalles++;
+            $("#detalles").append(fila);
+            modificarSubtotales(); 
+        }
+        else
+        {
+            alert("Error al ingresar el detalle, revisar los ddatos del articulo");
+        }
     }
-    else
-    {
-        alert("Error al ingresar el detalle, revisar los ddatos del articulo");
-    }*/
 }
 
 function modificarSubtotales()
@@ -370,6 +404,18 @@ function calcularTotales()
     $("#total_compra").val(total);
 
     evaluar();*/
+}
+
+function yaExiste(idarticulo)
+{
+    for(var i=0; i<cont;i++){
+        var id= $('#idarticulo'+i).val();
+        if(id==idarticulo){
+            bootbox.alert('Este producto ya está agregado');
+            return true;
+        }
+    }
+    return false;
 }
 
 function evaluar()
