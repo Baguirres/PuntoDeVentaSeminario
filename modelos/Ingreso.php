@@ -56,6 +56,14 @@
             return $sw;
         }
 
+        public function modificar($idcompraencabezado,$estado)
+        {
+           $sql= "UPDATE compraencabezado SET estado='$estado'
+                   WHERE idcompraencabezado='$idcompraencabezado'";
+            
+            return ejecutarConsulta($sql);
+        }
+
         public function anular($idcompraencabezado)
         {
            /*$sql= "UPDATE compraencabezado SET estado=0

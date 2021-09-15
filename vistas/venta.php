@@ -1,21 +1,24 @@
 <?php
-//Activamos el almacenamiento en el buffer
-ob_start();
-session_start();
+  //Activacion de almacenamiento en buffer
+  ob_start();
+  //iniciamos las variables de session
+  session_start();
 
-if (!isset($_SESSION["nombre"]))
-{
-  header("Location: login.html");
-}
-else
-{
-require 'header.php';
+  if(!isset($_SESSION["nombre"]))
+  {
+    header("Location: login.html");
+  }
 
-if ($_SESSION['ventas']==1)
-{
-  $user= $_SESSION["nombre"];
-  $iduser=$_SESSION['idusuario']
+  else  //Agrega toda la vista
+  {
+    require 'header.php';
+
+    if($_SESSION['ventas'] == 1)
+    {
+      $user= $_SESSION["nombre"];
+      $iduser=$_SESSION['idusuario']
 ?>
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -25,7 +28,7 @@ if ($_SESSION['ventas']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Ventas <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Ventas <h1 id="referencia" type="hidden" class="box-title"># de Referencia: </h1><h1 id="idcompraencabezado" class="box-title"></h1>  <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -51,7 +54,7 @@ if ($_SESSION['ventas']==1)
                           </tbody>
                         </table>
                     </div>
-                    <div class="panel-body" style="height: 400px;" id="formularioregistros">
+                    <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                         <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Tienda:</label>
@@ -103,25 +106,36 @@ if ($_SESSION['ventas']==1)
                                     <th>IVA</th>
                                     <th>Subtotal</th>
                                 </thead>
-                                <tfoot>
-                                    <th>TOTAL</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th><h4 id="total">$ 0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
-                                </tfoot>
                                 <tbody>
-                                  
                                 </tbody>
+                                <tfoot>
+                                  <th>TOTAL</th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th>
+                                    <h4 id="descuento">Q 0.00</h4>
+                                    <input type="hidden" name="descuento_compra" id="descuento_compra">
+                                  </th>
+                                  <th>
+                                    <h4 id="iva">Q 0.00</h4>
+                                    <input type="hidden" name="iva_compra" id="iva_compra">
+                                  </th>
+                                  <th>
+                                    <h4 id="total">Q 0.00</h4>
+                                    <input type="hidden" name="total_compra" id="total_compra">
+                                  </th>
+                                </tfoot>
                             </table>
                           </div>
 
+
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="button" id="btnGuardar" onclick="guardaryeditar()"><i class="fa fa-save"></i> Guardar</button>  
-                            <button id="btnCancelar" class="btn btn-danger"   type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                            <button class="btn btn-info" onclick="desbloquear(true)" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
+
                         </form>
                     </div>
                     <!--Fin centro -->
@@ -133,9 +147,9 @@ if ($_SESSION['ventas']==1)
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 
-  <!-- Modal -->
+  <!--VENTANA MODAL-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" style="width: 65% !important;">
+    <div class="modal-dialog" >
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -147,7 +161,6 @@ if ($_SESSION['ventas']==1)
                 <th>Opciones</th>
                 <th>Nombre</th>
                 <th>Categoría</th>
-                <th>Código</th>
                 <th>Stock</th>
                 <th>Precio</th>
                 <th>Imagen</th>
@@ -159,7 +172,6 @@ if ($_SESSION['ventas']==1)
               <th>Opciones</th>
                 <th>Nombre</th>
                 <th>Categoría</th>
-                <th>Código</th>
                 <th>Stock</th>
                 <th>Precio Venta</th>
                 <th>Imagen</th>
@@ -172,20 +184,25 @@ if ($_SESSION['ventas']==1)
       </div>
     </div>
   </div>  
-  <!-- Fin modal -->
+
+  <!--FIN VENTANA MODAL-->
+
+
 <?php
-}
-else
-{
-  require 'noacceso.php';
-}
+  
+  } //Llave de la condicion if de la variable de session
 
-require 'footer.php';
+  else
+  {
+    require 'noacceso.php';
+  }
+
+  require 'footer.php';
 ?>
+
 <script type="text/javascript" src="scripts/venta.js"></script>
-<?php 
-}
-ob_end_flush();
+
+<?php
+  }
+  ob_end_flush(); //liberar el espacio del buffer
 ?>
-
-

@@ -9,12 +9,76 @@ Class Venta
 	{
 
 	}
+
+	public function insertar($nit,$fecha,$total,$descuentocompra,$iva,$usuario,$idtienda,$pago,$moneda,$articulos,$cantidad,$descuento)
+        {
+            $sql = "INSERT INTO ventaencabezado (
+                        idcliente,
+						fecha,
+						total,
+						descuento,
+						iva,
+						idusuario,
+						idtienda,
+						idtipodepago,
+						idtipomoneda
+                    ) 
+                    VALUES (
+                        (SELECT IDCLIENTE FROM CLIENTE WHERE NIT='$nit'),
+                        '$fecha',
+                        '$total',
+                        '$descuentocompra',
+                        '$iva',
+                        '$usuario',
+                        '$idtienda',
+						'$pago',
+						'$moneda'
+                        )";
+            
+            //Devuelve id registrado
+            $idingresonew = ejecutarConsulta_retornarID($sql);
+			
+            $num_elementos = 0;
+            $sw = true;
+            while($num_elementos < count($articulos))
+            {
+                $idarticulo = $articulos[$num_elementos];
+                $cantart = $cantidad[$num_elementos];
+				$descart = $descuento[$num_elementos];
+                $sql_detalle ="INSERT INTO ventadetalle (
+									idventaencabezado,
+                                    idproducto,
+                                    cantidad,
+                                    descuento
+                                )
+                                VALUES (
+                                    '$idingresonew',
+									'$idarticulo',
+                                    '$cantart',
+									'$descart'
+                                )";
+
+                ejecutarConsulta($sql_detalle) or $sw = false;
+                $num_elementos = $num_elementos + 1;
+            }
+
+            return $sw;
+        }
 	
 	//Implementamos un método para anular la venta
 	public function anular($idventaencabezado)
 	{
 		$sql="UPDATE ventaencabezado 
 			  SET estado=0 
+			  WHERE idventaencabezado='$idventaencabezado'";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function activar($idventaencabezado)
+	{
+		$sql="UPDATE ventaencabezado 
+			  SET estado=1
 			  WHERE idventaencabezado='$idventaencabezado'";
 
 		return ejecutarConsulta($sql);
@@ -63,14 +127,15 @@ Class Venta
 	public function listar()
 	{
 		$sql="SELECT v.idventaencabezado, DATE(v.fecha) as fecha, c.nombre, c.apellido, v.total, 
-					v.descuento, v.iva, v.estado, SUM(vd.cantidad) as cantidadprod, m.moneda, t.nombre as tienda, p.nombre as pago 
-					FROM ventaencabezado v 
-					INNER JOIN ventadetalle vd ON v.idVentaEncabezado=vd.idVentaEncabezado 
-					INNER JOIN cliente c ON v.idcliente=c.idcliente 
-					INNER JOIN tipomoneda m ON v.idtipomoneda = m.idtipomoneda 
-					INNER JOIN tienda t ON v.idtienda = t.idtienda 
-					INNER JOIN tipodepago p ON v.idtipodepago = p.idtipodepago 
-					ORDER by v.fecha desc";
+		v.descuento, v.iva, v.estado, SUM(vd.cantidad) as cantidadprod, m.moneda, t.nombre as tienda, p.nombre as pago 
+		FROM ventaencabezado v 
+		INNER JOIN ventadetalle vd ON v.idVentaEncabezado=vd.idVentaEncabezado 
+		INNER JOIN cliente c ON v.idcliente=c.idcliente 
+		INNER JOIN tipomoneda m ON v.idtipomoneda = m.idtipomoneda 
+		INNER JOIN tienda t ON v.idtienda = t.idtienda 
+		INNER JOIN tipodepago p ON v.idtipodepago = p.idtipodepago 
+		GROUP BY V.idVentaEncabezado
+		ORDER by v.fecha desc";
 			   
 		return ejecutarConsulta($sql);		
 	}

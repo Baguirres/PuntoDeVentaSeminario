@@ -18,17 +18,31 @@ $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
-		/*if (empty($idventa)){
-			$rspta=$venta->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_venta"],$_POST["descuento"]);
-			echo $rspta ? "Venta registrada" : "No se pudieron registrar todos los datos de la venta";
-		}
-		else {
-		}*/
+		$nit = $_REQUEST["nit"];
+		$fecha = $_REQUEST["fecha"];
+		$total = $_REQUEST["total"];
+		$descuentocompra = $_REQUEST["descuentocompra"];
+		$iva = $_REQUEST["iva"];
+		$usuario = $_REQUEST["usuario"];
+		$idtienda = $_REQUEST["idtienda"];
+		$pago = $_REQUEST["pago"];
+		$moneda = $_REQUEST["moneda"];
+		$articulos = $_REQUEST["articulos"];
+		$cantidad = $_REQUEST["cantidad"];
+		$descuento = $_REQUEST["descuento"];
+		
+		$rspta=$venta->insertar($nit,$fecha,$total,$descuentocompra,$iva,$usuario,$idtienda,$pago,$moneda,$articulos,$cantidad,$descuento);
+		echo $rspta ? "Venta registrada" : "Venta no se pudo registrar";    
 	break;
 
 	case 'anular':
 		$rspta=$venta->anular($idventaencabezado);
  		echo $rspta ? "Venta anulada" : "Venta no se puede anular";
+	break;
+
+	case 'activar':
+		$rspta=$venta->activar($idventaencabezado);
+ 		echo $rspta ? "Venta activada" : "Venta no se puede activar";
 	break;
 
 	case 'mostrar':
@@ -69,7 +83,7 @@ switch ($_GET["op"]){
                                     <th></th>
 									<th></th>
 									<th></th>
-                                    <th><h4 id="total">Q.'.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
+                                    <th><h4 id="total">Q '.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
                                 </tfoot>';
 	break;
 
@@ -92,7 +106,8 @@ switch ($_GET["op"]){
  				"0"=>(
 					 ($reg->estado==1)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idventaencabezado.')"><i class="fa fa-eye"></i></button>'.
 						' <button class="btn btn-danger" onclick="anular('.$reg->idventaencabezado.')"><i class="fa fa-close"></i></button>':
-						'<button class="btn btn-warning" onclick="mostrar('.$reg->idventaencabezado.')"><i class="fa fa-eye"></i></button>'
+						'<button class="btn btn-warning" onclick="mostrar('.$reg->idventaencabezado.')"><i class="fa fa-eye"></i></button>'.
+						' <button class="btn btn-primary" onclick="activar('.$reg->idventaencabezado.')"><i class="fa fa-check"></i></button>'
 					 )/*.
 					 '<a target="_blank" href="'.$url.$reg->idventaencabezado.'">
 						  <button class="btn btn-info">
@@ -110,8 +125,8 @@ switch ($_GET["op"]){
 					"8"=>$reg->tienda,
 					"9"=>$reg->pago,
 					"10"=>$reg->moneda,
-					"11"=>($reg->estado==1)?'<span class="label bg-green">Aceptado</span>':
-					'<span class="label bg-red">Anulado</span>'
+					"11"=>($reg->estado==1)?'<span class="label bg-green">Activa</span>':
+					'<span class="label bg-red">Anulada</span>'
 					);
  		}
  		$results = array(
@@ -131,7 +146,7 @@ switch ($_GET["op"]){
 		echo '<option value=0></option>';
 		while ($reg = $rspta->fetch_object())
 				{
-				echo '<option value=' . $reg->nit . '>' . $reg->nombre .' '.$reg->apellido. '</option>';
+				echo '<option value=' . $reg->NIT . '>' . $reg->Nombre .' '.$reg->Apellido. '</option>';
 				}
 	break;
 
@@ -161,10 +176,9 @@ switch ($_GET["op"]){
  				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->precio.'\',\''.$reg->stock.'\')"><span class="fa fa-plus"></span></button>',
  				"1"=>$reg->nombre,
  				"2"=>$reg->categoria,
- 				"3"=>$reg->idproducto,
- 				"4"=>$reg->stock,
- 				"5"=>$reg->precio,
- 				"6"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px' >"
+ 				"3"=>$reg->stock,
+ 				"4"=>$reg->precio,
+ 				"5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px' >"
  				);
  		}
  		$results = array(

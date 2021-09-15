@@ -465,13 +465,13 @@ INSERT INTO `ventadetalle` VALUES
 --
 
 CREATE TABLE `ventaencabezado` (
-  `idVentaEncabezado` int(11) NOT NULL,
+  `idVentaEncabezado` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `total` float NOT NULL,
   `descuento` float NOT NULL,
   `iva` float NOT NULL,
-  `estado` tinyint(1) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   `idUsuario` int(11) NOT NULL,
   `idTienda` int(11) NOT NULL,
   `idTipoDePago` int(11) NOT NULL,

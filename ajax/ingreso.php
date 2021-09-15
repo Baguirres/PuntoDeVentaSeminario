@@ -31,6 +31,7 @@
                 $rspta=$ingreso->insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$idarticulo,$cantidad,$precio_compra,$precio_venta);
                 echo $rspta ? "Ingreso registrado" : "Ingreso no se pudo registrar";
             }*/
+            $idcompraencabezado = $_REQUEST["idcompraencabezado"];
             $fecha = $_REQUEST["fecha"];
             $idproveedor = $_REQUEST["idproveedor"];
             $idtienda = $_REQUEST["idtienda"];
@@ -40,23 +41,17 @@
             $total = $_REQUEST["total"];
             $articulos = $_REQUEST["articulos"];
             $cantidad = $_REQUEST["cantidad"];
-            /*echo 'fecha';
-            echo $fecha;
-            echo 'proveedor';
-            echo $idproveedor;
-            echo 'idtienda';
-            echo $idtienda;
-            echo 'impuesto';
-            echo $impuesto;
-            echo 'usuario';
-            echo $usuario;
-            echo 'moneda';
-            echo $moneda;
-            echo 'total';
-            echo $total;*/
+            $estado = $_REQUEST["estado"];
+            if($idcompraencabezado==''){
+                //echo 'se va a insertar';
+                $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
+                echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
+            }else{
+                //echo 'se va a modificar';
+                $rspta=$ingreso->modificar($idcompraencabezado,$estado);
+                echo $rspta ? "Compra modificada" : "Compra no se pudo modificar";
+            }                        
             
-            $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
-            echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
         break;
 
         case 'anular':
