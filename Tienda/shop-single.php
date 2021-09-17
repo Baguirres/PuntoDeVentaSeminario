@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,7 +24,8 @@
   <body>
   
   <div class="site-wrap">
-    <?php include("./layouts/header.php"); 
+  <?php 
+      include("./layouts/header.php"); 
       include("./php/conexion.php");
       if( isset($_GET['id'])){
         $resultado = $conexion -> query("SELECT * FROM producto where idProducto=".$_GET['id'])or die($conexion->error);
@@ -36,21 +40,21 @@
         
       }else{
         header("Location: ./index.php");
-      }?> 
+      }
+?> 
 
     <div class="site-section">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <img src="../files/articulos/<?php echo $fila[6]; ?>" alt="<?php echo $fila[1]; ?>" class="img-fluid">
+            <img src="images/<?php echo $fila[6]; ?>" alt="<?php echo $fila[1]; ?>" class="img-fluid">
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><?php echo $fila[1]; ?></h2>
-            <input type="hidden" id="txtId" value="<?php echo $fila[0]; ?>">
             <p><?php echo $fila[2]; ?></p>
-            <p><strong class="text-primary h4">Q<?php echo $fila[3]; echo '<script>console.log("'.$fila[6].'")</script>';?></strong></p>
-            <div class="mb-1 d-flex">
-              <!-- <label for="option-sm" class="d-flex mr-3 mb-3">
+            <p><strong class="text-primary h4">Q<?php echo $fila[3]; ?></strong></p>
+            <!-- <div class="mb-1 d-flex">
+              <label for="option-sm" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
               </label>
               <label for="option-md" class="d-flex mr-3 mb-3">
@@ -61,28 +65,28 @@
               </label>
               <label for="option-xl" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
-              </label> -->
-            </div>
+              </label>
+            </div> -->
             <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 120px;">
               <div class="input-group-prepend">
                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
               </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" id="txtCant" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
               </div>
             </div>
 
             </div>
-            <p><a  class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
+            <p><a href="cart.php?id=<?php echo $fila[0]; ?>" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
 
           </div>
         </div>
       </div>
     </div>
 
-    <!-- <div class="site-section block-3 site-blocks-2 bg-light">
+    <div class="site-section block-3 site-blocks-2 bg-light">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
@@ -156,8 +160,8 @@
           </div>
         </div>
       </div>
-    </div> -->
-    <!-- <?php include("./layouts/footer.php"); ?>  -->
+    </div>
+    <?php include("./layouts/footer.php"); ?> 
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -169,15 +173,6 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-  <script>
-    $(document).ready(function(){
-      $(".buy-now").click(function(event){
-        var cantidad=$('#txtCant').val();
-        var id=$('#txtId').val();;
-        $(location).attr('href',"cart.php?id="+id+"&cant="+cantidad);
-      });
-    });
-  </script>
     
   </body>
 </html>
