@@ -46,6 +46,7 @@
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><?php echo $fila[1]; ?></h2>
+            <input type="hidden" id="txtId" value="<?php echo $fila[0]; ?>">
             <p><?php echo $fila[2]; ?></p>
             <p><strong class="text-primary h4">Q<?php echo $fila[3]; echo '<script>console.log("'.$fila[6].'")</script>';?></strong></p>
             <div class="mb-1 d-flex">
@@ -67,14 +68,14 @@
               <div class="input-group-prepend">
                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
               </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <input type="text" class="form-control text-center" value="1" placeholder="" id="txtCant" aria-label="Example text with button addon" aria-describedby="button-addon1">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
               </div>
             </div>
 
             </div>
-            <p><a href="cart.php?id=<?php echo $fila[0]; ?>" class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
+            <p><a  class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
 
           </div>
         </div>
@@ -168,6 +169,15 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".buy-now").click(function(event){
+        var cantidad=$('#txtCant').val();
+        var id=$('#txtId').val();;
+        $(location).attr('href',"cart.php?id="+id+"&cant="+cantidad);
+      });
+    });
+  </script>
     
   </body>
 </html>
