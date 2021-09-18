@@ -162,9 +162,16 @@
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categorías</h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="#" class="d-flex"><span>Hombre</span> <span class="text-black ml-auto">(2,220)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Mujer</span> <span class="text-black ml-auto">(2,550)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Niños</span> <span class="text-black ml-auto">(2,124)</span></a></li>
+                <?php 
+                 include('./php/conexion.php');
+                 $resultado = $conexion -> query("SELECT * from categoria") or die ($conexion -> error);
+                 while ($fila = mysqli_fetch_array($resultado)) {
+                   
+                ?>
+                 <li class="mb-1"><a href="#" class="d-flex"><span><?php echo $fila['nombre']; ?></span></a></li>
+                <?php 
+                 }
+                ?>
               </ul>
             </div>
 

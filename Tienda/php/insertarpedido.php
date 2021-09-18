@@ -35,14 +35,15 @@ for($i=0; $i<count($arreglo);$i++){
 // }
 
 $fecha1 = date("Y-m-d");
-$conexion->query("insert into cliente (nombre,apellido,direccion,telefono,correo,fechanacimiento)  
+$conexion->query("insert into cliente (nombre,apellido,direccion,telefono,correo,fechanacimiento,nit)  
      values( 
        '".$_POST['c_fname']."',
        '".$_POST['c_lname']."',
        '".$_POST['c_address']."',
      '".$_POST['c_phone']."',
       '".$_POST['c_email_address']."',
-      '$fecha1'
+      '$fecha1',
+      '".$_POST['c_nit']."'
            )   
    ")or die($conexion->error);
 

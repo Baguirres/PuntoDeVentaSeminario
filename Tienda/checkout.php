@@ -36,13 +36,13 @@ $arreglo  = $_SESSION['carrito'];
 
     <div class="site-section">
       <div class="container">
-        <div class="row mb-5">
+        <!-- <div class="row mb-5">
           <div class="col-md-12">
             <div class="border p-4 rounded" role="alert">              
                 ¿Soy Cliente? <a href="login.php">Click Aqui</a> para Login
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col-md-6 mb-5 mb-md-0">
             <h2 class="h3 mb-3 text-black">Detalles de Facturación</h2>
@@ -55,6 +55,13 @@ $arreglo  = $_SESSION['carrito'];
                 <div class="col-md-6">
                   <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="c_lname" name="c_lname">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="c_fname" class="text-black">NIT <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_nit" name="c_nit">
                 </div>
               </div>
 
@@ -85,11 +92,11 @@ $arreglo  = $_SESSION['carrito'];
 
               <div class="form-group">
                  <label for="c_address" class="text-black">Nombre de la Tarjeta <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="">
+                  <input type="text" class="form-control" id="" name="" placeholder="">
                  <label for="c_address" class="text-black">No. de Tarjeta <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="">
+                  <input type="text" class="form-control" id="" name="" placeholder="">
                   <label for="c_address" class="text-black">Codigo de Seguridad<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="">
+                  <input type="text" class="form-control" id="" name="" placeholder="">
               </div>
             </div>
           </div>

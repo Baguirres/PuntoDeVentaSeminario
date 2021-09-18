@@ -59,8 +59,7 @@
         public function modificar($idcompraencabezado,$estado,$articulos,$cantidad,$idtienda)
         {
            $sql= "UPDATE compraencabezado SET estado='$estado'
-                   WHERE idcompraencabezado='$idcompraencabezado'";
-            ejecutarConsulta($sql);
+                   WHERE idcompraencabezado='$idcompraencabezado'";           
             if($estado==2){
                 $num_elementos = 0;
                 $sw = true;
@@ -80,8 +79,8 @@
                     ejecutarConsulta($sql_detalle) or $sw = false;
                     $num_elementos = $num_elementos + 1;
                 }
-            }
-            return $sw;
+            }            
+            return ejecutarConsulta($sql);
         }
 
         public function anular($idcompraencabezado)
