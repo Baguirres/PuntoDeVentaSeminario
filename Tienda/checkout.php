@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['carrito'])){
+  header('Location: ./index.php');
+}
+$arreglo  = $_SESSION['carrito'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +32,7 @@
   
   <div class="site-wrap">
     <?php include("./layouts/header.php"); ?> 
+    <form action="./php/insertarpedido.php" method="post">
 
     <div class="site-section">
       <div class="container">
@@ -113,22 +122,28 @@
                       <th>Total</th>
                     </thead>
                     <tbody>
+                    <?php
+                        $total = 0; 
+                        for($i=0;$i<count($arreglo);$i++){
+                          $total =$total+ ($arreglo[$i]['Precio']*$arreglo[$i]['Cantidad']);
+                        
+                      ?>
+                        <tr>
+                          <td><?php echo $arreglo[$i]['Nombre'];?> </td>
+                          <td>Q<?php echo  number_format($arreglo[$i]['Precio'], 2, '.', '');?></td>
+                        </tr>
+                      <?php 
+                        }
+                      ?>
+                         <tr>
+                          <td>SubTotal</td>
+                          <td>Q<?php echo number_format($total, 2, '.', '');?></td>
+                        </tr>
                       <tr>
-                        <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                        <td>Q250.00</td>
-                      </tr>
-                      <tr>
-                        <td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
-                        <td>Q100.00</td>
-                      </tr>
-                      <tr>
-                        <td class="text-black font-weight-bold"><strong>Subtotal</strong></td>
-                        <td class="text-black">Q350.00</td>
-                      </tr>
-                      <tr>
-                        <td class="text-black font-weight-bold"><strong>Total de Orden</strong></td>
-                        <td class="text-black font-weight-bold"><strong>Q350.00</strong></td>
-                      </tr>
+                          <td> <b>Total</b>  </td>
+                          <td id="tdTotalFinal" 
+                            data-total="<?php echo $total;?>">Q<?php echo number_format($total, 2, '.', '');?></td>
+                        </tr>
                     </tbody>
                   </table>
 
@@ -175,7 +190,7 @@
         <!-- </form> -->
       </div>
     </div>
-
+  </form>  
     <!-- <?php include("./layouts/footer.php"); ?>  -->
   </div>
 
