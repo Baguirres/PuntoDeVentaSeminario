@@ -1,5 +1,9 @@
 var tabla;
 var guardar=0;
+//Variables
+var impuesto = 16;
+var cont = 0;
+var detalles= 0;
 
 //Funcion que se ejecuta al inicio
 function init()
@@ -227,16 +231,14 @@ function guardaryeditar(e)
     var estado = $("#idestado").val()-1;
     var articulos = [];
     var cantidad = [];
-    if(guardar==1){
-        //alert('se va a guardar');
-        for(var i=0; i<cont;i++){
-            articulos.push($('#idarticulo'+i).val());
-            cantidad.push($('#cantidad'+i).val());
-        }
-    }else{
-        articulos.push(0);
-        cantidad.push(0);
+    console.log('cant art: '+cont);
+    for(var i=0; i<cont;i++){
+        articulos.push($('#idarticulo'+i).val());
+        cantidad.push($('#cantidad'+i).val());
+        console.log('art: '+$('#idarticulo'+i).val());
+        console.log('cant: '+$('#cantidad'+i).val());
     }
+    
     if (impuesto==''){
         bootbox.alert('Debe de llenar el impuesto');
     }else if(moneda==0 || moneda==null || moneda==''){
@@ -300,6 +302,7 @@ function mostrar(idcompraencabezado)
                     //console.log(r);
                     $("#detalles").html("");
                     $("#detalles").html(r);
+                    cont=$('#articulos').val();
                 }
             );
 
@@ -326,10 +329,7 @@ function anular(idcompraencabezado)
     });*/
 }
 
-//Variables
-var impuesto = 16;
-var cont = 0;
-var detalles= 0;
+
 
 function marcarImpuesto()
 {

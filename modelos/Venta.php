@@ -61,6 +61,20 @@ Class Venta
                 ejecutarConsulta($sql_detalle) or $sw = false;
                 $num_elementos = $num_elementos + 1;
             }
+			//actualización de inventario
+			$num_elementos = 0;
+            while($num_elementos < count($articulos))
+            {
+                $idarticulo = $articulos[$num_elementos];
+                $cantart = $cantidad[$num_elementos];
+                $sql_detalle ="UPDATE inventario i
+								JOIN inventario j ON j.idproducto=i.idproducto AND j.idtienda=i.idtienda
+								SET i.cantidad=(j.cantidad-'$cantart')
+								WHERE i.idtienda='$idtienda' AND i.idproducto='$idarticulo'";
+
+                ejecutarConsulta($sql_detalle) or $sw = false;
+                $num_elementos = $num_elementos + 1;
+            }
 
             return $sw;
         }

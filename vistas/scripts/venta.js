@@ -422,6 +422,7 @@ function agregarDetalle(idarticulo,articulo,precio,stock)
 							articulo +
 						'</td>'+
 						'<td>' +
+                            '<input type="hidden" name="stock'+cont+'" id="stock'+cont+'"value="'+stock+'">'+
 							'<input type="number" name="cantidad'+cont+'" id="cantidad'+cont+'" onchange="modificarSubtotales()" min="1" max="'+stock+'" value=1>'+
 						'</td>'+
 						'<td>' +
@@ -474,12 +475,23 @@ function dosDecimales(n) {
 	var subtotal=0;
     for(var i=0; i<cont;i++){
         var cantidad= $('#cantidad'+i).val();
+        var stock= $('#stock'+i).val();
+        if(parseInt(cantidad)>parseInt(stock)){
+            bootbox.alert('La cantidad no puede ser mayor a la de stock, se pondrá el valor máximo');
+            $('#cantidad'+i).val(stock);
+            cantidad = stock;
+        }else if(parseInt(cantidad)<1){
+            bootbox.alert('La cantidad no puede ser menor a 1');
+            $('#cantidad'+i).val(1);
+            cantidad = 1;
+        }
         var precio= $('#precio'+i).val();
 		var iva= $('#iva'+i).val();
         subtotal= parseInt(cantidad)*parseFloat(precio);
 		iva = parseFloat(subtotal)*0.12;
         $('#subtotal'+i).html(subtotal);
 		$('#iva'+i).html(dosDecimales(iva));
+
     }
     calcularTotales();
 

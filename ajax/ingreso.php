@@ -48,7 +48,7 @@
                 echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
             }else{
                 //echo 'se va a modificar';
-                $rspta=$ingreso->modificar($idcompraencabezado,$estado);
+                $rspta=$ingreso->modificar($idcompraencabezado,$estado,$articulos,$cantidad,$idtienda);
                 echo $rspta ? "Compra modificada" : "Compra no se pudo modificar";
             }                        
             
@@ -79,20 +79,21 @@
                     <th>Precio Venta</th>
                     <th>Subtotal</th>
                 </thead>';
-
+            $cont=0;
             while($reg = $rspta->fetch_object())
             {
                 echo '<tbody>
                         <tr class="filas">
-                            <td>'.$reg->nombre.'</td> 
-                            <td>'.$reg->cantidad.'</td> 
+                            <td><input type="hidden" name="idarticulo'.$cont.'" id="idarticulo'.$cont.'" value="'.$reg->idproducto.'">'.$reg->nombre.'</td> 
+                            <td><input type="hidden" name="cantidad'.$cont.'" id="cantidad'.$cont.'" value="'.$reg->cantidad.'">'.$reg->cantidad.'</td> 
                             <td>Q '.$reg->precio.'</td> 
-                            <td>Q '.$reg->precio.'</td> 
+                            <td>Q '.$reg->preciocompra.'</td> 
                             <td>Q '.$reg->precio * $reg->cantidad.'</td> 
                         </tr>
                       </tbody>';
 
                 $total += ($reg->precio*$reg->cantidad);
+                $cont++;
             }
 
             echo '<tfoot>
@@ -102,6 +103,7 @@
                     <th></th>
                     <th>
                     <h4 id="total">Q '.$total.'</h4>
+                    <input type="hidden" name="articulos" id="articulos" value="'.$cont.'">
                     <input type="hidden" name="total_compra" id="total_compra">
                     </th>
                 </tfoot>';
@@ -112,10 +114,19 @@
             $rspta = $ingreso->listar();
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
+                switch($reg->estado){
+                    case 0: $tag='<span class="label bg-red">Inactiva</span>';
+                        break;
+                    case 1: $tag='<span class="label bg-green">Activa</span>';
+                        break;
+                    case 2: $tag='<span class="label bg-blue">Recibida</span>';
+                        break;
+                    case 3: $tag='<span class="label bg-orange">Devuelta</span>';
+                        break;
+                }
                 $data[] = array(
                     "0"=> ($reg->estado == 1) ? 
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="anular('.$reg->idcompraencabezado.')"><li class="fa fa-close"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>'
                         :
                         '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>',
                     "1"=>$reg->fecha,
@@ -127,10 +138,7 @@
                     "7"=>'Q'.$reg->impuesto,
                     "8"=>'Q'.$reg->total,
                     "9"=>$reg->moneda,
-                    "10"=>($reg->estado==1) ?
-                         '<span class="label bg-green">Aceptado</span>'
-                         :      
-                         '<span class="label bg-red">Anulado</span>'
+                    "10"=>$tag
                 );
             }
             $results = array(

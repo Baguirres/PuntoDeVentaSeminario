@@ -56,12 +56,32 @@
             return $sw;
         }
 
-        public function modificar($idcompraencabezado,$estado)
+        public function modificar($idcompraencabezado,$estado,$articulos,$cantidad,$idtienda)
         {
            $sql= "UPDATE compraencabezado SET estado='$estado'
                    WHERE idcompraencabezado='$idcompraencabezado'";
-            
-            return ejecutarConsulta($sql);
+            ejecutarConsulta($sql);
+            if($estado==2){
+                $num_elementos = 0;
+                $sw = true;
+                while($num_elementos < count($articulos))
+                {
+                    $idarticulo = $articulos[$num_elementos];
+                    $cantart = $cantidad[$num_elementos];
+                    $sql_detalle ="INSERT INTO inventario
+                                    VALUES (
+                                        '$idarticulo',
+                                        '$idtienda',
+                                        '$cantart'
+                                    )
+                                    ON DUPLICATE KEY UPDATE
+                                    Cantidad     = (SELECT i.Cantidad from inventario i where i.idProducto='$idarticulo' and i.idTienda='$idtienda')+$cantart";
+
+                    ejecutarConsulta($sql_detalle) or $sw = false;
+                    $num_elementos = $num_elementos + 1;
+                }
+            }
+            return $sw;
         }
 
         public function anular($idcompraencabezado)
@@ -85,7 +105,7 @@
 
         public function listarDetalle($idcompraencabezado)
         {
-            $sql = "SELECT di.idcompraencabezado, di.idproducto, a.nombre, di.cantidad, a.precio
+            $sql = "SELECT di.idcompraencabezado, di.idproducto, a.nombre, di.cantidad, a.precio, a.preciocompra, a.idproducto
                     FROM compradetalle di
                     INNER JOIN producto a ON di.idproducto = a.idproducto
                     WHERE di.idcompraencabezado='$idcompraencabezado'";
@@ -110,5 +130,6 @@
         }
 
     }
+
 
 ?>

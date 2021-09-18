@@ -28,7 +28,7 @@
         
         $nombre=$fila[1];
         $precio = $fila[3];
-        $imagen = $fila[4];
+        $imagen = $fila[6];
         $arregloNuevo= array(
                     'Id'=> $_GET['id'],
                     'Nombre'=> $nombre,
@@ -52,7 +52,7 @@
       
       $nombre=$fila[1];
       $precio = $fila[3];
-      $imagen = $fila[4];
+      $imagen = $fila[6];
       $arreglo[] = array(
                   'Id'=> $_GET['id'],
                   'Nombre'=> $nombre,
@@ -118,7 +118,7 @@
                 ?>
                   <tr>
                     <td class="product-thumbnail">
-                      <img src="images/<?php echo $arregloCarrito[$i]['Imagen']; ?>" alt="Image" class="img-fluid">
+                      <img src="../files/articulos/<?php echo $arregloCarrito[$i]['Imagen']; ?>" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
                       <h2 class="h5 text-black"><?php echo $arregloCarrito[$i]['Nombre']; ?></h2>
