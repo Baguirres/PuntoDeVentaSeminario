@@ -8,17 +8,17 @@
 
         }
 
-        public function insertar($nombre, $descripcion)
+        public function insertar($nombre, $descripcion, $imagen)
         {
-            $sql = "INSERT INTO categoria (nombre,descripcion) 
-                    VALUES ('$nombre','$descripcion')";
+            $sql = "INSERT INTO categoria (nombre,descripcion,imagen) 
+                    VALUES ('$nombre','$descripcion','$imagen')";
             
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idCategoria,$nombre, $descripcion)
+        public function editar($idCategoria,$nombre, $descripcion, $imagen)
         {
-            $sql = "UPDATE categoria SET nombre='$nombre', descripcion='$descripcion'
+            $sql = "UPDATE categoria SET nombre='$nombre', descripcion='$descripcion', imagen='$imagen'
                     WHERE idcateogira='$idCategoria'";
             
             return ejecutarConsulta($sql);

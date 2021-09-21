@@ -45,14 +45,15 @@ CREATE TABLE `categoria` (
   `idCateogira` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `imagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCateogira`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `categoria` VALUES
-(1, 'Alimentos','Articulos de Sobrevivencia',1),
-(2, 'Ropa','Articulos personales',1),
-(3, 'Libreria','Articulos para estudio',1);
+(1, 'Alimentos','Articulos de Sobrevivencia','',1),
+(2, 'Ropa','Articulos personales','',1),
+(3, 'Libreria','Articulos para estudio','',1);
 -- --------------------------------------------------------
 
 --
@@ -391,7 +392,7 @@ CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `clave` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
-  `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `imagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `idEmpleado` int(11) NOT NULL,
   `condicion` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idusuario`)

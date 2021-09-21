@@ -11,12 +11,25 @@
     switch($_GET["op"])
     {
         case 'guardaryeditar':
+            if(!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
+            {
+                $imagen = $_POST["imagenactual"];
+            }
+            else
+            {
+                $ext = explode(".",$_FILES["imagen"]["name"]);
+                if($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png")
+                {
+                    $imagen = round(microtime(true)).'.'.end($ext);
+                    move_uploaded_file($_FILES['imagen']['tmp_name'], "../files/categorias/" . $imagen);
+                }
+            }
             if (empty($idcategoria)){
-                $rspta=$categoria->insertar($nombre,$descripcion);
+                $rspta=$categoria->insertar($nombre,$descripcion,$imagen);
                 echo $rspta ? "Categoría registrada" : "Categoría no se pudo registrar";
             }
             else {
-                $rspta=$categoria->editar($idcategoria,$nombre,$descripcion);
+                $rspta=$categoria->editar($idcategoria,$nombre,$descripcion,$imagen);
                 echo $rspta ? "Categoría actualizada" : "Categoría no se pudo actualizar";
             }
         break;
@@ -50,7 +63,8 @@
                         ,
                     "1"=>$reg->nombre,
                     "2"=>$reg->descripcion,
-                    "3"=>($reg->estado) ?'<span class="label bg-green">Activo</span>':'<span class="label bg-red">Inactivo</span>'
+                    "3"=>"<img src='../files/categorias/".$reg->imagen."' height='50px' width='50px' alt='".$reg->nombre."'>",
+                    "4"=>($reg->estado) ?'<span class="label bg-green">Activo</span>':'<span class="label bg-red">Inactivo</span>'
                 );
             }
             $results = array(
