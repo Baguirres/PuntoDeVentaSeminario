@@ -97,7 +97,7 @@
                     "1"=>$reg->usuario,
                     "2"=>$reg->nombre.' '.$reg->apellido,
                     "3"=>$reg->correo,
-                    "4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+                    "4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px' alt='".$reg->usuario."'>",
                     "5"=>($reg->condicion) ?'<span class="label bg-green">Activo</span>':'<span class="label bg-red">Inactivo</span>'
                 );
             }
@@ -179,6 +179,8 @@
                 in_array(6,$valores) ? $_SESSION['consultac'] = 1 : $_SESSION['consultac'] = 0;
                 in_array(7,$valores) ? $_SESSION['consultav'] = 1 : $_SESSION['consultav'] = 0;
                 in_array(8,$valores) ? $_SESSION['pagos'] = 1 : $_SESSION['pagos'] = 0;
+                in_array(9,$valores) ? $_SESSION['recursosh'] = 1 : $_SESSION['recursosh'] = 0;
+                in_array(10,$valores) ? $_SESSION['cambiosp'] = 1 : $_SESSION['cambiosp'] = 0;
             }
 
             echo json_encode($fetch); //Retornando JSON

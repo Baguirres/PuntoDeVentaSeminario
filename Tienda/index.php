@@ -116,43 +116,63 @@
             <div class="row mb-5">
             <?php 
                     include('./php/conexion.php');
-                    $resultado = $conexion -> query("SELECT * from producto") or die ($conexion -> error);
+                    $limite = 6;//productos por pagina
+                    $totalQuery = $conexion->query('select count(*) from producto')or die($conexion->error);
+                    $totalProductos = mysqli_fetch_row($totalQuery);
+                    $totalBotones = round($totalProductos[0] /$limite);
+                    if(isset($_GET['limite'])){
+                      $resultado = $conexion ->query("SELECT * from producto  order by idProducto limit ".$_GET['limite'].",".$limite)or die($conexion -> error);
+                    }else{
+                      $resultado = $conexion ->query("SELECT * from producto  order by idProducto limit ".$limite)or die($conexion -> error);
+                    }
                     while ($fila = mysqli_fetch_array($resultado)) {
                     
                     
                   ?>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>">
-                      <img src="../files/articulos/<?php echo $fila['imagen']; ?>"
-                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid"
-                      style="width=100%; height:200px;">
-                    </a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>"><?php echo $fila['nombre']; ?></a></h3>
-                    <p class="mb-0"><?php echo $fila['descripcion']; ?></p>
-                    <p class="text-primary font-weight-bold">Q<?php echo $fila['Precio']; ?></p>
-                  </div>
-                </div>
-              </div>
+                    <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                      <div class="block-4 text-center border">
+                        <figure class="block-4-image">
+                          <a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>">
+                            <img src="../files/articulos/<?php echo $fila['imagen']; ?>"
+                            alt="<?php echo $fila['nombre']; ?>" class="img-fluid"
+                            style="width=100%; height:200px;">
+                          </a>
+                        </figure>
+                        <div class="block-4-text p-4">
+                          <h3><a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>"><?php echo $fila['nombre']; ?></a></h3>
+                          <p class="mb-0"><?php echo $fila['descripcion']; ?></p>
+                          <p class="text-primary font-weight-bold">Q<?php echo $fila['Precio']; ?></p>
+                        </div>
+                      </div>
+                    </div>
             <?php } ?>
-
-
             </div>
             <div class="row" data-aos="fade-up">
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
                   <ul>
-                    <li><a href="#">&lt;</a></li>
-                    <li class="active"><span>1</span></li>
-                    <!-- <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li> -->
-                    <li><a href="#">&gt;</a></li>
-                  </ul>
+                   
+                      <?php 
+                        if(isset($_GET['limite'])){
+                          if($_GET['limite']>0){
+                            echo ' <li><a href="index.php?limite='.($_GET['limite']-6).'">&lt;</a></li>';
+                          }
+                        }
+
+                        for($k=0;$k<$totalBotones;$k++){
+                          echo  '<li><a href="index.php?limite='.($k*6).'">'.($k+1).'</a></li>';
+                        }
+                        if(isset($_GET['limite'])){
+                          if($_GET['limite']+6 < $totalBotones*6){
+                            echo ' <li><a href="index.php?limite='.($_GET['limite']+6).'">&gt;</a></li>';
+                          }
+                        }else{
+                          echo ' <li><a href="index.php?limite=6">&gt;</a></li>';
+                        }
+                      ?>
+                  
+  
+                   </ul>
                 </div>
               </div>
             </div>
@@ -168,7 +188,17 @@
                  while ($fila = mysqli_fetch_array($resultado)) {
                    
                 ?>
-                 <li class="mb-1"><a href="#" class="d-flex"><span><?php echo $fila['nombre']; ?></span></a></li>
+                 <li class="mb-1">
+                     <a href="./busqueda.php?texto=<?php echo $fila['nombre']?>&precio=0" class="d-flex">
+                         <span><?php echo $fila['nombre']; ?></span>
+                         <span class="text-black ml-auto">
+                             <?php $re2 = $conexion->query("select count(*) from producto where idCategoria=".$fila['idCateogira']);
+                                    $f= mysqli_fetch_row($re2);
+                                    echo $f[0];
+                                    ?>
+                        </span>
+                    </a>
+                </li>
                 <?php 
                  }
                 ?>
@@ -213,7 +243,7 @@
         
       </div>
     </div>
-
+    <?php include("./layouts/footer.php"); ?> 
     
   </div>
 
@@ -226,6 +256,25 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-    
+  <script>
+    $(document).ready(function(){
+      $("#slider-range" ).slider({
+        
+        // options
+        start: function (event, ui) {
+            // code
+        },
+        slide: function( event, ui ) {
+          $( "#amount" ).val( "Q" + ui.values[ 0 ] + " - Q" + ui.values[ 1 ] );
+        },
+        change: function(event, ui) {
+          var precioinicio=ui.values[ 0];
+          var preciofinal=ui.values[ 1 ];
+          $(location).attr('href',"./busqueda.php?texto=1&precio=1&precioInicio="+precioinicio+"&precioFinal="+preciofinal);
+        }
+      });
+      
+    });
+  </script>
   </body>
 </html>

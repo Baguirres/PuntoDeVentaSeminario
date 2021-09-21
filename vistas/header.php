@@ -179,7 +179,7 @@
                  ;
               }
               //cambiar permiso a recursos humanos
-              if($_SESSION['ventas'] == 1)
+              if($_SESSION['recursosh'] == 1)
               {
                 echo 
                 '<li class="treeview">

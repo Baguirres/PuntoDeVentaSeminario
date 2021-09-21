@@ -1,3 +1,8 @@
+<?php 
+   session_start();
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -75,7 +80,7 @@
             </div>
 
             </div>
-            <p><a href="cart.php?id=<?php echo $fila[0]; ?>" class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
+            <p><a href="#" class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
 
           </div>
         </div>
@@ -170,13 +175,13 @@
 
   <script src="js/main.js"></script>
   <script>
-    /*$(document).ready(function(){
+    $(document).ready(function(){
       $(".buy-now").click(function(event){
         var cantidad=$('#txtCant').val();
-        var id=$('#txtId').val();;
+        var id=$('#txtId').val();
         $(location).attr('href',"cart.php?id="+id+"&cant="+cantidad);
       });
-    });*/
+    });
   </script>
     
   </body>

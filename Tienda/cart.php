@@ -15,7 +15,7 @@
         }
       }
       if($encontro == true){
-        $arreglo[$numero]['Cantidad']=$arreglo[$numero]['Cantidad']+1;
+        $arreglo[$numero]['Cantidad']=$arreglo[$numero]['Cantidad']+$_GET['cant'];
         $_SESSION['carrito']=$arreglo;
         header("Location: ./cart.php");
       }else{
@@ -34,7 +34,7 @@
                     'Nombre'=> $nombre,
                     'Precio'=>$precio,
                     'Imagen'=> $imagen,
-                    'Cantidad' => 1
+                    'Cantidad' => $_GET['cant']
         );
         array_push($arreglo, $arregloNuevo);
         $_SESSION['carrito']=$arreglo;
