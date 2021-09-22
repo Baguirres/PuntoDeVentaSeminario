@@ -71,10 +71,14 @@
                             <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>C/F:</label>
+                            <input type="checkbox"  name="cf" id="confin" value="conFin" onClick="consumidorFinal()">
+                          </div>
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>NIT:</label>
                             <input type="text" class="form-control" name="nit" id="nit" maxlength="10" placeholder="NIT" onfocusout="ponerCliente()" required>
                           </div>
-                          <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-8 col-sm-4 col-xs-12">
                             <label>Cliente:</label>
                             <select name="idcliente" id="idcliente" data-live-search="true" class="form-control selectpicker" onchange="ponerNit()" required>
                             </select>

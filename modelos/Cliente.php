@@ -86,7 +86,7 @@
         //METODO PARA LISTAR LOS REGISTROS
         public function listarp()
         {
-            $sql = "SELECT idCliente, Nombre, Apellido, fechanacimiento, Correo, Telefono, Direccion, NIT, estado FROM cliente";
+            $sql = "SELECT idCliente, Nombre, Apellido, fechanacimiento, Correo, Telefono, Direccion, NIT, estado FROM cliente where nombre!='C/F'";
 
             return ejecutarConsulta($sql);
         }

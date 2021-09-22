@@ -217,14 +217,16 @@ function guardaryeditar(e)
     var articulos = [];
     var cantidad = [];
     var descuento = [];
-    
+    if($('#confin').prop('checked')){
+        nit='C/F';
+    }
     //alert('se va a guardar');
     for(var i=0; i<cont;i++){
         articulos.push($('#idarticulo'+i).val());
         cantidad.push($('#cantidad'+i).val());
         descuento.push($('#descuento'+i).html());
     }
-    if (nit=='' || $("#idcliente").val()==0 ){
+    if(!$('#confin').prop('checked') && (nit=='' || $("#idcliente").val()==0)){
         bootbox.alert('Debe de llenar los datos del cliente');
     }else if(moneda==0 || moneda==null || moneda==''){
         bootbox.alert('Debe de seleccionar la moneda');
@@ -242,6 +244,19 @@ function guardaryeditar(e)
                 
             }
         );
+    }
+}
+
+function consumidorFinal(){
+    if ($('#confin').prop('checked') ) {
+        $('#nit').prop('disabled',true);
+        $('#idcliente').prop('disabled',true);
+        $('#nit').val('');
+        $('#idcliente').val(0);
+        $("#idcliente").selectpicker('refresh');
+    }else{
+        $('#nit').prop('disabled',false);
+        $('#idcliente').prop('disabled',false);
     }
 }
 

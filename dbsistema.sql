@@ -75,7 +75,8 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` VALUES
 (1, 'Bryan','Aguire','02/05/1998','bryanorlando@hotmail.com','12345678','Mi casa','682479-6',1),
-(2, 'Bryana','Aguire','02/05/1999','bryanaorlando@hotmail.com','12345679','Mi casa','682479-7',1);
+(2, 'Bryana','Aguire','02/05/1999','bryanaorlando@hotmail.com','12345679','Mi casa','682479-7',1),
+(3, 'C/F','C/F','','','','','C/F',1);
 
 -- --------------------------------------------------------
 
