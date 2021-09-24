@@ -7,6 +7,7 @@
               <form action="./busqueda.php" class="site-block-top-search" method="GET">
                 <span class="icon icon-search2"></span>
                 <input type="text" class="form-control border-0" placeholder="Buscar" name="texto">
+                <input type="hidden" class="form-control border-0" placeholder="Buscar" name="precio" value=0>
               </form>
             </div>
             <?php 

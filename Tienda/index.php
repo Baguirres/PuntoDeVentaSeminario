@@ -184,7 +184,7 @@
               <ul class="list-unstyled mb-0">
                 <?php 
                  include('./php/conexion.php');
-                 $resultado = $conexion -> query("SELECT * from categoria") or die ($conexion -> error);
+                 $resultado = $conexion -> query("SELECT * from categoria where estado=1") or die ($conexion -> error);
                  while ($fila = mysqli_fetch_array($resultado)) {
                    
                 ?>
@@ -192,7 +192,7 @@
                      <a href="./busqueda.php?texto=<?php echo $fila['nombre']?>&precio=0" class="d-flex">
                          <span><?php echo $fila['nombre']; ?></span>
                          <span class="text-black ml-auto">
-                             <?php $re2 = $conexion->query("select count(*) from producto where idCategoria=".$fila['idCateogira']);
+                             <?php $re2 = $conexion->query("select count(*) from producto where estado=1 and idCategoria=".$fila['idCateogira']);
                                     $f= mysqli_fetch_row($re2);
                                     echo $f[0];
                                     ?>
