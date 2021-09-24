@@ -73,40 +73,39 @@
                //$totalQuery = $conexion->query('select count(*) from producto')or die($conexion->error);
                if($_GET['precio']==0){
                     $totalQuery = $conexion->query("select count(*) from producto inner join categoria on producto.idcategoria  = categoria.idcateogira 
-                        where 
-                        producto.nombre like '%".$_GET['texto']."%' or 
+                        where producto.estado=1 and 
+                        (producto.nombre like '%".$_GET['texto']."%' or 
                         producto.descripcion like '%".$_GET['texto']."%' or
-                        categoria.nombre like '%".$_GET['texto']."%' 
-                        order by producto.idproducto DESC limit ")or die($conexion->error);
+                        categoria.nombre like '%".$_GET['texto']."%')")or die($conexion->error);
                     if(isset($_GET['limite'])){
                         $resultado = $conexion ->query("select producto.*, categoria.nombre as categoria from producto 
                         inner join categoria on producto.idcategoria  = categoria.idcateogira 
-                        where 
-                        producto.nombre like '%".$_GET['texto']."%' or 
+                        where producto.estado=1 and
+                        (producto.nombre like '%".$_GET['texto']."%' or 
                         producto.descripcion like '%".$_GET['texto']."%' or
-                        categoria.nombre like '%".$_GET['texto']."%' 
+                        categoria.nombre like '%".$_GET['texto']."%') 
                         order by producto.idproducto DESC limit ".$_GET['limite'].",".$limite)or die($conexion -> error);
                     }else{
                         $resultado = $conexion ->query("SELECT producto.*, categoria.nombre as categoria from producto 
                         inner join categoria on producto.idcategoria  = categoria.idcateogira 
-                        where producto.nombre like '%".$_GET['texto']."%' or 
+                        where producto.estado=1 and (producto.nombre like '%".$_GET['texto']."%' or 
                         producto.descripcion like '%".$_GET['texto']."%' or
-                        categoria.nombre like '%".$_GET['texto']."%' 
+                        categoria.nombre like '%".$_GET['texto']."%') 
                         ORDER BY producto.idproducto DESC limit ".$limite)or die($conexion -> error);
                     }
                }else{
                     $totalQuery = $conexion->query("select count(*) from producto inner join categoria on producto.idcategoria  = categoria.idcateogira 
-                    where producto.precio between ".$_GET['precioInicio']." AND ".$_GET['precioFinal'])or die($conexion->error);
+                    where producto.estado=1 and producto.precio between ".$_GET['precioInicio']." AND ".$_GET['precioFinal'])or die($conexion->error);
                     if(isset($_GET['limite'])){
                         $resultado = $conexion ->query("select producto.*, categoria.nombre as categoria from producto 
                         inner join categoria on producto.idcategoria  = categoria.idcateogira 
-                        where 
+                        where producto.estado=1 and
                         producto.precio between ".$_GET['precioInicio']." AND ".$_GET['precioFinal']. "
                         order by producto.precio limit ".$_GET['limite'].",".$limite)or die($conexion -> error);
                     }else{
                         $resultado = $conexion ->query("select producto.*, categoria.nombre as categoria from producto 
                         inner join categoria on producto.idcategoria  = categoria.idcateogira 
-                        where 
+                        where producto.estado=1 and
                         producto.precio between ".$_GET['precioInicio']." AND ".$_GET['precioFinal']. "
                         order by producto.precio limit ".$limite)or die($conexion -> error);
                     }
@@ -194,7 +193,7 @@
               <ul class="list-unstyled mb-0">
                 <?php 
                  include('./php/conexion.php');
-                 $resultado = $conexion -> query("SELECT * from categoria") or die ($conexion -> error);
+                 $resultado = $conexion -> query("SELECT * from categoria where estado=1") or die ($conexion -> error);
                  while ($fila = mysqli_fetch_array($resultado)) {
                    
                 ?>
@@ -202,7 +201,7 @@
                      <a href="./busqueda.php?texto=<?php echo $fila['nombre']?>&precio=0" class="d-flex">
                          <span><?php echo $fila['nombre']; ?></span>
                          <span class="text-black ml-auto">
-                             <?php $re2 = $conexion->query("select count(*) from producto where idCategoria=".$fila['idCateogira']);
+                             <?php $re2 = $conexion->query("select count(*) from producto where producto.estado=1 and idCategoria=".$fila['idCateogira']);
                                     $f= mysqli_fetch_row($re2);
                                     echo $f[0];
                                     ?>
