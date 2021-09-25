@@ -13,7 +13,8 @@
     switch($_GET["op"])
     {
         case 'guardaryeditar':
-                $rspta=$articulo->editar($idarticulo,$idcategoria);
+                $rspta=$articulo->insertar($nombre,$idcategoria,$descripcion,$stock);
+                $rspta=$articulo->editar($idarticulo);
                 echo $rspta ? "Seguimiento de la Venta actualizado" : "Seguimiento de la Venta no se pudo actualizar";
         break;
 

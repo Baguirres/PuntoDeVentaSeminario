@@ -21,66 +21,90 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
-    
+    <style>
+
+    .carousel{
+      max-width: none;
+      height: 400px;
+      width: 100%;
+      margin-top: 0;
+      padding-top: 0;
+      margin-bottom: 10px;
+      background-color: #262829;
+    }
+    .carousel-item{
+      height: 400px;
+      width: 100%;
+      align-content: center;
+      justify-content: center;
+    }
+    .imgcar{
+      opacity: 0.5;
+      width: 100%;
+      height: 400px;
+     
+    }
+    </style>
   </head>
   <body>
   
   <div class="site-wrap">
-    <?php include("./layouts/header.php"); ?> 
+    <?php include("./layouts/header.php"); 
+          include('./php/conexion.php');?> 
 
-    <div class="site-section">
+    <div class="site-section" style="padding:0 0 0  0 !important;" >
       <div class="container">
 
 
-      <div class="row">
-          <div class="col-md-12">
-            <div class="site-section site-blocks-2">
-                <div class="row justify-content-center text-center mb-5">
-                  <div class="col-md-7 site-section-heading pt-4">
-                    <h2>Ofertas</h2>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                    <a class="block-2-item" href="#">
-                      <figure class="image">
-                        <img src="images/women.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <span class="text-uppercase">Oferta</span>
-                        <h3>Mujer</h3>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-                    <a class="block-2-item" href="#">
-                      <figure class="image">
-                        <img src="images/children.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <span class="text-uppercase">Oferta</span>
-                        <h3>Niño</h3>
-                      </div>
-                    </a>
-                  </div>
-  
-                  <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-                    <a class="block-2-item" href="#">
-                      <figure class="image">
-                        <img src="images/men.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <span class="text-uppercase">Oferta</span>
-                        <h3>Hombre</h3>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              
+      <div id="carousel1" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+            <?php 
+              $contador=0;
+              $texto='';
+              $resultado = $conexion ->query("SELECT * from categoria where estado=1")or die($conexion -> error);
+              while ($fila = mysqli_fetch_array($resultado)) {
+                if($contador==0){
+                  $texto='active';
+                }else{
+                  $texto='';
+                }
+            ?>
+              <div class="carousel-item <?php echo $texto;?>" >
+              <img src="../files/categorias/<?php echo $fila['imagen'];?>" alt="<?php echo $fila['nombre'];?>" class='imgcar'> 
+                <div class="carousel-caption d-none d-md-block">
+                  <h5><?php echo $fila['nombre'];?></h5>
+                  <p><?php echo $fila['descripcion'];?></p>
+                </div>    
+              </div>
+            <?php $contador++;} ?>
             </div>
-          </div>
+            
+            <!--Controles NEXT y PREV-->
+            <a class="carousel-control-prev" href="#carousel1" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel1" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            <!--Controles de indicadores-->
+            <ol class="carousel-indicators">
+                <?php 
+                  $contador=0;
+                  $texto='';
+                  $resultado = $conexion ->query("SELECT * from categoria where estado=1")or die($conexion -> error);
+                  while ($fila = mysqli_fetch_array($resultado)) {
+                    if($contador==0){
+                      $texto='active';
+                    }else{
+                      $texto='';
+                    }
+                ?>
+                  <li data-target="#carousel1" data-slide-to="<?php echo $contador;?>" class="<?php echo $texto;?>"></li>
+                <?php $contador++;} ?>
+            </ol>
         </div>
-
 
         <div class="row mb-5">
           <div class="col-md-9 order-2">
@@ -115,32 +139,35 @@
             </div>
             <div class="row mb-5">
             <?php 
-                    include('./php/conexion.php');
-                    $limite = 6;//productos por pagina
-                    $totalQuery = $conexion->query('select count(*) from producto')or die($conexion->error);
+                    $limite = 9;//productos por pagina
+                    $totalQuery = $conexion->query('SELECT count(*) from producto where estado=1')or die($conexion->error);
                     $totalProductos = mysqli_fetch_row($totalQuery);
-                    $totalBotones = round($totalProductos[0] /$limite);
+                    $totalBotones = ceil($totalProductos[0] /$limite);
                     if(isset($_GET['limite'])){
-                      $resultado = $conexion ->query("SELECT * from producto  order by idProducto limit ".$_GET['limite'].",".$limite)or die($conexion -> error);
+                      $resultado = $conexion ->query("SELECT * from producto where estado=1 order by idProducto limit ".$_GET['limite'].",".$limite)or die($conexion -> error);
                     }else{
-                      $resultado = $conexion ->query("SELECT * from producto  order by idProducto limit ".$limite)or die($conexion -> error);
+                      $resultado = $conexion ->query("SELECT * from producto where estado=1 order by idProducto limit ".$limite)or die($conexion -> error);
                     }
                     while ($fila = mysqli_fetch_array($resultado)) {
                     
                     
                   ?>
                     <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                      <div class="block-4 text-center border">
+                      <div class="block-4 text-center border" style="
+                        border-radius:20px;  
+                        box-shadow: 4px 4px 16px rgba(0,0,0,0.25);
+                      ">
                         <figure class="block-4-image">
                           <a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>">
                             <img src="../files/articulos/<?php echo $fila['imagen']; ?>"
                             alt="<?php echo $fila['nombre']; ?>" class="img-fluid"
-                            style="width=100%; height:200px;">
+                            style="width=100%; height:200px; border-top-left-radius:20px;  
+                        border-top-right-radius:20px; ">
                           </a>
                         </figure>
                         <div class="block-4-text p-4">
                           <h3><a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>"><?php echo $fila['nombre']; ?></a></h3>
-                          <p class="mb-0"><?php echo $fila['descripcion']; ?></p>
+                          <!-- <p class="mb-0"><?php echo $fila['descripcion']; ?></p> -->
                           <p class="text-primary font-weight-bold">Q<?php echo $fila['Precio']; ?></p>
                         </div>
                       </div>
@@ -155,19 +182,19 @@
                       <?php 
                         if(isset($_GET['limite'])){
                           if($_GET['limite']>0){
-                            echo ' <li><a href="index.php?limite='.($_GET['limite']-6).'">&lt;</a></li>';
+                            echo ' <li><a href="index.php?limite='.($_GET['limite']-9).'">&lt;</a></li>';
                           }
                         }
 
                         for($k=0;$k<$totalBotones;$k++){
-                          echo  '<li><a href="index.php?limite='.($k*6).'">'.($k+1).'</a></li>';
+                          echo  '<li><a href="index.php?limite='.($k*9).'">'.($k+1).'</a></li>';
                         }
                         if(isset($_GET['limite'])){
-                          if($_GET['limite']+6 < $totalBotones*6){
-                            echo ' <li><a href="index.php?limite='.($_GET['limite']+6).'">&gt;</a></li>';
+                          if($_GET['limite']+9 < $totalBotones*9){
+                            echo ' <li><a href="index.php?limite='.($_GET['limite']+9).'">&gt;</a></li>';
                           }
                         }else{
-                          echo ' <li><a href="index.php?limite=6">&gt;</a></li>';
+                          echo ' <li><a href="index.php?limite=9">&gt;</a></li>';
                         }
                       ?>
                   

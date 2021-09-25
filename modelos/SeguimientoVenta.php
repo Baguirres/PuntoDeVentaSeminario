@@ -8,28 +8,28 @@
 
         }
 
-        public function insertar($idcategoria,$nombre,$stock,$imagen)
+        public function insertar($nombre,$idcategoria,$descripcion,$stock)
         {
             $sql = "INSERT INTO 
-                        producto (
-                            nombre,
-                            idCategoria,
-                            precio,
-                            imagen
+                        seguimientoventa (
+                            fecha,
+                            idfaseseguimiento,
+                            idventaencabezado,
+                            comentarios
                         ) 
                     VALUES (
                         '$nombre',
                         '$idcategoria',
-                        '$stock',
-                        '$imagen')";
+                        '$descripcion',
+                        '$stock')";
             
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idarticulo,$idcategoria)
+        public function editar($idarticulo)
         {
             $sql = "UPDATE seguimientoventa SET 
-                    idfaseseguimiento ='$idcategoria'
+                    estado=0
                     WHERE idseguimientoventa='$idarticulo'";
             
             return ejecutarConsulta($sql);

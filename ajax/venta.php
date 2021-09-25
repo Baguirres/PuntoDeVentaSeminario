@@ -102,6 +102,14 @@ switch ($_GET["op"]){
 			{
 				$url = '../reportes/exFactura.php?id='; //Ruta del archivo exFactura
 			}*/
+			switch($reg->estado){
+				case 0: $tag='<span class="label bg-red">Inactiva</span>';
+					break;
+				case 1: $tag='<span class="label bg-green">Activa</span>';
+					break;
+				case 2: $tag='<span class="label bg-blue">Devuelta</span>';
+					break;
+			}
  			$data[]=array(
  				"0"=>(
 					 ($reg->estado==1)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idventaencabezado.')"><i class="fa fa-eye"></i></button>'.
@@ -125,8 +133,7 @@ switch ($_GET["op"]){
 					"8"=>$reg->tienda,
 					"9"=>$reg->pago,
 					"10"=>$reg->moneda,
-					"11"=>($reg->estado==1)?'<span class="label bg-green">Activa</span>':
-					'<span class="label bg-red">Anulada</span>'
+					"11"=>$tag
 					);
  		}
  		$results = array(

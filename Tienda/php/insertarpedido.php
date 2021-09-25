@@ -65,6 +65,12 @@ for($i=0; $i<count($arreglo);$i++){
 }
 
 
+$to =$_POST['c_email_address'];
+$from='prueba@prueba.com';
+$subject = "Compra Realizada";
+$message = "Su compra fue realizada con exito siendo un total de Q".$total.", proximamente estara recibiendo actualización sobre el estado de su compra";
+echo '';
+mail($to,$subject,$message);
 
 // $conexion->query(" insert into envios(pais,company, direccion,estado,cp,id_venta) values
 //       (

@@ -299,7 +299,7 @@ function mostrar(idcompraencabezado)
             $.post(
                 "../ajax/ingreso.php?op=listarDetalle&id="+idcompraencabezado,function(r)
                 {
-                    //console.log(r);
+                    // console.log(r);
                     $("#detalles").html("");
                     $("#detalles").html(r);
                     cont=$('#articulos').val();

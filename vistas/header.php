@@ -158,6 +158,7 @@
                       <li><a href="cliente.php"><i class="fa fa-circle-o"></i> Clientes</a></li>
                       <li><a href="tienda.php"><i class="fa fa-circle-o"></i> Tienda</a></li>
                       <li><a href="seguimientoVenta.php"><i class="fa fa-circle-o"></i>Seguimiento de Venta</a></li>
+                      <li><a href="devolucion.php"><i class="fa fa-circle-o"></i>Devolución</a></li>
                     </ul>
                   </li>'
                  ;

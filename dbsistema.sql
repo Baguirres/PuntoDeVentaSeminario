@@ -51,9 +51,10 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `categoria` VALUES
-(1, 'Alimentos','Articulos de Sobrevivencia','',1),
-(2, 'Ropa','Articulos personales','',1),
-(3, 'Libreria','Articulos para estudio','',1);
+(1, 'Alimentos','Articulos de Sobrevivencia','comida.jpg',1),
+(2, 'Ropa','Articulos personales','ropa.jpg',1),
+(3, 'Libreria','Articulos para estudio','libreria.jpg',1),
+(4, 'Electrodomesticos','Cosas para el hogar','electro.jpg',1);
 -- --------------------------------------------------------
 
 --
@@ -402,11 +403,12 @@ CREATE TABLE `seguimientoventa` (
   `idFaseSeguimiento` int(11) NOT NULL,
   `idVentaEncabezado` int(11) NOT NULL,
   `comentarios` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
+`estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idSeguimientoVenta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `seguimientoventa` VALUES
-(1, '05/02/1998',1,1,'no hay com');
+(1, '05/02/1998',1,1,'no hay com',1);
 
 -- --------------------------------------------------------
 
@@ -570,6 +572,15 @@ INSERT INTO `permiso` (`idpermiso`, `nombre`) VALUES
 (8, 'Pagos'),
 (9, 'Recursos Humanos');
 
+
+CREATE TABLE `devolucion` (
+  `idDevolucion` int(11) NOT NULL AUTO_INCREMENT,
+  `idVentaEncabezado` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `comentario` varchar(1000) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY(`idDevolucion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

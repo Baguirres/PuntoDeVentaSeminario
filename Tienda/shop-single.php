@@ -44,45 +44,77 @@
       }?> 
 
     <div class="site-section">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
-            <img src="../files/articulos/<?php echo $fila[6]; ?>" alt="<?php echo $fila[1]; ?>" class="img-fluid">
-          </div>
-          <div class="col-md-6">
-            <h2 class="text-black"><?php echo $fila[1]; ?></h2>
-            <input type="hidden" id="txtId" value="<?php echo $fila[0]; ?>">
-            <p><?php echo $fila[2]; ?></p>
-            <p><strong class="text-primary h4">Q<?php echo $fila[3]; echo '<script>console.log("'.$fila[6].'")</script>';?></strong></p>
-            <div class="mb-1 d-flex">
-              <!-- <label for="option-sm" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
-              </label>
-              <label for="option-md" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
-              </label>
-              <label for="option-lg" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
-              </label>
-              <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
-              </label> -->
-            </div>
-            <div class="mb-5">
-              <div class="input-group mb-3" style="max-width: 120px;">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-              </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" id="txtCant" aria-label="Example text with button addon" aria-describedby="button-addon1">
-              <div class="input-group-append">
-                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+          
+            <div class="col-3 ml-5">
+              <div style="width:100%; background-color:#f8f9fa;
+                border-radius:25px; padding:1rem; 
+              ">
+              <h2 style="border-bottom:1px solid black; color:black;" class="mb-3 pt-2">Disponibilidad en Tiendas</h2>
+                <?php
+                $resultado2 = $conexion -> query("SELECT t.nombre, t.direccion, i.cantidad 
+                FROM  tienda t, inventario i, producto p 
+                where i.idtienda=t.idtienda and p.idproducto=i.idproducto and p.idProducto=".$_GET['id'])or die($conexion->error);
+                while ($fila2 = mysqli_fetch_array($resultado2)) {
+                    echo '
+                      <section class="pt-2 pb-2">
+                        <p>'.$fila2[0].' <span style="position:absolute; right:100px; color:green;">'.$fila2[2].'</span></p>
+                        <span style="position:relative; top:-15px;">Dirección: '.$fila2[1].'</span>                        
+                      </section>                
+                    ';
+                }
+                ?>
+                
               </div>
             </div>
 
+            <div class="col-8">
+              
+              <div class="row">
+                <div style="width:100%; background-color:#f8f9fa;
+                border-radius:25px; padding:1rem; ">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <img src="../files/articulos/<?php echo $fila[6]; ?>" alt="<?php echo $fila[1]; ?>" class="img-fluid" style="border-radius:5px;">
+                    </div>
+                    <div class="col-md-6">
+                      <h2 class="text-black"><?php echo $fila[1]; ?></h2>
+                      <input type="hidden" id="txtId" value="<?php echo $fila[0]; ?>">
+                      <p><?php echo $fila[2]; ?></p>
+                      <p><strong class="text-primary h4">Q<?php echo $fila[3]; echo '<script>console.log("'.$fila[6].'")</script>';?></strong></p>
+                      <div class="mb-1 d-flex">
+                        <!-- <label for="option-sm" class="d-flex mr-3 mb-3">
+                          <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
+                        </label>
+                        <label for="option-md" class="d-flex mr-3 mb-3">
+                          <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
+                        </label>
+                        <label for="option-lg" class="d-flex mr-3 mb-3">
+                          <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
+                        </label>
+                        <label for="option-xl" class="d-flex mr-3 mb-3">
+                          <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
+                        </label> -->
+                      </div>
+                      <div class="mb-5">
+                        <div class="input-group mb-3" style="max-width: 120px;">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                        </div>
+                        <input type="text" class="form-control text-center" value="1" placeholder="" id="txtCant" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                        </div>
+                      </div>
+                      </div>
+                      <p><a href="#" class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p><a href="#" class="buy-now btn btn-sm btn-primary">Agregar al Carro</a></p>
-
-          </div>
+            
         </div>
       </div>
     </div>

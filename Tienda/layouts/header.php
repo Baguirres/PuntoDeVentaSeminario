@@ -41,7 +41,7 @@
                         ?>
                       </span>
                     </a>
-                  </li> 
+                  </li>
                   <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
                 </ul>
               </div> 
@@ -61,6 +61,8 @@
               <a href="about.php">Sobre</a>           
             </li>
             <li><a href="contact.php">Contacto</a></li>
+            <li><a href="devolucion.php">Devoluciones</a></li>
+            <li><a href="compra.php">Compras</a></li>
           </ul>
         </div>
       </nav>

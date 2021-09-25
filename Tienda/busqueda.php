@@ -69,7 +69,7 @@
             </div>
             <div class="row mb-5">
               <?php 
-               $limite = 6;//productos por pagina
+               $limite = 9;//productos por pagina
                //$totalQuery = $conexion->query('select count(*) from producto')or die($conexion->error);
                if($_GET['precio']==0){
                     $totalQuery = $conexion->query("select count(*) from producto inner join categoria on producto.idcategoria  = categoria.idcateogira 
@@ -111,26 +111,32 @@
                     }
                }
                $totalProductos = mysqli_fetch_row($totalQuery);
-               $totalBotones = round($totalProductos[0] /$limite);
+               $totalBotones = ceil($totalProductos[0] /$limite);
                 if(mysqli_num_rows($resultado) > 0){ 
 
                    
                  while($fila = mysqli_fetch_array($resultado)){
               ?>
-                  <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                    <div class="block-4 text-center border">
-                      <figure class="block-4-image">
-                        <a href="shop-single.php?id=<?php echo $fila['idProducto'];?>">
-                        <img src="../files/articulos/<?php echo $fila['imagen'];?>" alt="<?php echo $fila['nombre'];?>" class="img-fluid"></a>
-                      </figure>
-                      <div class="block-4-text p-4">
-                        <h3><a href="shop-single.php?id=<?php echo $fila['idProducto'];?>"><?php echo $fila['nombre'];?></a></h3>
-                        <p class="mb-0"><?php echo $fila['descripcion'];?></p>
-                        <p class="text-primary font-weight-bold">$<?php echo $fila['Precio'];?></p>
+                                     <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                      <div class="block-4 text-center border" style="
+                        border-radius:20px;  
+                        box-shadow: 4px 4px 16px rgba(0,0,0,0.25);
+                      ">
+                        <figure class="block-4-image">
+                          <a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>">
+                            <img src="../files/articulos/<?php echo $fila['imagen']; ?>"
+                            alt="<?php echo $fila['nombre']; ?>" class="img-fluid"
+                            style="width=100%; height:200px; border-top-left-radius:20px;  
+                        border-top-right-radius:20px; ">
+                          </a>
+                        </figure>
+                        <div class="block-4-text p-4">
+                          <h3><a href="shop-single.php?id=<?php echo $fila['idProducto']; ?>"><?php echo $fila['nombre']; ?></a></h3>
+                          <!-- <p class="mb-0"><?php echo $fila['descripcion']; ?></p> -->
+                          <p class="text-primary font-weight-bold">Q<?php echo $fila['Precio']; ?></p>
+                        </div>
                       </div>
-                     
                     </div>
-                  </div>
                 <?php } }else{
                     echo  '<h2>Sin resultados</h2>';
                 } ?>
@@ -146,36 +152,36 @@
                     if($_GET['precio']==0){
                         if(isset($_GET['limite'])){
                             if($_GET['limite']>0){
-                              echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite='.($_GET['limite']-6).'">&lt;</a></li>';
+                              echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite='.($_GET['limite']-9).'">&lt;</a></li>';
                             }
                           }
      
                           for($k=0;$k<$totalBotones;$k++){
-                            echo  '<li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite='.($k*6).'">'.($k+1).'</a></li>';
+                            echo  '<li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite='.($k*9).'">'.($k+1).'</a></li>';
                           }
                           if(isset($_GET['limite'])){
-                            if($_GET['limite']+6 < $totalBotones*6){
-                              echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite='.($_GET['limite']+6).'">&gt;</a></li>';
+                            if($_GET['limite']+9 < $totalBotones*9){
+                              echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite='.($_GET['limite']+9).'">&gt;</a></li>';
                             }
                           }else{
-                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite=6">&gt;</a></li>';
+                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&limite=9">&gt;</a></li>';
                           }
                    }else{
                         if(isset($_GET['limite'])){
                             if($_GET['limite']>0){
-                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite='.($_GET['limite']-6).'">&lt;</a></li>';
+                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite='.($_GET['limite']-9).'">&lt;</a></li>';
                             }
                         }
     
                         for($k=0;$k<$totalBotones;$k++){
-                            echo  '<li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite='.($k*6).'">'.($k+1).'</a></li>';
+                            echo  '<li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite='.($k*9).'">'.($k+1).'</a></li>';
                         }
                         if(isset($_GET['limite'])){
-                            if($_GET['limite']+6 < $totalBotones*6){
-                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite='.($_GET['limite']+6).'">&gt;</a></li>';
+                            if($_GET['limite']+9 < $totalBotones*9){
+                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite='.($_GET['limite']+9).'">&gt;</a></li>';
                             }
                         }else{
-                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite=6">&gt;</a></li>';
+                            echo ' <li><a href="busqueda.php?texto='.$_GET['texto'].'&precio='.$_GET['precio'].'&precioInicio='.$_GET['precioInicio'].'&precioFinal='.$_GET['precioFinal'].'&limite=9">&gt;</a></li>';
                         }
                    }
                    ?>
@@ -273,8 +279,8 @@
         </div> -->
         
       <!-- </div> -->
-    <!-- </div>
-    <?php include("./layouts/footer.php"); ?>  -->
+    <!-- </div>-->
+    <?php include("./layouts/footer.php"); ?>
 
     
   </div>
