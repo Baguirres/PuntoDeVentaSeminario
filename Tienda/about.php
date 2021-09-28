@@ -32,7 +32,7 @@
             <div class="block-16">
               <figure>
                 <img src="images/blog_1.jpg" alt="Image placeholder" class="img-fluid rounded">
-                <a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span class="ion-md-play"></span></a>
+                <a href="https://www.youtube.com/watch?v=d84BIlXGxvs" class="play-button popup-vimeo"><span class="ion-md-play"></span></a>
 
               </figure>
             </div>

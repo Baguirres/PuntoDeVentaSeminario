@@ -19,8 +19,8 @@
                   ?>
             <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
               <div class="site-logo">               
-                <img src="../files/empresa/<?php echo $fila['logo']; ?>"
-                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid" style="height:50px;">
+                <a href="http://localhost:7080/Seminario_PuntoDeVenta/PuntoDeVentaSeminario/Tienda/index.php" style="border: none"><img src="../files/empresa/<?php echo $fila['logo']; ?>"
+                      alt="<?php echo $fila['nombre']; ?>" class="img-fluid" style="height:50px;"></a>
                
               </div>
             </div>

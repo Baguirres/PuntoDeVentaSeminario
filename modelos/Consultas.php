@@ -103,11 +103,11 @@
         public function totalCompraHoy()
         {
             $sql= "SELECT 
-                        IFNULL(SUM(total_compra),0) as total_compra
+                        IFNULL(SUM(total),0) as total_compra
                     FROM
-                        ingreso
+                        compraencabezado
                     WHERE
-                        DATE(fecha_hora) = curdate()";
+                        DATE(fecha) = curdate()";
             
             return ejecutarConsulta($sql);
         }
@@ -115,11 +115,11 @@
         public function totalVentaHoy()
         {
             $sql= "SELECT 
-                        IFNULL(SUM(total_venta),0) as total_venta
+                        IFNULL(SUM(total),0) as total_venta
                     FROM
-                        venta
+                        ventaencabezado
                     WHERE
-                        DATE(fecha_hora) = curdate()";
+                        DATE(fecha) = curdate()";
             
             return ejecutarConsulta($sql);
         }
@@ -128,14 +128,14 @@
         public function comprasUlt10dias()
         {
             $sql= "SELECT 
-                        CONCAT(DAY(fecha_hora),'-',MONTH(fecha_hora)) as fecha,
-                        SUM(total_compra) as total
+                        CONCAT(DAY(fecha),'-',MONTH(fecha)) as fecha,
+                        SUM(total) as total
                     FROM
-                        ingreso
+                        compraencabezado
                     GROUP BY
-                        fecha_hora 
+                        fecha 
                     ORDER BY
-                        fecha_hora
+                        fecha
                     DESC limit 0,10";
             
             return ejecutarConsulta($sql);
@@ -144,14 +144,14 @@
         public function ventas12meses()
         {
             $sql= "SELECT 
-                        DATE_FORMAT(fecha_hora,'%M') as fecha,
-                        SUM(total_venta) as total
+                        DATE_FORMAT(fecha,'%M') as fecha,
+                        SUM(total) as total
                     FROM
-                        venta
+                        ventaencabezado
                     GROUP BY
-                        MONTH(fecha_hora) 
+                        MONTH(fecha) 
                     ORDER BY
-                        fecha_hora
+                        fecha
                     DESC limit 0,12";
             
             return ejecutarConsulta($sql);

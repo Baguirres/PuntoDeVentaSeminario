@@ -42,7 +42,6 @@
       opacity: 0.5;
       width: 100%;
       height: 400px;
-     
     }
     </style>
   </head>
@@ -112,17 +111,8 @@
             <div class="row">
               <div class="col-md-12 mb-5">
                 <div class="float-md-left mb-4"><h2 class="text-black h5">Comprar Todo</h2></div>
-                <div class="d-flex">
-                  <div class="dropdown mr-1 ml-md-auto">
-                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Lo último
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                      <a class="dropdown-item" href="#">Hombres</a>
-                      <a class="dropdown-item" href="#">Mujeres</a>
-                      <a class="dropdown-item" href="#">Niños</a>
-                    </div>
-                  </div>
+                <!-- <div class="d-flex">
+                  
                   <div class="btn-group">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Referencia</button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
@@ -134,7 +124,7 @@
                       <a class="dropdown-item" href="#">Precio, Mayor a Menor</a>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row mb-5">
@@ -174,7 +164,7 @@
                     </div>
             <?php } ?>
             </div>
-            <div class="row" data-aos="fade-up">
+            <div class="row" >
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
                   <ul>

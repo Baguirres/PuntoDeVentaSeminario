@@ -12,7 +12,7 @@ $("#frmAcceso").on('submit',function(e){
         {
             if(data != 'null')
             {
-                $(location).attr("href","usuario.php");
+                $(location).attr("href","escritorio.php");
                 bootbox.alert("Todo bien");
             }
             else

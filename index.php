@@ -1,5 +1,5 @@
 <?php
     //Redireccionar al Login
 
-    header('location:vistas/login.html');
+    header('location:vistas/login.php');
 ?>

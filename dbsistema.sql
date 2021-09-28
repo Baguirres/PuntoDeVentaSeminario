@@ -188,7 +188,7 @@ CREATE TABLE `empresa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `empresa` VALUES
-(1, 'Chocolates Milky','zona 10 Edificio Sky Resort','12345678','123456-6','milky@gmail.com','eslogan','logo.jpg','«El Grupo Adidas se esfuerza por ser el líder mundial en la industria de artículos deportivos con marcas basadas en la pasión por el deporte y el estilo de vida deportivo».','«Somos líderes en innovación y diseño que buscan ayudar a los atletas de todos los niveles de habilidad a lograr el máximo rendimiento con cada producto que traemos al mercado».','«Seguridad, colaboración y creatividad».');
+(1, 'Chocolates Milky','zona 10 Edificio Sky Resort','12345678','123456-6','milky@gmail.com','eslogan','logo.png','«El Grupo Adidas se esfuerza por ser el líder mundial en la industria de artículos deportivos con marcas basadas en la pasión por el deporte y el estilo de vida deportivo».','«Somos líderes en innovación y diseño que buscan ayudar a los atletas de todos los niveles de habilidad a lograr el máximo rendimiento con cada producto que traemos al mercado».','«Seguridad, colaboración y creatividad».');
 
 -- --------------------------------------------------------
 

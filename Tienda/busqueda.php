@@ -42,7 +42,7 @@
             <div class="row">
               <div class="col-md-12 mb-5">
                 <div class="float-md-left mb-4"><h2 class="text-black h5">Buscando resultados para <?php echo $_GET['texto'];?> </h2></div>
-                <div class="d-flex">
+                <!-- <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Latest
@@ -64,7 +64,7 @@
                       <a class="dropdown-item" href="#">Price, high to low</a>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row mb-5">
@@ -143,7 +143,7 @@
 
 
             </div>
-            <div class="row" data-aos="fade-up">
+            <div class="row">
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
                 <ul>
