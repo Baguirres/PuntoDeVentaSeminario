@@ -11,25 +11,26 @@
         public function comprafecha($fecha_inicio, $fecha_fin)
         {
             $sql = "SELECT 
-                        DATE(i.fecha_hora) as fecha,
-                        u.nombre as usuario,
-                        p.nombre as proveedor,
-                        i.tipo_comprobante,
-                        i.serie_comprobante,
-                        i.num_comprobante,
-                        i.total_compra,
-                        i.impuesto,
-                        i.estado
-                    FROM
-                        ingreso i
-                    INNER JOIN persona p
-                    ON i.idproveedor = p.idpersona
-                    INNER JOIN usuario u
-                    ON i.idusuario = u.idusuario
-                    WHERE 
-                        DATE(i.fecha_hora) >= '$fecha_inicio'
+                    DATE(i.fecha) as fecha,
+                    u.nombre as usuario,
+                    p.nombre as proveedor,
+                    t.nombre as tienda,
+                    m.moneda as moneda,
+                    SUM(d.cantidad) as cantidadprod,
+                    i.total,
+                    i.impuesto,
+                    i.estado
+                FROM compraencabezado i
+                INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
+                INNER JOIN usuario u ON i.idusuario = u.idusuario
+                INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
+                INNER JOIN tipomoneda m ON i.idtipomoneda = m.idtipomoneda
+                INNER JOIN tienda t ON i.idtienda = t.idtienda
+                WHERE 
+                        DATE(i.fecha) >= '$fecha_inicio'
                     AND
-                        DATE(i.fecha_hora) <= '$fecha_fin'";
+                        DATE(i.fecha) <= '$fecha_fin'
+                        group by i.idCompraEncabezado";
 
             return ejecutarConsulta($sql);
         }
@@ -37,25 +38,24 @@
         public function ventasfechacliente($fecha_inicio, $fecha_fin, $idcliente)
         {
             $sql = "SELECT 
-                        DATE(v.fecha_hora) as fecha,
-                        u.nombre as usuario,
-                        p.nombre as cliente,
-                        v.tipo_comprobante,
-                        v.serie_comprobante,
-                        v.num_comprobante,
-                        v.total_venta,
-                        v.impuesto,
-                        v.estado
-                    FROM
-                        venta v
-                    INNER JOIN persona p
-                    ON v.idcliente = p.idpersona
-                    INNER JOIN usuario u
-                    ON v.idusuario = u.idusuario
+            DATE(v.fecha) as fecha,
+            u.nombre as usuario,
+            p.nombre as cliente,
+            t.nombre as tienda,
+            v.descuento,
+            v.iva,
+            v.total,
+            v.iva,
+            v.estado
+        FROM
+            ventaencabezado v
+        INNER JOIN cliente p ON v.idcliente = p.idcliente
+        INNER JOIN usuario u ON v.idusuario = u.idusuario
+        INNER JOIN tienda t ON v.idtienda = t.idtienda
                     WHERE 
-                        DATE(v.fecha_hora) >= '$fecha_inicio'
+                        DATE(v.fecha) >= '$fecha_inicio'
                     AND
-                        DATE(v.fecha_hora) <= '$fecha_fin'
+                        DATE(v.fecha) <= '$fecha_fin'
                     AND
                         v.idcliente = '$idcliente'";
 

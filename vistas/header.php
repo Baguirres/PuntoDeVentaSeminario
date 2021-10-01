@@ -211,7 +211,7 @@
                   </li>'
                  ;
               }
-              /*if($_SESSION['consultac'] == 1)
+              if($_SESSION['consultac'] == 1)
               {
                 echo 
                 '<li class="treeview">
@@ -239,7 +239,7 @@
                     </ul>
                   </li>'
                  ;
-              }*/
+              }
               if($_SESSION['consultav'] == 1)
               {
                 echo 

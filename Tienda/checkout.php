@@ -36,51 +36,132 @@ $arreglo  = $_SESSION['carrito'];
 
     <div class="site-section">
       <div class="container">
-        <!-- <div class="row mb-5">
-          <div class="col-md-12">
-            <div class="border p-4 rounded" role="alert">              
-                ¿Soy Cliente? <a href="login.php">Click Aqui</a> para Login
+        <?php 
+          if($_SESSION['idusuario'] == null){
+            echo ' <div class="row mb-5">
+            <div class="col-md-12">
+              <div class="border p-4 rounded" role="alert">              
+                  ¿Soy Cliente? <a href="login.php">Click Aqui</a> para Login
+              </div>
             </div>
-          </div>
-        </div> -->
+          </div>';
+          }        
+        ?>
+       
+
         <div class="row">
           <div class="col-md-6 mb-5 mb-md-0">
             <h2 class="h3 mb-3 text-black">Detalles de Facturación</h2>
             <div class="p-3 p-lg-5 border">
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="c_fname" class="text-black">Nombre <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_fname" name="c_fname">
+                  <?php 
+                    if($_SESSION['idusuario'] == null){
+                      echo '
+                      <label for="c_fname" class="text-black">Nombre <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_fname" name="c_fname">
+                      ';
+                    }else{
+                      echo '
+                      <label for="c_fname" class="text-black">Nombre <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_fname" name="c_fname" value="'.$_SESSION['name'].'" disabled>
+                      ';
+                    }
+                    
+                  ?>
+                  
                 </div>
                 <div class="col-md-6">
-                  <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_lname" name="c_lname">
+                <?php 
+                    if($_SESSION['idusuario'] == null){
+                      echo '
+                      <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_lname" name="c_lname">
+                      ';
+                    }else{
+                      echo '
+                      <label for="c_lname" class="text-black">Apellido <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_lname" name="c_lname" value="'.$_SESSION['ape'].'" disabled>
+                      ';
+                    }
+                    
+                  ?>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="c_fname" class="text-black">NIT <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_nit" name="c_nit">
+                <?php 
+                    if($_SESSION['idusuario'] == null){
+                      echo '
+                      <label for="c_fname" class="text-black">NIT <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_nit" name="c_nit">
+                      ';
+                    }else{
+                      echo '
+                      <label for="c_fname" class="text-black">NIT <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_nit" name="c_nit" value="'.$_SESSION['nit'].'" disabled>
+                      ';
+                    }
+                    
+                  ?>
                 </div>
               </div>
 
 
               <div class="form-group row">
                 <div class="col-md-12">
-                  <label for="c_address" class="text-black">Dirección <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Dirección">
+                <?php 
+                    if($_SESSION['idusuario'] == null){
+                      echo '
+                      <label for="c_address" class="text-black">Dirección <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Dirección">
+                      ';
+                    }else{
+                      echo '
+                      <label for="c_address" class="text-black">Dirección <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_address" name="c_address" value="'.$_SESSION['direccion'].'" disabled>
+                      ';
+                    }
+                    
+                  ?>
                 </div>
               </div>
 
               <div class="form-group row mb-5">
                 <div class="col-md-6">
-                  <label for="c_email_address" class="text-black">Correo Electronico <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                <?php 
+                    if($_SESSION['idusuario'] == null){
+                      echo '
+                      <label for="c_email_address" class="text-black">Correo Electronico <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                      ';
+                    }else{
+                      echo '
+                      <label for="c_email_address" class="text-black">Correo Electronico <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_email_address" name="c_email_address" value="'.$_SESSION['correo'].'" disabled>
+                      ';
+                    }
+                    
+                  ?>
+                  
                 </div>
                 <div class="col-md-6">
-                  <label for="c_phone" class="text-black">No. Teléfono <span class="text-danger">*</span></label>
+                <?php 
+                    if($_SESSION['idusuario'] == null){
+                      echo '
+                      <label for="c_phone" class="text-black">No. Teléfono <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Telefono">
+                      ';
+                    }else{
+                      echo '
+                      <label for="c_phone" class="text-black">No. Teléfono <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="c_phone" name="c_phone" value="'.$_SESSION['telefono'].'" disabled>
+                      ';
+                    }
+                    
+                  ?>
+                  
                 </div>
               </div>
 

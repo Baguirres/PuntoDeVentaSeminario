@@ -45,17 +45,16 @@
     </style>
   </head>
   <body>
-  
+  <!-- <?php include("./layouts/header.php"); ?>  -->
   <div class="container-fluid">
       <div class="row">
           <div class="login col-3 100vh">
-
-                <form action="">
-                    <label for="">Usuario</label>
-                    <input type="text" class="form-control"></input>
-                    <label for="">Contraseña</label>
-                    <input type="text" class="form-control">
-                    <button class="btn btn-primary inicio">Iniciar Sesión</button>
+                <form action="./php/login.php" method="post">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" class="form-control" id="c_fname" name="c_fname"></input>
+                    <label for="contra">Contraseña</label>
+                    <input type="password" class="form-control" id="contra" name="contra">
+                    <button class="btn btn-primary inicio" type="submit">Iniciar Sesión</button>
                     <br>
                     <a href="registro.php" class="registrate">Registrarse</a>
                 </form>

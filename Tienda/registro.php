@@ -50,32 +50,36 @@
       <div class="row">
           <div class="login col-6 100vh">
               <h2>Registro</h2>
-                <form action="">
+                <form action="./php/registro.php" method="post">
                     <div class="form-row">
-                        <label for="">Nombre Usuario</label>
-                        <input type="text" class="form-control"></input>
-                        <label for="">Contraseña</label>
-                        <input type="password" class="form-control">
+                        <label for="usuario">Nombre Usuario</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario"></input>
+                        <label for="contra">Contraseña</label>
+                        <input type="password" class="form-control" id="contra" name="contra">
                     </div>
                     <div class="form-row">
-                        <label for="">Nombre</label>
-                        <input type="text" class="form-control"></input>
-                        <label for="">Apellido</label>
-                        <input type="text" class="form-control">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"></input>
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido">
                     </div>
                     <div class="form-row">
-                        <label for="">Fecha Nacimiento</label>
-                        <input type="date" class="form-control"></input>
-                        <label for="">Correo</label>
-                        <input type="text" class="form-control">
+                        <label for="fecha">Fecha Nacimiento</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha"></input>
+                        <label for="correo">Correo</label>
+                        <input type="text" class="form-control" id="correo" name="correo">
                     </div>
                     <div class="form-row">
-                        <label for="">TeléfonoFecha Nacimiento</label>
-                        <input type="date" class="form-control"></input>
-                        <label for="">Dirección</label>
-                        <input type="text" class="form-control">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono"></input>
+                        <label for="dir">Dirección</label>
+                        <input type="text" class="form-control" id="dir" name="dir">
                     </div>
-                    <button class="btn btn-primary inicio"><a href="index.php" style="color: white;">Registrarse</a></button>
+                    <div class="form-row">
+                        <label for="nit">NIT</label>
+                        <input type="text" class="form-control" id="nit" name="nit"></input>
+                    </div>
+                    <button class="btn btn-primary inicio" type="submit">Registrarse</button>
                 </form>
           </div>
       </div>

@@ -35,20 +35,26 @@ for($i=0; $i<count($arreglo);$i++){
 // }
 
 $fecha1 = date("Y-m-d");
-$conexion->query("insert into cliente (nombre,apellido,direccion,telefono,correo,fechanacimiento,nit)  
-     values( 
-       '".$_POST['c_fname']."',
-       '".$_POST['c_lname']."',
-       '".$_POST['c_address']."',
-     '".$_POST['c_phone']."',
+$fecha = date("Y-m-d H:i:s");
+if($_SESSION['idusuario'] == null){
+      $conexion->query("insert into cliente (nombre,apellido,direccion,telefono,correo,fechanacimiento,nit)  
+      values( 
+        '".$_POST['c_fname']."',
+        '".$_POST['c_lname']."',
+        '".$_POST['c_address']."',
+      '".$_POST['c_phone']."',
       '".$_POST['c_email_address']."',
       '$fecha1',
       '".$_POST['c_nit']."'
-           )   
-   ")or die($conexion->error);
+            )   
+    ")or die($conexion->error);
 
-$fecha = date("Y-m-d H:i:s");
-$conexion -> query("insert into ventaencabezado(idcliente,fecha,total,idTipoDePago,idTienda,idTipoMoneda) values(1,'$fecha','$total',1,1,1)")or die($conexion->error);
+    $cliente = $conexion ->insert_id;
+    $conexion -> query("insert into ventaencabezado(idcliente,fecha,total,idTipoDePago,idTienda,idTipoMoneda) values(".$cliente.",'$fecha','$total',1,1,1)")or die($conexion->error);
+}else{
+    $conexion -> query("insert into ventaencabezado(idcliente,fecha,total,idTipoDePago,idTienda,idTipoMoneda) values(".$_SESSION['idcliente'] .",'$fecha','$total',1,1,1)")or die($conexion->error);
+}
+
 
 $id_venta = $conexion ->insert_id;
 
