@@ -78,7 +78,7 @@
                             <div class="small-box bg-aqua">
                                 <div class="inner">
                                     <h4 style="font-size:17px">
-                                        <strong>$ <?php echo $totalc; ?></strong>
+                                        <strong>Q <?php echo $totalc; ?></strong>
                                         <p>Compras</p>
                                     </h4>
                                 </div>
@@ -95,7 +95,7 @@
                             <div class="small-box bg-green">
                                 <div class="inner">
                                     <h4 style="font-size:17px">
-                                        <strong>$ <?php echo $totalv; ?></strong>
+                                        <strong>Q <?php echo $totalv; ?></strong>
                                         <p>Ventas</p>
                                     </h4>
                                 </div>
@@ -167,7 +167,7 @@ var compras = new Chart(ctx, {
     data: {
         labels: [<?php echo $fechasc; ?>],
         datasets: [{
-            label: 'Compras en $ de los ultimos 10 dias',
+            label: 'Compras en Q de los ultimos 10 dias',
             data: [<?php echo $totalesc; ?>],
             backgroundColor: [
                 'rgba(27, 201, 174, 0.8)',
@@ -214,7 +214,7 @@ var ventas = new Chart(ctx, {
     data: {
         labels: [<?php echo $fechasv; ?>],
         datasets: [{
-            label: '# Ventas en $ de los ultimos 12 meses',
+            label: '# Ventas en Q de los ultimos 12 meses',
             data: [<?php echo $totalesv; ?>],
             backgroundColor: [
                 'rgba(27, 201, 174, 0.8)',

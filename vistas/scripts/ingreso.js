@@ -402,9 +402,11 @@ function calcularTotales()
     var total=0;
     if (cont>0){
         for(var i=0; i<cont;i++){
-            console.log('subtotal '+i+': '+$('#subtotal'+i).html());
-            var subtotal= $('#subtotal'+i).html();
-            total += parseFloat(subtotal);
+            if($('#subtotal'+i).html()!=undefined){
+                console.log('subtotal '+i+': '+$('#subtotal'+i).html());
+                var subtotal= $('#subtotal'+i).html();
+                total += parseFloat(subtotal);
+            }
         }
     }    
     console.log('total'+total);
@@ -442,8 +444,7 @@ function evaluar()
 function eliminarDetalle(indice)
 {
     $("#fila" + indice).remove();
-    cont--;
-    detalles -= 1;
+    detalles --;
     calcularTotales();  
     evaluar();  
 }

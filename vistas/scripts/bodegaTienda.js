@@ -317,7 +317,7 @@ function yaExiste(idarticulo)
 function eliminarDetalle(indice)
 {
     $("#fila" + indice).remove();
-    cont--;
+    detalles--;
     calcularTotales();
 }
 
@@ -325,18 +325,24 @@ function calcularTotales()
 {
     var total=0;
     for(var i=0; i<cont;i++){
-        var cantidad= $('#cantidad'+i).val();
-        var stock= $('#stock'+i).val();
-        if(parseInt(cantidad)>parseInt(stock)){
-            bootbox.alert('La cantidad no puede ser mayor a la de stock, se pondrá el valor máximo');
-            $('#cantidad'+i).val(stock);
-            cantidad = stock;
-        }else if(parseInt(cantidad)<1){
-            bootbox.alert('La cantidad no puede ser menor a 1');
-            $('#cantidad'+i).val(1);
-            cantidad = 1;
+        if($('#cantidad'+i).val()!=undefined){
+            var cantidad= $('#cantidad'+i).val();
+            var stock= $('#stock'+i).val();
+            if(parseInt(cantidad)>parseInt(stock)){
+                bootbox.alert('La cantidad no puede ser mayor a la de stock, se pondrá el valor máximo');
+                $('#cantidad'+i).val(stock);
+                cantidad = stock;
+            }else if(parseInt(cantidad)<1){
+                bootbox.alert('La cantidad no puede ser menor a 1');
+                $('#cantidad'+i).val(1);
+                cantidad = 1;
+            }
+            total += parseInt(cantidad);
         }
-        total += parseInt(cantidad);
+        
+        console.log('cantidad '+i+' '+$('#cantidad'+i).val()+' '+typeof($('#cantidad'+i).val()));
+        console.log('stock '+i+' '+$('#stock'+i).val()+' '+typeof($('#stock'+i).val()));
+        console.log('total '+i+' '+total+' '+typeof(total));  
     }
     
     $("#total").html(total);

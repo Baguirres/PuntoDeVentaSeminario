@@ -75,8 +75,8 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `cliente` VALUES
-(1, 'Bryan','Aguire','2021-10-07','bryanorlando@hotmail.com','12345678','Mi casa','682479-6',1),
-(2, 'Bryana','Aguire','2021-10-07','bryanaorlando@hotmail.com','12345679','Mi casa','682479-7',1),
+(1, 'Bryan','Aguire','02/05/1998','bryanorlando@hotmail.com','12345678','Mi casa','682479-6',1),
+(2, 'Bryana','Aguire','02/05/1999','bryanaorlando@hotmail.com','12345679','Mi casa','682479-7',1),
 (3, 'C/F','C/F','','','','','C/F',1);
 
 -- --------------------------------------------------------
@@ -124,7 +124,7 @@ CREATE TABLE `compraencabezado` (
   PRIMARY KEY (idCompraEncabezado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO compraencabezado VALUES
-(1, '2021-10-07',1,1500.50,1,1,1,12,1);
+(1, '02/05/1998',1,1500.50,1,1,1,12,1);
 -- --------------------------------------------------------
 
 --
@@ -160,11 +160,11 @@ CREATE TABLE `empleado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `empleado` VALUES
-(1, 'Carlos','Laib','2021-10-07','2021-10-07','claib@gmail.com','12345678','su casa',1),
-(2, 'Bruno','Diaz','2021-10-07','2021-10-07','bdiazb@gmail.com','13485156','baticueva',1),
-(3, 'John','Stewart','2021-10-07','2021-10-07','jtewart@gmail.com','14781','linterna',1),
-(4, 'Clark','Dent','2021-10-07','2021-10-07','cdent@gmail.com','12345678','en la jefatura',1),
-(5, 'Hal','Jordan','2021-10-07','2021-10-07','hjordan@gmail.com','12345678','lilnterna verde',1);
+(1, 'Carlos','Laib','10/01/1997','02/09/2020','claib@gmail.com','12345678','su casa',1),
+(2, 'Bruno','Diaz','10/01/1997','02/09/2020','bdiazb@gmail.com','13485156','baticueva',1),
+(3, 'John','Stewart','10/01/1997','02/09/2020','jtewart@gmail.com','14781','linterna',1),
+(4, 'Clark','Dent','10/01/1997','02/09/2020','cdent@gmail.com','12345678','en la jefatura',1),
+(5, 'Hal','Jordan','10/01/1997','02/09/2020','hjordan@gmail.com','12345678','lilnterna verde',1);
 
 -- --------------------------------------------------------
 
@@ -369,7 +369,7 @@ CREATE TABLE `promocion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `promocion` VALUES
-(1, '2021-10-07','2021-10-07',1,50,1);
+(1, '01/01/2005','02/01/2006',1,50,1);
 -- --------------------------------------------------------
 
 --
@@ -408,7 +408,7 @@ CREATE TABLE `seguimientoventa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `seguimientoventa` VALUES
-(1,'2021-10-07 20:26:34',1,1,'no hay com',1);
+(1, '05/02/1998',1,1,'no hay com',1);
 
 -- --------------------------------------------------------
 
@@ -549,7 +549,7 @@ CREATE TABLE `ventaencabezado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `ventaencabezado` VALUES
-( 1,1,'2021-10-07 20:26:34',1000,10,1,1,1,1,1,1);
+( 1,1,'02/05/1998',1000,10,1,1,1,1,1,1);
 
 CREATE TABLE `permiso` (
   `idpermiso` int(11) NOT NULL AUTO_INCREMENT,
@@ -567,8 +567,8 @@ INSERT INTO `permiso` (`idpermiso`, `nombre`) VALUES
 (3, 'Compras'),
 (4, 'Ventas'),
 (5, 'Acceso'),
-(6, 'Consultas Compras'),
-(7, 'Consulta Ventas'),
+(6, 'Reportes'),
+(7, 'Graficas'),
 (8, 'Pagos'),
 (9, 'Recursos Humanos');
 

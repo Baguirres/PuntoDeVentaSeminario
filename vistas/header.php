@@ -121,7 +121,6 @@
                       <li><a href="articulo.php"><i class="fa fa-circle-o"></i> Artículos</a></li>
                       <li><a href="categoria.php"><i class="fa fa-circle-o"></i> Categorías</a></li>
                       <li><a href="promocion.php"><i class="fa fa-circle-o"></i> Promoción</a></li>
-                      <li><a href="inventario.php"><i class="fa fa-circle-o"></i> Inventarios</a></li>
                       <li><a href="bodega.php"><i class="fa fa-circle-o"></i> Bodegas</a></li>
                       <li><a href="bodegaTienda.php"><i class="fa fa-circle-o"></i> Artículos de Bodega a Tienda</a></li>
                     </ul>
@@ -133,7 +132,7 @@
                 echo 
                 '<li class="treeview">
                     <a href="#">
-                      <i class="fa fa-th"></i>
+                      <i class="fa fa-truck"></i>
                       <span>Compras</span>
                       <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -200,7 +199,7 @@
                 echo 
                 '<li class="treeview">
                     <a href="#">
-                      <i class="fa fa-folder"></i> <span>Acceso</span>
+                      <i class="fa fa-user-secret"></i> <span>Acceso</span>
                       <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -211,41 +210,28 @@
                   </li>'
                  ;
               }
-              if($_SESSION['consultac'] == 1)
+              if($_SESSION['reportes'] == 1)
               {
                 echo 
                 '<li class="treeview">
                     <a href="#">
-                      <i class="fa fa-bar-chart"></i> <span>Consulta Compras</span>
+                      <i class="fa fa-file-pdf-o"></i> <span>Reportes</span>
                       <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                      <li><a href="comprasfecha.php"><i class="fa fa-circle-o"></i> Consulta Compras</a></li>                
+                      <li><a href="ventasfechacliente.php"><i class="fa fa-circle-o"></i> Ventas</a></li>  
+                      <li><a href="comprasfecha.php"><i class="fa fa-circle-o"></i> Compras</a></li>   
+                      <li><a href="inventario.php"><i class="fa fa-circle-o"></i> Inventario</a></li>                
                     </ul>
                   </li>'
                  ;
               }
-
-              if($_SESSION['consultav'] == 1)
-              {
-                echo 
-                '<li class="treeview">
-                    <a href="#">
-                      <i class="fa fa-bar-chart"></i> <span>Consulta Ventas</span>
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="ventasfechacliente.php"><i class="fa fa-circle-o"></i> Consulta Ventas</a></li>                
-                    </ul>
-                  </li>'
-                 ;
-              }
-              if($_SESSION['consultav'] == 1)
+              if($_SESSION['graficas'] == 1)
               {
                 echo 
                 '<li>
-                    <a href="configuracion.php">
-                      <i class="fa fa-gear"></i> <span>Configuración</span>
+                    <a href="escritorio.php">
+                      <i class="fa fa-dashboard"></i> <span>DashBoards</span>
                     </a>
                   </li>'
                  ;

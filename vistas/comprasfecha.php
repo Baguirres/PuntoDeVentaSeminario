@@ -13,7 +13,7 @@
   {
     require 'header.php';
 
-    if($_SESSION['consultac'] == 1)
+    if($_SESSION['reportes'] == 1)
     {
 
     

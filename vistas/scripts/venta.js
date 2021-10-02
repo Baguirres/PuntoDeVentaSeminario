@@ -504,7 +504,7 @@ function dosDecimales(n) {
 		var iva= $('#iva'+i).val();
         subtotal= parseInt(cantidad)*parseFloat(precio);
 		iva = parseFloat(subtotal)*0.12;
-        $('#subtotal'+i).html(subtotal);
+        $('#subtotal'+i).html(dosDecimales(subtotal));
 		$('#iva'+i).html(dosDecimales(iva));
 
     }
@@ -518,19 +518,27 @@ function dosDecimales(n) {
     var iva=0;
     if (cont>0){
         for(var i=0; i<cont;i++){
-            var subtotal= $('#subtotal'+i).html();
-            descuento += parseFloat($('#descuento'+i).html());
-            iva += parseFloat($('#iva'+i).html());
-            total += parseFloat(subtotal);
+            if($('#subtotal'+i).html()!=undefined){
+                var subtotal= $('#subtotal'+i).html();
+                descuento += parseFloat($('#descuento'+i).html());
+                iva += parseFloat($('#iva'+i).html());
+                total += parseFloat(subtotal);
+                console.log('subtotal '+i+' '+$('#subtotal'+i).html()+' '+typeof($('#subtotal'+i).html()));
+                console.log('descuento '+i+' '+$('#descuento'+i).html()+' '+typeof($('#descuento'+i).html()));
+                console.log('iva '+i+' '+$('#iva'+i).html()+' '+typeof($('#iva'+i).html()));  
+            }
         }
-    }   
-    $("#descuento").html('Q '+descuento);
-    $("#descuento_compra").val(descuento);
-    $("#iva").html('Q '+iva);
-    $("#iva_compra").val(iva); 
-    $("#total").html('Q '+total);
-    $("#total_compra").val(total);
-
+    }
+    console.log('descuento '+descuento+' '+typeof(descuento));
+    console.log('iva '+iva+' '+typeof(iva));
+    console.log('total '+total+' '+typeof(total));   
+    $("#descuento").html('Q '+dosDecimales(descuento));
+    $("#descuento_compra").val(dosDecimales(descuento));
+    $("#iva").html('Q '+dosDecimales(iva));
+    $("#iva_compra").val(dosDecimales(iva)); 
+    $("#total").html('Q '+dosDecimales(total));
+    $("#total_compra").val(dosDecimales(total));
+   
     evaluar();
 }
 
@@ -548,10 +556,8 @@ function dosDecimales(n) {
 
   function eliminarDetalle(indice){
     $("#fila" + indice).remove();
-    cont--;
-    detalles -= 1;
+    detalles --;
     calcularTotales();  
-    evaluar();
   }
 
 init();
