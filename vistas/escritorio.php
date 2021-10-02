@@ -170,7 +170,7 @@ var compras = new Chart(ctx, {
             label: 'Compras en $ de los ultimos 10 dias',
             data: [<?php echo $totalesc; ?>],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(27, 201, 174, 0.8)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
@@ -182,7 +182,7 @@ var compras = new Chart(ctx, {
                 'rgba(75, 192, 192, 0.2)'
             ],
             borderColor: [
-                'rgba(255,99,132,1)',
+                'rgba(25, 186, 161, 0.8)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
@@ -214,10 +214,10 @@ var ventas = new Chart(ctx, {
     data: {
         labels: [<?php echo $fechasv; ?>],
         datasets: [{
-            label: '# Ventas en $ de los ultimos 12 dias',
+            label: '# Ventas en $ de los ultimos 12 meses',
             data: [<?php echo $totalesv; ?>],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(27, 201, 174, 0.8)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
@@ -231,7 +231,7 @@ var ventas = new Chart(ctx, {
                 'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
-                'rgba(255,99,132,1)',
+                'rgba(25, 186, 161, 0.8)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
