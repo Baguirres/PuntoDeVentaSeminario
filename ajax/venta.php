@@ -157,6 +157,18 @@ switch ($_GET["op"]){
 				}
 	break;
 
+	case 'selectCliente2':
+		require_once "../modelos/Cliente.php";
+		$cliente = new Cliente();
+
+		$rspta = $cliente->listarp();
+		echo '<option value=0></option>';
+		while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->idCliente . '>' . $reg->Nombre .' '.$reg->Apellido. '</option>';
+				}
+	break;
+
 	case 'selectPago':
 		require_once "../modelos/TipoPago.php";
 		$tipoPago = new TipoPago();

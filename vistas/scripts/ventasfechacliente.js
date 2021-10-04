@@ -6,10 +6,13 @@ function init()
     listar();
 
     //Cargamos los items al select proveedor
-    $.post("../ajax/venta.php?op=selectCliente", function (r) {
+    $.post("../ajax/venta.php?op=selectCliente2", function (r) {
         $("#idcliente").html(r);
         $('#idcliente').selectpicker('refresh');
     });	
+    $("#fecha_inicio").change(listar);
+    $("#fecha_fin").change(listar);
+    $("#idcliente").change(listar);
 
 }
 

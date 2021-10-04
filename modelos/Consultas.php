@@ -46,9 +46,11 @@
             v.iva,
             v.total,
             v.iva,
-            v.estado
+            v.estado,
+            SUM(d.cantidad) as cantidadprod
         FROM
             ventaencabezado v
+        INNER JOIN ventadetalle d ON d.idventaencabezado = v.idventaencabezado
         INNER JOIN cliente p ON v.idcliente = p.idcliente
         INNER JOIN usuario u ON v.idusuario = u.idusuario
         INNER JOIN tienda t ON v.idtienda = t.idtienda
@@ -57,7 +59,8 @@
                     AND
                         DATE(v.fecha) <= '$fecha_fin'
                     AND
-                        v.idcliente = '$idcliente'";
+                        v.idcliente = '$idcliente'
+        group by v.idventaencabezado";
 
             return ejecutarConsulta($sql);
         }

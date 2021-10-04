@@ -23,9 +23,9 @@
                     "3"=>$reg->tienda,
                     "4"=>$reg->moneda,
                     "5"=>$reg->cantidadprod,
-                    "6"=>$reg->total,
-                    "7"=>$reg->impuesto,
-                    "8"=>($reg->estado== 'Aceptado') ?
+                    "6"=>$reg->impuesto,
+                    "7"=>$reg->total,
+                    "8"=>($reg->estado== 1) ?
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'
@@ -55,11 +55,11 @@
                     "0"=>$reg->fecha,
                     "1"=>$reg->usuario,
                     "2"=>$reg->cliente,
-                    "3"=>$reg->tipo_comprobante,
-                    "4"=>$reg->serie_comprobante.' '.$reg->num_comprobante,
-                    "5"=>$reg->total_venta,
-                    "6"=>$reg->impuesto,
-                    "7"=>($reg->estado== 'Aceptado') ?
+                    "3"=>$reg->descuento,
+                    "4"=>$reg->iva,
+                    "5"=>$reg->total,
+                    "6"=>$reg->cantidadprod,
+                    "7"=>($reg->estado==1) ?
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'

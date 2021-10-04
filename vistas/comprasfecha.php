@@ -48,10 +48,11 @@
                             <th>Fecha</th>
                             <th>Usuario</th>
                             <th>Proveedor</th>
-                            <th>Comprobante</th>
-                            <th>Numero</th>
-                            <th>Total Compra</th>
+                            <th>Tienda</th>
+                            <th>Moneda</th>
+                            <th>Cantidad Productos</th>
                             <th>Impuesto</th>
+                            <th>Total</th>
                             <th>Estado</th>
                           </thead>
                           <tbody>
@@ -61,10 +62,11 @@
                             <th>Fecha</th>
                             <th>Usuario</th>
                             <th>Proveedor</th>
-                            <th>Comprobante</th>
-                            <th>Numero</th>
-                            <th>Total Compra</th>
+                            <th>Tienda</th>
+                            <th>Moneda</th>
+                            <th>Cantidad Productos</th>
                             <th>Impuesto</th>
+                            <th>Total</th>
                             <th>Estado</th>
                           </tfoot>
                         </table>

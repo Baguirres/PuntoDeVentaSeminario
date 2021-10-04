@@ -45,17 +45,16 @@
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label for="">Cliente</label>
                             <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true" required></select>
-                            <button class="btn btn-success" onclick="listar()">Mostrar</button>
                         </div>
                         <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Fecha</th>
-                            <th>Usuario</th>
+                            <th>Usuario Vendedor</th>
                             <th>Cliente</th>
-                            <th>Comprobante</th>
-                            <th>Numero</th>
+                            <th>Descuento</th>
+                            <th>IVA</th>
                             <th>Total Venta</th>
-                            <th>Impuesto</th>
+                            <th>Cantidad Artículos</th>
                             <th>Estado</th>
                           </thead>
                           <tbody>
@@ -63,12 +62,12 @@
                           </tbody>
                           <tfoot>
                             <th>Fecha</th>
-                            <th>Usuario</th>
+                            <th>Usuario Vendedor</th>
                             <th>Cliente</th>
-                            <th>Comprobante</th>
-                            <th>Numero</th>
+                            <th>Descuento</th>
+                            <th>IVA</th>
                             <th>Total Venta</th>
-                            <th>Impuesto</th>
+                            <th>Cantidad Artículos</th>
                             <th>Estado</th>
                           </tfoot>
                         </table>
