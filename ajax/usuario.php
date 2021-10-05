@@ -110,6 +110,15 @@
             echo json_encode($results);
         break;
 
+        case 'selectUsuario':
+            $rspta = $usuario->listar();
+            echo '<option value=0></option>';
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idusuario.'>'.$reg->usuario.'</option>';
+            }
+        break;
+
         case 'permisos':
             //obtenemos los permisos de la tabla permisos
             require_once '../modelos/Permiso.php';
@@ -187,6 +196,10 @@
         break;
 
         case 'salir':
+            require_once "../modelos/Bitacora.php";
+            $bitacora = new Bitacora();
+
+            $rspta = $bitacora->insertar($_SESSION["idusuario"],"Usuario cerró sesión");
             session_unset(); //Limpiamos las variables de sesion
             session_destroy(); //Destriumos la sesion
             header("Location: ../index.php");

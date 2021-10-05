@@ -249,10 +249,17 @@ function guardaryeditar(e)
             {idcompraencabezado:idcompraencabezado,fecha:fecha,idproveedor:idproveedor,idtienda:idtienda,articulos:articulos,cantidad:cantidad,impuesto:impuesto, usuario:usuario, moneda:moneda, total:total, estado:estado},
             function(e)
             {
-                bootbox.alert(e, function(){
-                    cancelarform();
-                })
-                
+                $.post(
+                    "../ajax/bitacora.php?op=insertar",
+                    {usuario:usuario,accion:"Compra Registrada"},
+                    function(f)
+                    {
+                        bootbox.alert(e, function(){
+                            cancelarform();
+                        })
+                        
+                    }
+                );
             }
         );
     }

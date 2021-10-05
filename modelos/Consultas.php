@@ -35,6 +35,34 @@
             return ejecutarConsulta($sql);
         }
 
+        public function ventasfecha($fecha_inicio, $fecha_fin)
+        {
+            $sql = "SELECT 
+            DATE(v.fecha) as fecha,
+            u.nombre as usuario,
+            p.nombre as cliente,
+            t.nombre as tienda,
+            v.descuento,
+            v.iva,
+            v.total,
+            v.iva,
+            v.estado,
+            SUM(d.cantidad) as cantidadprod
+        FROM
+            ventaencabezado v
+        INNER JOIN ventadetalle d ON d.idventaencabezado = v.idventaencabezado
+        INNER JOIN cliente p ON v.idcliente = p.idcliente
+        INNER JOIN usuario u ON v.idusuario = u.idusuario
+        INNER JOIN tienda t ON v.idtienda = t.idtienda
+                    WHERE 
+                        DATE(v.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(v.fecha) <= '$fecha_fin'
+        group by v.idventaencabezado";
+
+            return ejecutarConsulta($sql);
+        }
+
         public function ventasfechacliente($fecha_inicio, $fecha_fin, $idcliente)
         {
             $sql = "SELECT 
@@ -61,6 +89,88 @@
                     AND
                         v.idcliente = '$idcliente'
         group by v.idventaencabezado";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function devolucionfecha($fecha_inicio, $fecha_fin)
+        {
+            $sql = "SELECT 
+            DATE(v.fecha) as fechaventa,
+            u.nombre as usuario,
+            p.nombre as cliente,
+            t.nombre as tienda,
+            v.total,
+            SUM(d.cantidad) as cantidadprod,
+            de.fecha as fechadevolucion,
+            de.comentario,
+            de.estado
+        FROM
+            devolucion de
+        INNER JOIN ventaencabezado v ON v.idventaencabezado= de.idventaencabezado
+        INNER JOIN ventadetalle d ON d.idventaencabezado = v.idventaencabezado
+        INNER JOIN cliente p ON v.idcliente = p.idcliente
+        INNER JOIN usuario u ON v.idusuario = u.idusuario
+        INNER JOIN tienda t ON v.idtienda = t.idtienda
+                    WHERE 
+                        DATE(de.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(de.fecha) <= '$fecha_fin'
+        group by v.idventaencabezado";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function devolucionfechacliente($fecha_inicio, $fecha_fin, $idcliente)
+        {
+            $sql = "SELECT 
+            DATE(v.fecha) as fechaventa,
+            u.nombre as usuario,
+            p.nombre as cliente,
+            t.nombre as tienda,
+            v.total,
+            SUM(d.cantidad) as cantidadprod,
+            de.fecha as fechadevolucion,
+            de.comentario,
+            de.estado
+        FROM
+            devolucion de
+        INNER JOIN ventaencabezado v ON v.idventaencabezado= de.idventaencabezado
+        INNER JOIN ventadetalle d ON d.idventaencabezado = v.idventaencabezado
+        INNER JOIN cliente p ON v.idcliente = p.idcliente
+        INNER JOIN usuario u ON v.idusuario = u.idusuario
+        INNER JOIN tienda t ON v.idtienda = t.idtienda
+                    WHERE 
+                        DATE(de.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(de.fecha) <= '$fecha_fin'
+                    AND
+                        v.idcliente = '$idcliente'
+        group by v.idventaencabezado";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function bitacorafecha($fecha_inicio, $fecha_fin)
+        {
+            $sql = "SELECT b.idBitacora, u.nombre  as usuario, b.fecha, b.accion from bitacora b, usuario u WHERE b.idUsuario=u.idUsuario
+                    AND 
+                        DATE(b.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(b.fecha) <= '$fecha_fin'";
+
+            return ejecutarConsulta($sql);
+        }
+
+        public function bitacorafechausuario($fecha_inicio, $fecha_fin, $idcliente)
+        {
+            $sql = "SELECT b.idBitacora, u.nombre  as usuario, b.fecha, b.accion from bitacora b, usuario u WHERE b.idUsuario=u.idUsuario
+                    AND 
+                        DATE(b.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(b.fecha) <= '$fecha_fin'
+                    AND
+                        b.idusuario = '$idcliente'";
 
             return ejecutarConsulta($sql);
         }

@@ -2,34 +2,24 @@
     
     require_once '../modelos/Bitacora.php';
 
-    $tienda = new Bitacora();
-
-    $idtienda=isset($_POST["idtienda"])? limpiarCadena($_POST["idtienda"]):"";
-    $idmunicipio=isset($_POST["idmunicipio"])? limpiarCadena($_POST["idmunicipio"]):"";
-    $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
-    $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
+    $bitacora = new Bitacora();
 
     switch($_GET["op"])
     {
-        case 'guardaryeditar':
-            if (empty($idtienda)){
-                $rspta=$tienda->insertar($nombre,$direccion,$idmunicipio);
-                echo $rspta ? "Tienda registrado" : "Tienda no se pudo registrar";
-            }
-            else {
-                $rspta=$tienda->editar($idtienda,$nombre,$direccion,$idmunicipio);
-                echo $rspta ? "Tienda actualizado" : "Tienda no se pudo actualizar";
-            }
+        case 'insertar':
+            $usuario = $_REQUEST["usuario"];
+            $accion = $_REQUEST["accion"];
+            $rspta=$bitacora->insertar($usuario,$accion);
+            echo $rspta ? "BITACORA registrado" : "BITACORA no se pudo registrar";
         break;
 
-        case 'desactivar':
-                $rspta = $tienda->desactivar($idtienda);
-                echo $rspta ? "Tienda desactivada" : "Tienda no se pudo desactivar";
-        break;
-
-        case 'activar':
-            $rspta = $tienda->activar($idtienda);
-            echo $rspta ? "Tienda activado" : "Tienda no se pudo activar";
+        case 'insertar2':
+            $usuario = $_REQUEST["usuario"];
+            $clave = $_REQUEST["clave"];
+            $accion = $_REQUEST["accion"];
+            $clavehash = hash("SHA256",$clave);
+            $rspta=$bitacora->insertar2($usuario,$clavehash,$accion);
+            echo $rspta ? "BITACORA registrado" : "BITACORA no se pudo registrar";
         break;
 
         case 'mostrar':
@@ -39,7 +29,7 @@
         break;
 
         case 'listar':
-            $rspta = $tienda->listar();
+            $rspta = $bitacora->listar();
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
@@ -61,20 +51,7 @@
             echo json_encode($results);
         break;
 
-        case 'selectCategoria':
-            require_once "../modelos/Tienda.php";
-            $categoria = new Tienda();
-
-            $rspta = $categoria->listarMunicipio();
-
-            while($reg = $rspta->fetch_object())
-            {
-                echo '<option value='.$reg->idMunicipio.'>'
-                        .$reg->nombre.
-                      '</option>';
-               
-            }
-        break;
+        
     }
 
 ?>

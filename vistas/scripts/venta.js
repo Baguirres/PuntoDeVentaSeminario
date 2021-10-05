@@ -238,10 +238,17 @@ function guardaryeditar(e)
             {nit:nit,fecha:fecha,total:total,descuentocompra:descuentocompra,iva:iva,usuario:usuario,idtienda:idtienda,pago:pago,moneda:moneda,articulos:articulos,cantidad:cantidad,descuento:descuento},
             function(e)
             {
-                bootbox.alert(e, function(){
-                    cancelarform();
-                })
-                
+                $.post(
+                    "../ajax/bitacora.php?op=insertar",
+                    {usuario:usuario,accion:"Venta Registrada"},
+                    function(f)
+                    {
+                        bootbox.alert(e, function(){
+                            cancelarform();
+                        })
+                        
+                    }
+                );
             }
         );
     }

@@ -12,6 +12,14 @@ $("#frmAcceso").on('submit',function(e){
         {
             if(data != 'null')
             {
+                $.post(
+                    "../ajax/bitacora.php?op=insertar2",
+                    {usuario:usuarioa,clave:clavea,accion:"Usuario inició sesión"},
+                    function(f)
+                    {
+                        //bootbox.alert(f);
+                    }
+                );
                 $(location).attr("href","escritorio.php");
                 bootbox.alert("Todo bien");
             }

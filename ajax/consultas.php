@@ -47,8 +47,13 @@
             $fecha_fin = $_REQUEST["fecha_fin"];
             $idcliente = $_REQUEST["idcliente"];
 
-            $rspta = $consulta->ventasfechacliente($fecha_inicio, $fecha_fin, $idcliente);
-            $data = Array();
+            if($idcliente==0){
+                $rspta = $consulta->ventasfecha($fecha_inicio, $fecha_fin);
+                $data = Array();
+            }else{
+                $rspta = $consulta->ventasfechacliente($fecha_inicio, $fecha_fin, $idcliente);
+                $data = Array();
+            }
 
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
@@ -63,6 +68,75 @@
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'
+                );
+            }
+            $results = array(
+                "sEcho"=>1, //Informacion para el datable
+                "iTotalRecords" =>count($data), //enviamos el total de registros al datatable
+                "iTotalDisplayRecords" => count($data), //enviamos el total de registros a visualizar
+                "aaData" =>$data
+            );
+            echo json_encode($results);
+        break;
+
+        case 'devolucionfechacliente':
+
+            $fecha_inicio = $_REQUEST["fecha_inicio"];
+            $fecha_fin = $_REQUEST["fecha_fin"];
+            $idcliente = $_REQUEST["idcliente"];
+
+            if($idcliente==0){
+                $rspta = $consulta->devolucionfecha($fecha_inicio, $fecha_fin);
+                $data = Array();
+            }else{
+                $rspta = $consulta->devolucionfechacliente($fecha_inicio, $fecha_fin, $idcliente);
+                $data = Array();
+            }
+
+            while ($reg = $rspta->fetch_object()) {
+                $data[] = array(
+                    "0"=>$reg->fechaventa,
+                    "1"=>$reg->usuario,
+                    "2"=>$reg->cliente,
+                    "3"=>$reg->tienda,
+                    "4"=>$reg->cantidadprod,
+                    "5"=>$reg->total,
+                    "6"=>$reg->fechadevolucion,
+                    "7"=>$reg->comentario,
+                    "8"=>($reg->estado==1) ?
+                         '<span class="label bg-green">Aceptado</span>'
+                         :      
+                         '<span class="label bg-red">Anulado</span>'
+                );
+            }
+            $results = array(
+                "sEcho"=>1, //Informacion para el datable
+                "iTotalRecords" =>count($data), //enviamos el total de registros al datatable
+                "iTotalDisplayRecords" => count($data), //enviamos el total de registros a visualizar
+                "aaData" =>$data
+            );
+            echo json_encode($results);
+        break;
+
+        case 'bitacorafechausuario':
+
+            $fecha_inicio = $_REQUEST["fecha_inicio"];
+            $fecha_fin = $_REQUEST["fecha_fin"];
+            $idcliente = $_REQUEST["idcliente"];
+
+            if($idcliente==0){
+                $rspta = $consulta->bitacorafecha($fecha_inicio, $fecha_fin);
+                $data = Array();
+            }else{
+                $rspta = $consulta->bitacorafechausuario($fecha_inicio, $fecha_fin, $idcliente);
+                $data = Array();
+            }
+
+            while ($reg = $rspta->fetch_object()) {
+                $data[] = array(
+                    "0"=>$reg->fecha,
+                    "1"=>$reg->usuario,
+                    "2"=>$reg->accion
                 );
             }
             $results = array(
