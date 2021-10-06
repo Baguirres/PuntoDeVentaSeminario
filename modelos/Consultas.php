@@ -241,7 +241,7 @@
         public function comprasUlt10dias()
         {
             $sql= "SELECT 
-                        CONCAT(DAY(fecha),'-',MONTH(fecha)) as fecha,
+                        CONCAT(DAY(fecha),'/',MONTH(fecha)) as fecha,
                         SUM(total) as total
                     FROM
                         compraencabezado
@@ -249,7 +249,39 @@
                         fecha 
                     ORDER BY
                         fecha
-                    DESC limit 0,10";
+                    DESC limit 0,30";
+            
+            return ejecutarConsulta($sql);
+        }
+
+        public function ventasUlt10dias()
+        {
+            $sql= "SELECT 
+                        CONCAT(DAY(fecha),'/',MONTH(fecha)) as fecha,
+                        SUM(total) as total
+                    FROM
+                        ventaencabezado
+                    GROUP BY
+                        fecha 
+                    ORDER BY
+                        fecha
+                    DESC limit 0,30";
+            
+            return ejecutarConsulta($sql);
+        }
+
+        public function compras12meses()
+        {
+            $sql= "SELECT 
+                        DATE_FORMAT(fecha,'%M') as fecha,
+                        SUM(total) as total
+                    FROM
+                        compraencabezado
+                    GROUP BY
+                        MONTH(fecha) 
+                    ORDER BY
+                        fecha
+                    DESC limit 0,12";
             
             return ejecutarConsulta($sql);
         }

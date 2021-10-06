@@ -42,6 +42,21 @@
         $fechasc = substr($fechasc,0,-1);
         $totalesc = substr($totalesc,0,-1);
 
+         //Mostrar graficos 
+         $ventas10 = $consulta->ventasUlt10dias();
+         $fechasv1 = '';
+         $totalesv1 = '';
+ 
+         while($regfechav1 = $ventas10->fetch_object())
+         {
+             $fechasv1 =  $fechasv1.'"'.$regfechav1->fecha.'",';
+             $totalesv1 = $totalesv1.$regfechav1->total.',';
+         }
+ 
+         //Quitamos la ultima coma
+         $fechasv1 = substr($fechasv1,0,-1);
+         $totalesv1 = substr($totalesv1,0,-1);
+
         //Graficos Venta
         $compras12 = $consulta->ventas12meses();
         $fechasv = '';
@@ -56,6 +71,20 @@
         //Quitamos la ultima coma
         $fechasv = substr($fechasv,0,-1);
         $totalesv = substr($totalesv,0,-1);
+
+        $comprasv1 = $consulta->compras12meses();
+        $fechasc1 = '';
+        $totalesc1 = '';
+
+        while($regfechac1 = $comprasv1->fetch_object())
+        {
+            $fechasc1 =  $fechasc1.'"'.$regfechac1->fecha.'",';
+            $totalesc1 = $totalesc1.$regfechac1->total.',';
+        }
+
+        //Quitamos la ultima coma
+        $fechasc1 = substr($fechasc1,0,-1);
+        $totalesc1 = substr($totalesc1,0,-1);
 ?>
 
 <!--Contenido-->
@@ -127,6 +156,30 @@
                             <div class="box box-primary">
 
                                 <div class="box-header with-border">
+                                    Ventas los ultimos 10 dias
+                                </div>
+                                <div class="box body">
+                                    <canvas id="ventasv1" width="400" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="box box-primary">
+
+                                <div class="box-header with-border">
+                                    Compras ultimos 12 meses
+                                </div>
+                                <div class="box body">
+                                    <canvas id="comprasc1" width="400" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="box box-primary">
+
+                                <div class="box-header with-border">
                                     Ventas ultimos 12 meses
                                 </div>
                                 <div class="box body">
@@ -134,6 +187,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <!--Fin centro -->
                   </div><!-- /.box -->
@@ -243,6 +297,102 @@ var ventas = new Chart(ctx, {
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById("comprasc1").getContext('2d');
+var ventas = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $fechasc1; ?>],
+        datasets: [{
+            label: '# Compras en Q de los ultimos 12 meses',
+            data: [<?php echo $totalesc1; ?>],
+            backgroundColor: [
+                'rgba(27, 201, 174, 0.8)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(25, 186, 161, 0.8)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById("ventasv1").getContext('2d');
+var compras = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $fechasv1; ?>],
+        datasets: [{
+            label: 'Ventas en Q de los ultimos 10 dias',
+            data: [<?php echo $totalesv1; ?>],
+            backgroundColor: [
+                'rgba(27, 201, 174, 0.8)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(25, 186, 161, 0.8)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
             ],
             borderWidth: 1
         }]
