@@ -183,12 +183,12 @@
                         p.descripcion,
                         pr.nombre as proveedor,
                         p.estado,
-                        i.cantidad
+                        i.cantidad,
+                        t.nombre as tienda
                     FROM inventario i
-                    INNER JOIN producto p
-                    ON i.idproducto = p.idproducto
-                    INNER JOIN proveedor pr
-                    ON pr.idproveedor = p.idproveedor
+                    INNER JOIN producto p ON i.idproducto = p.idproducto
+                    INNER JOIN proveedor pr ON pr.idproveedor = p.idproveedor
+                    INNER JOIN tienda t ON t.idtienda = i.idtienda
                     WHERE i.idtienda='$idtienda'";
 
             return ejecutarConsulta($sql);
@@ -202,13 +202,16 @@
                         p.descripcion,
                         pr.nombre as proveedor,
                         p.estado,
-                        SUM(i.cantidad) as cantidad
+                        SUM(i.cantidad) as cantidad,
+                        'General' as tienda
                     FROM inventario i
                     INNER JOIN producto p
                     ON i.idproducto = p.idproducto
                     INNER JOIN proveedor pr
                     ON pr.idproveedor = p.idproveedor
-                    GROUP BY p.idproducto";
+                    INNER JOIN tienda t ON t.idtienda = i.idtienda
+                    GROUP BY p.idproducto
+                    ORDER BY tienda";
 
             return ejecutarConsulta($sql);
         }

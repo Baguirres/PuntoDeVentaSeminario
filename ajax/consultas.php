@@ -60,11 +60,12 @@
                     "0"=>$reg->fecha,
                     "1"=>$reg->usuario,
                     "2"=>$reg->cliente,
-                    "3"=>$reg->descuento,
-                    "4"=>$reg->iva,
-                    "5"=>$reg->total,
-                    "6"=>$reg->cantidadprod,
-                    "7"=>($reg->estado==1) ?
+                    "3"=>$reg->tienda,
+                    "4"=>$reg->descuento,
+                    "5"=>$reg->iva,
+                    "6"=>$reg->total,
+                    "7"=>$reg->cantidadprod,
+                    "8"=>($reg->estado==1) ?
                          '<span class="label bg-green">Aceptado</span>'
                          :      
                          '<span class="label bg-red">Anulado</span>'

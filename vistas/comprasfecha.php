@@ -29,6 +29,7 @@
                   <div class="box">
                     <div class="box-header with-border">
                         <h1 class="box-title">Consulta de Compras por Fecha</h1>
+                        <button class="btn btn-info" id='reporte'>Reporte</button>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -94,7 +95,17 @@
 ?>
 
 <script src="./scripts/comprasfecha.js"></script>
-
+<script>
+  $(document).ready(function(){
+      $("#reporte").click(function(event){
+        var fechainicial=$('#fecha_inicio').val();
+        var fechafinal=$('#fecha_fin').val();
+        var cliente=$('#idcliente').val();
+        var clientename=$('select[id="idcliente"] option:selected').text();
+        window.open("../reportes/pdfBase.php?op=2&fechaini="+fechainicial+"&fechafinal="+fechafinal+"&cliente="+cliente+"&nombre="+clientename, '_blank'); 
+      });
+    });
+</script>
 <?php
   }
   ob_end_flush(); //liberar el espacio del buffer

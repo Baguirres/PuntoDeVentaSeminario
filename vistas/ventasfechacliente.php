@@ -27,6 +27,9 @@
                   <div class="box">
                     <div class="box-header with-border">
                         <h1 class="box-title">Consulta de Ventas por Fecha y cliente</h1>
+                        <a target="_blank" href="">
+                          <button class="btn btn-info" id='reporte'>Reporte</button>
+                        </a>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -51,6 +54,7 @@
                             <th>Fecha</th>
                             <th>Usuario Vendedor</th>
                             <th>Cliente</th>
+                            <th>Tienda</th>
                             <th>Descuento</th>
                             <th>IVA</th>
                             <th>Total Venta</th>
@@ -64,6 +68,7 @@
                             <th>Fecha</th>
                             <th>Usuario Vendedor</th>
                             <th>Cliente</th>
+                            <th>Tienda</th>
                             <th>Descuento</th>
                             <th>IVA</th>
                             <th>Total Venta</th>
@@ -95,6 +100,17 @@
 ?>
 
 <script src="./scripts/ventasfechacliente.js"></script>
+<script>
+  $(document).ready(function(){
+      $("#reporte").click(function(event){
+        var fechainicial=$('#fecha_inicio').val();
+        var fechafinal=$('#fecha_fin').val();
+        var cliente=$('#idcliente').val();
+        var clientename=$('select[id="idcliente"] option:selected').text();
+        window.open("../reportes/pdfBase.php?op=1&fechaini="+fechainicial+"&fechafinal="+fechafinal+"&cliente="+cliente+"&nombre="+clientename, '_blank'); 
+      });
+    });
+</script>
 
 <?php
   }
