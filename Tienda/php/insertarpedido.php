@@ -73,7 +73,7 @@ for($i=0; $i<count($arreglo);$i++){
 $conexion -> query("insert into seguimientoventa(fecha,idFaseSeguimiento,idVentaEncabezado,Comentarios) values('$fecha',1,$id_venta,'".$_POST['c_order_notes']."')")or die($conexion->error);
 
 
-$to =$_POST['c_email_address'];
+$to =$_SESSION['correo'];
 $subject = "Compra Realizada";
 $message = "Su compra fue realizada con exito siendo un total de Q".$total.", proximamente estara recibiendo actualización sobre el estado de su compra";
 $headers = 'From: kamcanco@gmail.com' . "\r\n" .
