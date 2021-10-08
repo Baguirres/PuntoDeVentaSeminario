@@ -35,6 +35,22 @@
             return ejecutarConsulta($sql);
         }
 
+        public function buscarCliente($idventa)
+        {
+            $sql = "SELECT idcliente from ventaencabezado 
+                    WHERE idventaencabezado='$idventa'";
+            
+            return ejecutarConsulta($sql);
+        }
+
+        public function correoCliente($idventa)
+        {
+            $sql = "SELECT correo from cliente 
+                    WHERE idcliente='$idventa'";
+            
+            return ejecutarConsulta($sql);
+        }
+
         //METODOS PARA ACTIVAR ARTICULOS
         public function desactivar($idarticulo)
         {

@@ -15,6 +15,23 @@
         case 'guardaryeditar':
                 $rspta=$articulo->insertar($nombre,$idcategoria,$descripcion,$stock);
                 $rspta=$articulo->editar($idarticulo);
+                $idcliente=$articulo->buscarCliente($descripcion);
+                if (mysqli_num_rows($idcliente)>0) {
+                    $fila = mysqli_fetch_row($idcliente);
+                    $correo = $articulo->correoCliente($fila[0]);
+                    if (mysqli_num_rows($correo)>0) {
+                        $fila2 = mysqli_fetch_row($correo);                         
+                        $to =$fila2[0];
+                        $subject = "Pedido Actualizado";
+                        $message = "El estado de su pedido ha sido actualizado pronto te llegara";
+                        $headers = 'From: kamcanco@gmail.com' . "\r\n" .
+                                'Reply-To: kamcanco@gmail.com' . "\r\n" .
+                                'X-Mailer: PHP/' . phpversion();
+                        mail($to,$subject,$message,$headers);
+                     }
+                 }
+            
+
                 echo $rspta ? "Seguimiento de la Venta actualizado" : "Seguimiento de la Venta no se pudo actualizar";
         break;
 

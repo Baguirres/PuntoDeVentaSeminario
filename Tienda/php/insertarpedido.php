@@ -72,14 +72,50 @@ for($i=0; $i<count($arreglo);$i++){
 
 $conexion -> query("insert into seguimientoventa(fecha,idFaseSeguimiento,idVentaEncabezado,Comentarios) values('$fecha',1,$id_venta,'".$_POST['c_order_notes']."')")or die($conexion->error);
 
+if ($_SESSION['correo']!=null) {
+  $to =$_SESSION['correo'];
+} else {
+  $to =$_POST['c_email_address'];
+}
 
-$to =$_SESSION['correo'];
+
 $subject = "Compra Realizada";
-$message = "Su compra fue realizada con exito siendo un total de Q".$total.", proximamente estara recibiendo actualización sobre el estado de su compra";
+// $message = "Su compra fue realizada con exito siendo un total de Q".$total.", proximamente estara recibiendo actualización sobre el estado de su compra";
 $headers = 'From: kamcanco@gmail.com' . "\r\n" .
-          'Reply-To: kamcanco@gmail.com' . "\r\n" .
-          'X-Mailer: PHP/' . phpversion();
-mail($to,$subject,$message,$headers);
+'Reply-To: kamcanco@gmail.com' . "\r\n" .
+'X-Mailer: PHP/' . phpversion();
+
+$message = '
+Tu compra se proceso con exito dando un tota de de Q"'.$total.'" el resumen de tu compra fue el siguiente:'. "\r\n" ;
+
+  for($i=0; $i<count($arreglo);$i++){
+    $sub = ($arreglo[$i]['Precio'] * $arreglo[$i]['Cantidad']);
+   $message .= 'Producto: '.$arreglo[$i]['Nombre'].'----- Cantidad:'.$arreglo[$i]['Cantidad'].'--- Sub Total:'.$sub.'' . "\r\n" ;
+  }
+  $message .="\r\n" ;
+  $message .='proximamente estara recibiendo actualización sobre el estado de su compra'. "\r\n" ;
+mail($to,$subject,$message,$headers,$cabeceras);
+
+/*<html>
+<head>
+  <title>Compra Realizada con exito</title>
+</head>
+<body>
+  <p>Tu compra se proceso con exito dando un tota de de Q".$total."</p>
+  <table>
+    <tr>
+      <th>Quien</th><th>Día</th><th>Mes</th><th>Año</th>
+    </tr>
+    <tr>
+      <td>Joe</td><td>3</td><td>Agosto</td><td>1970</td>
+    </tr>
+    <tr>
+      <td>Sally</td><td>17</td><td>Agosto</td><td>1973</td>
+    </tr>
+  </table>
+</body>
+</html>
+' */
 // $conexion->query(" insert into envios(pais,company, direccion,estado,cp,id_venta) values
 //       (
 //         '".$_POST['country']."',
