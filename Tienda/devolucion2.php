@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Devoluciones</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -80,7 +80,8 @@ session_start();
                 
                 ';
                 include('./php/conexion.php');
-                  $resultado = $conexion -> query("SELECT c.nombre, c.apellido, c.correo, c.nit, v.fecha, v.total FROM ventaencabezado v, cliente c where v.idcliente=c.idcliente and v.idVentaEncabezado='".$_POST['c_fname']."' and v.estado='1'") or die ($conexion -> error);
+                  $resultado = $conexion -> query("SELECT c.nombre, c.apellido, c.correo, c.nit, v.fecha, v.total FROM ventaencabezado v, cliente c where v.idcliente=c.idcliente
+                  and v.idcliente='".$_SESSION['idcliente']."' and v.idVentaEncabezado='".$_POST['c_fname']."' and v.estado='1'") or die ($conexion -> error);
                   if (mysqli_num_rows($resultado)>0) {
                     $fila = mysqli_fetch_row($resultado);
                     echo '
@@ -114,9 +115,9 @@ session_start();
                       <thead>
                       <tr>
                         <th class="product-name">Producto</th>
-                        <th class="product-price">Precio</th>
+                        <th class="product-price">Precio (Q)</th>
                         <th class="product-quantity">Cantidad</th>
-                        <th class="product-total">SubTotal</th>
+                        <th class="product-total">SubTotal (Q)</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -137,7 +138,7 @@ session_start();
                     echo '
                     </tbody>
                     <tfooter>
-                    <td>Total</td>
+                    <td>Total (Q)</td>
                     <td></td>  
                     <td></td>
                     <td>'.$fila[5].'</td>

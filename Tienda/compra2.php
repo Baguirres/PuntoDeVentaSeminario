@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Compras &mdash; Realizadas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -50,7 +50,7 @@ session_start();
                   include('./php/conexion.php');
                     $resultado = $conexion -> query("SELECT s.fecha, f.nombre, s.comentarios
                     FROM seguimientoventa s, faseseguimiento f
-                    where s.idfaseseguimiento=f.idfaseseguimiento and s.estado='1'") or die ($conexion -> error);
+                    where s.idfaseseguimiento=f.idfaseseguimiento and s.idventaencabezado='".$_POST['c_fname']."' and s.estado='1'") or die ($conexion -> error);
                     if (mysqli_num_rows($resultado)>0) {
                       $fila = mysqli_fetch_row($resultado);
                       echo '

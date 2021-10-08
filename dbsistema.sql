@@ -483,7 +483,7 @@ CREATE TABLE `usuarioCliente` (
 
 INSERT INTO `usuarioCliente` ( `nombre`, `clave`, `imagen`, `idCliente`, `condicion`) VALUES
 ( 'Admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',1, 1),
-( 'Bryan', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',2, 1);
+( 'Bryan', '12345', '1523752615.jpg',2, 1);
 ;
 -- --------------------------------------------------------
 

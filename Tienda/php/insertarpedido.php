@@ -70,14 +70,16 @@ for($i=0; $i<count($arreglo);$i++){
   $conexion->query("update inventario set cantidad = cantidad -".$arreglo[$i]['Cantidad']." where idTienda=1 and idProducto=".$arreglo[$i]['Id']  )or die($conexion->error);    
 }
 
+$conexion -> query("insert into seguimientoventa(fecha,idFaseSeguimiento,idVentaEncabezado,Comentarios) values('$fecha',1,$id_venta,'".$_POST['c_order_notes']."')")or die($conexion->error);
+
 
 $to =$_POST['c_email_address'];
-$from='prueba@prueba.com';
 $subject = "Compra Realizada";
 $message = "Su compra fue realizada con exito siendo un total de Q".$total.", proximamente estara recibiendo actualización sobre el estado de su compra";
-echo '';
-mail($to,$subject,$message);
-
+$headers = 'From: kamcanco@gmail.com' . "\r\n" .
+          'Reply-To: kamcanco@gmail.com' . "\r\n" .
+          'X-Mailer: PHP/' . phpversion();
+mail($to,$subject,$message,$headers);
 // $conexion->query(" insert into envios(pais,company, direccion,estado,cp,id_venta) values
 //       (
 //         '".$_POST['country']."',

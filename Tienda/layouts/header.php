@@ -72,8 +72,15 @@
               <a href="about.php">Sobre</a>           
             </li>
             <li><a href="contact.php">Contacto</a></li>
-            <li><a href="devolucion.php">Devoluciones</a></li>
-            <li><a href="compra.php">Compras</a></li>
+            <?php    
+                  if($_SESSION['idusuario'] != null){
+                    echo '
+                    <li><a href="devolucion.php">Devoluciones</a></li>
+                    <li><a href="compra.php">Compras</a></li>
+                    ';
+                  }                
+                ?>
+
           </ul>
         </div>
       </nav>

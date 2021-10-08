@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Devoluciones</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -43,22 +43,66 @@ session_start();
           </div>
           <div class="col-md-12">
 
-            <form action="devolucion2.php" method="post">
+          <?php
+                  include('./php/conexion.php');
+                    $resultado = $conexion -> query("SELECT s.idventaencabezado ,v.fecha, v.total
+                    FROM seguimientoventa s, faseseguimiento f, ventaencabezado v
+                    where s.idfaseseguimiento=f.idfaseseguimiento and s.idventaencabezado=v.idventaencabezado
+                    and v.idcliente='".$_SESSION['idcliente']."' and s.idfaseseguimiento='2'") or die ($conexion -> error);
+
+                    if (mysqli_num_rows($resultado)>0) {   
+                      echo '
+                      <table class="table table-bordered mt-5"
+                        <thead>
+                        <tr>
+                          <th class="product-name">No. de la Compra</th>
+                          <th class="product-price">Fecha de la Compra</th>
+                          <th class="product-quantity">Total (Q)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+  
+                      ';                   
+                      while ($fila = mysqli_fetch_array($resultado)){
+                        echo '
+                        <tr>
+                          <td>'.$fila[0].'</td>
+                          <td>'.$fila[1].'</td>  
+                          <td>'.$fila[2].'</td>
+                        </tr>                         
+                    ';
+                        // echo '<script>console.log("'.$fila[0].'")</script>';
+                      }  
+                      echo '
+                    </tbody>
+                    </table>';  
+                    
+                    
+                    echo'
+                    <form action="devolucion2.php" method="post">
               
-              <div class="p-3 p-lg-5 border">
-                <div class="form-group row">
-                  <div class="col-md-12">
-                    <label for="c_fname" class="text-black">No. de Venta<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_fname" name="c_fname">   
-                    <input type="submit" class="btn btn-primary btn-lg btn-block mt-3" value="Buscar">                
-                  </div>
-                <!-- <div class="form-group row">
-                  <div class="col-lg-12">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar">
-                  </div>
-                </div> -->
-              </div>
-            </form>
+                    <div class="p-3 p-lg-5 border">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="c_fname" class="text-black">Escribe el No. de la Compra que deseas devolver<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="c_fname" name="c_fname">   
+                          <input type="submit" class="btn btn-primary btn-lg btn-block mt-3" value="Siguiente">                
+                        </div>
+                      <!-- <div class="form-group row">
+                        <div class="col-lg-12">
+                          <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar">
+                        </div>
+                      </div> -->
+                    </div>
+                  </form> 
+                    ';
+                    }else{
+                      echo '<h1>Este cliente no tiene ninguna venta</h1>';
+                    }
+
+            
+            ?>
+
           </div>
         </div>
       </div>

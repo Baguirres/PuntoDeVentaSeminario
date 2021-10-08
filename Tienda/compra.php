@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Compras &mdash; Realizadas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -39,11 +39,52 @@ session_start();
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h2 class="h3 mb-3 text-black">Seguimiento de la Compra</h2>
+            <h2 class="h3 mb-3 text-black">Compras Realizadas por el Cliente</h2>
           </div>
           <div class="col-md-12">
 
-            <form action="compra2.php" method="post">
+          <?php
+                  include('./php/conexion.php');
+                    $resultado = $conexion -> query("SELECT s.idventaencabezado ,s.fecha, f.nombre, s.comentarios
+                    FROM seguimientoventa s, faseseguimiento f, ventaencabezado v
+                    where s.idfaseseguimiento=f.idfaseseguimiento and s.idventaencabezado=v.idventaencabezado
+                    and v.idcliente='".$_SESSION['idcliente']."' and s.estado='1'") or die ($conexion -> error);
+
+                    if (mysqli_num_rows($resultado)>0) {   
+                      echo '
+                      <table class="table table-bordered mt-5">
+                        <thead>
+                        <tr>
+                          <th class="product-name">No. de la Compra</th>
+                          <th class="product-price">Fecha</th>
+                          <th class="product-quantity">Estado de la Compra</th>
+                          <th class="product-total">Comentarios</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+  
+                      ';                   
+                      while ($fila = mysqli_fetch_array($resultado)){
+                        echo '
+                        <tr>
+                          <td>'.$fila[0].'</td>
+                          <td>'.$fila[1].'</td>  
+                          <td>'.$fila[2].'</td>
+                          <td>'.$fila[3].'</td>
+                        </tr>                         
+                    ';
+                        // echo '<script>console.log("'.$fila[0].'")</script>';
+                      }  
+                      echo '
+                    </tbody>
+                    </table>';                  
+                    }else{
+                      echo '<h1>Venta no Encontrada</h1>';
+                    }
+
+            
+            ?>
+            <!-- <form action="compra2.php" method="post">
               
               <div class="p-3 p-lg-5 border">
                 <div class="form-group row">
@@ -52,13 +93,13 @@ session_start();
                     <input type="text" class="form-control" id="c_fname" name="c_fname">   
                     <input type="submit" class="btn btn-primary btn-lg btn-block mt-3" value="Buscar">                
                   </div>
-                <!-- <div class="form-group row">
+                 <div class="form-group row">
                   <div class="col-lg-12">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar">
                   </div>
-                </div> -->
+                </div>
               </div>
-            </form>
+            </form> -->
           </div>
         </div>
       </div>

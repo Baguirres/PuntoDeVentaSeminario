@@ -140,7 +140,17 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-12 ">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-lg btn-info" onclick="mostrarGrafica(true)">Días</button>
+                                <button type="button" class="btn btn-lg btn-info" onclick="mostrarGrafica(false)">Meses</button>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="dia1">
                             <div class="box box-primary">
 
                                 <div class="box-header with-border">
@@ -152,7 +162,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="dia2">
                             <div class="box box-primary">
 
                                 <div class="box-header with-border">
@@ -164,7 +174,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="mes1">
                             <div class="box box-primary">
 
                                 <div class="box-header with-border">
@@ -176,7 +186,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="mes2">
                             <div class="box box-primary">
 
                                 <div class="box-header with-border">
@@ -213,7 +223,7 @@
 
 <script src="../public/js/Chart.min.js"></script>
 <script src="../public/js/Chart.bundle.min.js"></script>
-
+<script src="./scripts/escritorio.js"></script>
 <script>
 var ctx = document.getElementById("compras").getContext('2d');
 var compras = new Chart(ctx, {
