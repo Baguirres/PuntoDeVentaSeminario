@@ -81,8 +81,8 @@ if ($_SESSION['correo']!=null) {
 
 $subject = "Compra Realizada";
 // $message = "Su compra fue realizada con exito siendo un total de Q".$total.", proximamente estara recibiendo actualización sobre el estado de su compra";
-$headers = 'From: kamcanco@gmail.com' . "\r\n" .
-'Reply-To: kamcanco@gmail.com' . "\r\n" .
+$headers = 'From: obryana3@gmail.com' . "\r\n" .
+'Reply-To: obryana3@gmail.com' . "\r\n" .
 'X-Mailer: PHP/' . phpversion();
 
 $message = '

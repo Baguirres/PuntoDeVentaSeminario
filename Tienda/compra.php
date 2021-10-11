@@ -79,7 +79,7 @@ session_start();
                     </tbody>
                     </table>';                  
                     }else{
-                      echo '<h1>Venta no Encontrada</h1>';
+                      echo '<h1>No ha realizado compras</h1>';
                     }
 
             

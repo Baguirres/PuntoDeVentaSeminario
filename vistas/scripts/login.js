@@ -21,7 +21,7 @@ $("#frmAcceso").on('submit',function(e){
                     }
                 );
                 $(location).attr("href","escritorio.php");
-                bootbox.alert("Todo bien");
+               // bootbox.alert("Todo bien");
             }
             else
             {

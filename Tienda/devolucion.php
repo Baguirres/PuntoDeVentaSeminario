@@ -48,7 +48,7 @@ session_start();
                     $resultado = $conexion -> query("SELECT s.idventaencabezado ,v.fecha, v.total
                     FROM seguimientoventa s, faseseguimiento f, ventaencabezado v
                     where s.idfaseseguimiento=f.idfaseseguimiento and s.idventaencabezado=v.idventaencabezado
-                    and v.idcliente='".$_SESSION['idcliente']."' and s.idfaseseguimiento='2'") or die ($conexion -> error);
+                    and v.idcliente='".$_SESSION['idcliente']."' and s.idfaseseguimiento='2' and s.estado=1 and v.estado=1") or die ($conexion -> error);
 
                     if (mysqli_num_rows($resultado)>0) {   
                       echo '
@@ -97,7 +97,7 @@ session_start();
                   </form> 
                     ';
                     }else{
-                      echo '<h1>Este cliente no tiene ninguna venta</h1>';
+                      echo '<h1>Este cliente no tiene ninguna compra</h1>';
                     }
 
             

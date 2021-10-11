@@ -243,32 +243,14 @@
 
         public function comprasUlt10dias()
         {
-            $sql= "SELECT 
-                        CONCAT(DAY(fecha),'/',MONTH(fecha)) as fecha,
-                        SUM(total) as total
-                    FROM
-                        compraencabezado
-                    GROUP BY
-                        fecha 
-                    ORDER BY
-                        fecha
-                    DESC limit 0,30";
+            $sql= "SELECT CONCAT(DAY(fecha),'/',MONTH(fecha)) as fecha2, SUM(total) as total FROM COMPRAENCABEZADO WHERE MONTH(fecha)=MONTH(NOW()) GROUP BY DAY(fecha) ORDER BY fecha";
             
             return ejecutarConsulta($sql);
         }
 
         public function ventasUlt10dias()
         {
-            $sql= "SELECT 
-                        CONCAT(DAY(fecha),'/',MONTH(fecha)) as fecha,
-                        SUM(total) as total
-                    FROM
-                        ventaencabezado
-                    GROUP BY
-                        fecha 
-                    ORDER BY
-                        fecha
-                    DESC limit 0,30";
+            $sql= "SELECT CONCAT(DAY(fecha),'/',MONTH(fecha)) as fecha2, SUM(total) as total FROM ventaencabezado WHERE MONTH(fecha)=MONTH(NOW()) GROUP BY DAY(fecha) ORDER BY fecha";
             
             return ejecutarConsulta($sql);
         }
@@ -280,11 +262,12 @@
                         SUM(total) as total
                     FROM
                         compraencabezado
+                    WHERE YEAR(fecha)=YEAR(NOW())
                     GROUP BY
                         MONTH(fecha) 
                     ORDER BY
-                        fecha
-                    DESC limit 0,12";
+                        MONTH(fecha) 
+                    ";
             
             return ejecutarConsulta($sql);
         }
@@ -296,11 +279,12 @@
                         SUM(total) as total
                     FROM
                         ventaencabezado
+                    WHERE YEAR(fecha)=YEAR(NOW())
                     GROUP BY
                         MONTH(fecha) 
                     ORDER BY
-                        fecha
-                    DESC limit 0,12";
+                        MONTH(fecha) 
+                    ";
             
             return ejecutarConsulta($sql);
         }

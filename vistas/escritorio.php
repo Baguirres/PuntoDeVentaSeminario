@@ -34,7 +34,7 @@
 
         while($regfechac = $compras10->fetch_object())
         {
-            $fechasc =  $fechasc.'"'.$regfechac->fecha.'",';
+            $fechasc =  $fechasc.'"'.$regfechac->fecha2.'",';
             $totalesc = $totalesc.$regfechac->total.',';
         }
 
@@ -49,7 +49,7 @@
  
          while($regfechav1 = $ventas10->fetch_object())
          {
-             $fechasv1 =  $fechasv1.'"'.$regfechav1->fecha.'",';
+             $fechasv1 =  $fechasv1.'"'.$regfechav1->fecha2.'",';
              $totalesv1 = $totalesv1.$regfechav1->total.',';
          }
  

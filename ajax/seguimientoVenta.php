@@ -24,8 +24,8 @@
                         $to =$fila2[0];
                         $subject = "Pedido Actualizado";
                         $message = "El estado de su pedido ha sido actualizado pronto te llegara";
-                        $headers = 'From: kamcanco@gmail.com' . "\r\n" .
-                                'Reply-To: kamcanco@gmail.com' . "\r\n" .
+                        $headers = 'From: obryana3@gmail.com' . "\r\n" .
+                                'Reply-To: obryana3@gmail.com' . "\r\n" .
                                 'X-Mailer: PHP/' . phpversion();
                         mail($to,$subject,$message,$headers);
                      }
