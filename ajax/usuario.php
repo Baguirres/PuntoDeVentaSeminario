@@ -35,7 +35,7 @@
             $clavehash = hash("SHA256",$clave);
 
             if (empty($idusuario)){
-                $rspta=$usuario->insertar($nombre,$clave,$imagen,$idempleado,$_POST['permiso']);
+                $rspta=$usuario->insertar($nombre,$clavehash,$imagen,$idempleado,$_POST['permiso']);
                 echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
             }
             else {

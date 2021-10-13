@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -202,6 +202,14 @@ function guardaryeditar(e)
                     desbloquear(false);
                 }
             );
+            $.post(
+                "../ajax/bitacora.php?op=insertar",
+                {usuario:usuario,accion:"Productos movidos de bodega con código "+idbodega+" a tienda con código "+idtienda},
+                function(f)
+                {
+                   
+                }
+            );
         }
     });
 }
@@ -224,6 +232,7 @@ function mostrar(idtienda)
 
         }
     );
+    
 }
 
 //funcion para descativar categorias

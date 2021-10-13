@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Función que se ejecuta al inicio
 function init(){
     
@@ -169,6 +169,14 @@ function listar()
 		"iDisplayLength": 5,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo ventas"},
+        function(f)
+        {
+           
+        }
+    );
 }
 
 
@@ -210,7 +218,6 @@ function guardaryeditar(e)
     var moneda = $("#idmoneda").val();
 	var pago = $("#idtipodepago").val();
     var idtienda = $("#idtienda").val();
-    var usuario = $("#idusuario").val();
     var total = $("#total_compra").val();
     var descuentocompra = $("#descuento_compra").val();
     var iva = $("#iva_compra").val();
@@ -311,6 +318,14 @@ function mostrar(idventaencabezado)
  	$.post("../ajax/venta.php?op=listarDetalle&id="+idventaencabezado,function(r){
 	        $("#detalles").html(r);
 	});
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizó detalle de venta con código "+idventaencabezado},
+        function(f)
+        {
+           
+        }
+    );
 	
 	$.post(
         "../ajax/ingreso.php?op=mostrar",{idcompraencabezado:idcompraencabezado},function(data,status)
@@ -359,6 +374,7 @@ function mostrar(idventaencabezado)
 
         }
     );
+    
 }
 
 function ponerCliente(){
@@ -382,6 +398,14 @@ function anular(idventaencabezado)
 				console.log(e);
         		bootbox.alert(e);
 	            tabla.ajax.reload();
+                $.post(
+                    "../ajax/bitacora.php?op=insertar",
+                    {usuario:usuario,accion:"Venta Anulada con código "+idventaencabezado},
+                    function(f)
+                    {
+                        
+                    }
+                );
         	});	
         }
 	})
@@ -396,6 +420,14 @@ function activar(idventaencabezado)
 				console.log(e);
         		bootbox.alert(e);
 	            tabla.ajax.reload();
+                $.post(
+                    "../ajax/bitacora.php?op=insertar",
+                    {usuario:usuario,accion:"Venta Activada con código "+idventaencabezado},
+                    function(f)
+                    {
+                        
+                    }
+                );
         	});	
         }
 	})

@@ -15,6 +15,8 @@
 
       if($_SESSION['acceso'] == 1)
       {
+        $user= $_SESSION["nombre"];
+        $iduser=$_SESSION['idusuario'];
 ?>
 
 <!--Contenido-->

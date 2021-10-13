@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -76,6 +76,14 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizo los tipos de pago"},
+            function(f)
+            {
+               
+            }
+        );
 }
 
 //funcion para guardar o editar
@@ -103,7 +111,14 @@ function guardaryeditar(e)
             console.log("error: " + error);
         } 
     });
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Registró el tipo de pago"},
+        function(f)
+        {
+           
+        }
+    );
     limpiar();
 }
 
@@ -122,6 +137,14 @@ function mostrar(idcategoria)
             $("#idcategoria").val(data.idtipopago);
         }
     );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo el detalle de tipo de pago con código "+idcategoria},
+        function(f)
+        {
+           
+        }
+    );
 }
 
 //funcion para descativar categorias
@@ -137,7 +160,14 @@ function desactivar(idcategoria)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Desactivó tipo de pago con código "+idcategoria},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }
@@ -156,7 +186,14 @@ function activar(idcategoria)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Activó tipo de pago con código "+idcategoria},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }

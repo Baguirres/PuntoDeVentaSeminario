@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -80,6 +80,14 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizo Trabajadores"},
+            function(f)
+            {
+               
+            }
+        );
 }
 
 //funcion para guardar o editar
@@ -107,7 +115,14 @@ function guardaryeditar(e)
             console.log("error: " + error);
         } 
     });
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Registró trabajadores"},
+        function(f)
+        {
+           
+        }
+    );
     limpiar();
 }
 
@@ -129,6 +144,14 @@ function mostrar(idempleado)
             $("#idempleado").val(data.idempleado);
         }
     );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo detalle de trabajador con código "+idempleado},
+        function(f)
+        {
+           
+        }
+    );
 }
 
 function desactivar(idempleado)
@@ -143,7 +166,14 @@ function desactivar(idempleado)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Desactivó empleado con código "+idempleado},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }
@@ -162,7 +192,14 @@ function activar(idempleado)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Activó empleado con código "+idempleado},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }
@@ -181,6 +218,14 @@ function eliminar(idempleado)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Eliminó empleado con código "+idempleado},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }

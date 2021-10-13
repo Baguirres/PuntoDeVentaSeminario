@@ -4,7 +4,7 @@ var guardar=0;
 var impuesto = 16;
 var cont = 0;
 var detalles= 0;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -185,6 +185,14 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizo Compras"},
+            function(f)
+            {
+               
+            }
+        );
 }
 
 
@@ -225,7 +233,6 @@ function guardaryeditar(e)
     var idproveedor = $("#idproveedor").val();
     var idtienda = $("#idtienda").val();
     var impuesto = $("#impuestos").val();
-    var usuario = $("#idusuario").val();
     var moneda = $("#idmoneda").val();
     var total = $("#total_compra").val();
     var estado = $("#idestado").val()-1;
@@ -313,6 +320,14 @@ function mostrar(idcompraencabezado)
                 }
             );
 
+        }
+    );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo detalle de compra con código "+idcompraencabezado},
+        function(f)
+        {
+           
         }
     );
 }

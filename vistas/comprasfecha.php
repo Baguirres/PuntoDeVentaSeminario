@@ -15,7 +15,8 @@
 
     if($_SESSION['reportes'] == 1)
     {
-
+      $user= $_SESSION["nombre"];
+      $iduser=$_SESSION['idusuario'];
     
 ?>
 
@@ -103,6 +104,18 @@
         var cliente=$('#idcliente').val();
         var clientename=$('select[id="idcliente"] option:selected').text();
         window.open("../reportes/pdfBase.php?op=2&fechaini="+fechainicial+"&fechafinal="+fechafinal+"&cliente="+cliente+"&nombre="+clientename, '_blank'); 
+        var usuario = $("#idusuario").val();
+        $.post(
+                            "../ajax/bitacora.php?op=insertar",
+                            {usuario:usuario,accion:"Creó reporte de Compras"},
+                            function(f)
+                            {
+                                bootbox.alert(e, function(){
+                                    cancelarform();
+                                })
+                                
+                            }
+                        );
       });
     });
 </script>

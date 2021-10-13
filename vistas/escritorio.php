@@ -15,6 +15,8 @@
 
     if($_SESSION['escritorio'] == 1)
     {
+        $user= $_SESSION["nombre"];
+        $iduser=$_SESSION['idusuario'];
         require_once '../modelos/Consultas.php';
         
         $consulta = new Consultas();
@@ -138,7 +140,8 @@
                             </div>
                         </div>
                     </div>
-
+                    <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $iduser; ?>" disabled>
+                    <input type="hidden" class="form-control" name="usuario" id="usuario" value="<?php echo $user; ?>" disabled>
                     <div class="panel-body">
                         <div class="col-lg-12 ">
                             <div class="btn-group" role="group" aria-label="...">

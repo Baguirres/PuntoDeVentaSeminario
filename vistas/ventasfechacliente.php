@@ -15,6 +15,8 @@
 
     if($_SESSION['reportes'] == 1)
     {
+      $user= $_SESSION["nombre"];
+        $iduser=$_SESSION['idusuario'];
 ?>
 
 <!--Contenido-->
@@ -38,6 +40,8 @@
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <label for="">Fecha Inicio</label>
+                            <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $iduser; ?>" disabled>
+                              <input type="hidden" class="form-control" name="usuario" id="usuario" value="<?php echo $user; ?>" disabled>
                             <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio" value="<?php echo date("Y-m-d");?>">
                         </div>
                         <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -108,6 +112,18 @@
         var cliente=$('#idcliente').val();
         var clientename=$('select[id="idcliente"] option:selected').text();
         window.open("../reportes/pdfBase.php?op=1&fechaini="+fechainicial+"&fechafinal="+fechafinal+"&cliente="+cliente+"&nombre="+clientename, '_blank'); 
+        var usuario = $("#idusuario").val();
+        $.post(
+                            "../ajax/bitacora.php?op=insertar",
+                            {usuario:usuario,accion:"Creó reporte de ventas"},
+                            function(f)
+                            {
+                                bootbox.alert(e, function(){
+                                    cancelarform();
+                                })
+                                
+                            }
+                        );
       });
     });
 </script>

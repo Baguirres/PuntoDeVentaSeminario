@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -79,6 +79,14 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizo Proveedores"},
+            function(f)
+            {
+               
+            }
+        );
 }
 
 //funcion para guardar o editar
@@ -106,7 +114,14 @@ function guardaryeditar(e)
             console.log("error: " + error);
         } 
     });
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Proveedor Registrado"},
+        function(f)
+        {
+           
+        }
+    );
     limpiar();
 }
 
@@ -130,6 +145,14 @@ function mostrar(idpersona)
 
         }
     );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo detalle de proveedor con código "+idpersona},
+        function(f)
+        {
+           
+        }
+    );
 }
 
 
@@ -145,6 +168,14 @@ function eliminar(idpersona)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Eliminó proveedor con código "+idpersona},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }

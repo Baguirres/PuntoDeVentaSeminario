@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -101,6 +101,14 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizo los usuarios de personal"},
+            function(f)
+            {
+               
+            }
+        );
 }
 
 //funcion para guardar o editar
@@ -128,7 +136,14 @@ function guardaryeditar(e)
             console.log("error: " + error);
         } 
     });
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Registró usuario"},
+        function(f)
+        {
+           
+        }
+    );
     limpiar();
 }
 
@@ -152,7 +167,14 @@ function mostrar(idusuario)
             $("#idusuario").val(data.idusuario);
         }
     );
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo detalle de usuario con código "+idusuario},
+        function(f)
+        {
+           
+        }
+    );
     $.post("../ajax/usuario.php?op=permisos&id="+idusuario,function(data)
         {
             $("#permisos").html(data);
@@ -173,7 +195,14 @@ function desactivar(idusuario)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Desactivó usuario con código "+idusuario},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }
@@ -192,7 +221,14 @@ function activar(idusuario)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Activó usuario con código "+idusuario},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }
@@ -211,6 +247,14 @@ function eliminar(idusuario)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Eliminó usuario con código "+idusuario},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }

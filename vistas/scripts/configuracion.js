@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -93,6 +93,17 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizó las configuraciones"},
+            function(f)
+            {
+                bootbox.alert(e, function(){
+                    cancelarform();
+                })
+                
+            }
+        );
 }
 
 //funcion para guardar o editar
@@ -120,7 +131,17 @@ function guardaryeditar(e)
             console.log("error: " + error);
         } 
     });
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Configuración Registrada"},
+        function(f)
+        {
+            bootbox.alert(e, function(){
+                cancelarform();
+            })
+            
+        }
+    );
     limpiar();
 }
 
@@ -144,7 +165,17 @@ function mostrar(idempresa)
             $("#idempresa").val(data.idempresa);
         }
     );
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizó detalle de configuración"},
+        function(f)
+        {
+            bootbox.alert(e, function(){
+                cancelarform();
+            })
+            
+        }
+    );
 }
 
 init();

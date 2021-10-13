@@ -1,5 +1,5 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
 function init()
 {
@@ -88,6 +88,14 @@ function listar()
             
             })
         .DataTable();
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            {usuario:usuario,accion:"Visualizo Bodegas"},
+            function(f)
+            {
+               
+            }
+        );
 }
 
 
@@ -117,7 +125,14 @@ function guardaryeditar(e)
             console.log("error: " + error);
         } 
     });
-
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Bodega Registrada"},
+        function(f)
+        {
+           
+        }
+    );
     limpiar();
 }
 
@@ -139,6 +154,14 @@ function mostrar(idtienda)
 
         }
     );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        {usuario:usuario,accion:"Visualizo detalle de bodega con código "+idtienda},
+        function(f)
+        {
+           
+        }
+    );
 }
 
 //funcion para descativar categorias
@@ -154,7 +177,14 @@ function desactivar(idtienda)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Desactivó la bodega con código "+idtienda},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }
@@ -173,7 +203,14 @@ function activar(idarticulo)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        {usuario:usuario,accion:"Activo de bodega con código "+idarticulo},
+                        function(f)
+                        {
+                           
+                        }
+                    );
                 }
             );
         }

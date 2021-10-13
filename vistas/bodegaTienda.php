@@ -12,6 +12,8 @@
     require 'header.php';
     if($_SESSION['almacen'] == 1)
     {
+      $user= $_SESSION["nombre"];
+      $iduser=$_SESSION['idusuario'];
 ?>
  
   <!--Contenido-->
@@ -52,6 +54,8 @@
                           <form name="formulario" id="formulario" method="POST">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label>Bodega:</label>
+                              <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $iduser; ?>" disabled>
+                              <input type="hidden" class="form-control" name="usuario" id="usuario" value="<?php echo $user; ?>" disabled>
                               <select name="idbodega" id="idbodega" data-live-search="true" class="form-control selectpicker" onchange="bloquear()" required></select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
