@@ -26,7 +26,7 @@
 
     .carousel{
       max-width: none;
-      height: 400px;
+      height: 450px;
       width: 100%;
       margin-top: 0;
       padding-top: 0;
@@ -34,7 +34,7 @@
       background-color: #262829;
     }
     .carousel-item{
-      height: 400px;
+      height: 450px;
       width: 100%;
       align-content: center;
       justify-content: center;
@@ -42,7 +42,10 @@
     .imgcar{
       opacity: 0.5;
       width: 100%;
-      height: 400px;
+      height: 450px;
+    }
+    .container{
+      
     }
     </style>
   </head>
@@ -54,8 +57,6 @@
 
     <div class="site-section" style="padding:0 0 0  0 !important;" >
       <div class="container">
-
-
       <div id="carousel1" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
             <?php 
@@ -107,7 +108,7 @@
         </div>
 
         <div class="row mb-5">
-          <div class="col-md-9 order-2">
+          <div class="col-md-10 order-2">
 
             <div class="row">
               <div class="col-md-12 mb-5">
@@ -128,9 +129,9 @@
                 </div> -->
               </div>
             </div>
-            <div class="row mb-5">
+            <div class="row mb-5 text-center">
             <?php 
-                    $limite = 9;//productos por pagina
+                    $limite = 12;//productos por pagina
                     $totalQuery = $conexion->query('SELECT count(*) from producto where estado=1')or die($conexion->error);
                     $totalProductos = mysqli_fetch_row($totalQuery);
                     $totalBotones = ceil($totalProductos[0] /$limite);
@@ -143,7 +144,7 @@
                     
                     
                   ?>
-                    <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                    <div class="col-sm-6 col-lg-3 mb-4 " data-aos="fade-up">
                       <div class="block-4 text-center border" style="
                         border-radius:20px;  
                         box-shadow: 4px 4px 16px rgba(0,0,0,0.25);
@@ -173,19 +174,19 @@
                       <?php 
                         if(isset($_GET['limite'])){
                           if($_GET['limite']>0){
-                            echo ' <li><a href="index.php?limite='.($_GET['limite']-9).'">&lt;</a></li>';
+                            echo ' <li><a href="index.php?limite='.($_GET['limite']-12).'">&lt;</a></li>';
                           }
                         }
 
                         for($k=0;$k<$totalBotones;$k++){
-                          echo  '<li><a href="index.php?limite='.($k*9).'">'.($k+1).'</a></li>';
+                          echo  '<li><a href="index.php?limite='.($k*12).'">'.($k+1).'</a></li>';
                         }
                         if(isset($_GET['limite'])){
-                          if($_GET['limite']+9 < $totalBotones*9){
-                            echo ' <li><a href="index.php?limite='.($_GET['limite']+9).'">&gt;</a></li>';
+                          if($_GET['limite']+12 < $totalBotones*12){
+                            echo ' <li><a href="index.php?limite='.($_GET['limite']+12).'">&gt;</a></li>';
                           }
                         }else{
-                          echo ' <li><a href="index.php?limite=9">&gt;</a></li>';
+                          echo ' <li><a href="index.php?limite=12">&gt;</a></li>';
                         }
                       ?>
                   
@@ -196,7 +197,7 @@
             </div>
           </div>
 
-          <div class="col-md-3 order-1 mb-5 mb-md-0">
+          <div class="col-md-2 order-1 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categorías</h3>
               <ul class="list-unstyled mb-0">
