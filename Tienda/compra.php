@@ -48,7 +48,7 @@ session_start();
                     $resultado = $conexion -> query("SELECT s.idventaencabezado ,s.fecha, f.nombre, s.comentarios
                     FROM seguimientoventa s, faseseguimiento f, ventaencabezado v
                     where s.idfaseseguimiento=f.idfaseseguimiento and s.idventaencabezado=v.idventaencabezado
-                    and v.idcliente='".$_SESSION['idcliente']."' and s.estado='1'") or die ($conexion -> error);
+                    and v.idcliente='".$_SESSION['idcliente']."' and s.estado='1' and v.estado='1'") or die ($conexion -> error);
 
                     if (mysqli_num_rows($resultado)>0) {   
                       echo '

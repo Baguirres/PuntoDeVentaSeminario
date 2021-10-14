@@ -19,15 +19,15 @@
                 if (mysqli_num_rows($idcliente)>0) {
                     $fila = mysqli_fetch_row($idcliente);
                     $correo = $articulo->correoCliente($fila[0]);
-                    if (mysqli_num_rows($correo)>0) {
+                    if (mysqli_num_rows($correo)>0) {                        
+                        include '../Tienda/php/correo.php';
+                        $correoS = new Correo();            
                         $fila2 = mysqli_fetch_row($correo);                         
                         $to =$fila2[0];
                         $subject = "Pedido Actualizado";
                         $message = "El estado de su pedido ha sido actualizado pronto te llegara";
-                        $headers = 'From: obryana3@gmail.com' . "\r\n" .
-                                'Reply-To: obryana3@gmail.com' . "\r\n" .
-                                'X-Mailer: PHP/' . phpversion();
-                        mail($to,$subject,$message,$headers);
+                        $correoS->CompraRealizada($to,$subject,$message);
+                        // mail($to,$subject,$message,$headers);
                      }
                  }
             

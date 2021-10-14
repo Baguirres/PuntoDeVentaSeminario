@@ -13,8 +13,8 @@ clave='".$con."'")or die($conexion->error);
 
 if (mysqli_num_rows($respuesta)>0){
     $fila = mysqli_fetch_row($respuesta);
-    $_SESSION['idusuario'] = $fila[1];
-    $_SESSION['nombre'] = $fila[0];
+    $_SESSION['idusuarioT'] = $fila[1];
+    $_SESSION['nombreT'] = $fila[0];
     $_SESSION['idcliente'] = $fila[2];
 
     $consulta = $conexion ->query("select nombre, apellido, nit, direccion, correo, telefono 

@@ -9,7 +9,7 @@ $conexion->query("insert into devolucion (idVentaEncabezado,fecha,comentario,est
        '".$_POST['c_fname']."','$fecha1','".$_POST['motivo']."','1')   
    ")or die($conexion->error);
 
-
+$conexion->query("update ventaencabezado set estado=2 where idVentaEncabezado='".$_POST['c_fname']."'")or die($conexion->error);
 header("Location: ../gracias.php" );
 
 ?>

@@ -36,7 +36,7 @@ for($i=0; $i<count($arreglo);$i++){
 
 $fecha1 = date("Y-m-d");
 $fecha = date("Y-m-d H:i:s");
-if($_SESSION['idusuario'] == null){
+if($_SESSION['idusuarioT'] == null){
       $conexion->query("insert into cliente (nombre,apellido,direccion,telefono,correo,fechanacimiento,nit)  
       values( 
         '".$_POST['c_fname']."',
@@ -94,7 +94,11 @@ Tu compra se proceso con exito dando un tota de de Q"'.$total.'" el resumen de t
   }
   $message .="\r\n" ;
   $message .='proximamente estara recibiendo actualización sobre el estado de su compra'. "\r\n" ;
-mail($to,$subject,$message,$headers,$cabeceras);
+  include './correo.php';
+  $correo = new Correo();
+
+  $correo->CompraRealizada($to,$subject,$message);
+// mail($to,$subject,$message,$headers,$cabeceras);
 
 /*<html>
 <head>

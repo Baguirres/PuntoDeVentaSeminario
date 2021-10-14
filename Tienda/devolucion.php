@@ -97,7 +97,7 @@ session_start();
                   </form> 
                     ';
                     }else{
-                      echo '<h1>Este cliente no tiene ninguna compra</h1>';
+                      echo '<h1>Este cliente no tiene ninguna compra pendiente de entrega</h1>';
                     }
 
             
