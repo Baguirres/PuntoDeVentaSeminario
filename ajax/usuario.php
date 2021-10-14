@@ -200,8 +200,21 @@
             $bitacora = new Bitacora();
 
             $rspta = $bitacora->insertar($_SESSION["idusuario"],"Usuario cerró sesión");
-            session_unset(); //Limpiamos las variables de sesion
-            session_destroy(); //Destriumos la sesion
+            /*session_unset(); //Limpiamos las variables de sesion
+            session_destroy(); //Destriumos la <sesion*></sesion*/
+            $_SESSION['idusuario'] = null;
+            $_SESSION['nombre'] = null;
+            $_SESSION['imagen'] = null;
+            $_SESSION['escritorio'] = null;
+            $_SESSION['almacen'] = null;
+            $_SESSION['compras'] = null;
+            $_SESSION['ventas'] = null;
+            $_SESSION['acceso'] = null;
+            $_SESSION['reportes'] = null;
+            $_SESSION['graficas'] = null;
+            $_SESSION['pagos'] = null;
+            $_SESSION['recursosh'] = null;
+            $_SESSION['cambiosp'] = null;
             header("Location: ../index.php");
         break;
 
