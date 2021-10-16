@@ -44,12 +44,14 @@
                   </li>
                   <li>
                   <?php 
-                  
+                  if(isset($_SESSION['idusuarioT'])){
                     if($_SESSION['idusuarioT'] == null){
                       echo '<a href="login.php">Login</a>';
                     }else{
                       echo '<a href="./php/cerrar.php">Cerrar Sesión</a>';                 
                     }
+                  }
+                    
                   
                   ?>
                   </li>
@@ -72,13 +74,16 @@
               <a href="about.php">Sobre</a>           
             </li>
             <li><a href="contact.php">Contacto</a></li>
-            <?php    
-                  if($_SESSION['idusuarioT'] != null){
-                    echo '
-                    <li><a href="devolucion.php">Devoluciones</a></li>
-                    <li><a href="compra.php">Compras</a></li>
-                    ';
-                  }                
+            <?php 
+              if(isset($_SESSION['idusuarioT'])){
+                if($_SESSION['idusuarioT'] != null){
+                  echo '
+                  <li><a href="devolucion.php">Devoluciones</a></li>
+                  <li><a href="compra.php">Compras</a></li>
+                  ';
+                }  
+              }   
+                                
                 ?>
 
           </ul>
