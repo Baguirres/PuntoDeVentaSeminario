@@ -1,21 +1,18 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
-function init()
-{
+function init() {
     mostrarform(false);
     listar();
 
-    $("#formulario").on("submit",function(e)
-    {
+    $("#formulario").on("submit", function (e) {
         guardaryeditar(e);
     })
 
     //Cargamos los items al select categoria
     $.post(
         "../ajax/tienda.php?op=selectCategoria",
-        function(data)
-        {        
+        function (data) {
             //console.log(data);
             $("#idmunicipio").html(data);
             $("#idmunicipio").selectpicker('refresh');
@@ -25,27 +22,23 @@ function init()
 }
 
 //funcion limpiar
-function limpiar()
-{
+function limpiar() {
     $("#idtienda").val("");
     $("#nombre").val("");
     $("#direccion").val("");
 }
 
 //funcion mostrar formulario
-function mostrarform(flag)
-{
+function mostrarform(flag) {
     limpiar();
 
-    if(flag)
-    {
+    if (flag) {
         $("#listadoregistros").hide();
         $("#formularioregistros").show();
-        $("#btnGuardar").prop("disabled",false);
+        $("#btnGuardar").prop("disabled", false);
         $("#btnagregar").hide();
     }
-    else
-    {
+    else {
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
         $("#btnagregar").show();
@@ -53,108 +46,117 @@ function mostrarform(flag)
 }
 
 //Funcion cancelarform
-function cancelarform()
-{
+function cancelarform() {
     limpiar();
     mostrarform(false);
 }
 
 //Funcion listar
-function listar()
-{
+function listar() {
     tabla = $('#tblistado')
         .dataTable(
             {
-                "aProcessing":true, //Activamos el procesamiento del datatables
-                "aServerSide":true, //Paginacion y filtrado realizados por el servidor
+                "aProcessing": true, //Activamos el procesamiento del datatables
+                "aServerSide": true, //Paginacion y filtrado realizados por el servidor
                 dom: "Bfrtip", //Definimos los elementos del control de tabla
-                buttons:[
+                buttons: [
                     'copyHtml5',
                     'excelHtml5',
                     'csvHtml5',
                     'pdf'
                 ],
-                "ajax":{
+                "ajax": {
                     url: '../ajax/tienda.php?op=listar',
                     type: "get",
-                    dataType:"json",
-                    error: function(e) {
+                    dataType: "json",
+                    error: function (e) {
                         console.log(e.responseText);
                     }
                 },
                 "bDestroy": true,
                 "iDisplayLength": 5, //Paginacion
-                "order": [[0,"desc"]] //Ordenar (Columna, orden)
-            
+                "order": [[0, "desc"]] //Ordenar (Columna, orden)
+
             })
         .DataTable();
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        { usuario: usuario, accion: "Visualizó las tiendas" },
+        function (f) {
+
+        }
+    );
 }
 
 
 
 //funcion para guardar o editar
-function guardaryeditar(e)
-{
+function guardaryeditar(e) {
     e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+    $("#btnGuardar").prop("disabled", true);
     var formData = new FormData($("#formulario")[0]);
-    
+
     $.ajax({
         url: "../ajax/tienda.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        success: function(datos)
-        {
+        success: function (datos) {
             //console.log("succes");
             bootbox.alert(datos);
             mostrarform(false);
             tabla.ajax.reload();
         },
-        error: function(error)
-        {
+        error: function (error) {
             console.log("error: " + error);
-        } 
+        }
     });
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        { usuario: usuario, accion: "Tienda Registrado o Actualizado" },
+        function (f) {
 
+        }
+    );
     limpiar();
 }
 
-function mostrar(idtienda)
-{
+function mostrar(idtienda) {
     $.post(
         "../ajax/tienda.php?op=mostrar",
-        {idtienda:idtienda},
-        function(data,status)
-        {
+        { idtienda: idtienda },
+        function (data, status) {
             data = JSON.parse(data);
             mostrarform(true);
-           
+
             $("#idtienda").val(data.idTienda);
             $("#idmunicipio").val(data.idMunicipio);
             $('#idmunicipio').selectpicker('refresh');
             $("#nombre").val(data.nombre);
-            $("#direccion").val(data.direccion);    
+            $("#direccion").val(data.direccion);
 
         }
     );
 }
 
 //funcion para descativar categorias
-function desactivar(idtienda)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
-        if(result)
-        {
+function desactivar(idtienda) {
+    bootbox.confirm("¿Estas seguro de desactivar el Articulo?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/tienda.php?op=desactivar",
-                {idtienda:idtienda},
-                function(e)
-                {
+                { idtienda: idtienda },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Desactivo Tienda: " + idtienda },
+                        function (f) {
+
+                        }
+                    );
                 }
             );
         }
@@ -162,53 +164,57 @@ function desactivar(idtienda)
 }
 
 //funcion para descativar categorias
-function desactivarP(idtienda)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
-        if(result)
-        {
+function desactivarP(idtienda) {
+    bootbox.confirm("¿Estas seguro de desactivar el Articulo?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/tienda.php?op=desactivarP",
-                {idtienda:idtienda},
-                function(e)
-                {
+                { idtienda: idtienda },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Elimino Tienda: " + idtienda },
+                        function (f) {
+
+                        }
+                    );
                 }
             );
         }
     });
 }
 
-function activarP(idtienda)
-{
-    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
-        if(result)
-        {
+function activarP(idtienda) {
+    bootbox.confirm("¿Estas seguro de activar el Articulo?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/tienda.php?op=activarP",
-                {idtienda:idtienda},
-                function(e)
-                {
+                { idtienda: idtienda },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Activo Tienda: " + idTienda },
+                        function (f) {
+
+                        }
+                    );
                 }
             );
         }
     });
 }
 
-function generarbarcode()
-{
+function generarbarcode() {
     var codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
+    JsBarcode("#barcode", codigo);
     $("#print").show();
 }
 
-function imprimir()
-{
+function imprimir() {
     $("#print").printArea();
 }
 

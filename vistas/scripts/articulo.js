@@ -1,22 +1,19 @@
 var tabla;
-
+var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
-function init()
-{
+function init() {
     mostrarform(false);
     listar();
 
-    $("#formulario").on("submit",function(e)
-    {
+    $("#formulario").on("submit", function (e) {
         guardaryeditar(e);
     })
 
     //Cargamos los items al select categoria
     $.post(
         "../ajax/articulo.php?op=selectCategoria",
-        function(data)
-        {        
-            
+        function (data) {
+
             //console.log(data);
             $("#idcategoria").html(data);
             $("#idcategoria").selectpicker('refresh');
@@ -25,9 +22,8 @@ function init()
     //Cargamos los items al select categoria
     $.post(
         "../ajax/articulo.php?op=selectProveedor",
-        function(data)
-        {        
-            
+        function (data) {
+
             //console.log(data);
             $("#idproveedor").html(data);
             $("#idproveedor").selectpicker('refresh');
@@ -38,8 +34,7 @@ function init()
 }
 
 //funcion limpiar
-function limpiar()
-{
+function limpiar() {
     $("#idarticulo").val("");
     $("#nombre").val("");
     $("#stock").val("");
@@ -47,7 +42,7 @@ function limpiar()
     $("#precioC").val("");
     $("#caracteristicas").val("");
 
-    $("#imagenmuestra").attr("src","");
+    $("#imagenmuestra").attr("src", "");
     $("#imagenactual").val("");
 
     $("#print").hide();
@@ -56,19 +51,16 @@ function limpiar()
 }
 
 //funcion mostrar formulario
-function mostrarform(flag)
-{
+function mostrarform(flag) {
     limpiar();
 
-    if(flag)
-    {
+    if (flag) {
         $("#listadoregistros").hide();
         $("#formularioregistros").show();
-        $("#btnGuardar").prop("disabled",false);
+        $("#btnGuardar").prop("disabled", false);
         $("#btnagregar").hide();
     }
-    else
-    {
+    else {
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
         $("#btnagregar").show();
@@ -76,84 +68,91 @@ function mostrarform(flag)
 }
 
 //Funcion cancelarform
-function cancelarform()
-{
+function cancelarform() {
     limpiar();
     mostrarform(false);
 }
 
 //Funcion listar
-function listar()
-{
+function listar() {
     tabla = $('#tblistado')
         .dataTable(
             {
-                "aProcessing":true, //Activamos el procesamiento del datatables
-                "aServerSide":true, //Paginacion y filtrado realizados por el servidor
+                "aProcessing": true, //Activamos el procesamiento del datatables
+                "aServerSide": true, //Paginacion y filtrado realizados por el servidor
                 dom: "Bfrtip", //Definimos los elementos del control de tabla
-                buttons:[
+                buttons: [
                     'copyHtml5',
                     'excelHtml5',
                     'csvHtml5',
                     'pdf'
                 ],
-                "ajax":{
+                "ajax": {
                     url: '../ajax/articulo.php?op=listar',
                     type: "get",
-                    dataType:"json",
-                    error: function(e) {
+                    dataType: "json",
+                    error: function (e) {
                         console.log(e.responseText);
                     }
                 },
                 "bDestroy": true,
                 "iDisplayLength": 5, //Paginacion
-                "order": [[0,"desc"]] //Ordenar (Columna, orden)
-            
+                "order": [[0, "desc"]] //Ordenar (Columna, orden)
+
             })
         .DataTable();
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        { usuario: usuario, accion: "Visualizó los articulos" },
+        function (f) {
+
+        }
+    );
 }
 
 
 
 //funcion para guardar o editar
-function guardaryeditar(e)
-{
+function guardaryeditar(e) {
     e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+    $("#btnGuardar").prop("disabled", true);
     var formData = new FormData($("#formulario")[0]);
-    
+
     $.ajax({
         url: "../ajax/articulo.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        success: function(datos)
-        {
+        success: function (datos) {
             //console.log("succes");
             bootbox.alert(datos);
             mostrarform(false);
             tabla.ajax.reload();
         },
-        error: function(error)
-        {
+        error: function (error) {
             console.log("error: " + error);
-        } 
+        }
     });
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        { usuario: usuario, accion: "Articulo Registrado o Actualizado" },
+        function (f) {
+
+        }
+    );
 
     limpiar();
 }
 
-function mostrar(idarticulo)
-{
+function mostrar(idarticulo) {
     $.post(
         "../ajax/articulo.php?op=mostrar",
-        {idarticulo:idarticulo},
-        function(data,status)
-        {
+        { idarticulo: idarticulo },
+        function (data, status) {
             data = JSON.parse(data);
             mostrarform(true);
-           
+
             $("#idcategoria").val(data.idCategoria);
             $('#idcategoria').selectpicker('refresh');
 
@@ -166,86 +165,101 @@ function mostrar(idarticulo)
             $("#precioC").val(data.precioCompra);
             $("#caracteristicas").val(data.caracteristicas);
 
-            $("#imagenmuestra").show(); 
-            $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen); //agregamos el atributo src para mostrar la imagen
+            $("#imagenmuestra").show();
+            $("#imagenmuestra").attr("src", "../files/articulos/" + data.imagen); //agregamos el atributo src para mostrar la imagen
 
             $("#imagenactual").val(data.imagen);
 
             $("#idarticulo").val(data.idProducto);
 
-            
+
+
+        }
+    );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        { usuario: usuario, accion: "Visualizó detalle del Articulo" + idarticulo },
+        function (f) {
 
         }
     );
 }
 
 //funcion para descativar categorias
-function desactivar(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
-        if(result)
-        {
+function desactivar(idarticulo) {
+    bootbox.confirm("¿Estas seguro de desactivar el Articulo?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/articulo.php?op=desactivar",
-                {idarticulo:idarticulo},
-                function(e)
-                {
+                { idarticulo: idarticulo },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Desactivo Articulo: " + idarticulo },
+                        function (f) {
+
+                        }
+                    );
                 }
             );
         }
     });
 }
 
-function desactivarP(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?",function(result){
-        if(result)
-        {
+function desactivarP(idarticulo) {
+    bootbox.confirm("¿Estas seguro de desactivar el Articulo?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/articulo.php?op=desactivarP",
-                {idarticulo:idarticulo},
-                function(e)
-                {
+                { idarticulo: idarticulo },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Elimino articulo: " + idarticulo },
+                        function (f) {
+
+                        }
+                    );
                 }
             );
         }
     });
 }
 
-function activar(idarticulo)
-{
-    bootbox.confirm("¿Estas seguro de activar el Articulo?",function(result){
-        if(result)
-        {
+function activar(idarticulo) {
+    bootbox.confirm("¿Estas seguro de activar el Articulo?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/articulo.php?op=activar",
-                {idarticulo:idarticulo},
-                function(e)
-                {
+                { idarticulo: idarticulo },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
-        
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Activo Articulo: " + idarticulo },
+                        function (f) {
+
+                        }
+                    );
+
                 }
             );
         }
     });
 }
 
-function generarbarcode()
-{
+function generarbarcode() {
     var codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
+    JsBarcode("#barcode", codigo);
     $("#print").show();
 }
 
-function imprimir()
-{
+function imprimir() {
     $("#print").printArea();
 }
 

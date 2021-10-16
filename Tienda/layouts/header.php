@@ -50,6 +50,8 @@
                     }else{
                       echo '<a href="./php/cerrar.php">Cerrar Sesión</a>';                 
                     }
+                  }else{
+                      echo '<a href="login.php">Login</a>';
                   }
                     
                   

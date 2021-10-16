@@ -28,12 +28,13 @@ if (mysqli_num_rows($respuesta)>0){
         $_SESSION['direccion'] = $fila2[3];
         $_SESSION['correo'] = $fila2[4];
         $_SESSION['telefono'] = $fila2[5];
-        
     }
 
     echo '<script>console.log("'.$_SESSION['idcliente'].'")</script>';
     header("Location: ../index.php" );
 
+}else {
+    header("Location: ../login.php" );
 }
 
 ?>

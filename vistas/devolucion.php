@@ -15,6 +15,8 @@
 
       if($_SESSION['compras'] == 1)
       {
+        $user= $_SESSION["nombre"];
+      $iduser=$_SESSION['idusuario'];
 ?>
 
 <!--Contenido-->
@@ -58,6 +60,8 @@
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:inline-block;">
                             <label>No. de la Venta:</label>
                             <input type="hidden" name="iddevolucion" id="iddevolucion">
+                            <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $iduser; ?>" disabled>
+                            <input type="hidden" class="form-control" name="usuario" id="usuario" value="<?php echo $user; ?>" disabled>
                             <input type="text" class="form-control" name="noVenta" id="noVenta" maxlength="100" placeholder="No. de la Venta" 
                             required>
                           </div>                          
