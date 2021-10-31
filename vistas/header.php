@@ -210,6 +210,16 @@
                   </li>'
                  ;
               }
+              if($_SESSION['configuracion'] == 1)
+              {
+                echo 
+                '<li>
+                    <a href="configuracion.php">
+                      <i class="fa fa-gear"></i> <span>Configuración</span>
+                    </a>
+                  </li>'
+                 ;
+              }
               if($_SESSION['reportes'] == 1)
               {
                 echo 

@@ -189,7 +189,8 @@
                 in_array(7,$valores) ? $_SESSION['graficas'] = 1 : $_SESSION['graficas'] = 0;
                 in_array(8,$valores) ? $_SESSION['pagos'] = 1 : $_SESSION['pagos'] = 0;
                 in_array(9,$valores) ? $_SESSION['recursosh'] = 1 : $_SESSION['recursosh'] = 0;
-                in_array(10,$valores) ? $_SESSION['cambiosp'] = 1 : $_SESSION['cambiosp'] = 0;
+                in_array(10,$valores) ? $_SESSION['configuracion'] = 1 : $_SESSION['configuracion'] = 0;
+                in_array(11,$valores) ? $_SESSION['cambiosp'] = 1 : $_SESSION['cambiosp'] = 0;
             }
 
             echo json_encode($fetch); //Retornando JSON
@@ -214,6 +215,7 @@
             $_SESSION['graficas'] = null;
             $_SESSION['pagos'] = null;
             $_SESSION['recursosh'] = null;
+            $_SESSION['configuracion'] = null;
             $_SESSION['cambiosp'] = null;
             header("Location: ../index.php");
         break;

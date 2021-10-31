@@ -52,7 +52,7 @@ CREATE TABLE `categoria` (
 
 INSERT INTO `categoria` VALUES
 (1, 'Alimentos','Articulos de Sobrevivencia','comida.jpg',1),
-(2, 'Ropa','Articulos personales','ropa.jpg',1),
+(2, 'Prendas de Vestir','Articulos personales','ropa.jpg',1),
 (3, 'Libreria','Articulos para estudio','libreria.jpg',1),
 (4, 'Electrodomesticos','Cosas para el hogar','electro.jpg',1);
 -- --------------------------------------------------------
@@ -462,11 +462,12 @@ CREATE TABLE `proveedor` (
   `telefono` int(8) COLLATE utf8_spanish2_ci NOT NULL,
   `nit` varchar(8) COLLATE utf8_spanish2_ci NOT NULL,
   `correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` int(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`idProveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `proveedor` VALUES
-(1, 'Coca cola','su empresa','12345678','01050-k','COCA@GMAIL.COM');
+(1, 'Coca cola','su empresa','12345678','01050-k','COCA@GMAIL.COM',1);
 
 
 
@@ -687,7 +688,6 @@ CREATE TABLE `usuarioCliente` (
 INSERT INTO `usuarioCliente` ( `nombre`, `clave`, `imagen`, `idCliente`, `condicion`) VALUES
 ( 'Admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1523752615.jpg',1, 1),
 ( 'Bryan', '12345', '1523752615.jpg',2, 1);
-;
 -- --------------------------------------------------------
 
 --
@@ -714,7 +714,8 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 (87, 1, 6),
 (88, 1, 7),
 (89, 1, 8),
-(90, 1, 9);
+(90, 1, 9),
+(91, 1, 10);
 -- --------------------------------------------------------
 --
 -- Table structure for table `ventadetalle`
@@ -972,7 +973,8 @@ INSERT INTO `permiso` (`idpermiso`, `nombre`) VALUES
 (6, 'Reportes'),
 (7, 'Graficas'),
 (8, 'Pagos'),
-(9, 'Recursos Humanos');
+(9, 'Recursos Humanos'),
+(10, 'Configuracion');
 
 
 CREATE TABLE `devolucion` (
@@ -983,6 +985,30 @@ CREATE TABLE `devolucion` (
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY(`idDevolucion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+CREATE TABLE `caracteristica` (
+  `idCaracteristica` int(11) NOT NULL AUTO_INCREMENT,
+  `caracteristica` varchar(50) NOT NULL,
+  `desplegable` tinyint(1) NOT NULL DEFAULT '0',
+  `opciones` varchar(1000),
+  PRIMARY KEY(`idCaracteristica`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `caracteristica` (`idCaracteristica`, `caracteristica`,`desplegable`, `opciones`) VALUES
+(1, 'Talla',1,'XS, S, M, L'),
+(2, 'Color',0,NULL),
+(3, 'Contenido del paquete',0,NULL);
+
+CREATE TABLE `caracteristicasCategoria` (
+  `idCategoria` int(11) NOT NULL,
+  `idCaracteristica` int(11) NOT NULL,
+  PRIMARY KEY(`idCategoria`,`idCaracteristica`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `caracteristicasCategoria` (`idCategoria`, `idCaracteristica`) VALUES
+(2, 2),
+(2, 1),
+(3, 3);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
