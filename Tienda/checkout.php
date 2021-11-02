@@ -32,7 +32,7 @@ $arreglo  = $_SESSION['carrito'];
   
   <div class="site-wrap">
     <?php include("./layouts/header.php"); ?> 
-    <form action="./php/insertarpedido.php" method="post">
+    <form action="./php/insertarpedido.php" method="post" id="form" onsubmit="revisar(event)">
 
     <div class="site-section">
       <div class="container">
@@ -173,11 +173,11 @@ $arreglo  = $_SESSION['carrito'];
 
               <div class="form-group">
                  <label for="c_address" class="text-black">Nombre de la Tarjeta <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="" name="" placeholder="">
+                  <input type="text" class="form-control" id="nombreT" name="nombreT" placeholder="">
                  <label for="c_address" class="text-black">No. de Tarjeta <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="" name="" placeholder="">
+                  <input type="text" class="form-control" id="NoT" name="NoT" placeholder="">
                   <label for="c_address" class="text-black">Codigo de Seguridad<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="" name="" placeholder="">
+                  <input type="text" class="form-control" id="codS" name="codS" placeholder="">
               </div>
             </div>
           </div>
@@ -266,22 +266,41 @@ $arreglo  = $_SESSION['carrito'];
                   </div> -->
 
                   <div class="form-group">
-                    <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='thankyou.php'">Realizar Compra</button>
+                    <input type="submit" value="Realizar Compra" class="btn btn-primary btn-lg py-3 btn-block" onclick="revisar()">
                   </div>
-
+                  
                 </div>
               </div>
             </div>
-
+            
           </div>
         </div>
         <!-- </form> -->
       </div>
     </div>
   </form>  
+  <button class="btn btn-primary btn-lg py-3 btn-block" onclick="revisar()">Realizar Compra</button>
     <!-- <?php include("./layouts/footer.php"); ?>  -->
   </div>
 
+  <script>
+    function revisar(event){
+      let x1 = document.getElementById("c_fname").value;
+      let x2 = document.getElementById("c_lname").value;
+      let x3 = document.getElementById("c_nit").value;
+      let x4 = document.getElementById("c_address").value;
+      let x5 = document.getElementById("c_email_address").value;
+      let x6 = document.getElementById("c_phone").value;
+      let x7 = document.getElementById("c_order_notes").value;
+      let x8 = document.getElementById("nombreT").value;
+      let x9 = document.getElementById("NoT").value;
+      let x0 = document.getElementById("codS").value;
+      if(x1==='' || x2==='' || x3==='' || x4==='' || x5==='' || x6==='' || x7==='' || x8==='' || x9==='' || x0===''){
+        event.preventDefault();
+        alert("Campos Vacios");
+      }
+    }
+  </script>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-ui.js"></script>
   <script src="js/popper.min.js"></script>

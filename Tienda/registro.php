@@ -80,6 +80,7 @@
                         <input type="text" class="form-control" id="nit" name="nit"></input>
                     </div>
                     <button class="btn btn-primary inicio" type="submit">Registrarse</button>
+                    <input type="button" onclick="history.back()" name="volver atrás" value="Cancelar" class="btn btn-primary inicio">
                 </form>
           </div>
       </div>

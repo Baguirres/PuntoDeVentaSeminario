@@ -56,6 +56,8 @@
                     <input type="password" class="form-control" id="contra" name="contra">
                     <button class="btn btn-primary inicio" type="submit">Iniciar Sesión</button>
                     <br>
+                    <input type="button" onclick="history.back()" name="volver atrás" value="Cancelar" class="btn btn-primary inicio">
+                    <br>
                     <a href="registro.php" class="registrate">Registrarse</a>
                 </form>
           </div>

@@ -29,16 +29,23 @@
           <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
             <h3 class="footer-heading mb-4"></h3>
           </div>
+          <?php 
+                    include('./php/conexion.php');
+                    $resultado = $conexion -> query("SELECT * from empresa") or die ($conexion -> error);
+                    while ($fila = mysqli_fetch_array($resultado)) {
+                    
+                    
+                  ?>
           <div class="col-md-6 col-lg-3">
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Información de Contacto</h3>
               <ul class="list-unstyled">
-                <li class="address">UMG</li>
-                <li class="phone"><a href="tel://23923929210">+502 2411 1800</a></li>
-                <li class="email">emailaddress@domain.com</li>
+                <li class="address"><?php echo $fila['direccion']; ?></li>
+                <li class="phone"><a href="tel://23923929210">+502 <?php echo $fila['telefono']; ?></a></li>
+                <li class="email"><?php echo $fila['correo']; ?></li>
               </ul>
             </div>
-
+            <?php } ?>   
           </div>
         </div>
         <div class="row text-center">
