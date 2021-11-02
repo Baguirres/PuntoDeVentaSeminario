@@ -72,14 +72,15 @@
             <?php } ?>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Ingrese sus datos de Acceso</p>
-        <form method="post" id="frmAcceso">
+        <h2 class="login-box-msg">Ingrese sus Correo Electronico</h2>
+        <p class="login-box-msg">Le estaremos enviando a su correo su contraseña</p>
+        <form method="post" id="frmOlvide">
           <div class="form-group has-feedback">
             <input type="text" class="form-control inputs  radius" id="usuarioa" name="usuarioa" placeholder="Usuario">
             <span class="fa fa-user form-control-feedback spans"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" id="clavea" name="clavea" class="form-control inputs radius" placeholder="Password">
+            <input type="password" id="clavea" name="clavea" class="form-control inputs radius" placeholder="Nueva Contraseña">
             <span class="fa fa-key form-control-feedback spans"></span>
           </div>
           <div class="row" style="margin-top: 4rem; margin-bottom: 2rem;">
@@ -87,11 +88,10 @@
 
             </div><!-- /.col -->
             <div class="col-xs-12">
-              <button type="submit" class="btn btn-primary btn-block btn-flat radius">Ingresar</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat radius">Enviar</button>
             </div><!-- /.col -->
           </div>
         </form>        
-        <a href="olvideContra.php" >Olvidé mi password</a><br>
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
 

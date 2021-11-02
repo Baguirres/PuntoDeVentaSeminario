@@ -80,6 +80,7 @@
                     </div>
                     <div class="col-md-6">
                       <h2 class="text-black"><?php echo $fila[1]; ?></h2>
+                      <h3 class="text-black"><?php echo $fila[8]; ?></h3>
                       <input type="hidden" id="txtId" value="<?php echo $fila[0]; ?>">
                       <p><?php echo $fila[2]; ?></p>
                       <p><strong class="text-primary h4">Q<?php echo $fila[3]; echo '<script>console.log("'.$fila[6].'")</script>';?></strong></p>

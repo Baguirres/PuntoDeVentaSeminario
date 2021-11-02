@@ -131,7 +131,7 @@ function guardaryeditar(e) {
     let carac = "";
     for (let index = 0; index < objetos.length; index++) {
         const element = objetos[index];
-        carac += element.id + ":" + element.value + ";";
+        carac += element.id + ":" + element.value + ",";
     }
     $.ajax({
         url: "../ajax/articulo.php?op=guardaryeditar&caracteristica=" + carac,

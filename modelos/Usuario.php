@@ -175,6 +175,16 @@
             return ejecutarConsulta($sql);
         }
 
+        //Verficacion de acceso
+        public function verificar2($usuario,$clave)
+        {
+            $sql = "UPDATE usuario
+                     SET   clave='$clave'
+                    WHERE nombre='$usuario'";
+            
+            return ejecutarConsulta($sql);
+        }
+
     }
 
 ?>
