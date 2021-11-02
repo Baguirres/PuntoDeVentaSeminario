@@ -136,7 +136,7 @@ function mostrar(iddevolucion) {
                 "../ajax/devolucion.php?op=listarBusqueda&id=" + variable,
                 function (data, status) {
                     $("#motivo").prop("disabled", false);
-                    $("#fecha").prop("disabled", false);
+                    $("#fecha").prop("disabled", true);
                     $("#idestado").prop("disabled", false);
                     // console.log(data)
                     $("#informacion").html("");
@@ -168,7 +168,7 @@ $("#noVenta").on('keypress', function (e) {
             "../ajax/devolucion.php?op=listarBusqueda&id=" + variable,
             function (data, status) {
                 $("#motivo").prop("disabled", false);
-                $("#fecha").prop("disabled", false);
+                $("#fecha").prop("disabled", true);
                 $("#idestado").prop("disabled", false);
                 // console.log(data)
                 $("#informacion").html("");

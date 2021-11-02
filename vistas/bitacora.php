@@ -43,7 +43,6 @@
                       <div class="panel-body table-responsive" id="listadoregistros">
                           <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
-                              <th>Opciones</th>
                               <th>Usuario</th>
                               <th>Fecha</th>
                               <th>Accion</th>
@@ -52,7 +51,6 @@
 
                             </tbody>
                             <tfoot>
-                             <th>Opciones</th>
                              <th>Usuario</th>
                               <th>Fecha</th>
                               <th>Accion</th>

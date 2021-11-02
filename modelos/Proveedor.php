@@ -68,6 +68,24 @@
             return ejecutarConsulta($sql);
         }
 
+        public function desactivarP($idpersona)
+        {
+
+            $sql= "UPDATE proveedor SET estado='0' 
+                   WHERE idproveedor='$idpersona'";
+            
+            return ejecutarConsulta($sql);
+        }
+
+        public function activar($idpersona)
+        {
+            $sql= "UPDATE proveedor SET estado='1' 
+                   WHERE idproveedor='$idpersona'";
+            
+            return ejecutarConsulta($sql);
+        }
+
+
     }
 
 ?>

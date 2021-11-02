@@ -33,13 +33,13 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idBitacora.')" disabled><li class="fa fa-pencil"></li></button>'.
-                    ' <button class="btn btn-primary" onclick="desactivar('.$reg->idBitacora.')" disabled><li class="fa fa-close"></li></button>',
+                    // "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idBitacora.')" disabled><li class="fa fa-pencil"></li></button>'.
+                    // ' <button class="btn btn-primary" onclick="desactivar('.$reg->idBitacora.')" disabled><li class="fa fa-close"></li></button>',
                     // "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idBitacora.')"><li class="fa fa-pencil"></li></button>'.
                     // ' <button class="btn btn-primary" onclick="desactivar('.$reg->idBitacora.')"><li class="fa fa-close"></li></button>',
-                     "1"=>$reg->usuario,
-                     "2"=>$reg->fecha,
-                     "3"=>$reg->accion
+                     "0"=>$reg->usuario,
+                     "1"=>$reg->fecha,
+                     "2"=>$reg->accion
                 );
             }
             $results = array(

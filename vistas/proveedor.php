@@ -40,6 +40,7 @@
                             <th>Telefono</th>
                             <th>Nit</th>
                             <th>Correo</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>
 
@@ -50,6 +51,7 @@
                             <th>Telefono</th>
                             <th>Nit</th>
                             <th>Correo</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>

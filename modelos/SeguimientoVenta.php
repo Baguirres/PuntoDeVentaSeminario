@@ -98,7 +98,8 @@
                     DATE(sv.fecha) as fecha,
                     fs.nombre as faseseguimiento,
                     sv.idventaencabezado,
-                    sv.comentarios
+                    sv.comentarios,
+                    sv.estado
                     FROM seguimientoventa sv, faseseguimiento fs
                     WHERE sv.idfaseseguimiento=fs.idfaseseguimiento";
 

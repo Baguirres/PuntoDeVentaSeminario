@@ -1,20 +1,17 @@
 var tabla;
 var usuario = $("#idusuario").val();
 //Funcion que se ejecuta al inicio
-function init()
-{
+function init() {
     mostrarform(false);
     listar();
 
-    $("#formulario").on("submit",function(e)
-    {
+    $("#formulario").on("submit", function (e) {
         guardaryeditar(e);
     })
 }
 
 //funcion limpiar
-function limpiar()
-{
+function limpiar() {
     $("#nombre").val("");
     $("#nit").val("");
     $("#direccion").val("");
@@ -24,19 +21,16 @@ function limpiar()
 }
 
 //funcion mostrar formulario
-function mostrarform(flag)
-{
+function mostrarform(flag) {
     limpiar();
 
-    if(flag)
-    {
+    if (flag) {
         $("#listadoregistros").hide();
         $("#formularioregistros").show();
-        $("#btnGuardar").prop("disabled",false);
+        $("#btnGuardar").prop("disabled", false);
         $("#btnagregar").hide();
     }
-    else
-    {
+    else {
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
         $("#btnagregar").show();
@@ -44,94 +38,85 @@ function mostrarform(flag)
 }
 
 //Funcion cancelarform
-function cancelarform()
-{
+function cancelarform() {
     limpiar();
     mostrarform(false);
 }
 
 //Funcion listar
-function listar()
-{
+function listar() {
     tabla = $('#tblistado')
         .dataTable(
             {
-                "aProcessing":true, //Activamos el procesamiento del datatables
-                "aServerSide":true, //Paginacion y filtrado realizados por el servidor
+                "aProcessing": true, //Activamos el procesamiento del datatables
+                "aServerSide": true, //Paginacion y filtrado realizados por el servidor
                 dom: "Bfrtip", //Definimos los elementos del control de tabla
-                buttons:[
+                buttons: [
                     'copyHtml5',
                     'excelHtml5',
                     'csvHtml5',
                     'pdf'
                 ],
-                "ajax":{
+                "ajax": {
                     url: '../ajax/proveedor.php?op=listarp',
                     type: "get",
-                    dataType:"json",
-                    error: function(e) {
+                    dataType: "json",
+                    error: function (e) {
                         console.log(e.responseText);
                     }
                 },
                 "bDestroy": true,
                 "iDisplayLength": 5, //Paginacion
-                "order": [[0,"desc"]] //Ordenar (Columna, orden)
-            
+                "order": [[0, "desc"]] //Ordenar (Columna, orden)
+
             })
         .DataTable();
-        $.post(
-            "../ajax/bitacora.php?op=insertar",
-            {usuario:usuario,accion:"Visualizo Proveedores"},
-            function(f)
-            {
-               
-            }
-        );
+    $.post(
+        "../ajax/bitacora.php?op=insertar",
+        { usuario: usuario, accion: "Visualizo Proveedores" },
+        function (f) {
+
+        }
+    );
 }
 
 //funcion para guardar o editar
-function guardaryeditar(e)
-{
+function guardaryeditar(e) {
     e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+    $("#btnGuardar").prop("disabled", true);
     var formData = new FormData($("#formulario")[0]);
-    
+
     $.ajax({
         url: "../ajax/proveedor.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        success: function(datos)
-        {
+        success: function (datos) {
             //console.log("succes");
             bootbox.alert(datos);
             mostrarform(false);
             tabla.ajax.reload();
         },
-        error: function(error)
-        {
+        error: function (error) {
             console.log("error: " + error);
-        } 
+        }
     });
     $.post(
         "../ajax/bitacora.php?op=insertar",
-        {usuario:usuario,accion:"Proveedor Registrado"},
-        function(f)
-        {
-           
+        { usuario: usuario, accion: "Proveedor Registrado" },
+        function (f) {
+
         }
     );
     limpiar();
 }
 
-function mostrar(idpersona)
-{
+function mostrar(idpersona) {
     $.post(
         "../ajax/proveedor.php?op=mostrar",
-        {idpersona:idpersona},
-        function(data,status)
-        {
+        { idpersona: idpersona },
+        function (data, status) {
             data = JSON.parse(data);
             mostrarform(true);
 
@@ -147,35 +132,75 @@ function mostrar(idpersona)
     );
     $.post(
         "../ajax/bitacora.php?op=insertar",
-        {usuario:usuario,accion:"Visualizo detalle de proveedor con código "+idpersona},
-        function(f)
-        {
-           
+        { usuario: usuario, accion: "Visualizo detalle de proveedor con código " + idpersona },
+        function (f) {
+
         }
     );
 }
 
 
-function eliminar(idpersona)
-{
-    bootbox.confirm("¿Estas seguro de eliminar el Proveedor?",function(result){
-        if(result)
-        {
+function eliminar(idpersona) {
+    bootbox.confirm("¿Estas seguro de eliminar el Proveedor?", function (result) {
+        if (result) {
             $.post(
                 "../ajax/proveedor.php?op=eliminar",
-                {idpersona:idpersona},
-                function(e)
-                {
+                { idpersona: idpersona },
+                function (e) {
                     bootbox.alert(e);
                     tabla.ajax.reload();
                     $.post(
                         "../ajax/bitacora.php?op=insertar",
-                        {usuario:usuario,accion:"Eliminó proveedor con código "+idpersona},
-                        function(f)
-                        {
-                           
+                        { usuario: usuario, accion: "Eliminó proveedor con código " + idpersona },
+                        function (f) {
+
                         }
                     );
+                }
+            );
+        }
+    });
+}
+
+function desactivarP(idpersona) {
+    bootbox.confirm("¿Estas seguro de desactivar el Proveedor?", function (result) {
+        if (result) {
+            $.post(
+                "../ajax/proveedor.php?op=desactivarP",
+                { idpersona: idpersona },
+                function (e) {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Elimino Proveedor: " + idpersona },
+                        function (f) {
+
+                        }
+                    );
+                }
+            );
+        }
+    });
+}
+
+function activar(idpersona) {
+    bootbox.confirm("¿Estas seguro de activar el Proveedor?", function (result) {
+        if (result) {
+            $.post(
+                "../ajax/proveedor.php?op=activar",
+                { idpersona: idpersona },
+                function (e) {
+                    bootbox.alert(e);
+                    tabla.ajax.reload();
+                    $.post(
+                        "../ajax/bitacora.php?op=insertar",
+                        { usuario: usuario, accion: "Activo Proveedor: " + idpersona },
+                        function (f) {
+
+                        }
+                    );
+
                 }
             );
         }

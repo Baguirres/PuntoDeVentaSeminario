@@ -37,19 +37,38 @@
             echo json_encode($rspta);
         break;
 
+        case 'desactivarP':
+            $rspta = $persona->desactivarP($idpersona);
+            echo $rspta ? "Proveedor desactivada" : "Proveedor no se pudo desactivar";
+        break;
+
+        case 'activar':
+            $rspta = $persona->activar($idpersona);
+            echo $rspta ? "Proveedor activado" : "Proveedor no se pudo activar";
+        break;
+        
         case 'listarp':
             $rspta = $persona->listarp();
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=>
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idProveedor.')"><li class="fa fa-pencil"></li></button>'.
-                        ' <button class="btn btn-danger" onclick="eliminar('.$reg->idProveedor.')"><li class="fa fa-trash"></li></button>'
-                        ,
+                    "0"=> ($reg->estado) ? 
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idProveedor.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="eliminar('.$reg->idProveedor.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivarP('.$reg->idProveedor.')" title="inactivar"><li class="fa fa-close"></li></button>'
+                    :
+                    '<button class="btn btn-warning" onclick="mostrar('.$reg->idProveedor.')" title="mostrar"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="eliminar('.$reg->idProveedor.')" title="eliminar"><li class="fa fa-trash"></li></button>'.
+                    ' <button class="btn btn-primary" onclick="activar('.$reg->idProveedor.')" title="activar"><li class="fa fa-check"></li></button>'
+                    ,
                     "1"=>$reg->nombre,
                     "2"=>$reg->telefono,
                     "3"=>$reg->nit,
-                    "4"=>$reg->correo
+                    "4"=>$reg->correo,
+                    "5"=>($reg->estado) ?
+                    '<span class="label bg-green">Activado</span>'
+                    :      
+                    '<span class="label bg-red">Desactivado</span>'
                 );
             }
             $results = array(

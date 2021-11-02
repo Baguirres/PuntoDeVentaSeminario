@@ -31,13 +31,13 @@
                 }
             }
 
-
+            $caractP=$_GET['caracteristica'];
             if (empty($idarticulo)){
-                $rspta=$articulo->insertar($idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caracteristicas);
+                $rspta=$articulo->insertar($idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caractP);
                 echo $rspta ? "Articulo registrado" : "Articulo no se pudo registrar";
             }
             else {
-                $rspta=$articulo->editar($idarticulo,$idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caracteristicas);
+                $rspta=$articulo->editar($idarticulo,$idcategoria,$nombre,$stock,$imagen,$descripcion,$precioC,$idproveedor,$caractP);
                 echo $rspta ? "Articulo actualizado" : "Articulo no se pudo actualizar";
             }
         break;
@@ -94,6 +94,32 @@
                 "aaData" =>$data
             );
             echo json_encode($results);
+        break;
+
+
+        case 'listarCatP':
+            $categoriaID=$_GET['categoriaID'];
+            $rspta = $articulo->listarCatP($categoriaID);
+            while($reg = $rspta->fetch_object()){
+                if($reg->desplegable==0){
+                    echo '<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>'.$reg->caracteristica.'</label>
+                    <input type="text" id="'.$reg->caracteristica.'" class="objetos">
+                    </div>';
+                }else{
+                    
+                    echo '<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>'.$reg->caracteristica.'</label>                    
+                    <select id="'.$reg->caracteristica.'" class="objetos">';
+                    $arreglo = explode(",",$reg->opciones);
+                    for ($i=0; $i < count($arreglo); $i++) { 
+                        echo
+                        '<option value="'.$arreglo[$i].'">'.$arreglo[$i].'</option>';
+                    }
+                   echo '</select>
+                    </div>';
+                }
+            }
         break;
 
         case 'selectCategoria':

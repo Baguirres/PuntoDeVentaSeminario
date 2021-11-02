@@ -68,6 +68,10 @@
                     // "3"=>$reg->codigo,
                      "3"=>$reg->idventaencabezado,
                      "4"=>$reg->comentarios,
+                     "5"=>($reg->estado) ?
+                     '<span class="label bg-green">Activado</span>'
+                     :      
+                     '<span class="label bg-red">Desactivado</span>'
                 );
             }
             $results = array(

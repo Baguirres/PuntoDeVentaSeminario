@@ -48,6 +48,7 @@
                               <th>Fase de la Venta</th>
                               <th>No. de la Venta</th>
                               <th>Comentarios</th>
+                              <th>Estado</th>
                             </thead>
                             <tbody>
 
@@ -58,6 +59,7 @@
                               <th>Fase de la Venta</th>
                               <th>No. de la Venta</th>
                               <th>Comentarios</th>
+                              <th>Estado</th>
                             </tfoot>
                           </table>
                       </div>

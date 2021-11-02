@@ -9,6 +9,7 @@ function init() {
         guardaryeditar(e);
     })
 
+
     //Cargamos los items al select categoria
     $.post(
         "../ajax/articulo.php?op=selectCategoria",
@@ -17,6 +18,14 @@ function init() {
             //console.log(data);
             $("#idcategoria").html(data);
             $("#idcategoria").selectpicker('refresh');
+        }
+    );
+
+    $.post(
+        "../ajax/articulo.php?op=listarCatP&categoriaID=1",
+        function (data) {
+            $("#caractcategoria").html("");
+            $("#caractcategoria").html(data);
         }
     );
     //Cargamos los items al select categoria
@@ -46,7 +55,7 @@ function limpiar() {
     $("#imagenactual").val("");
 
     $("#print").hide();
-
+    $("#caractcategoria").html("");
 
 }
 
@@ -118,8 +127,14 @@ function guardaryeditar(e) {
     $("#btnGuardar").prop("disabled", true);
     var formData = new FormData($("#formulario")[0]);
 
+    let objetos = document.getElementsByClassName("objetos");
+    let carac = "";
+    for (let index = 0; index < objetos.length; index++) {
+        const element = objetos[index];
+        carac += element.id + ":" + element.value + ";";
+    }
     $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar",
+        url: "../ajax/articulo.php?op=guardaryeditar&caracteristica=" + carac,
         type: "POST",
         data: formData,
         contentType: false,
@@ -155,6 +170,14 @@ function mostrar(idarticulo) {
 
             $("#idcategoria").val(data.idCategoria);
             $('#idcategoria').selectpicker('refresh');
+            $.post(
+                "../ajax/articulo.php?op=listarCatP&categoriaID=" + $("#idcategoria").val(),
+                function (data) {
+                    // console.log(data)
+                    $("#caractcategoria").html("");
+                    $("#caractcategoria").html(data);
+                }
+            );
 
             $("#idproveedor").val(data.idProveedor);
             $('#idproveedor').selectpicker('refresh');
@@ -262,6 +285,20 @@ function generarbarcode() {
 function imprimir() {
     $("#print").printArea();
 }
+
+$("#idcategoria").on('change', function (e) {
+
+    let variable = $("#idcategoria").val();
+    $.post(
+        "../ajax/articulo.php?op=listarCatP&categoriaID=" + variable,
+        function (data) {
+            // console.log(data)
+            $("#caractcategoria").html("");
+            $("#caractcategoria").html(data);
+        }
+    );
+
+});
 
 
 

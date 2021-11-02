@@ -106,6 +106,22 @@
             return ejecutarConsulta($sql);
         }
 
+        /*listar cat*/
+        public function listarCatP($id)
+        {
+            $sql = "SELECT 
+                    ct.caracteristica,
+                    ct.desplegable,
+                    ct.opciones
+                    FROM caracteristicascategoria cc
+                    , categoria c, caracteristica ct
+                    WHERE cc.idcategoria = c.idcateogira
+                    AND ct.idcaracteristica=cc.idcaracteristica
+                    AND c.idcateogira='$id'";
+
+            return ejecutarConsulta($sql);
+        }
+
         public function listarProducto(){
  
             $sql = "SELECT * from producto";
