@@ -44,7 +44,7 @@ CREATE TABLE `bitacora` (
 CREATE TABLE `categoria` (
   `idCateogira` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
   `imagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCateogira`)
@@ -68,7 +68,7 @@ CREATE TABLE `cliente` (
   `FechaNacimiento` date,
   `Correo` varchar(45) COLLATE utf8_spanish2_ci,
   `Telefono` int(8) COLLATE utf8_spanish2_ci,
-  `Direccion` varchar(45) COLLATE utf8_spanish2_ci,
+  `Direccion` varchar(150) COLLATE utf8_spanish2_ci,
   `NIT` varchar(8) COLLATE utf8_spanish2_ci NOT NULL,
    `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCliente`)
@@ -93,7 +93,8 @@ CREATE TABLE `tipoMoneda`(
     PRIMARY KEY (`idTipoMoneda`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO `tipoMoneda` VALUES
-(1, 'Quetzal','Q',1,1);
+(1, 'Quetzal','Q',1,1),
+(2, 'Dólar','$',7.5,1);
 
 CREATE TABLE `compradetalle` (
   `idProducto` int(11) NOT NULL,
@@ -623,7 +624,7 @@ INSERT INTO seguimientoventa VALUES
 CREATE TABLE `tienda` (
   `idTienda` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `direccion` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
   `tipoTienda` tinyint(1) NOT NULL DEFAULT '1',
   `estado` tinyint(1) NOT NULL DEFAULT '1',
