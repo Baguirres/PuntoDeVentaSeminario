@@ -59,7 +59,8 @@
             echo $rspta ? "Tienda activado" : "Tienda no se pudo activar";
         break;
 
-        case 'activar':
+        case 'activarBodega':
+            
             $rspta = $tienda->activar($idtienda);
             echo $rspta ? "Bodega activada" : "Bodega no se pudo activar";
         break;
@@ -117,8 +118,10 @@
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idtienda.')"><li class="fa fa-pencil"></li></button>'.
-                    ' <button class="btn btn-primary" onclick="desactivar('.$reg->idtienda.')"><li class="fa fa-close"></li></button>',
+                    "0"=> ($reg->estado==1) ? '<button class="btn btn-warning" onclick="mostrar('.$reg->idtienda.')"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-danger" onclick="desactivar('.$reg->idtienda.')"><li class="fa fa-close"></li></button>'
+                    : '<button class="btn btn-warning" onclick="mostrar('.$reg->idtienda.')"><li class="fa fa-pencil"></li></button>'.
+                    ' <button class="btn btn-primary" onclick="activar('.$reg->idtienda.')"><li class="fa fa-check"></li></button>',
                      "1"=>$reg->nombre,
                      "2"=>$reg->direccion,
                      "3"=>$reg->municipio
@@ -141,6 +144,7 @@
 
             while($reg = $rspta->fetch_object())
             {
+                
                 echo '<option value='.$reg->idMunicipio.'>'
                         .$reg->nombre.
                       '</option>';

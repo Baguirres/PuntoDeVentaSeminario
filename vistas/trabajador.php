@@ -86,11 +86,11 @@
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Correo:</label>
-                            <input type="text" class="form-control" name="correo" id="correo" maxlength="100" placeholder="Correo" required>
+                            <input type="email" class="form-control" name="correo" id="correo" maxlength="100" placeholder="Correo" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Teléfono:</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="100" placeholder="Teléfono" required>
+                            <input type="text" class="form-control" type="text" pattern="\d{8}"  title="Deben de ser 8 dígitos" name="telefono" id="telefono" maxlength="100" placeholder="Teléfono" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Dirección:</label>

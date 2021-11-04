@@ -88,7 +88,7 @@
         //METODOS PARA ACTIVAR ARTICULOS
         public function desactivar($idarticulo)
         {
-            $sql= "DELETE from tienda 
+            $sql= "UPDATE tienda SET estado='0' 
             WHERE idtienda='$idarticulo'";
             // $sql= "UPDATE articulo SET condicion='0' 
             //        WHERE idarticulo='$idarticulo'";
@@ -142,7 +142,7 @@
         public function listarBodega()
         {
 
-            $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio
+            $sql = "SELECT t.idtienda, t.nombre, t.direccion, m.nombre  as municipio, t.estado from tienda t, municipio m WHERE t.idmunicipio=m.idmunicipio
             and tipotienda=0";
 
             return ejecutarConsulta($sql);

@@ -26,6 +26,11 @@
             } 
         break;
 
+        case 'insertarEnVenta':
+            $rspta=$cliente->insertarEnVenta($nombre,$apellido,$email,$direccion,$nit);
+            echo $rspta ? "Cliente registrado" : "Cliente no se pudo registrar";
+        break;
+
         case 'eliminar':                
                 $rspta = $cliente->eliminar($idcliente);
                 echo $rspta ? "Cliente eliminado" : "Cliente no se pudo eliminar";

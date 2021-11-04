@@ -32,6 +32,26 @@
             return ejecutarConsulta($sql);
         }
 
+        public function insertarEnVenta($nombre,$apellido,$email,$direccion,$nit)
+        {
+            $sql = "INSERT INTO cliente (
+                    Nombre,
+                    Apellido,
+                    Correo,
+                    Direccion,
+                    NIT
+                   ) 
+                    VALUES (
+                        '$nombre',
+                        '$apellido',
+                        '$email',
+                        '$direccion',
+                        '$nit'
+                        )";
+            
+            return ejecutarConsulta($sql);
+        }
+
         public function editar($idcliente,$nombre,$apellido,$fechan,$email,$telefono,$direccion,$nit)
         {
             $sql = "UPDATE cliente SET 

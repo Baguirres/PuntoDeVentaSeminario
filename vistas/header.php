@@ -120,6 +120,7 @@
                     <ul class="treeview-menu">
                       <li><a href="articulo.php"><i class="fa fa-circle-o"></i> Artículos</a></li>
                       <li><a href="categoria.php"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                      <li><a href="carCat.php"><i class="fa fa-circle-o"></i> Características de Categoría</a></li>
                       <li><a href="promocion.php"><i class="fa fa-circle-o"></i> Promoción</a></li>
                       <li><a href="bodega.php"><i class="fa fa-circle-o"></i> Bodegas</a></li>
                       <li><a href="bodegaTienda.php"><i class="fa fa-circle-o"></i> Artículos de Bodega a Tienda</a></li>
@@ -204,7 +205,6 @@
                     </a>
                     <ul class="treeview-menu">
                       <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                      <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
                       <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
                     </ul>
                   </li>'
