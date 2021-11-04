@@ -1,5 +1,8 @@
 var tabla;
 var usuario = $("#idusuario").val();
+var cambio=1;
+var simbolo='Q';
+var agergarCliente=0;
 //Función que se ejecuta al inicio
 function init(){
     
@@ -60,12 +63,16 @@ function limpiar()
 	$("#nit").val("");
 	$("#idcliente").val(0);
     $("#idcliente").selectpicker('refresh');
-	$("#idmoneda").val(0);
+	$("#idmoneda").val(1);
     $("#idmoneda").selectpicker('refresh');
 	$("#idtipodepago").val(0);
     $("#idtipodepago").selectpicker('refresh');
 	$("#total").val("");
     $("#btnAgregarArt").prop("disabled",true);
+    $("#nombre").prop("disabled",true);
+    $("#apellido").prop("disabled",true);
+    $("#direccion").prop("disabled",true);
+    $("#correo").prop("disabled",true);
     $("#btnAgregarArt").prop("title",'Seleccione primero el proveedor y la tienda');
     $("#total_compra").val("");
     $(".filas").remove();
@@ -93,7 +100,7 @@ function mostrarform(flag)
         $("#referencia").css('display',"none");
         $("#idcompraencabezado").css('display',"none");
 		$("#idtienda").prop("disabled",false);
-		$("#fecha_hora").prop("disabled",false);
+		$("#fecha_hora").prop("disabled",true);
 		$("#nit").prop("disabled",false);
 		$("#idcliente").prop("disabled",false);
 		$("#idmoneda").prop("disabled",false);
@@ -166,7 +173,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 10,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
     $.post(
@@ -214,6 +221,10 @@ function guardaryeditar(e)
 	//var idventaencabezado = $("#idcompraencabezado").html();
     var fecha = $("#fecha_hora").val();
     var nit = $("#nit").val();
+    var nombre = $("#nombre").val();
+    var apellido = $("#apellido").val();
+    var correo = $("#correo").val();
+    var direccion = $("#direccion").val();
     var usuario = $("#idusuario").val();
     var moneda = $("#idmoneda").val();
 	var pago = $("#idtipodepago").val();
@@ -233,16 +244,31 @@ function guardaryeditar(e)
         cantidad.push($('#cantidad'+i).val());
         descuento.push($('#descuento'+i).html());
     }
-    if(!$('#confin').prop('checked') && (nit=='' || $("#idcliente").val()==0)){
-        bootbox.alert('Debe de llenar los datos del cliente');
-    }else if(moneda==0 || moneda==null || moneda==''){
-        bootbox.alert('Debe de seleccionar la moneda');
-    }else if(pago==0 || pago==null || pago==''){
+    var bien=false;
+    if(pago==0 || pago==null || pago==''){
         bootbox.alert('Debe de seleccionar la forma de pago');
+    }else if(pago==1){
+        if($("#cantrec").val()==''){
+            bootbox.alert('Debe de ingresar la cantidad recibida');
+        }else if(!isNumeric($("#cantrec").val())){
+            bootbox.alert('Debe de ingresar la cantidad en numeros');
+        }else{
+            bien=true;
+        }
     }else{
+        bien=true;                
+    }
+
+    if(bien){
+        if(agergarCliente==1){
+            $.post(
+                "../ajax/cliente.php?op=insertarEnVenta",
+                {nombre:nombre,apellido:apellido,email:correo,direccion:direccion,nit:nit}
+            );
+        }
         $.post(
             "../ajax/venta.php?op=guardaryeditar",
-            {nit:nit,fecha:fecha,total:total,descuentocompra:descuentocompra,iva:iva,usuario:usuario,idtienda:idtienda,pago:pago,moneda:moneda,articulos:articulos,cantidad:cantidad,descuento:descuento},
+            {nit:nit,fecha:fecha,total:total,descuentocompra:descuentocompra,iva:iva,usuario:usuario,idtienda:idtienda,pago:pago,moneda:moneda,articulos:articulos,cantidad:cantidad,descuento:descuento,correo:correo},
             function(e)
             {
                 $.post(
@@ -261,11 +287,73 @@ function guardaryeditar(e)
     }
 }
 
+function metodoPago(){
+    var moneda = $("#idmoneda").val();
+    var bien=false;
+
+    if(moneda==0 || moneda==null || moneda==''){
+        bootbox.alert('Debe de seleccionar la moneda');
+    }else if(!$('#confin').prop('checked')){
+        if($("#nombre").val()==''){
+            bootbox.alert('Debe de ingresar el nombre del cliente');
+        }else if($("#apellido").val()==''){
+            bootbox.alert('Debe de ingresar el apellido del cliente');
+        }else if($("#direccion").val()==''){
+            bootbox.alert('Debe de ingresar la direccion del cliente');
+        }else if($("#correo").val()==''){
+            bootbox.alert('Debe de ingresar el correo del cliente');
+        }else if($("#correo").val().indexOf('@', 0) == -1 || $("#correo").val().indexOf('.', 0) == -1) {
+            bootbox.alert('El correo electrónico introducido no es correcto.');
+        }else{
+            bien=true;
+        }
+    }else{
+        bien=true;
+    }
+
+    if(bien){
+        $("#myModal2").modal("show");
+        $(".pagoEfectivo").hide();
+        $('#cantCambio').html(simbolo+' 0.00');
+    }
+    
+}
+
+function cambioPago(){
+    if($('#idtipodepago').val()!=0){
+        if($('#idtipodepago').val()==1){
+            $(".pagoEfectivo").show();
+        }else{
+            $(".pagoEfectivo").hide();
+        }
+    }else{
+        $(".pagoEfectivo").hide();
+    }
+}
+
+function calcularCambio(){
+    var totalVenta=parseFloat($("#total_compra").val());
+    if($('#cantrec').val()!=''){
+        var recibido=parseFloat($('#cantrec').val());
+        if(recibido<totalVenta){
+            bootbox.alert('La cantidad recibida no puede ser menor al total de la venta');
+            $('#cantrec').val('');
+        }else{
+            var cambio = recibido-totalVenta;
+            $('#cantcambio').html(simbolo+' '+cambio);
+        }
+    }
+}
+
 function consumidorFinal(){
     if ($('#confin').prop('checked') ) {
         $('#nit').prop('disabled',true);
         $('#idcliente').prop('disabled',true);
         $('#nit').val('');
+        $('#nombre').val('');
+        $('#apellido').val('');
+        $('#correo').val('');
+        $('#direccion').val('');
         $('#idcliente').val(0);
         $("#idcliente").selectpicker('refresh');
     }else{
@@ -379,8 +467,60 @@ function mostrar(idventaencabezado)
 
 function ponerCliente(){
 	var nit = $("#nit").val();
-	$("#idcliente").val(nit);
-	$('#idcliente').selectpicker('refresh');
+    if(nit.length!=7){
+        bootbox.alert('El NIT debe de contener 7 caracteres');
+    }else{
+        var numeros=true;
+        for(var i=0;i<nit.length;i++){
+            if(!isNumeric(nit[i])){
+                if(i==nit.length-1 && (nit[i]=='k' || nit[i]=='K')){
+
+                }else{
+                    numeros=false;
+                    break;
+                }
+            }
+        }
+        if(numeros){
+            $("#idcliente").val(nit);
+            $('#idcliente').selectpicker('refresh');
+
+            var nombre= ($("#idcliente option:selected").data('nombre'));
+            var apellido= ($("#idcliente option:selected").data('apellido'));
+            var direccion= ($("#idcliente option:selected").data('dir'));
+            var correo= ($("#idcliente option:selected").data('correo'));
+
+            $("#nombre").val(nombre);
+            $("#apellido").val(apellido);
+            $("#direccion").val(direccion);
+            $("#correo").val(correo);
+            
+            if($("#idcliente").val()==0){
+                bootbox.confirm("NIT no encontrado ¿Desea agregarlo?", function(result){
+                    if(result)
+                    {
+                        $("#nombre").prop("disabled",false);
+                        $("#apellido").prop("disabled",false);
+                        $("#direccion").prop("disabled",false);
+                        $("#correo").prop("disabled",false);
+                        agergarCliente =1;
+                    }
+                })
+            }else{
+                $("#nombre").prop("disabled",true);
+                $("#apellido").prop("disabled",true);
+                $("#direccion").prop("disabled",true);
+                $("#correo").prop("disabled",true);
+                agergarCliente=0;
+            }
+        }else{
+            bootbox.alert('El NIT no debe de contener letras');
+        }
+    }
+}
+
+function isNumeric(str){
+    return /^\d+$/.test(str);
 }
 
 function ponerNit(){
@@ -463,9 +603,9 @@ function agregarDetalle(idarticulo,articulo,precio,stock)
 	if(!yaExiste(idarticulo)){
 		if(idarticulo != "")
 		{
-			var subtotal = 1 * precio;
+			var subtotal = 1 * (precio/cambio);
 			console.log(subtotal);
-			var iva= precio*0.12;
+			var iva= (precio/cambio)*0.12;
 			console.log(iva);
 			var fila = '<tr class="filas" id="fila'+cont+'"> ' +
 						'<td>'+
@@ -480,8 +620,8 @@ function agregarDetalle(idarticulo,articulo,precio,stock)
 							'<input type="number" name="cantidad'+cont+'" id="cantidad'+cont+'" onchange="modificarSubtotales()" min="1" max="'+stock+'" value=1>'+
 						'</td>'+
 						'<td>' +
-								'<input type="hidden" name="precio'+cont+'" id="precio'+cont+'" value="'+precio+'">'+
-								precio+
+								'<input type="hidden" name="precio'+cont+'" id="precio'+cont+'" value="'+(precio/cambio)+'" data-precio="'+(precio/cambio)+'">'+
+								(precio/cambio)+
 						'</td>'+
 						'<td>' +
 							'<span name="descuento'+cont+'" id="descuento'+cont+'">'+'0'+'</span>'+
@@ -523,6 +663,22 @@ function dosDecimales(n) {
 	let regex=/(\d*.\d{0,2})/;
 	return t.match(regex)[0];
   }
+
+  function cambioMoneda()
+{
+    if($("#idmoneda").val()!=0){
+        cambio= parseFloat($("#idmoneda option:selected").data('cambio'));
+        simbolo= $("#idmoneda option:selected").data('simbolo');
+        $('#detalles tbody tr').each(function () {
+            precioc=$(this).find("td:eq(3)").find("input").attr('data-precio');
+            $(this).find("td:eq(3)").find("input").val(precioc/cambio);
+            html1= $(this).find("td:eq(3)").html();
+            html1= $(this).find("td:eq(3)").html();
+            $(this).find("td:eq(3)").html($(this).find("td:eq(3)").html().substring(0,html1.search('>')+1)+(precioc/cambio));
+        });
+        modificarSubtotales();
+    }
+}
 
   function modificarSubtotales()
   {
@@ -571,11 +727,11 @@ function dosDecimales(n) {
     console.log('descuento '+descuento+' '+typeof(descuento));
     console.log('iva '+iva+' '+typeof(iva));
     console.log('total '+total+' '+typeof(total));   
-    $("#descuento").html('Q '+dosDecimales(descuento));
+    $("#descuento").html(simbolo+' '+dosDecimales(descuento));
     $("#descuento_compra").val(dosDecimales(descuento));
-    $("#iva").html('Q '+dosDecimales(iva));
+    $("#iva").html(simbolo+' '+dosDecimales(iva));
     $("#iva_compra").val(dosDecimales(iva)); 
-    $("#total").html('Q '+dosDecimales(total));
+    $("#total").html(simbolo+' '+dosDecimales(total));
     $("#total_compra").val(dosDecimales(total));
    
     evaluar();

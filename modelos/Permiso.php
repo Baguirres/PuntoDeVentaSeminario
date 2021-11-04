@@ -8,7 +8,7 @@
 
         }
 
-        
+
         public function listar()
         {
             $sql = "SELECT * FROM permiso";

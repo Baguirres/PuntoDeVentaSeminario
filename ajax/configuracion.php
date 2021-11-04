@@ -13,7 +13,10 @@
     $mision=isset($_POST["mision"])? limpiarCadena($_POST["mision"]):"";
     $vision=isset($_POST["vision"])? limpiarCadena($_POST["vision"]):"";
     $Valores=isset($_POST["Valores"])? limpiarCadena($_POST["Valores"]):"";
-    $Logo=isset($_POST["Logo"])? limpiarCadena($_POST["Logo"]):"";
+    $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
+    $tel=isset($_POST["tel"])? limpiarCadena($_POST["tel"]):"";
+    $correo=isset($_POST["correo"])? limpiarCadena($_POST["correo"]):"";
+    
 
     switch($_GET["op"])
     {
@@ -33,7 +36,7 @@
                 }
             }
 
-            $rspta=$configuracion->editar($idempresa,$empresa,$nit,$Eslogan,$mision,$vision,$Valores,$Logo);
+            $rspta=$configuracion->editar($idempresa,$empresa,$nit,$direccion,$correo,$tel,$Eslogan,$mision,$vision,$Valores,$Logo);
             echo $rspta ? "Configuracion actualizada" : "Configuracion no se pudo actualizar";
             
         break;
@@ -51,11 +54,14 @@
                     "0"=> '<button class="btn btn-warning" onclick="mostrar('.$reg->idempresa.')"><li class="fa fa-pencil"></li></button>',
                     "1"=>$reg->nombre,
                     "2"=>$reg->nit,
-                    "3"=>$reg->eslogan,
-                    "4"=>$reg->mision,
-                    "5"=>$reg->vision,
-                    "6"=>$reg->valores,
-                    "7"=>"<img src='../files/empresa/".$reg->logo."' height='50px' width='50px'>",
+                    "3"=>$reg->direccion,
+                    "4"=>$reg->telefono,
+                    "5"=>$reg->correo,
+                    "6"=>$reg->eslogan,
+                    "7"=>$reg->mision,
+                    "8"=>$reg->vision,
+                    "9"=>$reg->valores,
+                    "10"=>"<img src='../files/empresa/".$reg->logo."' height='50px' width='50px'>",
                 );
             }
             $results = array(

@@ -8,11 +8,14 @@
 
         }
 
-        public function editar($idempresa,$empresa,$nit,$eslogan,$mision,$vision,$valores,$logo)
+        public function editar($idempresa,$empresa,$nit,$direccion,$correo,$telefono,$eslogan,$mision,$vision,$valores,$logo)
         {
             $sql = "UPDATE empresa SET 
                     nombre='$empresa', 
                     nit='$nit',
+                    direccion='$direccion',
+                    telefono='$telefono',
+                    correo='$correo',
                     eslogan='$eslogan',
                     mision='$mision',
                     vision='$vision',
@@ -28,7 +31,7 @@
             $sql = "SELECT 
                         idempresa,
                         nombre,
-                        nit,
+                        nit, direccion,correo,telefono,
                         eslogan,
                         mision,
                         vision,
@@ -45,7 +48,7 @@
             $sql = "SELECT 
                         idempresa,
                         nombre,
-                        nit,
+                        nit, direccion, telefono, correo,
                         eslogan,
                         mision,
                         vision,

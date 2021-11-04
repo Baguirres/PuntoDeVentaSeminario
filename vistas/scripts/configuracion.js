@@ -95,14 +95,7 @@ function listar()
         .DataTable();
         $.post(
             "../ajax/bitacora.php?op=insertar",
-            {usuario:usuario,accion:"Visualizó las configuraciones"},
-            function(f)
-            {
-                bootbox.alert(e, function(){
-                    cancelarform();
-                })
-                
-            }
+            {usuario:usuario,accion:"Visualizó las configuraciones"}
         );
 }
 
@@ -133,14 +126,7 @@ function guardaryeditar(e)
     });
     $.post(
         "../ajax/bitacora.php?op=insertar",
-        {usuario:usuario,accion:"Configuración Registrada"},
-        function(f)
-        {
-            bootbox.alert(e, function(){
-                cancelarform();
-            })
-            
-        }
+        {usuario:usuario,accion:"Configuración Registrada"}
     );
     limpiar();
 }
@@ -149,12 +135,14 @@ function mostrar(idempresa)
 {
     $.post("../ajax/configuracion.php?op=mostrar",{idempresa:idempresa},function(data,status)
         {
-            console.log(data);
             data = JSON.parse(data);
             mostrarform(true);
             $("#empresa").val(data.nombre);
             $("#Eslogan").val(data.eslogan);
             $("#nit").val(data.nit);
+            $("#direccion").val(data.direccion);
+            $("#tel").val(data.telefono);
+            $("#correo").val(data.correo);
             $("#mision").val(data.mision);
             $("#vision").val(data.vision);
             $("#Valores").val(data.valores);
@@ -170,9 +158,7 @@ function mostrar(idempresa)
         {usuario:usuario,accion:"Visualizó detalle de configuración"},
         function(f)
         {
-            bootbox.alert(e, function(){
-                cancelarform();
-            })
+            
             
         }
     );

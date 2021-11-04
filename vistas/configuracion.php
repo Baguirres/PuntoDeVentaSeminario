@@ -40,11 +40,14 @@
                             <th>Opciones</th>
                             <th>Nombre de Empresa</th>
                             <th>NIT</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
                             <th>Eslogan</th>
-                            <th>Logo</th>
                             <th>Misión</th>
                             <th>Visión</th>
                             <th>Valores</th>
+                            <th>Logo</th>
                           </thead>
                           <tbody>
                           </tbody>
@@ -62,6 +65,18 @@
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <label>NIT:</label>
                             <input type="text" class="form-control" name="nit" id="nit" maxlength="8" placeholder="NIT" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Dirección:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="8" placeholder="Dirección" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Teléfono:</label>
+                            <input type="text" class="form-control" name="tel" id="tel" maxlength="8" placeholder="Teléfono" required>
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label>Correo:</label>
+                            <input type="text" class="form-control" name="correo" id="correo" maxlength="8" placeholder="Correo" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <label>Eslogan:</label>

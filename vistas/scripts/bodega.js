@@ -83,7 +83,7 @@ function listar()
                     }
                 },
                 "bDestroy": true,
-                "iDisplayLength": 5, //Paginacion
+                "iDisplayLength": 10, //Paginacion
                 "order": [[0,"desc"]] //Ordenar (Columna, orden)
             
             })
@@ -191,21 +191,21 @@ function desactivar(idtienda)
     });
 }
 
-function activar(idarticulo)
+function activar(idtienda)
 {
     bootbox.confirm("¿Estas seguro de activar la bodega?",function(result){
         if(result)
         {
             $.post(
                 "../ajax/tienda.php?op=activarBodega",
-                {idarticulo:idarticulo},
+                {idtienda:idtienda},
                 function(e)
                 {
                     bootbox.alert(e);
                     tabla.ajax.reload();
                     $.post(
                         "../ajax/bitacora.php?op=insertar",
-                        {usuario:usuario,accion:"Activo de bodega con código "+idarticulo},
+                        {usuario:usuario,accion:"Activo de bodega con código "+idtienda},
                         function(f)
                         {
                            
@@ -216,19 +216,5 @@ function activar(idarticulo)
         }
     });
 }
-
-function generarbarcode()
-{
-    /*var codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
-    $("#print").show();*/
-}
-
-function imprimir()
-{
-    /*$("#print").printArea();*/
-}
-
-
 
 init();

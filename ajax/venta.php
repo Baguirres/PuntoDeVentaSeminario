@@ -30,9 +30,22 @@ switch ($_GET["op"]){
 		$articulos = $_REQUEST["articulos"];
 		$cantidad = $_REQUEST["cantidad"];
 		$descuento = $_REQUEST["descuento"];
+		$to = $_REQUEST["correo"];
 		
 		$rspta=$venta->insertar($nit,$fecha,$total,$descuentocompra,$iva,$usuario,$idtienda,$pago,$moneda,$articulos,$cantidad,$descuento);
-		echo $rspta ? "Venta registrada" : "Venta no se pudo registrar";    
+		echo $rspta ? "Venta registrada" : "Venta no se pudo registrar";   
+		
+		$subject = "Compra Realizada";
+		$message = 'Compra realizada con exito'. "\r\n" ;
+		$message .= 'Fecha: '.$fecha. "\r\n" ;
+		$message .= 'NIT: '.$nit. "\r\n" ;
+		$message .= 'Total: '.$total. "\r\n" ;
+		$message .= 'Pronto estará recibiendo su factura electrónica, de lo contrario comuníquese con nosotros' ;
+		
+		include '../Tienda/php/correo.php';
+		$correo = new Correo();
+
+		$correo->CompraRealizada($to,$subject,$message);
 	break;
 
 	case 'anular':
@@ -153,7 +166,7 @@ switch ($_GET["op"]){
 		echo '<option value=0></option>';
 		while ($reg = $rspta->fetch_object())
 				{
-				echo '<option value=' . $reg->NIT . '>' . $reg->Nombre .' '.$reg->Apellido. '</option>';
+				echo '<option value='. $reg->NIT.' data-nombre='. $reg->Nombre.' data-apellido='. $reg->Apellido.' data-correo='. $reg->Correo.' data-dir='. $reg->Direccion.'>' . $reg->Nombre .' '.$reg->Apellido. '</option>';
 				}
 	break;
 

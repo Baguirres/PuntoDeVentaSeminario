@@ -42,10 +42,22 @@
             $articulos = $_REQUEST["articulos"];
             $cantidad = $_REQUEST["cantidad"];
             $estado = $_REQUEST["estado"];
+            $to = $_REQUEST["correo"];
             if($idcompraencabezado==''){
                 //echo 'se va a insertar';
                 $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
                 echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
+
+                $subject = "Pedido Realizado";
+                $message = 'Pedido Realizado con éxito'. "\r\n" ;
+                $message .= 'Fecha: '.$fecha. "\r\n" ;
+                $message .= 'Total: '.$total. "\r\n" ;
+                $message .= 'Saludos, se realizó un pedido, en un momento recibirá un documento con el listado de artículos que se necesitan.' ;
+                
+                include '../Tienda/php/correo.php';
+                $correo = new Correo();
+
+                $correo->CompraRealizada($to,$subject,$message);
             }else{
                 //echo 'se va a modificar';
                 $rspta=$ingreso->modificar($idcompraencabezado,$estado,$articulos,$cantidad,$idtienda);
@@ -126,9 +138,9 @@
                 }
                 $data[] = array(
                     "0"=> ($reg->estado == 1) ? 
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>'
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-pencil"></li></button>'
                         :
-                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-eye"></li></button>',
+                        '<button class="btn btn-warning" onclick="mostrar('.$reg->idcompraencabezado.')"><li class="fa fa-pencil"></li></button>',
                     "1"=>$reg->fecha,
                     "2"=>$reg->idcompraencabezado,
                     "3"=>$reg->proveedor,
@@ -158,7 +170,7 @@
             echo '<option value=0></option>';
             while($reg = $rspta->fetch_object())
             {
-                echo '<option value='.$reg->idProveedor.'>'.$reg->nombre.'</option>';
+                echo '<option value='.$reg->idProveedor.' data-correo='. $reg->correo.'>'.$reg->nombre.'</option>';
             }
         break;
 
@@ -182,7 +194,7 @@
             echo '<option value=0></option>';
             while($reg = $rspta->fetch_object())
             {
-                echo '<option value='.$reg->idtipomoneda.'>'.$reg->moneda.'</option>';
+                echo '<option value='.$reg->idtipomoneda.' data-cambio='.$reg->tipocambio.' data-simbolo='.$reg->simbolo.'>'.$reg->moneda.'</option>';
             }
         break;
 

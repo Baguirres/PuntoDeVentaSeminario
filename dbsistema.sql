@@ -65,18 +65,18 @@ CREATE TABLE `cliente` (
   `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
   `Apellido` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `FechaNacimiento` date NOT NULL,
-  `Correo` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `Telefono` int(8) COLLATE utf8_spanish2_ci NOT NULL,
-  `Direccion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `FechaNacimiento` date,
+  `Correo` varchar(45) COLLATE utf8_spanish2_ci,
+  `Telefono` int(8) COLLATE utf8_spanish2_ci,
+  `Direccion` varchar(45) COLLATE utf8_spanish2_ci,
   `NIT` varchar(8) COLLATE utf8_spanish2_ci NOT NULL,
    `estado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `cliente` VALUES
-(1, 'Bryan','Aguire','2021-10-07','bryanorlando-98@hotmail.com','12345678','Mi casa','682479-6',1),
-(2, 'Bryana','Aguire','2021-10-07','bryanorlando-98@hotmail.com','12345679','Mi casa','682479-7',1),
+(1, 'Bryan','Aguire','2021-10-07','bryanorlando-98@hotmail.com','12345678','Mi casa','6824796',1),
+(2, 'Bryana','Aguire','2021-10-07','bryanorlando-98@hotmail.com','12345679','Mi casa','6824797',1),
 (3, 'C/F','C/F','','','','','C/F',1);
 
 -- --------------------------------------------------------
@@ -651,7 +651,8 @@ CREATE TABLE `tipodepago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `tipodepago` VALUES
-(1, 'tarjeta de credito','tarjetas de credito varias',1);
+(1, 'Efectivo','Dinero en efectivo',1),
+(2, 'tarjeta de credito','tarjetas de credito varias',1);
 
 -- --------------------------------------------------------
 

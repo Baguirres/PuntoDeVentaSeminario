@@ -68,7 +68,7 @@
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Fecha:</label>
-                            <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
+                            <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="" >
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Usuario:</label>
@@ -76,12 +76,8 @@
                             <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $user; ?>" disabled required>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <label>Impuestos:</label>
-                            <input type="number" class="form-control" name="impuestos" id="impuestos" maxlength="10" placeholder="Impuestos" required>
-                          </div>
-                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Moneda:</label>
-                            <select name="idmoneda" id="idmoneda" data-live-search="true" class="form-control selectpicker" required>
+                            <select name="idmoneda" id="idmoneda" data-live-search="true" class="form-control selectpicker" onchange="cambioMoneda()" required>
                             </select>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12" id="estado">
@@ -110,6 +106,7 @@
                                   <th>Articulos</th>
                                   <th>Cantidad</th>
                                   <th>Precio Compra</th>
+                                  <th>IVA</th>
                                   <th>Precio Venta</th>
                                   <th>Subtotal</th>
                                 </thead>
@@ -118,6 +115,10 @@
                                   <th></th>
                                   <th></th>
                                   <th></th>
+                                  <th>
+                                    <h4 id="totaliva">Q 0.00</h4>
+                                    <input type="hidden" name="total_iva" id="total_iva">
+                                  </th>
                                   <th></th>
                                   <th>
                                     <h4 id="total">Q 0.00</h4>

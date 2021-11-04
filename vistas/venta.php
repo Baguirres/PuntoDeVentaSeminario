@@ -78,21 +78,34 @@
                             <label>NIT:</label>
                             <input type="text" class="form-control" name="nit" id="nit" maxlength="10" placeholder="NIT" onfocusout="ponerCliente()" required>
                           </div>
-                          <div class="form-group col-lg-4 col-md-8 col-sm-4 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-8 col-sm-4 col-xs-12" hidden>
                             <label>Cliente:</label>
                             <select name="idcliente" id="idcliente" data-live-search="true" class="form-control selectpicker" onchange="ponerNit()" required>
                             </select>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <label>Moneda:</label>
-                            <select name="idmoneda" id="idmoneda" data-live-search="true" class="form-control selectpicker" required>
-                            </select>
+                            <label>Nombre:</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="45" placeholder="Nombre" required>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <label>Forma de Pago:</label>
-                            <select name="idtipodepago" id="idtipodepago" data-live-search="true" class="form-control selectpicker" required>
+                            <label>Apellido:</label>
+                            <input type="text" class="form-control" name="apellido" id="apellido" maxlength="45" placeholder="Apellido" required>
+                          </div>
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Dirección:</label>
+                            <textarea type="text" class="form-control" name="direccion" id="direccion" maxlength="150" placeholder="Dirección" required></textarea>
+                          </div>
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Correo:</label>
+                            <input type="email" class="form-control" name="correo" id="correo" maxlength="45" placeholder="Correo" required>
+                          </div>
+
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Moneda:</label>
+                            <select name="idmoneda" id="idmoneda" data-live-search="true" class="form-control selectpicker" onchange="cambioMoneda()" required>
                             </select>
                           </div>
+                          
                           <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <a data-toggle="modal" href="#myModal">           
                               <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Artículos</button>
@@ -135,7 +148,7 @@
 
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-primary" type="button" id="btnGuardar" onclick="guardaryeditar()"><i class="fa fa-save"></i> Guardar</button>  
+                            <button class="btn btn-primary" type="button" id="btnGuardar" onclick="metodoPago()"><i class="fa fa-money"></i> Pago</button>  
                             <button class="btn btn-info" onclick="desbloquear(true)" type="button" id="btnLimpiar"><i class="fa fa-refresh"></i> Limpiar</button>
                             <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
@@ -184,6 +197,32 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>        
+      </div>
+    </div>
+  </div>  
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Método de Pago</h4>
+        </div>
+        <div class="modal-body">
+        
+          <label>Forma de Pago:</label>
+          <select name="idtipodepago" id="idtipodepago" data-live-search="true" class="form-control selectpicker" required onchange="cambioPago()">
+          </select>
+          </br>
+          <label class='pagoEfectivo'>Cantidad Recibida:</label>
+          <input type="number"  name="cantrec" id="cantrec" class='pagoEfectivo' min=0 onfocusout="calcularCambio()">
+          <label class='pagoEfectivo'>Cambio:</label>
+          <span id='cantcambio' class='pagoEfectivo'>Q</span>          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" onclick="guardaryeditar()">Pago Correcto</button>
         </div>        
       </div>
     </div>
