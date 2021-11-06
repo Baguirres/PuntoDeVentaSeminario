@@ -179,4 +179,16 @@ function activar(idcategoria) {
     });
 }
 
+$("#desplegable").on('change', function (e) {
+
+    let variable = $("#desplegable").val();
+    console.log(variable)
+    if (variable === '1') {
+        $("#imagen").prop("disabled", false);
+    } else if (variable === '0') {
+        $("#imagen").prop("disabled", true);
+    }
+
+});
+
 init();
