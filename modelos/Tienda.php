@@ -88,8 +88,8 @@
         //METODOS PARA ACTIVAR ARTICULOS
         public function desactivar($idarticulo)
         {
-            $sql= "UPDATE tienda SET estado='0' 
-            WHERE idtienda='$idarticulo'";
+            $sql= "DELETE FROM tienda  
+                        WHERE idtienda='$idarticulo'";
             // $sql= "UPDATE articulo SET condicion='0' 
             //        WHERE idarticulo='$idarticulo'";
             

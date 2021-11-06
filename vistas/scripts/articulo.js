@@ -105,7 +105,7 @@ function listar() {
                     }
                 },
                 "bDestroy": true,
-                "iDisplayLength": 5, //Paginacion
+                "iDisplayLength": 10, //Paginacion
                 "order": [[0, "desc"]] //Ordenar (Columna, orden)
 
             })
@@ -124,40 +124,46 @@ function listar() {
 //funcion para guardar o editar
 function guardaryeditar(e) {
     e.preventDefault(); //No se activará la acción predeterminada del evento
-    $("#btnGuardar").prop("disabled", true);
-    var formData = new FormData($("#formulario")[0]);
 
-    let objetos = document.getElementsByClassName("objetos");
-    let carac = "";
-    for (let index = 0; index < objetos.length; index++) {
-        const element = objetos[index];
-        carac += element.id + ":" + element.value + ",";
+    if ($('#precioC').val() <= $('#stock').val()) {
+        bootbox.alert("El precio de compra no puede ser menor o igual al precio de venta");
+    } else {
+
+        $("#btnGuardar").prop("disabled", true);
+        var formData = new FormData($("#formulario")[0]);
+
+        let objetos = document.getElementsByClassName("objetos");
+        let carac = "";
+        for (let index = 0; index < objetos.length; index++) {
+            const element = objetos[index];
+            carac += element.id + ":" + element.value + ",";
+        }
+        $.ajax({
+            url: "../ajax/articulo.php?op=guardaryeditar&caracteristica=" + carac,
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (datos) {
+                //console.log("succes");
+                bootbox.alert(datos);
+                mostrarform(false);
+                tabla.ajax.reload();
+            },
+            error: function (error) {
+                console.log("error: " + error);
+            }
+        });
+        $.post(
+            "../ajax/bitacora.php?op=insertar",
+            { usuario: usuario, accion: "Articulo Registrado o Actualizado" },
+            function (f) {
+
+            }
+        );
+
+        limpiar();
     }
-    $.ajax({
-        url: "../ajax/articulo.php?op=guardaryeditar&caracteristica=" + carac,
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
-            //console.log("succes");
-            bootbox.alert(datos);
-            mostrarform(false);
-            tabla.ajax.reload();
-        },
-        error: function (error) {
-            console.log("error: " + error);
-        }
-    });
-    $.post(
-        "../ajax/bitacora.php?op=insertar",
-        { usuario: usuario, accion: "Articulo Registrado o Actualizado" },
-        function (f) {
-
-        }
-    );
-
-    limpiar();
 }
 
 function mostrar(idarticulo) {
@@ -210,7 +216,7 @@ function mostrar(idarticulo) {
 
 //funcion para descativar categorias
 function desactivar(idarticulo) {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?", function (result) {
+    bootbox.confirm("¿Estas seguro de Eliminar el Articulo?", function (result) {
         if (result) {
             $.post(
                 "../ajax/articulo.php?op=desactivar",
@@ -220,7 +226,7 @@ function desactivar(idarticulo) {
                     tabla.ajax.reload();
                     $.post(
                         "../ajax/bitacora.php?op=insertar",
-                        { usuario: usuario, accion: "Desactivo Articulo: " + idarticulo },
+                        { usuario: usuario, accion: "Eliminar Articulo: " + idarticulo },
                         function (f) {
 
                         }
@@ -232,7 +238,7 @@ function desactivar(idarticulo) {
 }
 
 function desactivarP(idarticulo) {
-    bootbox.confirm("¿Estas seguro de desactivar el Articulo?", function (result) {
+    bootbox.confirm("¿Estas seguro de Desactivo el Articulo?", function (result) {
         if (result) {
             $.post(
                 "../ajax/articulo.php?op=desactivarP",
@@ -242,7 +248,7 @@ function desactivarP(idarticulo) {
                     tabla.ajax.reload();
                     $.post(
                         "../ajax/bitacora.php?op=insertar",
-                        { usuario: usuario, accion: "Elimino articulo: " + idarticulo },
+                        { usuario: usuario, accion: "Desactivo articulo: " + idarticulo },
                         function (f) {
 
                         }

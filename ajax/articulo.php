@@ -44,12 +44,12 @@
 
         case 'desactivar':
                 $rspta = $articulo->desactivar($idarticulo);
-                echo $rspta ? "Articulo desactivada" : "Articulo no se pudo desactivar";
+                echo $rspta ? "Articulo Eliminado" : "Articulo no se pudo Eliminar";
         break;
 
         case 'desactivarP':
                 $rspta = $articulo->desactivarP($idarticulo);
-                echo $rspta ? "Articulo desactivada" : "Articulo no se pudo desactivar";
+                echo $rspta ? "Articulo desactivado" : "Articulo no se pudo desactivar";
         break;
 
         case 'activar':

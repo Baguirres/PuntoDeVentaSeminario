@@ -72,7 +72,7 @@
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Telefono:</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Telefono" required>
+                            <input type="text" class="form-control" pattern="\d{8}"  title="Deben de ser 8 dígitos" name="telefono" id="telefono" maxlength="20" placeholder="Telefono" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Email:</label>

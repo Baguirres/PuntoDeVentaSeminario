@@ -279,7 +279,7 @@ $arreglo  = $_SESSION['carrito'];
       </div>
     </div>
   </form>  
-  <button class="btn btn-primary btn-lg py-3 btn-block" onclick="revisar()">Realizar Compra</button>
+  <!-- <button class="btn btn-primary btn-lg py-3 btn-block" onclick="revisar()">Realizar Compra</button> -->
     <!-- <?php include("./layouts/footer.php"); ?>  -->
   </div>
 

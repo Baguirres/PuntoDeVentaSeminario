@@ -31,9 +31,9 @@
                                 <i class="fa fa-plus-circle"></i> 
                                 Agregar
                               </button> -->
-                              <a target="_blank" href="../reportes/rptarticulos.php">
+                              <!-- <a target="_blank" href="../reportes/rptarticulos.php">
                                 <button class="btn btn-info">Reporte</button>
-                              </a>
+                              </a> -->
                             </h1>
                           <div class="box-tools pull-right">
                           </div>

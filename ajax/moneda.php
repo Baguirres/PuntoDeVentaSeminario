@@ -17,7 +17,7 @@
                 echo $rspta ? "Moneda registrada" : "Moneda no se pudo registrar";
             }
             else {
-                $rspta=$moneda->editar($idmoneda,$nombre, $simbolo, $tcambio);
+                $rspta=$moneda->editar($idmoneda,$nombre,$simbolo,$tcambio);
                 echo $rspta ? "Moneda actualizada" : "Moneda no se pudo actualizar";
             }
         break;

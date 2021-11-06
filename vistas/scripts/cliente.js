@@ -85,33 +85,57 @@ function listar() {
 //funcion para guardar o editar
 function guardaryeditar(e) {
     e.preventDefault(); //No se activará la acción predeterminada del evento
-    $("#btnGuardar").prop("disabled", true);
-    var formData = new FormData($("#formulario")[0]);
+    /** */
+    /** */
+    var nit = $("#nit").val();
+    if (nit.length != 7) {
+        bootbox.alert('El NIT debe de contener 7 caracteres');
+    } else {
+        var numeros = true;
+        for (var i = 0; i < nit.length; i++) {
+            if (!isNumeric(nit[i])) {
+                if (i == nit.length - 1 && (nit[i] == 'k' || nit[i] == 'K')) {
 
-    $.ajax({
-        url: "../ajax/cliente.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
-            //console.log("succes");
-            bootbox.alert(datos);
-            mostrarform(false);
-            tabla.ajax.reload();
-        },
-        error: function (error) {
-            console.log("error: " + error);
+                } else {
+                    numeros = false;
+                    break;
+                }
+            }
         }
-    });
-    $.post(
-        "../ajax/bitacora.php?op=insertar",
-        { usuario: usuario, accion: "Cliente Registrado o Actualizado" },
-        function (f) {
+        if (numeros) {
+            $("#btnGuardar").prop("disabled", true);
+            var formData = new FormData($("#formulario")[0]);
 
+            $.ajax({
+                url: "../ajax/cliente.php?op=guardaryeditar",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (datos) {
+                    //console.log("succes");
+                    bootbox.alert(datos);
+                    mostrarform(false);
+                    tabla.ajax.reload();
+                },
+                error: function (error) {
+                    console.log("error: " + error);
+                }
+            });
+            $.post(
+                "../ajax/bitacora.php?op=insertar",
+                { usuario: usuario, accion: "Cliente Registrado o Actualizado" },
+                function (f) {
+
+                }
+            );
+            limpiar();
+        } else {
+            bootbox.alert('El NIT no debe de contener letras');
         }
-    );
-    limpiar();
+    }
+    /** */
+
 }
 
 function mostrar(idcliente) {
@@ -200,6 +224,10 @@ function activar(idcliente) {
             );
         }
     });
+}
+
+function isNumeric(str) {
+    return /^\d+$/.test(str);
 }
 
 init();

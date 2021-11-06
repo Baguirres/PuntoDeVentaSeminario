@@ -16,12 +16,12 @@
             return ejecutarConsulta($sql);
         }
 
-        public function editar($idmoneda,$nombre, $simbolo,$tcambio)
+        public function editar($idmoneda,$nombre,$simbolo,$tcambio)
         {
             $sql = "UPDATE tipomoneda SET 
-                    nombre='$nombre', 
+                    moneda='$nombre', 
                     simbolo='$simbolo',
-                    tipoCambio=''$tcambio
+                    tipoCambio='$tcambio'
                     WHERE idtipomoneda='$idmoneda'";
             
             return ejecutarConsulta($sql);
