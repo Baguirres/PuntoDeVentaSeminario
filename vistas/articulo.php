@@ -133,7 +133,7 @@
      
     require 'footer.php';
   ?>
-  
+      <script src="./scripts/barrita.js"></script>
   <script src="./scripts/articulo.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>
   <script src="../public/js/jquery.PrintArea.js"></script>

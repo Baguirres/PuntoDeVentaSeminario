@@ -82,6 +82,20 @@
             <input type="password" id="clavea" name="clavea" class="form-control inputs radius" placeholder="Password">
             <span class="fa fa-key form-control-feedback spans"></span>
           </div>
+          <div class="form-group has-feedback">
+          <select name="tienda" id="tienda" required class="form-control  radius">
+              <option value="" disabled selected hidden>Seleccione una Tienda</option>
+              <?php 
+                 include('../config/conexion.php');
+                $resultado = $conexion ->query("SELECT * from tienda WHERE tipotienda=1")or die($conexion -> error);
+                while ($fila = mysqli_fetch_array($resultado)) {
+              ?>
+                <option value="<?php echo $fila['idTienda'];?>"><?php echo $fila['nombre'];?></option>
+               
+              <?php } ?>
+            </select>
+
+          </div>
           <div class="row" style="margin-top: 4rem; margin-bottom: 2rem;">
             <div class="col-xs-8">
 

@@ -102,6 +102,7 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
 
 <script src="./scripts/ventasfechacliente.js"></script>
 <script>

@@ -100,6 +100,7 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
 
 <script src="./scripts/devolucionfechacliente.js"></script>
 <script>

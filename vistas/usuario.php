@@ -116,6 +116,8 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
+
 <script src="./scripts/usuario.js"></script>
 
 <?php

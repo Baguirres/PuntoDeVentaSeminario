@@ -162,6 +162,12 @@
             return ejecutarConsulta($sql);
         }
 
+        public function buscarTienda($id){
+            $sql="SELECT * from tienda WHERE idTienda='$id'";
+
+            return ejecutarConsulta($sql);
+        }
+
     }
 
 ?>

@@ -2,11 +2,14 @@ $("#frmAcceso").on('submit', function (e) {
     e.preventDefault();
     usuarioa = $("#usuarioa").val();
     clavea = $("#clavea").val();
+    tienda = $("#tienda").val();
+    localStorage.setItem("Tienda", tienda);
 
     $.post("../ajax/usuario.php?op=verificar",
         {
             usuarioa: usuarioa,
-            clavea: clavea
+            clavea: clavea,
+            tienda: tienda
         },
         function (data) {
             if (data != 'null') {

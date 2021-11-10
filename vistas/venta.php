@@ -58,8 +58,10 @@
                         <form name="formulario" id="formulario" method="POST">
                         <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Tienda:</label>
-                            <select name="idtienda" id="idtienda" data-live-search="true" class="form-control selectpicker" onchange="bloquearTienda()" required>
-                            </select>
+                            <br>
+                            <label id="mTienda"></label>
+                            <!-- <select name="idtienda" id="idtienda" data-live-search="true" class="form-control selectpicker" onchange="bloquearTienda()" required>
+                            </select> -->
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Usuario:</label>
@@ -242,6 +244,7 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
 
 <script type="text/javascript" src="scripts/venta.js"></script>
 
