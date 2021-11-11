@@ -90,7 +90,7 @@ function guardaryeditar(e) {
     e.preventDefault(); //No se activará la acción predeterminada del evento
     $("#btnGuardar").prop("disabled", true);
     var formData = new FormData($("#formulario")[0]);
-    formData.append('fecha',$('#fecha').val());
+    formData.append('fecha', $('#fecha').val());
     $.ajax({
         url: "../ajax/devolucion.php?op=guardaryeditar",
         type: "POST",
@@ -124,16 +124,17 @@ function mostrar(iddevolucion) {
         { iddevolucion: iddevolucion },
         function (data, status) {
             data = JSON.parse(data);
-            console.log(data)
+            var today = data.fecha.substring(0,10);
             mostrarform(true);
-
             $("#noVenta").val(data.idVentaEncabezado);
-            $("#fecha").val(data.fecha);
+            $("#fecha").val(today);
             $("#motivo").val(data.comentario);
+            $("#idestado").val(data.estado);
+            $("#idestado").selectpicker('refresh');
             $("#iddevolucion").val(data.idDevolucion);
             let variable = $("#noVenta").val();
             $.post(
-                "../ajax/devolucion.php?op=listarBusqueda&id=" + variable,
+                "../ajax/devolucion.php?op=listarBusquedaD&id=" + variable,
                 function (data, status) {
                     $("#motivo").prop("disabled", false);
                     $("#fecha").prop("disabled", true);

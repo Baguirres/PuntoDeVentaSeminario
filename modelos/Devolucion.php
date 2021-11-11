@@ -70,6 +70,12 @@
             $sql = "SELECT c.nombre, c.apellido, c.correo, c.nit, v.fecha FROM ventaencabezado v, cliente c where v.idcliente=c.idcliente and v.idVentaEncabezado='$id' and v.estado='1'";
             return ejecutarConsulta($sql);
         }
+        //METODO PARA LISTAR LOS REGISTROS
+        public function listarBusquedaD($id)
+        {
+            $sql = "SELECT c.nombre, c.apellido, c.correo, c.nit, v.fecha FROM ventaencabezado v, cliente c where v.idcliente=c.idcliente and v.idVentaEncabezado='$id' and v.estado='2'";
+            return ejecutarConsulta($sql);
+        }
 
         //METODO PARA LISTAR LOS REGISTROS
         public function listarDetalle($id)

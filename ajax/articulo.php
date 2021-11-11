@@ -137,6 +137,18 @@
             }
         break;
 
+        case 'selectArticulo':
+            $rspta = $articulo->listar();
+            echo '<option value=0>';
+            while($reg = $rspta->fetch_object())
+            {
+                echo '<option value='.$reg->idproducto.'>'
+                        .$reg->nombre.
+                      '</option>';
+               
+            }
+        break;
+
         case 'selectProveedor':
             require_once "../modelos/Proveedor.php";
             $proveedor = new Proveedor();
