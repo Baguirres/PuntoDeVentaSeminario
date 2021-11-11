@@ -109,6 +109,7 @@
      
     require 'footer.php';
   ?>
+      <script src="./scripts/barrita.js"></script>
   
   <script src="./scripts/tienda.js"></script>
   <script src="../public/js/JsBarcode.all.min.js"></script>

@@ -256,6 +256,18 @@
             echo json_encode($results);
 
         break;
+
+        case 'mostrarTiendaCompra':
+            require_once '../modelos/Tienda.php';
+            $tienda = new Tienda();
+            $id=$_GET['idTiendaCompra'];
+            $rspta = $tienda->buscarTienda($id);
+            
+            while ($reg = $rspta->fetch_object()) {
+
+                echo $reg->nombre;
+            }
+        break;
     }
 
 ?>

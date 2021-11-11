@@ -12,4 +12,9 @@ function mostrarGrafica(bandera) {
     }
 }
 
+function mostrarNose() {
+    $("#tienda").val(localStorage.getItem('Tienda'));
+}
+
+mostrarNose();
 mostrarGrafica(true);

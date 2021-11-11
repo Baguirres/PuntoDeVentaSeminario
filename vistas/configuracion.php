@@ -128,6 +128,8 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
+
 <script src="./scripts/configuracion.js"></script>
 
 <?php

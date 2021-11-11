@@ -142,6 +142,7 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
 
 <script src="./scripts/carCat.js"></script>
 

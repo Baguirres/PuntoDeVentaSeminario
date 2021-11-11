@@ -101,6 +101,7 @@
 
   require 'footer.php';
 ?>
+      <script src="./scripts/barrita.js"></script>
 
 <script src="./scripts/caracteristicas.js"></script>
 

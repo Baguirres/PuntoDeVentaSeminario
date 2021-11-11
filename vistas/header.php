@@ -55,8 +55,25 @@
             <span class="sr-only">Navegación</span>
           </a>
           <!-- Navbar Right Menu -->
+
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+              <li>
+              <b>Tienda Actual:</b>
+              <select name="tienda" id="tienda" required class="form-control  radius" onchange="actualizarTienda()">
+              <option value="" disabled selected hidden>Seleccione una Tienda</option>
+              <?php 
+                 include('../config/conexion.php');
+                $resultado = $conexion ->query("SELECT * from tienda WHERE tipotienda=1")or die($conexion -> error);
+                while ($fila = mysqli_fetch_array($resultado)) {
+              ?>
+                <option value="<?php echo $fila['idTienda'];?>"><?php echo $fila['nombre'];?></option>
+               
+              <?php } ?>
+            </select>
+
+
+              </li>
               <!-- Messages: style can be found in dropdown.less-->
               
               <!-- User Account: style can be found in dropdown.less -->
@@ -274,3 +291,5 @@
         </section>
         <!-- /.sidebar -->
       </aside>
+
+      <!-- <script src="./scripts/barrita.js"></script> -->

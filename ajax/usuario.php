@@ -153,7 +153,7 @@
         case 'verificar':
             $usuarioa = $_POST['usuarioa'];
             $clavea = $_POST['clavea'];
-
+            $_SESSION['tiendaActual'] = $_POST['tienda'];
             //Desencriptar clave SHA256
             $clavehash = hash("SHA256",$clavea);
 

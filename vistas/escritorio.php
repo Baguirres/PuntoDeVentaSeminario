@@ -224,9 +224,10 @@
   require 'footer.php';
 ?>
 
+<script src="./scripts/escritorio.js"></script>
+<script src="./scripts/barrita.js"></script>
 <script src="../public/js/Chart.min.js"></script>
 <script src="../public/js/Chart.bundle.min.js"></script>
-<script src="./scripts/escritorio.js"></script>
 <script>
 var ctx = document.getElementById("compras").getContext('2d');
 var compras = new Chart(ctx, {
