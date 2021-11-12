@@ -142,6 +142,7 @@
                       <li><a href="promocion.php"><i class="fa fa-circle-o"></i> Promoción</a></li>
                       <li><a href="bodega.php"><i class="fa fa-circle-o"></i> Bodegas</a></li>
                       <li><a href="bodegaTienda.php"><i class="fa fa-circle-o"></i> Artículos de Bodega a Tienda</a></li>
+                      <li><a href="minimo.php"><i class="fa fa-circle-o"></i> Minimos</a></li>
                     </ul>
                   </li>'
                  ;
@@ -234,6 +235,11 @@
                 '<li>
                     <a href="configuracion.php">
                       <i class="fa fa-gear"></i> <span>Configuración</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="alerta.php">
+                      <i class="fa fa-gear"></i> <span>Alertas</span>
                     </a>
                   </li>'
                  ;
