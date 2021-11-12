@@ -82,7 +82,32 @@ function listar()
            
         }
     );
+    $.post("../ajax/consultas.php?op=totalInventario", { idtienda:idtienda}, function (data, status) {
+        data = JSON.parse(data);
+        console.log('si entro');
+        console.log(data);
+        if(data.total==null){
+            $("#tventas").text('Q'+0);
+        }else{
+            $("#tventas").text('Q'+trunc(data.total,2));
+        }
+        
+        
+    });
 }
 
+function trunc (x, posiciones = 0) {
+var s = x.toString()
+var l = s.length
+var numStr='';
+if(s.indexOf('.')>=0){
+    var decimalLength = s.indexOf('.') + 1
+    numStr = s.substr(0, decimalLength + posiciones)
+}else{
+    numStr=s;
+}
+
+return Number(numStr)
+}
 
 init();

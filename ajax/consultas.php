@@ -3,6 +3,10 @@
     require_once '../modelos/Consultas.php';
 
     $consulta = new Consultas();
+    $fechainicio=isset($_POST["fecha_inicio"])? limpiarCadena($_POST["fecha_inicio"]):"";
+    $fechafin=isset($_POST["fecha_fin"])? limpiarCadena($_POST["fecha_fin"]):"";
+    $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
+    $idtienda=isset($_POST["idtienda"])? limpiarCadena($_POST["idtienda"]):"";
 
     switch($_GET["op"])
     {
@@ -70,12 +74,14 @@
                          :      
                          '<span class="label bg-red">Anulado</span>'
                 );
+                
             }
             $results = array(
                 "sEcho"=>1, //Informacion para el datable
                 "iTotalRecords" =>count($data), //enviamos el total de registros al datatable
                 "iTotalDisplayRecords" => count($data), //enviamos el total de registros a visualizar
-                "aaData" =>$data
+                "aaData" =>$data,
+                
             );
             echo json_encode($results);
         break;
@@ -204,6 +210,38 @@
             );
             echo json_encode($results);
         break;
+
+        case 'totalVenta':
+				
+			$rspta=$consulta->totalVenta($fechainicio,$fechafin,$idcliente);
+ 		//Codificar el resultado utilizando json
+ 			echo json_encode($rspta);
+		
+	    break;
+
+        case 'totalCompra':
+				
+			$rspta=$consulta->totalCompra($fechainicio,$fechafin);
+ 		//Codificar el resultado utilizando json
+ 			echo json_encode($rspta);
+		
+	    break;
+
+        case 'totalInventario':
+				
+			$rspta=$consulta->totalInventario($idtienda);
+ 		//Codificar el resultado utilizando json
+ 			echo json_encode($rspta);
+		
+	    break;
+
+        case 'totalDevoluciones':
+				
+			$rspta=$consulta->totalDevoluciones($fechainicio,$fechafin,$idcliente);
+ 		//Codificar el resultado utilizando json
+ 			echo json_encode($rspta);
+		
+	    break;
     }
 
 ?>

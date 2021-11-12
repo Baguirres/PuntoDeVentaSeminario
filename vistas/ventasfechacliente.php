@@ -61,7 +61,7 @@
                             <th>Tienda</th>
                             <th>Descuento</th>
                             <th>IVA</th>
-                            <th>Total Venta</th>
+                            <th class='sum'>Total Venta</th>
                             <th>Cantidad Artículos</th>
                             <th>Estado</th>
                           </thead>
@@ -69,15 +69,15 @@
 
                           </tbody>
                           <tfoot>
-                            <th>Fecha</th>
-                            <th>Usuario Vendedor</th>
-                            <th>Cliente</th>
-                            <th>Tienda</th>
-                            <th>Descuento</th>
-                            <th>IVA</th>
-                            <th>Total Venta</th>
-                            <th>Cantidad Artículos</th>
-                            <th>Estado</th>
+                            <th>Totales</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><span id='tdescuento'>Q. 0</span></th>
+                            <th><span id='tiva'>Q. 0</span></th>
+                            <th><span id='tventas'>Q. 0</span></th>
+                            <th></th>
+                            <th></th>
                           </tfoot>
                         </table>
                     </div>

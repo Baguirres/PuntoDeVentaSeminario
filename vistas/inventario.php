@@ -54,6 +54,14 @@
                           <tbody>
 
                           </tbody>
+                          <tfoot>
+                            <th>Totales</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><span id='tventas'>Q. 0</span></th>
+                            <th></th>
+                          </tfoot>
                         </table>
                     </div>
                     <!--Fin centro -->

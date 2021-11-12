@@ -482,6 +482,104 @@
             return ejecutarConsulta($sql);
         }
 
+        //Implementar un método para mostrar los datos de un registro a modificar
+        public function totalVenta($fechainicio,$fechafin,$idcliente)
+        {   
+            if($idcliente!=0 ){
+                $sql="SELECT SUM(total) as total, SUM(descuento) as descuento, SUM(iva) as iva from ventaencabezado
+                    WHERE fecha>='$fechainicio' AND fecha<='$fechafin'
+                    AND idcliente='$idcliente'";
+
+            }else{
+                $sql="SELECT SUM(total) as total, SUM(descuento) as descuento, SUM(iva) as iva from ventaencabezado
+                    WHERE fecha>='$fechainicio' AND fecha<='$fechafin'";
+            }
+            return ejecutarConsultaSimpleFila($sql);
+        }
+
+        public function totalCompra($fechainicio,$fechafin)
+        {   
+            $sql="SELECT SUM(total) as total, SUM(impuesto) as iva from compraencabezado
+            WHERE fecha>='$fechainicio' AND fecha<='$fechafin'";
+            return ejecutarConsultaSimpleFila($sql);
+        }
+
+        public function totalInventario($idtienda)
+        {   
+            if($idtienda!=0 ){
+                $sql="SELECT SUM(cantidad) as total from inventario
+                WHERE idtienda='$idtienda'";
+
+            }else{
+                $sql="SELECT SUM(cantidad) as total from inventario
+                ";
+            }
+            return ejecutarConsultaSimpleFila($sql);
+        }
+
+        public function totalDevoluciones($fechainicio,$fechafin,$idcliente)
+        {   
+            if($idcliente!=0 ){
+                $sql="SELECT COUNT(d.iddevolucion) as total from devolucion d
+                INNER JOIN ventaencabezado v ON d.idventaencabezado=v.idventaencabezado
+                WHERE v.idcliente='$idcliente' AND d.fecha>='$fechainicio' AND d.fecha<='$fechafin'";
+
+            }else{
+                $sql="SELECT COUNT(d.iddevolucion) as total from devolucion d
+                WHERE d.fecha>='$fechainicio' AND d.fecha<='$fechafin'";
+            }
+            return ejecutarConsultaSimpleFila($sql);
+        }
+
+        //Implementar un método para mostrar los datos de un registro a modificar
+        public function totalVentas($fechainicio,$fechafin,$idcliente)
+        {   
+            if($idcliente!=0 ){
+                $sql="SELECT ROUND(SUM(total),2) as total, ROUND(SUM(descuento),2) as descuento,ROUND( SUM(iva),2) as iva from ventaencabezado
+                    WHERE fecha>='$fechainicio' AND fecha<='$fechafin'
+                    AND idcliente='$idcliente'";
+
+            }else{
+                $sql="SELECT ROUND(SUM(total),2) as total, ROUND(SUM(descuento),2) as descuento, ROUND(SUM(iva),2) as iva from ventaencabezado
+                    WHERE fecha>='$fechainicio' AND fecha<='$fechafin'";
+            }
+            return ejecutarConsulta($sql);
+        }
+
+        public function totalCompras($fechainicio,$fechafin)
+        {   
+            $sql="SELECT ROUND(SUM(total),2) as total, ROUND(SUM(impuesto),2) as iva from compraencabezado
+            WHERE fecha>='$fechainicio' AND fecha<='$fechafin'";
+            return ejecutarConsulta($sql);
+        }
+
+        public function totalInventarios($idtienda)
+        {   
+            if($idtienda!=0 ){
+                $sql="SELECT SUM(cantidad) as total from inventario
+                WHERE idtienda='$idtienda'";
+
+            }else{
+                $sql="SELECT SUM(cantidad) as total from inventario
+                ";
+            }
+            return ejecutarConsulta($sql);
+        }
+
+        public function totalDevolucioness($fechainicio,$fechafin,$idcliente)
+        {   
+            if($idcliente!=0 ){
+                $sql="SELECT COUNT(d.iddevolucion) as total from devolucion d
+                INNER JOIN ventaencabezado v ON d.idventaencabezado=v.idventaencabezado
+                WHERE v.idcliente='$idcliente' AND d.fecha>='$fechainicio' AND d.fecha<='$fechafin'";
+
+            }else{
+                $sql="SELECT COUNT(d.iddevolucion) as total from devolucion d
+                WHERE d.fecha>='$fechainicio' AND d.fecha<='$fechafin'";
+            }
+            return ejecutarConsulta($sql);
+        }
+
     }
 
 ?>

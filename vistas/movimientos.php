@@ -109,6 +109,7 @@
 ?>
 
 <script src="./scripts/movimientos.js"></script>
+<script src="./scripts/barrita.js"></script>
 <script>
   $(document).ready(function(){
       $("#reporte").click(function(event){

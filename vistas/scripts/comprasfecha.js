@@ -50,7 +50,34 @@ function listar()
                                
             }
         );
+
+        $.post("../ajax/consultas.php?op=totalCompra", { fecha_inicio:fecha_inicio, fecha_fin:fecha_fin}, function (data, status) {
+            data = JSON.parse(data);
+            console.log('si entro');
+            console.log(data);
+            if(data.total==null){
+                $("#tcompra").text('Q'+0);
+                $("#timp").text('Q'+0);
+            }else{
+                $("#tcompra").text('Q'+trunc(data.total,2));
+                $("#timp").text('Q'+trunc(data.iva,2));
+            }
+        });
 }
+
+function trunc (x, posiciones = 0) {
+    var s = x.toString()
+    var l = s.length
+    var numStr='';
+    if(s.indexOf('.')>=0){
+        var decimalLength = s.indexOf('.') + 1
+        numStr = s.substr(0, decimalLength + posiciones)
+    }else{
+        numStr=s;
+    }
+    
+    return Number(numStr)
+  }
 
 
 init();

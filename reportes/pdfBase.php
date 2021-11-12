@@ -229,6 +229,83 @@
                     }
             break;
         }
+        switch($_GET['op']){
+          case 1: 
+                  $rspta = $consultas->totalVentas($_GET['fechaini'],$_GET['fechafinal'],$_GET['cliente']);
+                  $pdf->SetWidths(array(25,35,40,30,30,20,30,35,20)); //Anchos de las celdas (igula al de las de arrriba)
+                  while ($reg = $rspta->fetch_object()) 
+                  {
+                      $total = $reg->total;
+                      $iva = $reg->iva;
+                      $descuento = $reg->descuento;
+                      
+                      $pdf->SetFont('Arial','',10);
+                      $pdf->Row(array(
+                          utf8_decode('TOTALES'),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode('Q'.$descuento),
+                          utf8_decode('Q'.$iva),
+                          utf8_decode('Q'.$total),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                      ));
+                  }
+            break;
+          case 2: $rspta = $consultas->totalCompras($_GET['fechaini'],$_GET['fechafinal']);
+                  $pdf->SetWidths(array(25,30,30,30,30,35,30,35,20)); //Anchos de las celdas (igula al de las de arrriba)
+                  while ($reg = $rspta->fetch_object()) 
+                  {
+                      $total = $reg->total;
+                      $iva = $reg->iva;
+                      
+                      $pdf->SetFont('Arial','',10);
+                      $pdf->Row(array(
+                          utf8_decode('TOTALES'),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode('Q'.$iva),
+                          utf8_decode('Q'.$total),
+                          utf8_decode(''),
+                      ));
+                  }
+            break;
+          case 3: $rspta = $consultas->totalInventarios($_GET['cliente']);
+                    $pdf->SetWidths(array(25,35,30,85,30,30,20)); //Anchos de las celdas (igula al de las de arrriba)
+                  while ($reg = $rspta->fetch_object()) 
+                  {
+                      $total = $reg->total;
+                      
+                      $pdf->SetFont('Arial','',10);
+                      $pdf->Row(array(
+                          utf8_decode('TOTALES'),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode(''),
+                          utf8_decode($total),
+                          utf8_decode('')
+                      ));
+                  }
+            break;
+          case 4: $rspta = $consultas->totalDevolucioness($_GET['fechaini'],$_GET['fechafinal'],$_GET['cliente']);
+                  $pdf->SetWidths(array(245,20)); //Anchos de las celdas (igula al de las de arrriba)
+                  while ($reg = $rspta->fetch_object()) 
+                  {
+                      $total = $reg->total;
+                      
+                      $pdf->SetFont('Arial','',10);
+                      $pdf->Row(array(
+                          utf8_decode('TOTAL DE DEVOLUCIONES'),
+                          utf8_decode(''.$total),
+                      ));
+                    }
+            break;
+        }
         $pdf->Output();
     } 
 

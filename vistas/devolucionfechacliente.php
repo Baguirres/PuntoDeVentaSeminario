@@ -67,15 +67,15 @@
 
                           </tbody>
                           <tfoot>
-                            <th>Fecha Venta</th>
-                            <th>Usuario</th>
-                            <th>Cliente</th>
-                            <th>Tienda</th>
-                            <th>Cantidad Productos</th>
                             <th>Total</th>
-                            <th>Fecha Devolución</th>
-                            <th>Comentario</th>
-                            <th>Estado</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th> </th>
+                            <th></th>
+                            <th> </th>
+                            <th></th>
+                            <th><span id='tventas'>0</span></th>
                           </tfoot>
                         </table>
                     </div>

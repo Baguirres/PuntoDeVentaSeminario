@@ -61,15 +61,15 @@
 
                           </tbody>
                           <tfoot>
-                            <th>Fecha</th>
-                            <th>Usuario</th>
-                            <th>Proveedor</th>
-                            <th>Tienda</th>
-                            <th>Moneda</th>
-                            <th>Cantidad Productos</th>
-                            <th>Impuesto</th>
-                            <th>Total</th>
-                            <th>Estado</th>
+                            <th>Totales</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><span id='timp'>0</span></th>
+                            <th><span id='tcompra'>0</span></th>
+                            <th></th>
                           </tfoot>
                         </table>
                     </div>
