@@ -51,7 +51,7 @@
 
                 $rspta=$ingreso->modificarPrecio($articulos);
 
-                $subject = "Pedido Realizado";
+                /*$subject = "Pedido Realizado";
                 $message = 'Pedido Realizado con éxito'. "\r\n" ;
                 $message .= 'Fecha: '.$fecha. "\r\n" ;
                 $message .= 'Total: '.$total. "\r\n" ;
@@ -60,7 +60,7 @@
                 include '../Tienda/php/correo.php';
                 $correo = new Correo();
 
-                $correo->CompraRealizada($to,$subject,$message);
+                $correo->CompraRealizada($to,$subject,$message);*/
             }else{
                 //echo 'se va a modificar';
                 $rspta=$ingreso->modificar($idcompraencabezado,$estado,$articulos,$cantidad,$idtienda);

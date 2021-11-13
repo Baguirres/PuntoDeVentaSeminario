@@ -35,7 +35,7 @@ switch ($_GET["op"]){
 		$rspta=$venta->insertar($nit,$fecha,$total,$descuentocompra,$iva,$usuario,$idtienda,$pago,$moneda,$articulos,$cantidad,$descuento);
 		echo $rspta ? "Venta registrada" : "Venta no se pudo registrar";   
 		
-		$subject = "Compra Realizada";
+		/*$subject = "Compra Realizada";
 		$message = 'Compra realizada con exito'. "\r\n" ;
 		$message .= 'Fecha: '.$fecha. "\r\n" ;
 		$message .= 'NIT: '.$nit. "\r\n" ;
@@ -45,7 +45,7 @@ switch ($_GET["op"]){
 		include '../Tienda/php/correo.php';
 		$correo = new Correo();
 
-		$correo->CompraRealizada($to,$subject,$message);
+		$correo->CompraRealizada($to,$subject,$message);*/
 	break;
 
 	case 'anular':

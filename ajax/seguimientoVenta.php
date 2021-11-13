@@ -20,13 +20,13 @@
                     $fila = mysqli_fetch_row($idcliente);
                     $correo = $articulo->correoCliente($fila[0]);
                     if (mysqli_num_rows($correo)>0) {                        
-                        include '../Tienda/php/correo.php';
+                        /*include '../Tienda/php/correo.php';
                         $correoS = new Correo();            
                         $fila2 = mysqli_fetch_row($correo);                         
                         $to =$fila2[0];
                         $subject = "Pedido Actualizado";
                         $message = "El estado de su pedido ha sido actualizado pronto te llegara";
-                        $correoS->CompraRealizada($to,$subject,$message);
+                        $correoS->CompraRealizada($to,$subject,$message);*/
                         // mail($to,$subject,$message,$headers);
                      }
                  }
