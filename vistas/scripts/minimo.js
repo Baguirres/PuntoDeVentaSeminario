@@ -8,14 +8,11 @@ var usuario = $("#idusuario").val();
 function init() {
     mostrarform(false);
     listar();
-    listarCaracteristicas();
-    $.post(
-        "../ajax/carCat.php?op=selectCategoria",
-        function (data) {
-            $("#idcategoria").html(data);
-            $("#idcategoria").selectpicker('refresh');
-        }
-    );
+
+    $("#formulario").on("submit", function (e) {
+        editar(e);
+    })
+
 
 }
 
@@ -109,36 +106,27 @@ function listarCaracteristicas() {
 
 //funcion para guardar o editar
 function editar(e) {
-    var idcategoria = $("#idcategoria").val();
-    var caracteristicas = [];
-    if (detalles != 0) {
-        for (var i = 0; i < cont; i++) {
-            if ($('#idcar' + i).val() != undefined) {
-                caracteristicas.push($('#idcar' + i).val());
-                console.log('idcar: ' + $('#idcar' + i).val());
-            }
+    e.preventDefault(); //No se activará la acción predeterminada del evento
 
+    var formData = new FormData($("#formulario")[0]);
+    // console.log(formData)
+    $.ajax({
+        url: "../ajax/minimo.php?op=editar",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (datos) {
+            console.log(datos);
+            bootbox.alert(datos);
+            mostrarform(false);
+            tabla.ajax.reload();
+        },
+        error: function (error) {
+            console.log("error: " + error);
         }
-    } else {
-        caracteristicas.push(-1);
-    }
+    });
 
-
-    $.post(
-        "../ajax/carCat.php?op=editar",
-        { idcategoria: idcategoria, caracteristicas: caracteristicas },
-        function (e) {
-            $.post(
-                "../ajax/bitacora.php?op=insertar",
-                { usuario: usuario, accion: "Caracteristicas Registradas" },
-                function (f) {
-                    bootbox.alert(e, function () {
-                        cancelarform();
-                    })
-                }
-            );
-        }
-    );
 }
 
 function mostrar(idcategoria, idTienda) {
@@ -149,7 +137,7 @@ function mostrar(idcategoria, idTienda) {
             mostrarform(true);
             $("#producto").val(data.producto);
             $("#idtienda").val(data.idtienda);
-            $("#idproducto").val(data.idproducto);
+            $("#idcategoria").val(data.idproducto);
             $("#minimo").val(data.cantidadminima);
             $("#tiendatienda").val(data.tiendatienda);
 

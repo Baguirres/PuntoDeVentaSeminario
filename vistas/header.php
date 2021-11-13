@@ -241,6 +241,11 @@
                     <a href="alerta.php">
                       <i class="fa fa-gear"></i> <span>Alertas</span>
                     </a>
+                  </li>
+                  <li>
+                    <a href="ganancia.php">
+                      <i class="fa fa-gear"></i> <span>% de Ganancia</span>
+                    </a>
                   </li>'
                  ;
               }

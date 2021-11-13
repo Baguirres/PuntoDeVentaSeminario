@@ -1,7 +1,7 @@
 <?php
     require '../config/conexion.php';
 
-    Class Minimo 
+    Class Ganancia 
     {
         public function __construct()
         {
@@ -9,9 +9,9 @@
         }
 
 
-        public function editar($idcategoria,$idTienda,$minimo)
+        public function editar($idarticulo,$nombre,$imagen,$precioC)
         {
-            $sql= "UPDATE minimos set CantidadMinima='$minimo' WHERE idproducto='$idcategoria' and idtienda='$idTienda'";  
+            $sql= "UPDATE producto SET ganancia='$precioC', conf='$imagen' where idProducto='$idarticulo'";  
             return ejecutarConsulta($sql);
 
 
@@ -25,11 +25,10 @@
             return ejecutarConsulta($sql);*/
         }
     
-        public function mostrar($idcategoria,$idTienda)
+        public function mostrar($idcompraencabezado)
         {
-            $sql = "SELECT m.idproducto, p.nombre as producto, m.idtienda, t.nombre as tiendatienda,m.cantidadminima 
-            from minimos m,producto p,tienda t where m.idproducto=p.idproducto and m.idtienda=t.idtienda and
-             m.idproducto='$idcategoria' and m.idtienda='$idTienda'";
+            
+            $sql = "SELECT idproducto, nombre, ganancia from producto where idProducto='$idcompraencabezado'";
 
             return ejecutarConsultaSimpleFila($sql);
         }
@@ -47,8 +46,7 @@
 
         public function listar()
         {
-            $sql = "SELECT m.idproducto, p.nombre as producto, m.idtienda, t.nombre as tienda,m.cantidadminima 
-            from minimos m,producto p,tienda t where m.idproducto=p.idproducto and m.idtienda=t.idtienda";
+            $sql = "SELECT * from Producto";
 
             return ejecutarConsulta($sql);
         }

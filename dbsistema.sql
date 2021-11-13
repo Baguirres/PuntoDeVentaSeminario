@@ -94,7 +94,7 @@ CREATE TABLE `tipoMoneda`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 INSERT INTO `tipoMoneda` VALUES
 (1, 'Quetzal','Q',1,1),
-(2, 'Dólar','$',7.5,1);
+(2, 'DÃ³lar','$',7.5,1);
 
 CREATE TABLE `compradetalle` (
   `idProducto` int(11) NOT NULL,
@@ -227,11 +227,11 @@ INSERT INTO compraencabezado VALUES
 (1, '2021-04-02', 1, 1121.55, 1, 1, 1, 12, 1),
 (2, '2020-11-10', 1, 1233.43, 1, 1, 1, 12, 1),
 (3, '2021-04-03', 1, 1025.1, 1, 1, 1, 12, 1),
-(4, '2020-11-01', 1, 1340.12, 1, 1, 1, 12, 1),
+(4, '2021-11-01', 1, 1340.12, 1, 1, 1, 12, 1),
 (5, '2021-02-03', 1, 1171.57, 1, 1, 1, 12, 1),
 (6, '2021-06-30', 1, 1136.07, 1, 1, 1, 12, 1),
 (7, '2020-12-31', 1, 1486.69, 1, 1, 1, 12, 1),
-(8, '2020-11-07', 1, 1060.05, 1, 1, 1, 12, 1),
+(8, '2021-11-02', 1, 1060.05, 1, 1, 1, 12, 1),
 (9, '2020-10-18', 1, 1185.39, 1, 1, 1, 12, 1),
 (10, '2021-02-04', 1, 1380.82, 1, 1, 1, 12, 1),
 (11, '2021-04-10', 1, 1304.66, 1, 1, 1, 12, 1),
@@ -271,7 +271,7 @@ INSERT INTO compraencabezado VALUES
 (45, '2021-06-23', 1, 1240.73, 1, 1, 1, 12, 1),
 (46, '2021-01-31', 1, 1296.29, 1, 1, 1, 12, 1),
 (47, '2021-01-22', 1, 1319.84, 1, 1, 1, 12, 1),
-(48, '2020-11-01', 1, 1292.81, 1, 1, 1, 12, 1),
+(48, '2021-11-01', 1, 1292.81, 1, 1, 1, 12, 1),
 (49, '2021-07-16', 1, 1482.09, 1, 1, 1, 12, 1),
 (50, '2020-12-05', 1, 1409.56, 1, 1, 1, 12, 1),
 (51, '2021-08-24', 1, 1112.48, 1, 1, 1, 12, 1),
@@ -387,7 +387,7 @@ CREATE TABLE `empresa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `empresa` VALUES
-(1, 'Chocolates Milky','zona 10 Edificio Sky Resort','12345678','123456-6','milky@gmail.com','eslogan','logo.png','«El Grupo Adidas se esfuerza por ser el líder mundial en la industria de artículos deportivos con marcas basadas en la pasión por el deporte y el estilo de vida deportivo».','«Somos líderes en innovación y diseño que buscan ayudar a los atletas de todos los niveles de habilidad a lograr el máximo rendimiento con cada producto que traemos al mercado».','«Seguridad, colaboración y creatividad».');
+(1, 'Chocolates Milky','zona 10 Edificio Sky Resort','12345678','123456-6','milky@gmail.com','eslogan','logo.png','Â«El Grupo Adidas se esfuerza por ser el lÃ­der mundial en la industria de artÃ­culos deportivos con marcas basadas en la pasiÃ³n por el deporte y el estilo de vida deportivoÂ».','Â«Somos lÃ­deres en innovaciÃ³n y diseÃ±o que buscan ayudar a los atletas de todos los niveles de habilidad a lograr el mÃ¡ximo rendimiento con cada producto que traemos al mercadoÂ».','Â«Seguridad, colaboraciÃ³n y creatividadÂ».');
 
 -- --------------------------------------------------------
 
@@ -435,6 +435,39 @@ INSERT INTO inventario VALUES
 (6, 3,50),
 (6, 1,50);
 
+CREATE TABLE `minimos` (
+  `idProducto` int(11) NOT NULL,
+  `idTienda` int(11) NOT NULL,
+  `CantidadMinima` int(11) NOT NULL,
+  PRIMARY KEY (`idProducto`,`idTienda`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+CREATE TABLE `alertas` (
+  `idAlerta` int(11) NOT NULL AUTO_INCREMENT,
+  `Fecha` DATETIME NOT NULL,
+  `Mensaje` varchar(250) NOT NULL,
+  `estado` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`idAlerta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+CREATE TABLE `inventarioEncabezado` (
+  `idInvEnc` int(11) NOT NULL AUTO_INCREMENT,
+  `Fecha` date NOT NULL,
+  PRIMARY KEY (`idInvEnc`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `inventarioencabezado` (`idInvEnc`, `Fecha`) VALUES ('1', '2021-11-01');
+INSERT INTO `inventarioencabezado` (`idInvEnc`, `Fecha`) VALUES ('2', '2021-11-02');
+
+CREATE TABLE `inventarioDetalle` (
+  `idInvEnc` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  `idTienda` int(11) NOT NULL,
+  `Cantidad` int(11) NOT NULL,
+  PRIMARY KEY (`idInvEnc`,`idProducto`,`idTienda`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+INSERT INTO `inventariodetalle` (`idInvEnc`, `idProducto`, `idTienda`, `Cantidad`) VALUES ('1', '1', '1', '100'), ('1', '2', '1', '109');
+INSERT INTO `inventariodetalle` (`idInvEnc`, `idProducto`, `idTienda`, `Cantidad`) VALUES ('2', '1', '1', '110'), ('2', '2', '1', '105');
 -- --------------------------------------------------------
 
 --
@@ -487,11 +520,11 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 INSERT INTO `producto` VALUES
-(1, 'Chocolates hershey','Es el alimento que se obtiene mezclando azúcar con dos productos que derivan de la manipulación de las semillas del cacao: la masa del cacao y la manteca de cacao.',1.50,1.50,1,'chocolate.jpeg',1,'',1),
+(1, 'Chocolates hershey','Es el alimento que se obtiene mezclando azÃºcar con dos productos que derivan de la manipulaciÃ³n de las semillas del cacao: la masa del cacao y la manteca de cacao.',1.50,1.50,1,'chocolate.jpeg',1,'',1),
 (2, 'Camisa Manga Corta Roja','Prenda de vestir de tela que cubre el torso , abotonada por delante , generalmente con cuello y mangas',15,150,2,'camisa.jpg',1,'',1),
 (3, 'Lapices Mongol Triangulares','Es un instrumento de escritura o dibujo que presenta una barra de grafito encerrada en un cilindro de madera u otro material.',20,25,1,'lapiz.jpg',1,'',1),
-(4, 'Tenis Deportivo','Es una pieza de calzado que protege al pie, brindándole comodidad a la persona a la hora de llevar a cabo diferentes acciones',30,35,1,'tenis.jpg',1,'',1),
-(5, 'Sandalia','Es un tipo de calzado, conocido desde la antigüedad, que consiste en una suela resistente atada al pie mediante cuerdas, cintas o bandas de material ligero, quedando los dedos y otras partes del pie al descubierto.',40,45,1,'chanclas.jpg',1,'',1),
+(4, 'Tenis Deportivo','Es una pieza de calzado que protege al pie, brindÃ¡ndole comodidad a la persona a la hora de llevar a cabo diferentes acciones',30,35,1,'tenis.jpg',1,'',1),
+(5, 'Sandalia','Es un tipo de calzado, conocido desde la antigÃ¼edad, que consiste en una suela resistente atada al pie mediante cuerdas, cintas o bandas de material ligero, quedando los dedos y otras partes del pie al descubierto.',40,45,1,'chanclas.jpg',1,'',1),
 (6, 'Pumpkin', ' ', 338.31, 952.8, 2, ' ', 1, ' ', 1),
 (7, 'Water - Spring Water 500ml', ' ', 344.83, 671.89, 3, ' ', 1, ' ', 1),
 (8, 'Squash - Sunburst', ' ', 549.97, 465.66, 3, ' ', 1, ' ', 1),
@@ -553,6 +586,8 @@ INSERT INTO `producto` VALUES
 (64, 'Lamb - Leg, Bone In', ' ', 766.88, 394.74, 2, ' ', 1, ' ', 1),
 (65, 'Truffle Shells - Semi - Sweet', ' ', 994.24, 613.32, 3, ' ', 1, ' ', 1);
 
+alter table producto add column `ganancia` double not null;
+alter table producto add column `conf` int not null;
 -- --------------------------------------------------------
 
 --
@@ -864,7 +899,7 @@ INSERT INTO `ventaencabezado` VALUES
 (7, 1, '2021-09-14', 1564.16, 65.95, 84.12, 0, 2, 3, 1, 1),
 (8, 3, '2021-11-25', 1224.97, 37.16, 96.94, 1, 1, 4, 1, 1),
 (9, 1, '2021-07-20', 1573.75, 11.02, 13.37, 0, 1, 3, 1, 1),
-(10, 1, '2021-11-21', 1437.87, 94.05, 40.55, 0, 1, 5, 1, 1),
+(10, 1, '2021-11-02', 1437.87, 94.05, 40.55, 0, 1, 1, 1, 1),
 (11, 1, '2021-10-03', 1396.73, 89.21, 35.99, 0, 1, 4, 1, 1),
 (12, 3, '2021-08-20', 1652.15, 79.88, 74.57, 0, 2, 5, 1, 1),
 (13, 3, '2021-05-06', 1335.8, 87.84, 81.5, 1, 2, 5, 1, 1),
@@ -902,7 +937,7 @@ INSERT INTO `ventaencabezado` VALUES
 (45, 1, '2021-10-17', 1587.63, 47.71, 41.45, 1, 2, 5, 1, 1),
 (46, 1, '2021-02-23', 1397.92, 90.09, 29.89, 1, 2, 5, 1, 1),
 (47, 1, '2021-08-09', 1348.84, 25.85, 86.94, 1, 2, 3, 1, 1),
-(48, 1, '2021-11-17', 1083.47, 69.16, 48.35, 1, 2, 4, 1, 1),
+(48, 1, '2021-11-01', 1083.47, 69.16, 48.35, 1, 2, 1, 1, 1),
 (49, 3, '2021-01-31', 1153.11, 11.93, 22.74, 1, 1, 4, 1, 1),
 (50, 3, '2021-05-19', 1654.22, 59.97, 49.79, 0, 1, 4, 1, 1),
 (51, 3, '2021-04-22', 1246.87, 85.49, 57.75, 0, 1, 5, 1, 1),
@@ -1014,5 +1049,3 @@ INSERT INTO `caracteristicasCategoria` (`idCategoria`, `idCaracteristica`) VALUE
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-

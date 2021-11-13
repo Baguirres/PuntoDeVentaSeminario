@@ -9,17 +9,16 @@
     $carCat = new Minimo();
 
     $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
-    $idTienda=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
+    $idTienda=isset($_POST["idTienda"])? limpiarCadena($_POST["idTienda"]):"";
+    $producto=isset($_POST["producto"])? limpiarCadena($_POST["producto"]):"";
+    $tiendatienda=isset($_POST["tiendatienda"])? limpiarCadena($_POST["tiendatienda"]):"";
+    $minimo=isset($_POST["minimo"])? limpiarCadena($_POST["minimo"]):"";
     
     switch($_GET["op"])
     {
-        case 'editar':
-            
-            $idcategoria = $_REQUEST["idcategoria"];
-            $caracteristicas = $_REQUEST["caracteristicas"];
-        
-            $rspta=$carCat->modificar($idcategoria,$caracteristicas);
-            echo $rspta ? "Caracteristicas registrada" : "Caracteristicas no se pudieron registrar";           
+        case 'editar':                
+            $rspta=$carCat->editar($idcategoria,$idTienda,$minimo);
+            echo $rspta ? "Caracteristicas registrada" : "Caracteristicas no se pudieron registrar";       
         
         break;
 

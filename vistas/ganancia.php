@@ -28,7 +28,7 @@
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Minimo Producto </h1>
+                          <h1 class="box-title">Porcentaje de Ganancia </h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -38,9 +38,9 @@
                         <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Opciones</th>
-                            <th>Tienda</th>
                             <th>Producto</th>
-                            <th>Cantidad Minima</th>
+                            <th>Ganancia</th>
+                            <th>Configuración</th>
                           </thead>
                           <tbody>
 
@@ -50,21 +50,23 @@
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                           <label>Tienda:</label>
-                           <input type="hidden" class="form-control" name="idTienda" id="idTienda" disabled>                            
-                            <input type="text" class="form-control" name="tiendatienda" id="tiendatienda" disabled>
-                          </div>
-                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Producto:</label>
-                            <input type="hidden" class="form-control" name="idcategoria" id="idcategoria" disabled>
-                            <input type="text" class="form-control" name="producto" id="producto" disabled>
+                            <input type="hidden" name="idarticulo" id="idarticulo">
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" disabled>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <label>Cantidad Minima:</label>
-                            <input type="text" class="form-control" name="minimo" id="minimo">
-                          </div>                    
-                  
-                          
+                            <label>% de Ganancia:</label>
+                            <input type="text" class="form-control" name="ganancia" id="ganancia">
+                          </div>               
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Configuración de precio de venta</label>
+                            <select name="conf" id="conf">
+                              <option value="1">Precio mas bajo</option>
+                              <option value="2">Precio mas alto</option>
+                              <option value="3">Promedio de precios</option>
+                              <option value="4">Mantener precio establecido</option>
+                            </select>
+                          </div>               
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
                             <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
@@ -126,8 +128,9 @@
 ?>
       <script src="./scripts/barrita.js"></script>
 
-<script src="./scripts/minimo.js"></script>
-
+<script src="./scripts/ganancia.js"></script>
+<script src="../public/js/JsBarcode.all.min.js"></script>
+  <script src="../public/js/jquery.PrintArea.js"></script>
 <?php
   }
   ob_end_flush(); //liberar el espacio del buffer
