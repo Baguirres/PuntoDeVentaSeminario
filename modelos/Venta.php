@@ -12,6 +12,7 @@ Class Venta
 
 	public function insertar($nit,$fecha,$total,$descuentocompra,$iva,$usuario,$idtienda,$pago,$moneda,$articulos,$cantidad,$descuento)
         {
+
             $sql = "INSERT INTO ventaencabezado (
                         idcliente,
 						fecha,
@@ -73,6 +74,30 @@ Class Venta
 								WHERE i.idtienda='$idtienda' AND i.idproducto='$idarticulo'";
 
                 ejecutarConsulta($sql_detalle) or $sw = false;
+				
+				$SQL22="SELECT m.CANTIDADMINIMA, i.cantidad FROM MINIMOS m, inventario i WHERE i.idProducto=m.idProducto and i.idTienda=m.idTienda and m.IDPRODUCTO='$idarticulo' AND m.IDTIENDA='$idtienda'";
+
+				$resultadot=ejecutarConsulta($SQL22);
+
+				if ($reg = $resultadot->fetch_object())
+				{
+										
+					if(intval($reg->cantidad) <= intval($reg->CANTIDADMINIMA)){
+						$SQL44="SELECT nombre FROM producto WHERE idProducto='$idarticulo'";
+
+						$resultadott=ejecutarConsulta($SQL44);
+
+						if ($regis = $resultadott->fetch_object()){
+
+							$mensaje="La cantidad de  " .$regis->nombre. " es demasiado baja contacte a su proveedor";
+							$sql33="INSERT INTO alertas( Fecha, Mensaje, estado) VALUES (CURRENT_DATE,'$mensaje','1')";
+							ejecutarConsulta($sql33);
+
+						}
+
+					}
+				}
+
                 $num_elementos = $num_elementos + 1;
             }
 
