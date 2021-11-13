@@ -100,7 +100,7 @@
                 $precio = $precios[$num_elementos];
                 $ganancia = ($ganancias[$num_elementos]/100);
                 $sql_detalle ="UPDATE producto SET precio=(
-                    ROUND($precio+($precio*$ganancia),2)
+                    ROUND((SELECT p.preciocompra from producto p where p.idproducto='$idarticulo')+((SELECT pp.preciocompra from producto pp where pp.idproducto='$idarticulo')*$ganancia),2)
                 ) WHERE idproducto='$idarticulo'";
 
                 ejecutarConsulta($sql_detalle) or $sw = false;

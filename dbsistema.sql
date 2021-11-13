@@ -1338,8 +1338,8 @@ INSERT INTO `producto` VALUES
 (64, 'Lamb - Leg, Bone In', ' ', 766.88, 394.74, 2, ' ', 1, ' ', 1),
 (65, 'Truffle Shells - Semi - Sweet', ' ', 994.24, 613.32, 3, ' ', 1, ' ', 1);
 
-alter table producto add column `ganancia` double not null;
-alter table producto add column `conf` int not null;
+alter table producto add column `ganancia` double not null default 15;
+alter table producto add column `conf` int not null default 2;
 -- --------------------------------------------------------
 
 --
