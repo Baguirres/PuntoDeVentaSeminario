@@ -152,7 +152,7 @@ INSERT INTO `compradetalle` (`idProducto`, `idCompraEncabezado`, `cantidad`) VAL
 (8, 45, 3),
 (10, 46, 8),
 (9, 47, 7),
-(2, 48, 2),
+(2, 48, 77),
 (9, 49, 10),
 (1, 50, 9),
 (7, 51, 5),
@@ -204,7 +204,31 @@ INSERT INTO `compradetalle` (`idProducto`, `idCompraEncabezado`, `cantidad`) VAL
 (5, 97, 7),
 (3, 98, 7),
 (3, 99, 5),
-(6, 100, 9);
+(6, 100, 9),
+(3, 101, 2),
+(4,102,26),
+(1,103,27),
+(2,104,1),
+(3,105,24),
+(6,106,1),
+(7,107,9),
+(8,108,1),
+(1,109,8),
+(2,110,5),
+(5,111,20),
+(7,112,18),
+(8,113,36),
+(10,114,14),
+(6,101,31),
+(1, 130, 9),
+(5, 130, 34),
+(7, 130, 13),
+(8, 130, 6),
+(10, 130, 19),
+(2, 131, 47),
+(4, 131, 25),
+(8, 131, 11),
+(9, 131, 4);
 
 -- --------------------------------------------------------
 
@@ -324,7 +348,23 @@ INSERT INTO compraencabezado VALUES
 (97, '2021-07-19', 1, 1422.4, 1, 1, 1, 12, 1),
 (98, '2020-12-28', 1, 1102.82, 1, 1, 1, 12, 1),
 (99, '2020-10-11', 1, 1078.81, 1, 1, 1, 12, 1),
-(100, '2021-03-18', 1, 1134.26, 1, 1, 1, 12, 1);
+(100, '2021-03-18', 1, 1134.26, 1, 1, 1, 12, 1),
+(101, '2021-11-01', 1, 1134.26, 1, 1, 1, 12, 1),
+(102, '2021-11-01', 1, 1134.26, 1, 1, 1, 12, 1),
+(103, '2021-11-01', 1, 1134.26, 1, 2, 1, 12, 1),
+(104, '2021-11-01', 1, 1134.26, 1, 2, 1, 12, 1),
+(105, '2021-11-01', 1, 1134.26, 1, 2, 1, 12, 1),
+(106, '2021-11-01', 1, 1134.26, 1, 2, 1, 12, 1),
+(107, '2021-11-01', 1, 1134.26, 1, 2, 1, 12, 1),
+(108, '2021-11-01', 1, 1134.26, 1, 2, 1, 12, 1),
+(109, '2021-11-01', 1, 1134.26, 1, 3, 1, 12, 1),
+(110, '2021-11-01', 1, 1134.26, 1, 3, 1, 12, 1),
+(111, '2021-11-01', 1, 1134.26, 1, 3, 1, 12, 1),
+(112, '2021-11-01', 1, 1134.26, 1, 3, 1, 12, 1),
+(113, '2021-11-01', 1, 1134.26, 1, 3, 1, 12, 1),
+(114, '2021-11-01', 1, 1134.26, 1, 3, 1, 12, 1),
+(130, '2021-11-01', 1, 1134.26, 1, 5, 1, 12, 1),
+(131, '2021-11-01', 1, 1134.26, 1, 4, 1, 12, 1);
 -- --------------------------------------------------------
 
 --
@@ -472,22 +512,6 @@ INSERT INTO inventario VALUES
 (	8	,	5	,	78	)	,
 (	9	,	5	,	85	)	,
 (	10	,	5	,	81	)	;
-
-
-CREATE TABLE `minimos` (
-  `idProducto` int(11) NOT NULL,
-  `idTienda` int(11) NOT NULL,
-  `CantidadMinima` int(11) NOT NULL,
-  PRIMARY KEY (`idProducto`,`idTienda`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
-CREATE TABLE `alertas` (
-  `idAlerta` int(11) NOT NULL AUTO_INCREMENT,
-  `Fecha` DATETIME NOT NULL,
-  `Mensaje` varchar(250) NOT NULL,
-  `estado` int(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`idAlerta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 CREATE TABLE `inventarioEncabezado` (
   `idInvEnc` int(11) NOT NULL AUTO_INCREMENT,
@@ -1185,6 +1209,10 @@ CREATE TABLE `minimos` (
   PRIMARY KEY (`idProducto`,`idTienda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+INSERT INTO `minimos` VALUES
+(1,1,100),
+(2,1,100);
+
 CREATE TABLE `alertas` (
   `idAlerta` int(11) NOT NULL AUTO_INCREMENT,
   `Fecha` DATETIME NOT NULL,
@@ -1193,25 +1221,6 @@ CREATE TABLE `alertas` (
   PRIMARY KEY (`idAlerta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-CREATE TABLE `inventarioEncabezado` (
-  `idInvEnc` int(11) NOT NULL AUTO_INCREMENT,
-  `Fecha` date NOT NULL,
-  PRIMARY KEY (`idInvEnc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
-INSERT INTO `inventarioencabezado` (`idInvEnc`, `Fecha`) VALUES ('1', '2021-11-01');
-INSERT INTO `inventarioencabezado` (`idInvEnc`, `Fecha`) VALUES ('2', '2021-11-02');
-
-CREATE TABLE `inventarioDetalle` (
-  `idInvEnc` int(11) NOT NULL,
-  `idProducto` int(11) NOT NULL,
-  `idTienda` int(11) NOT NULL,
-  `Cantidad` int(11) NOT NULL,
-  PRIMARY KEY (`idInvEnc`,`idProducto`,`idTienda`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-INSERT INTO `inventariodetalle` (`idInvEnc`, `idProducto`, `idTienda`, `Cantidad`) VALUES ('1', '1', '1', '100'), ('1', '2', '1', '109');
-INSERT INTO `inventariodetalle` (`idInvEnc`, `idProducto`, `idTienda`, `Cantidad`) VALUES ('2', '1', '1', '110'), ('2', '2', '1', '105');
--- --------------------------------------------------------
 
 --
 -- Table structure for table `municipio`
@@ -1519,7 +1528,7 @@ INSERT INTO `ventadetalle` VALUES
 (7, 5, 31, 3.93),
 (8, 1, 29, 7.98),
 (9, 10, 91, 8.91),
-(10, 1, 26, 7.38),
+(10, 1, 19, 7.38),
 (11, 7, 17, 7.46),
 (12, 4, 93, 5.11),
 (13, 6, 97, 8.58),
@@ -1609,7 +1618,29 @@ INSERT INTO `ventadetalle` VALUES
 (97, 6, 15, 8.44),
 (98, 6, 100, 5.77),
 (99, 7, 61, 4.37),
-(100, 1, 90, 6.32);
+(100, 1, 90, 6.32),
+(101, 5, 14, 6.32),
+(102, 7, 24, 6.32),
+(103, 9, 37, 6.32),
+(104, 10, 7, 6.32),
+(105, 4, 42, 6.32),
+(106, 5, 5, 6.32),
+(107, 9, 23, 6.32),
+(108, 10, 17, 6.32),
+(109, 3, 25, 6.32),
+(110, 4, 12, 6.32),
+(111, 9, 29, 6.32),
+(130, 2, 40, 6.32),
+(130, 3, 14, 6.32),
+(130, 4, 23, 6.32),
+(130, 6, 33, 6.32),
+(130, 9, 14, 6.32),
+(131, 1, 9, 6.32),
+(131, 3, 21, 6.32),
+(131, 5, 1, 6.32),
+(131, 6, 29, 6.32),
+(131, 7, 5, 6.32),
+(131, 10, 6, 6.32);
 
 -- --------------------------------------------------------
 
@@ -1732,7 +1763,21 @@ INSERT INTO `ventaencabezado` VALUES
 (97, 1, '2021-06-02', 1558.21, 94.88, 75.64, 0, 1, 4, 1, 1),
 (98, 2, '2021-10-22', 1162.63, 99.26, 77.49, 1, 2, 3, 1, 1),
 (99, 2, '2021-11-27', 1069.5, 99.97, 98.89, 1, 1, 4, 1, 1),
-(100, 2, '2021-06-08', 1677.88, 65.0, 89.93, 0, 2, 5, 1, 1);
+(100, 2, '2021-06-08', 1677.88, 65.0, 89.93, 0, 2, 5, 1, 1),
+(101, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 1, 1, 1),
+(102, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 1, 1, 1),
+(103, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 1, 1, 1),
+(104, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 1, 1, 1),
+(105, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 2, 1, 1),
+(106, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 2, 1, 1),
+(107, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 2, 1, 1),
+(108, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 2, 1, 1),
+(109, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 3, 1, 1),
+(110, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 3, 1, 1),
+(111, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 3, 1, 1),
+
+(130, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 5, 1, 1),
+(131, 2, '2021-11-01', 1677.88, 65.0, 89.93, 0, 2, 4, 1, 1);
 
 CREATE TABLE `permiso` (
   `idpermiso` int(11) NOT NULL AUTO_INCREMENT,
