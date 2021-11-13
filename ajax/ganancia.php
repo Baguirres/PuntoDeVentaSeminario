@@ -45,24 +45,23 @@
             $rspta = $articulo->listar();
             $data = Array();
             while ($reg = $rspta->fetch_object()) {
-                switch($reg->estado) {
-                    case 1:
+                switch($reg->conf) {
+                    case 0:
                         $tag='<span class="label bg-green">Precio mas bajo</span>';
                         break;
-                    case 2:
+                    case 1:
                         $tag='<span class="label bg-green">Precio mas alto</span>';
                         break;
-                    case 3:
+                    case 2:
                         $tag='<span class="label bg-green">Promedio de precios</span>';
                         break;
-                    case 4:
+                    case 3:
                         $tag='<span class="label bg-green">Mantener precio establecido</span>';
                         break;
                 }
                 $data[] = array(
                     "0"=> 
                     '<button class="btn btn-warning" onclick="mostrar('.$reg->idProducto.')" title="mostrar"><li class="fa fa-pencil"></li></button>',
-                   
                      "1"=>$reg->nombre,
                      "2"=>$reg->ganancia,
                      "3"=>$tag

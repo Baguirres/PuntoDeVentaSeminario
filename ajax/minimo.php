@@ -18,7 +18,7 @@
     {
         case 'editar':                
             $rspta=$carCat->editar($idcategoria,$idTienda,$minimo);
-            echo $rspta ? "Caracteristicas registrada" : "Caracteristicas no se pudieron registrar";       
+            echo $rspta ? "Minimo registrada" : "Minimo no se pudieron registrar";       
         
         break;
 

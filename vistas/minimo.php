@@ -51,12 +51,12 @@
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                            <label>Tienda:</label>
-                           <input type="hidden" class="form-control" name="idTienda" id="idTienda" disabled>                            
+                           <input type="hidden" class="form-control" name="idTienda" id="idTienda" >                            
                             <input type="text" class="form-control" name="tiendatienda" id="tiendatienda" disabled>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Producto:</label>
-                            <input type="hidden" class="form-control" name="idcategoria" id="idcategoria" disabled>
+                            <input type="hidden" class="form-control" name="idcategoria" id="idcategoria" >
                             <input type="text" class="form-control" name="producto" id="producto" disabled>
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">

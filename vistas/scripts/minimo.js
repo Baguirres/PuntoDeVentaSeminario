@@ -136,7 +136,7 @@ function mostrar(idcategoria, idTienda) {
             data = JSON.parse(data);
             mostrarform(true);
             $("#producto").val(data.producto);
-            $("#idtienda").val(data.idtienda);
+            $("#idTienda").val(data.idtienda);
             $("#idcategoria").val(data.idproducto);
             $("#minimo").val(data.cantidadminima);
             $("#tiendatienda").val(data.tiendatienda);

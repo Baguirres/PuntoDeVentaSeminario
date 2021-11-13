@@ -42,6 +42,8 @@
             $total = $_REQUEST["total"];
             $articulos = $_REQUEST["articulos"];
             $cantidad = $_REQUEST["cantidad"];
+            $configuraciones = $_REQUEST["configuraciones"];
+            $ganancias = $_REQUEST["ganancias"];
             $estado = $_REQUEST["estado"];
             $to = $_REQUEST["correo"];
             if($idcompraencabezado==''){
@@ -49,7 +51,9 @@
                 $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$precios,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
                 echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
 
-                $rspta=$ingreso->modificarPrecio($articulos);
+                $rspta=$ingreso->modificarPrecioCompra($articulos,$configuraciones);
+
+                $rspta=$ingreso->modificarPrecioVenta($articulos,$precios,$ganancias);
 
                 /*$subject = "Pedido Realizado";
                 $message = 'Pedido Realizado con éxito'. "\r\n" ;
@@ -210,7 +214,7 @@
 
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
-                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->preciocompra.'\',\''.$reg->precio.'\')">
+                    "0"=> '<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idproducto.',\''.$reg->nombre.'\',\''.$reg->preciocompra.'\',\''.$reg->conf.'\',\''.$reg->ganancia.'\')">
                                 <span class="fa fa-plus"></span>
                             </button>',
                     "1"=>$reg->nombre,

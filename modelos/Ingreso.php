@@ -59,14 +59,48 @@
             return $sw;
         }
 
-        public function modificarPrecio($articulos){
+        public function modificarPrecioCompra($articulos,$configuraciones){
             $num_elementos = 0;
             $sw = true;
             while($num_elementos < count($articulos))
             {
                 $idarticulo = $articulos[$num_elementos];
-                $sql_detalle ="UPDATE producto SET preciocompra=(
-                    select ROUND(((select avg(precio) from compradetalle where idProducto='$idarticulo')+(select preciocompra from producto where idProducto='$idarticulo'))/2,2)
+                $conf = $configuraciones[$num_elementos];
+                switch($conf){
+                    case 0: $sql_detalle ="UPDATE producto SET preciocompra=(
+                        (select min(precio) from compradetalle where idProducto='$idarticulo')
+                    ) WHERE idproducto='$idarticulo'";
+                        break;
+                    case 1: $sql_detalle ="UPDATE producto SET preciocompra=(
+                        (select max(precio) from compradetalle where idProducto='$idarticulo')
+                    ) WHERE idproducto='$idarticulo'";
+                        break;
+                    case 2: $sql_detalle ="UPDATE producto SET preciocompra=(
+                        select ROUND(((select avg(precio) from compradetalle where idProducto='$idarticulo')+(select preciocompra from producto where idProducto='$idarticulo'))/2,2)
+                    ) WHERE idproducto='$idarticulo'";
+                        break;
+                    case 3: $sql_detalle ="UPDATE producto SET preciocompra=(
+                        select p.preciocompra from producto p WHERE idproducto='$idarticulo') WHERE idproducto='$idarticulo'";
+                        break;
+                }
+
+                ejecutarConsulta($sql_detalle) or $sw = false;
+                $num_elementos = $num_elementos + 1;
+            }
+
+            return $sw;
+        }
+
+        public function modificarPrecioVenta($articulos,$precios,$ganancias){
+            $num_elementos = 0;
+            $sw = true;
+            while($num_elementos < count($articulos))
+            {
+                $idarticulo = $articulos[$num_elementos];
+                $precio = $precios[$num_elementos];
+                $ganancia = ($ganancias[$num_elementos]/100);
+                $sql_detalle ="UPDATE producto SET precio=(
+                    ROUND($precio+($precio*$ganancia),2)
                 ) WHERE idproducto='$idarticulo'";
 
                 ejecutarConsulta($sql_detalle) or $sw = false;

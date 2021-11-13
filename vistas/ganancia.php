@@ -56,15 +56,15 @@
                           </div>
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>% de Ganancia:</label>
-                            <input type="text" class="form-control" name="ganancia" id="ganancia">
+                            <input type="number" class="form-control" name="ganancia" id="ganancia" min="0" >
                           </div>               
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Configuración de precio de venta</label>
                             <select name="conf" id="conf">
-                              <option value="1">Precio mas bajo</option>
-                              <option value="2">Precio mas alto</option>
-                              <option value="3">Promedio de precios</option>
-                              <option value="4">Mantener precio establecido</option>
+                              <option value="0">Precio mas bajo</option>
+                              <option value="1">Precio mas alto</option>
+                              <option value="2">Promedio de precios</option>
+                              <option value="3">Mantener precio establecido</option>
                             </select>
                           </div>               
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

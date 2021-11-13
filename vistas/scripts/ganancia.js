@@ -145,12 +145,16 @@ function mostrar(idarticulo) {
         "../ajax/ganancia.php?op=mostrar",
         { idarticulo: idarticulo },
         function (data, status) {
-            console.log(data);
+            
             data = JSON.parse(data);
+            console.log(data);
             mostrarform(true);
 
             $("#idarticulo").val(data.idproducto);
             $("#nombre").val(data.nombre);
+            $("#ganancia").val(data.ganancia);
+            $("#conf").val(data.conf);
+            $("#conf").refresh();
 
         }
     );

@@ -11,10 +11,22 @@
 
         public function editar($idarticulo,$nombre,$imagen,$precioC)
         {
-            $sql= "UPDATE producto SET ganancia='$precioC', conf='$imagen' where idProducto='$idarticulo'";  
-            return ejecutarConsulta($sql);
+            $sql= "UPDATE producto SET ganancia='$precioC', conf='$imagen' where idProducto='$idarticulo'";
+             ejecutarConsulta($sql);
+
+             $dql2 = "SELECT precio, precioCompra from producto where idproducto='$idarticulo'";
+             $resultadot=ejecutarConsulta($dql2);
 
 
+                if ($reg = $resultadot->fetch_object())
+                {
+                    $res = $reg->precioCompra * ($precioC / 100);
+                    $res2 = $reg->precioCompra + $res;
+
+                    $sql2= "UPDATE producto SET precio='$res2' where idProducto='$idarticulo'";
+                    return  ejecutarConsulta($sql2);
+
+                }
         }
 
         public function anular($idcompraencabezado)
@@ -28,7 +40,7 @@
         public function mostrar($idcompraencabezado)
         {
             
-            $sql = "SELECT idproducto, nombre, ganancia from producto where idProducto='$idcompraencabezado'";
+            $sql = "SELECT idproducto, nombre, ganancia,conf from producto where idProducto='$idcompraencabezado'";
 
             return ejecutarConsultaSimpleFila($sql);
         }

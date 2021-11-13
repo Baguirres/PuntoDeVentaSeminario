@@ -18,7 +18,9 @@ function init()
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear()+"-"+(month)+"-"+(day);
-    $("#fecha_hora").val(today);
+    $("#fecha_inicio").val(today);
+    $("#fecha_fin").val(today);
+    $("#fecha_inicio").attr('max',today);
     $("#fecha_fin").attr('max',today);
     $("#fecha_inicio").change(listar);
     $("#fecha_fin").change(listar);

@@ -246,6 +246,8 @@ function guardaryeditar(e) {
     var articulos = [];
     var cantidad = [];
     var precios = [];
+    var configuraciones = [];
+    var ganancias = [];
     var correo = ($("#idproveedor option:selected").data('correo'));
     console.log('cant art: ' + cont);
     for (var i = 0; i < cont; i++) {
@@ -253,6 +255,8 @@ function guardaryeditar(e) {
             articulos.push($('#idarticulo' + i).val());
             cantidad.push($('#cantidad' + i).val());
             precios.push($('#precio' + i).val());
+            configuraciones.push($('#conf' + i).val());
+            ganancias.push($('#ganancia' + i).val());
         }
         console.log('art: ' + $('#idarticulo' + i).val());
         console.log('cant: ' + $('#cantidad' + i).val());
@@ -266,7 +270,7 @@ function guardaryeditar(e) {
     } else {
         $.post(
             "../ajax/ingreso.php?op=guardaryeditar",
-            { idcompraencabezado: idcompraencabezado, fecha: fecha, idproveedor: idproveedor, idtienda: localStorage.getItem('Tienda'), articulos: articulos, cantidad: cantidad, precios: precios, impuesto: impuesto, usuario: usuario, moneda: moneda, total: total, estado: estado, correo: correo },
+            { idcompraencabezado: idcompraencabezado, fecha: fecha, idproveedor: idproveedor, idtienda: localStorage.getItem('Tienda'), articulos: articulos, cantidad: cantidad, precios: precios, impuesto: impuesto, usuario: usuario, moneda: moneda, total: total, estado: estado, correo: correo, configuraciones: configuraciones, ganancias: ganancias },
             function (e) {
                 $.post(
                     "../ajax/bitacora.php?op=insertar",
@@ -378,7 +382,7 @@ function marcarImpuesto() {
     }*/
 }
 
-function agregarDetalle(idarticulo, articulo, preciocompra, precioventa) {
+function agregarDetalle(idarticulo, articulo, preciocompra, conf, ganancia) {
     if (!yaExiste(idarticulo)) {
         if (idarticulo != "") {
             var subtotal = 1 * (preciocompra / cambio);
@@ -388,6 +392,8 @@ function agregarDetalle(idarticulo, articulo, preciocompra, precioventa) {
                 '</td>' +
                 '<td>' +
                 '<input type="hidden" name="idarticulo' + cont + '" id="idarticulo' + cont + '" value="' + idarticulo + '">' +
+                '<input type="hidden" name="conf' + cont + '" id="conf' + cont + '" value="' + conf + '">' +
+                '<input type="hidden" name="ganancia' + cont + '" id="ganancia' + cont + '" value="' + ganancia + '">' +
                 articulo +
                 '</td>' +
                 '<td>' +

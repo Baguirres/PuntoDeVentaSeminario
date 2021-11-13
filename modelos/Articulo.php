@@ -138,6 +138,8 @@
                     p.nombre,
                     p.precio,
                     p.preciocompra,
+                    p.conf,
+                    p.ganancia,
                     p.imagen
                     FROM producto p
                     INNER JOIN categoria c 
