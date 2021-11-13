@@ -234,7 +234,7 @@
                 pr.nombre as producto,
                 pr.idproducto,
                 t.nombre as tienda,
-                d.cantidad
+                d.cantidad, i.total
             FROM compraencabezado i
             INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
             INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
@@ -252,7 +252,7 @@
                 pr.nombre as producto,
                 pr.idproducto,
                 t.nombre as tienda,
-                d.cantidad
+                d.cantidad, i.total
             FROM compraencabezado i
             INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
             INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
@@ -277,7 +277,7 @@
                     pr.nombre as producto,
                     pr.idproducto,
                     t.nombre as tienda,
-                    d.cantidad
+                    d.cantidad, i.total
                 FROM ventaencabezado i
                 INNER JOIN cliente p ON i.idCliente = p.idCliente
                 INNER JOIN ventadetalle d ON d.idventaencabezado = i.idventaencabezado
@@ -295,7 +295,7 @@
                     pr.nombre as producto,
                     pr.idproducto,
                     t.nombre as tienda,
-                    d.cantidad
+                    d.cantidad,i.total
                 FROM ventaencabezado i
                 INNER JOIN cliente p ON i.idCliente = p.idCliente
                 INNER JOIN ventadetalle d ON d.idventaencabezado = i.idventaencabezado
