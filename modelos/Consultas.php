@@ -196,7 +196,8 @@
 
         public function inventarioDetInixtienda($fechainicial,$idtienda)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
                         p.nombre as producto,
                         p.idproducto,
                         p.descripcion,
@@ -207,59 +208,124 @@
                     INNER JOIN producto p ON id.idproducto = p.idproducto
                     INNER JOIN tienda t ON t.idtienda = id.idtienda
                     WHERE id.idtienda='$idtienda' AND ie.fecha='$fechainicial'";
+            }else{
+                $sql = "SELECT 
+                        p.nombre as producto,
+                        p.idproducto,
+                        p.descripcion,
+                        id.cantidad,
+                        t.nombre as tienda
+                    FROM inventarioEncabezado ie
+                    INNER JOIN inventarioDetalle id ON ie.idInvEnc=id.idInvEnc
+                    INNER JOIN producto p ON id.idproducto = p.idproducto
+                    INNER JOIN tienda t ON t.idtienda = id.idtienda
+                    WHERE ie.fecha='$fechainicial'";
+            }            
 
             return ejecutarConsulta($sql);
         }
 
         public function compraDetfecha($fecha_inicio, $fecha_fin,$idtienda)
         {
-            $sql = "SELECT 
-            DATE(i.fecha) as fecha,
-            p.nombre as proveedor,
-            pr.nombre as producto,
-            pr.idproducto,
-            t.nombre as tienda,
-            d.cantidad
-        FROM compraencabezado i
-        INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
-        INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
-        INNER JOIN tienda t ON i.idtienda = t.idtienda
-        INNER JOIN producto pr ON d.idproducto = pr.idproducto
-        WHERE 
-                DATE(i.fecha) >= '$fecha_inicio'
-            AND
-                DATE(i.fecha) <= '$fecha_fin'
-            AND i.idtienda='$idtienda'";
+            if($idtienda!=0){
+                $sql = "SELECT 
+                DATE(i.fecha) as fecha,
+                p.nombre as proveedor,
+                pr.nombre as producto,
+                pr.idproducto,
+                t.nombre as tienda,
+                d.cantidad
+            FROM compraencabezado i
+            INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
+            INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
+            INNER JOIN tienda t ON i.idtienda = t.idtienda
+            INNER JOIN producto pr ON d.idproducto = pr.idproducto
+            WHERE 
+                    DATE(i.fecha) >= '$fecha_inicio'
+                AND
+                    DATE(i.fecha) <= '$fecha_fin'
+                AND i.idtienda='$idtienda'";
+            }else{
+                $sql = "SELECT 
+                DATE(i.fecha) as fecha,
+                p.nombre as proveedor,
+                pr.nombre as producto,
+                pr.idproducto,
+                t.nombre as tienda,
+                d.cantidad
+            FROM compraencabezado i
+            INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
+            INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
+            INNER JOIN tienda t ON i.idtienda = t.idtienda
+            INNER JOIN producto pr ON d.idproducto = pr.idproducto
+            WHERE 
+                    DATE(i.fecha) >= '$fecha_inicio'
+                AND
+                    DATE(i.fecha) <= '$fecha_fin'";
+            }
+            
 
             return ejecutarConsulta($sql);
         }
 
         public function ventaDetfecha($fecha_inicio, $fecha_fin,$idtienda)
         {
-            $sql = "SELECT 
-            DATE(i.fecha) as fecha,
-            p.nombre as cliente,
-            pr.nombre as producto,
-            pr.idproducto,
-            t.nombre as tienda,
-            d.cantidad
-        FROM ventaencabezado i
-        INNER JOIN cliente p ON i.idCliente = p.idCliente
-        INNER JOIN ventadetalle d ON d.idventaencabezado = i.idventaencabezado
-        INNER JOIN tienda t ON i.idtienda = t.idtienda
-        INNER JOIN producto pr ON d.idproducto = pr.idproducto
-        WHERE 
-                DATE(i.fecha) >= '$fecha_inicio'
-            AND
-                DATE(i.fecha) <= '$fecha_fin'
-            AND i.idtienda='$idtienda'";
+            if($idtienda!=0){
+                $sql = "SELECT 
+                    DATE(i.fecha) as fecha,
+                    p.nombre as cliente,
+                    pr.nombre as producto,
+                    pr.idproducto,
+                    t.nombre as tienda,
+                    d.cantidad
+                FROM ventaencabezado i
+                INNER JOIN cliente p ON i.idCliente = p.idCliente
+                INNER JOIN ventadetalle d ON d.idventaencabezado = i.idventaencabezado
+                INNER JOIN tienda t ON i.idtienda = t.idtienda
+                INNER JOIN producto pr ON d.idproducto = pr.idproducto
+                WHERE 
+                        DATE(i.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(i.fecha) <= '$fecha_fin'
+                    AND i.idtienda='$idtienda'";
+            }else{
+                $sql = "SELECT 
+                    DATE(i.fecha) as fecha,
+                    p.nombre as cliente,
+                    pr.nombre as producto,
+                    pr.idproducto,
+                    t.nombre as tienda,
+                    d.cantidad
+                FROM ventaencabezado i
+                INNER JOIN cliente p ON i.idCliente = p.idCliente
+                INNER JOIN ventadetalle d ON d.idventaencabezado = i.idventaencabezado
+                INNER JOIN tienda t ON i.idtienda = t.idtienda
+                INNER JOIN producto pr ON d.idproducto = pr.idproducto
+                WHERE 
+                        DATE(i.fecha) >= '$fecha_inicio'
+                    AND
+                        DATE(i.fecha) <= '$fecha_fin'";
+            }
 
             return ejecutarConsulta($sql);
         }
 
         public function inventarioDetFinxtienda($fechafinal,$idtienda)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
+                p.nombre as producto,
+                p.idproducto,
+                p.descripcion,
+                id.cantidad,
+                t.nombre as tienda
+                        FROM inventarioEncabezado ie
+                        INNER JOIN inventarioDetalle id ON ie.idInvEnc=id.idInvEnc
+                        INNER JOIN producto p ON id.idproducto = p.idproducto
+                        INNER JOIN tienda t ON t.idtienda = id.idtienda
+                        WHERE id.idtienda='$idtienda' AND ie.fecha='$fechafinal'";
+            }else{
+                $sql = "SELECT 
             p.nombre as producto,
             p.idproducto,
             p.descripcion,
@@ -269,14 +335,16 @@
                     INNER JOIN inventarioDetalle id ON ie.idInvEnc=id.idInvEnc
                     INNER JOIN producto p ON id.idproducto = p.idproducto
                     INNER JOIN tienda t ON t.idtienda = id.idtienda
-                    WHERE id.idtienda='$idtienda' AND ie.fecha='$fechafinal'";
+                    WHERE ie.fecha='$fechafinal'";
+            }            
 
             return ejecutarConsulta($sql);
         }
 
         public function inventarioDetFinActualxtienda($fechafinal,$idtienda)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
             p.nombre as producto,
             p.idproducto,
             p.descripcion,
@@ -286,6 +354,18 @@
                     INNER JOIN producto p ON ie.idproducto = p.idproducto
                     INNER JOIN tienda t ON t.idtienda = ie.idtienda
                     WHERE ie.idtienda='$idtienda'";
+            }else{
+                $sql = "SELECT 
+            p.nombre as producto,
+            p.idproducto,
+            p.descripcion,
+            ie.cantidad,
+            t.nombre as tienda
+                    FROM inventario ie
+                    INNER JOIN producto p ON ie.idproducto = p.idproducto
+                    INNER JOIN tienda t ON t.idtienda = ie.idtienda";
+            }
+            
 
             return ejecutarConsulta($sql);
         }
@@ -293,7 +373,8 @@
 
         public function inventarioDetInixtiendaProd($fechainicial,$idtienda,$producto)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
                         p.nombre as producto,
                         p.idproducto,
                         p.descripcion,
@@ -304,36 +385,71 @@
                     INNER JOIN producto p ON id.idproducto = p.idproducto
                     INNER JOIN tienda t ON t.idtienda = id.idtienda
                     WHERE id.idtienda='$idtienda' AND ie.fecha='$fechainicial' AND p.idproducto='$producto'";
+            }else{
+                $sql = "SELECT 
+                        p.nombre as producto,
+                        p.idproducto,
+                        p.descripcion,
+                        id.cantidad,
+                        t.nombre as tienda
+                    FROM inventarioEncabezado ie
+                    INNER JOIN inventarioDetalle id ON ie.idInvEnc=id.idInvEnc
+                    INNER JOIN producto p ON id.idproducto = p.idproducto
+                    INNER JOIN tienda t ON t.idtienda = id.idtienda
+                    WHERE ie.fecha='$fechainicial' AND p.idproducto='$producto'";
+            }
+            
 
             return ejecutarConsulta($sql);
         }
 
         public function compraDetfechaProd($fecha_inicio, $fecha_fin,$idtienda,$producto)
         {
-            $sql = "SELECT 
-            DATE(i.fecha) as fecha,
-            p.nombre as proveedor,
-            pr.nombre as producto,
-            pr.idproducto,
-            t.nombre as tienda,
-            d.cantidad
-        FROM compraencabezado i
-        INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
-        INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
-        INNER JOIN tienda t ON i.idtienda = t.idtienda
-        INNER JOIN producto pr ON d.idproducto = pr.idproducto
-        WHERE 
-                DATE(i.fecha) >= '$fecha_inicio'
-            AND
-                DATE(i.fecha) <= '$fecha_fin'
-            AND i.idtienda='$idtienda' AND pr.idproducto='$producto'";
+            if($idtienda){
+                $sql = "SELECT 
+                DATE(i.fecha) as fecha,
+                p.nombre as proveedor,
+                pr.nombre as producto,
+                pr.idproducto,
+                t.nombre as tienda,
+                d.cantidad
+            FROM compraencabezado i
+            INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
+            INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
+            INNER JOIN tienda t ON i.idtienda = t.idtienda
+            INNER JOIN producto pr ON d.idproducto = pr.idproducto
+            WHERE 
+                    DATE(i.fecha) >= '$fecha_inicio'
+                AND
+                    DATE(i.fecha) <= '$fecha_fin'
+                AND i.idtienda='$idtienda' AND pr.idproducto='$producto'";
+            }else{
+                $sql = "SELECT 
+                DATE(i.fecha) as fecha,
+                p.nombre as proveedor,
+                pr.nombre as producto,
+                pr.idproducto,
+                t.nombre as tienda,
+                d.cantidad
+            FROM compraencabezado i
+            INNER JOIN proveedor p ON i.idproveedor = p.idproveedor
+            INNER JOIN compradetalle d ON d.idCompraEncabezado = i.idCompraEncabezado
+            INNER JOIN tienda t ON i.idtienda = t.idtienda
+            INNER JOIN producto pr ON d.idproducto = pr.idproducto
+            WHERE 
+                    DATE(i.fecha) >= '$fecha_inicio'
+                AND
+                    DATE(i.fecha) <= '$fecha_fin'
+                AND  pr.idproducto='$producto'";
+            }            
 
             return ejecutarConsulta($sql);
         }
 
         public function ventaDetfechaProd($fecha_inicio, $fecha_fin,$idtienda,$producto)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
             DATE(i.fecha) as fecha,
             p.nombre as cliente,
             pr.nombre as producto,
@@ -350,13 +466,34 @@
             AND
                 DATE(i.fecha) <= '$fecha_fin'
             AND i.idtienda='$idtienda' AND pr.idproducto='$producto'";
+            }else{
+                $sql = "SELECT 
+            DATE(i.fecha) as fecha,
+            p.nombre as cliente,
+            pr.nombre as producto,
+            pr.idproducto,
+            t.nombre as tienda,
+            d.cantidad
+        FROM ventaencabezado i
+        INNER JOIN cliente p ON i.idCliente = p.idCliente
+        INNER JOIN ventadetalle d ON d.idventaencabezado = i.idventaencabezado
+        INNER JOIN tienda t ON i.idtienda = t.idtienda
+        INNER JOIN producto pr ON d.idproducto = pr.idproducto
+        WHERE 
+                DATE(i.fecha) >= '$fecha_inicio'
+            AND
+                DATE(i.fecha) <= '$fecha_fin'
+            AND  pr.idproducto='$producto'";
+            }
+            
 
             return ejecutarConsulta($sql);
         }
 
         public function inventarioDetFinxtiendaProd($fechafinal,$idtienda,$producto)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
             p.nombre as producto,
             p.idproducto,
             p.descripcion,
@@ -367,13 +504,28 @@
                     INNER JOIN producto p ON id.idproducto = p.idproducto
                     INNER JOIN tienda t ON t.idtienda = id.idtienda
                     WHERE id.idtienda='$idtienda' AND ie.fecha='$fechafinal' AND p.idproducto='$producto'";
+            }else{
+                $sql = "SELECT 
+            p.nombre as producto,
+            p.idproducto,
+            p.descripcion,
+            id.cantidad,
+            t.nombre as tienda
+                    FROM inventarioEncabezado ie
+                    INNER JOIN inventarioDetalle id ON ie.idInvEnc=id.idInvEnc
+                    INNER JOIN producto p ON id.idproducto = p.idproducto
+                    INNER JOIN tienda t ON t.idtienda = id.idtienda
+                    WHERE  ie.fecha='$fechafinal' AND p.idproducto='$producto'";
+            }
+            
 
             return ejecutarConsulta($sql);
         }
 
         public function inventarioDetFinActualxtiendaProd($fechafinal,$idtienda,$producto)
         {
-            $sql = "SELECT 
+            if($idtienda!=0){
+                $sql = "SELECT 
             p.nombre as producto,
             p.idproducto,
             p.descripcion,
@@ -383,6 +535,19 @@
                     INNER JOIN producto p ON ie.idproducto = p.idproducto
                     INNER JOIN tienda t ON t.idtienda = ie.idtienda
                     WHERE ie.idtienda='$idtienda' AND p.idproducto='$producto'";
+            }else{
+                $sql = "SELECT 
+            p.nombre as producto,
+            p.idproducto,
+            p.descripcion,
+            ie.cantidad,
+            t.nombre as tienda
+                    FROM inventario ie
+                    INNER JOIN producto p ON ie.idproducto = p.idproducto
+                    INNER JOIN tienda t ON t.idtienda = ie.idtienda
+                    WHERE  p.idproducto='$producto'";
+            }
+            
 
             return ejecutarConsulta($sql);
         }
@@ -538,7 +703,6 @@
                 $sql="SELECT ROUND(SUM(total),2) as total, ROUND(SUM(descuento),2) as descuento,ROUND( SUM(iva),2) as iva from ventaencabezado
                     WHERE fecha>='$fechainicio' AND fecha<='$fechafin'
                     AND idcliente='$idcliente'";
-
             }else{
                 $sql="SELECT ROUND(SUM(total),2) as total, ROUND(SUM(descuento),2) as descuento, ROUND(SUM(iva),2) as iva from ventaencabezado
                     WHERE fecha>='$fechainicio' AND fecha<='$fechafin'";

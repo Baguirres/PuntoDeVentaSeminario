@@ -185,10 +185,13 @@ function guardaryeditar(e)
     var stockBodega = [];
     var stockTienda = [];
     for(var i=0; i<cont;i++){
-        articulos.push($('#idarticulo'+i).val());
-        cantidad.push($('#cantidad'+i).val());
-        stockBodega.push($('#stock'+i).val());
-        stockTienda.push($('#stockTienda'+i).val());        
+        if($('#idarticulo'+i).val()!=undefined){
+            articulos.push($('#idarticulo'+i).val());
+            cantidad.push($('#cantidad'+i).val());
+            stockBodega.push($('#stock'+i).val());
+            stockTienda.push($('#stockTienda'+i).val()); 
+        }
+               
     }
     bootbox.confirm("¿Estas seguro de mover los productos de la Bodega a la tienda elegida ?",function(result){
         if(result)

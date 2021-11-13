@@ -228,9 +228,12 @@ function guardaryeditar(e) {
     }
     //alert('se va a guardar');
     for (var i = 0; i < cont; i++) {
-        articulos.push($('#idarticulo' + i).val());
-        cantidad.push($('#cantidad' + i).val());
-        descuento.push($('#descuento' + i).html());
+        if($('#idarticulo' + i).val()!=undefined){
+            articulos.push($('#idarticulo' + i).val());
+            cantidad.push($('#cantidad' + i).val());
+            descuento.push($('#descuento' + i).html());
+        }
+        
     }
     var bien = false;
     if (pago == 0 || pago == null || pago == '') {

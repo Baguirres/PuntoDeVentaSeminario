@@ -248,9 +248,9 @@
                     </a>
                     <ul class="treeview-menu">
                       <li><a href="ventasfechacliente.php"><i class="fa fa-circle-o"></i> Ventas</a></li>  
-                      <li><a href="movimientos.php"><i class="fa fa-circle-o"></i> Movimientos</a></li>  
                       <li><a href="comprasfecha.php"><i class="fa fa-circle-o"></i> Compras</a></li>   
-                      <li><a href="inventario.php"><i class="fa fa-circle-o"></i> Inventario</a></li>    
+                      <li><a href="inventario.php"><i class="fa fa-circle-o"></i> Inventario</a></li>   
+                      <li><a href="movimientos.php"><i class="fa fa-circle-o"></i> Movimientos de Inventario</a></li>   
                       <li><a href="devolucionfechacliente.php"><i class="fa fa-circle-o"></i> Devoluciones</a></li>   
                       <li><a href="bitacorafechausuario.php"><i class="fa fa-circle-o"></i> Bitácora</a></li>                
                     </ul>

@@ -40,7 +40,7 @@
         $pdf->SetFont('Arial','B',12);
 
         $pdf->Cell(45,6,'',0,0,'C');
-        $titulo="Reporte de Movimientos PRUEBA";
+        $titulo="Reporte de Movimientos de Inventario";
         $hoy=date('d-m-Y');;
         $pdf->Cell(100,6,utf8_decode($titulo.'    Generado: '.$hoy),0,0,'C');
         $pdf->Ln(10);
@@ -91,11 +91,17 @@
                   utf8_decode($producto),
                   utf8_decode($cantidad),
               ));
+              $cantidad=0;
+              if(isset($productos[$reg->idproducto])){
+                $cantidad=intval($productos[$reg->idproducto]['inventarioInicial'])+$reg->cantidad;
+              }else{
+                $cantidad=$reg->cantidad;
+              }
               $productos[$reg->idproducto]=array(
                 'idproducto'=>$reg->idproducto,
                 'producto'=> $reg->producto,
                 'descripcion'=> $reg->descripcion,
-                'inventarioInicial'=>$reg->cantidad,
+                'inventarioInicial'=>$cantidad,
                 'movimientos'=>array(),
               );
           }
@@ -144,22 +150,27 @@
                 'subtotal'=> 0,
               );
             }
-            usort($movimientos, function($a1, $a2) {
-              $v1 = strtotime($a1['fecha']);
-              $v2 = strtotime($a2['fecha']);
-              return $v1 - $v2; 
-          });
+            if(isset($movimientos)){
+              usort($movimientos, function($a1, $a2) {
+                $v1 = strtotime($a1['fecha']);
+                $v2 = strtotime($a2['fecha']);
+                return $v1 - $v2; 
+            });
+            }
+            
           /*var_dump($movimientos);
           var_dump($productos);*/
           foreach($productos as $producto){
             $j=0;
+            if(isset($movimientos)){
               foreach($movimientos as $movimiento){
                 if($producto['idproducto']==$movimiento['idproducto']){
                   array_push($productos[$producto['idproducto']]['movimientos'],$movimientos[$j]);
                 }
                 $j++;
               }
-            }
+            }    
+          }
             /*foreach($productos as $producto){
               var_dump($producto);
             }*/
@@ -178,7 +189,9 @@
                 utf8_decode($producto['inventarioInicial']),  
                 '',          
               ));
-              encabezadoMovimiento($pdf);
+              if(count($producto['movimientos'])>0){
+                encabezadoMovimiento($pdf);
+              }
               $movanterior[0]=array();
               foreach($producto['movimientos'] as $movimiento){
                 $cantant=0;
@@ -223,7 +236,11 @@
               }
               $pdf->SetFillColor(232,232,232); //fondo gris RGB
               $pdf->SetFont('Arial','B',10);
-              $pdf->Cell(195,6,'Inventario Final: '.$movanterior[0]['subtotal'],1,0,'R',1);
+              if(isset($movanterior[0]['subtotal'])){
+                $pdf->Cell(195,6,'Inventario Final: '.$movanterior[0]['subtotal'],1,0,'R',1);
+              }else{
+                $pdf->Cell(195,6,'Inventario Final: '.$producto['inventarioInicial'],1,0,'R',1);
+              }
               $pdf->Ln(7);
               $pdf->Ln(5);
             }
@@ -311,11 +328,17 @@
                   utf8_decode($producto),
                   utf8_decode($cantidad),
               ));
+              $cantidad=0;
+              if(isset($productos[$reg->idproducto])){
+                $cantidad=intval($productos[$reg->idproducto]['inventarioInicial'])+$reg->cantidad;
+              }else{
+                $cantidad=$reg->cantidad;
+              }
               $productos[$reg->idproducto]=array(
                 'idproducto'=>$reg->idproducto,
                 'producto'=> $reg->producto,
                 'descripcion'=> $reg->descripcion,
-                'inventarioInicial'=>$reg->cantidad,
+                'inventarioInicial'=>$cantidad,
                 'movimientos'=>array(),
               );
           }
@@ -364,15 +387,19 @@
                 'subtotal'=> 0,
               );
             }
-            usort($movimientos, function($a1, $a2) {
-              $v1 = strtotime($a1['fecha']);
-              $v2 = strtotime($a2['fecha']);
-              return $v1 - $v2; 
-          });
+            if(isset($movimientos)){
+              usort($movimientos, function($a1, $a2) {
+                $v1 = strtotime($a1['fecha']);
+                $v2 = strtotime($a2['fecha']);
+                return $v1 - $v2; 
+            });
+            }
+            
           /*var_dump($movimientos);
           var_dump($productos);*/
           foreach($productos as $producto){
             $j=0;
+            if(isset($movimientos)){
               foreach($movimientos as $movimiento){
                 if($producto['idproducto']==$movimiento['idproducto']){
                   array_push($productos[$producto['idproducto']]['movimientos'],$movimientos[$j]);
@@ -380,6 +407,7 @@
                 $j++;
               }
             }
+          }
             /*foreach($productos as $producto){
               var_dump($producto);
             }*/
@@ -398,7 +426,9 @@
                 utf8_decode($producto['inventarioInicial']),  
                 '',          
               ));
-              encabezadoMovimiento($pdf);
+              if(count($producto['movimientos'])>0){
+                encabezadoMovimiento($pdf);
+              }
               $movanterior[0]=array();
               foreach($producto['movimientos'] as $movimiento){
                 $cantant=0;
@@ -443,7 +473,11 @@
               }
               $pdf->SetFillColor(232,232,232); //fondo gris RGB
               $pdf->SetFont('Arial','B',10);
-              $pdf->Cell(195,6,'Inventario Final: '.$movanterior[0]['subtotal'],1,0,'R',1);
+              if(isset($movanterior[0]['subtotal'])){
+                $pdf->Cell(195,6,'Inventario Final: '.$movanterior[0]['subtotal'],1,0,'R',1);
+              }else{
+                $pdf->Cell(195,6,'Inventario Final: '.$producto['inventarioInicial'],1,0,'R',1);
+              }
               $pdf->Ln(7);
               $pdf->Ln(5);
             }

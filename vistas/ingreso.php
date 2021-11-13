@@ -108,7 +108,6 @@
                                   <th>Cantidad</th>
                                   <th>Precio Compra</th>
                                   <th>IVA</th>
-                                  <th>Precio Venta</th>
                                   <th>Subtotal</th>
                                 </thead>
                                 <tfoot>
@@ -120,7 +119,6 @@
                                     <h4 id="totaliva">Q 0.00</h4>
                                     <input type="hidden" name="total_iva" id="total_iva">
                                   </th>
-                                  <th></th>
                                   <th>
                                     <h4 id="total">Q 0.00</h4>
                                     <input type="hidden" name="total_compra" id="total_compra">

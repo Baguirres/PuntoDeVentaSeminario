@@ -102,7 +102,7 @@ function guardaryeditar(e) {
     });
     $.post(
         "../ajax/bitacora.php?op=insertar",
-        { usuario: usuario, accion: "Categoría Registrada" },
+        { usuario: usuario, accion: "Caracteristica Registrada" },
         function (f) {
 
         }

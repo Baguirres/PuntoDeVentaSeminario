@@ -8,7 +8,7 @@
 
         }
 
-        public function insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad)
+        public function insertar($fecha,$idproveedor,$idtienda,$precios,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad)
         {
             $sql = "INSERT INTO compraencabezado (
                         fecha,
@@ -38,16 +38,36 @@
             {
                 $idarticulo = $articulos[$num_elementos];
                 $cantart = $cantidad[$num_elementos];
+                $precioart = $precios[$num_elementos];
                 $sql_detalle ="INSERT INTO compradetalle (
                                     idproducto,
                                     idcompraencabezado,
-                                    cantidad
+                                    cantidad,
+                                    precio
                                 )
                                 VALUES (
                                     '$idarticulo',
                                     '$idingresonew',
-                                    '$cantart'
+                                    '$cantart',
+                                    '$precioart'
                                 )";
+
+                ejecutarConsulta($sql_detalle) or $sw = false;
+                $num_elementos = $num_elementos + 1;
+            }
+
+            return $sw;
+        }
+
+        public function modificarPrecio($articulos){
+            $num_elementos = 0;
+            $sw = true;
+            while($num_elementos < count($articulos))
+            {
+                $idarticulo = $articulos[$num_elementos];
+                $sql_detalle ="UPDATE producto SET preciocompra=(
+                    select ROUND(((select avg(precio) from compradetalle where idProducto='$idarticulo')+(select preciocompra from producto where idProducto='$idarticulo'))/2,2)
+                ) WHERE idproducto='$idarticulo'";
 
                 ejecutarConsulta($sql_detalle) or $sw = false;
                 $num_elementos = $num_elementos + 1;

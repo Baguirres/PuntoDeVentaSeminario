@@ -135,21 +135,18 @@ function cambioMoneda() {
     if ($("#idmoneda").val() != 0) {
         cambio = parseFloat($("#idmoneda option:selected").data('cambio'));
         simbolo = $("#idmoneda option:selected").data('simbolo');
-        $('#detalles tbody tr').each(function () {
-            precioc = $(this).find("td:eq(3)").find("input").attr('data-precio');
-            preciov = $(this).find("td:eq(5)").find("input").attr('data-precio');
-            //alert(precioc+' '+preciov);
-            $(this).find("td:eq(3)").find("input").val(precioc / cambio);
-            html1 = $(this).find("td:eq(3)").html();
-            /*alert(html1+' '+html1.search('>'));
-            alert(html1.substring(0,html1.search('>')+1));*/
-            $(this).find("td:eq(3)").html($(this).find("td:eq(3)").html().substring(0, html1.search('>') + 1) + (precioc / cambio));
-            $(this).find("td:eq(5)").find("input").val(preciov / cambio);
-            html2 = $(this).find("td:eq(5)").html();
-            $(this).find("td:eq(5)").html($(this).find("td:eq(5)").html().substring(0, html2.search('>') + 1) + (preciov / cambio));
-        });
+        for (var i = 0; i < cont; i++) {
+            $('#precio' + i).val(trunc($('#precio' + i).attr('data-precio')/cambio,2));
+        }
         modificarSubtotales();
     }
+}
+
+function cambioPrecio(){
+    for (var i = 0; i < cont; i++) {
+        $('#precio' + i).attr('data-precio',$('#precio' + i).val())
+    }
+    modificarSubtotales();
 }
 
 function combosSelected() {
@@ -248,13 +245,18 @@ function guardaryeditar(e) {
     var estado = $("#idestado").val() - 1;
     var articulos = [];
     var cantidad = [];
+    var precios = [];
     var correo = ($("#idproveedor option:selected").data('correo'));
     console.log('cant art: ' + cont);
     for (var i = 0; i < cont; i++) {
-        articulos.push($('#idarticulo' + i).val());
-        cantidad.push($('#cantidad' + i).val());
+        if($('#idarticulo' + i).val()!=undefined){
+            articulos.push($('#idarticulo' + i).val());
+            cantidad.push($('#cantidad' + i).val());
+            precios.push($('#precio' + i).val());
+        }
         console.log('art: ' + $('#idarticulo' + i).val());
         console.log('cant: ' + $('#cantidad' + i).val());
+        console.log('precios: ' + $('#precio' + i).val());
     }
 
     if (impuesto == '') {
@@ -264,7 +266,7 @@ function guardaryeditar(e) {
     } else {
         $.post(
             "../ajax/ingreso.php?op=guardaryeditar",
-            { idcompraencabezado: idcompraencabezado, fecha: fecha, idproveedor: idproveedor, idtienda: localStorage.getItem('Tienda'), articulos: articulos, cantidad: cantidad, impuesto: impuesto, usuario: usuario, moneda: moneda, total: total, estado: estado, correo: correo },
+            { idcompraencabezado: idcompraencabezado, fecha: fecha, idproveedor: idproveedor, idtienda: localStorage.getItem('Tienda'), articulos: articulos, cantidad: cantidad, precios: precios, impuesto: impuesto, usuario: usuario, moneda: moneda, total: total, estado: estado, correo: correo },
             function (e) {
                 $.post(
                     "../ajax/bitacora.php?op=insertar",
@@ -293,7 +295,6 @@ function mostrar(idcompraencabezado) {
             $("#idtienda").val(data.idtienda);
             $("#idtienda").selectpicker('refresh');
             let tiendaCompra = data.idtienda;
-
             $.post(
                 "../ajax/ingreso.php?op=mostrarTiendaCompra&idTiendaCompra=" + tiendaCompra, function (r) {
                     console.log(r);
@@ -339,8 +340,8 @@ function mostrar(idcompraencabezado) {
     $.post(
         "../ajax/bitacora.php?op=insertar",
         { usuario: usuario, accion: "Visualizo detalle de compra con código " + idcompraencabezado },
-        function (f) {
-
+        function (f)            {
+           
         }
     );
 }
@@ -393,15 +394,10 @@ function agregarDetalle(idarticulo, articulo, preciocompra, precioventa) {
                 '<input type="number" name="cantidad' + cont + '" id="cantidad' + cont + '" onchange="modificarSubtotales()" min="1" value=1>' +
                 '</td>' +
                 '<td>' +
-                '<input type="hidden" name="precio' + cont + '" id="precio' + cont + '" value="' + (preciocompra / cambio) + '" data-precio="' + (preciocompra / cambio) + '">' +
-                (preciocompra / cambio) +
+                '<input type="number" name="precio' + cont + '" id="precio' + cont + '" value="' + (preciocompra / cambio) + '" data-precio="' + preciocompra  + '" min="1" onchange="cambioPrecio()">' +
                 '</td>' +
                 '<td>' +
                 '<span name="iva' + cont + '" id="iva' + cont + '"></span>' +
-                '</td>' +
-                '<td>' +
-                '<input type="hidden" name="preciov' + cont + '" id="preciov' + cont + '" value="' + (precioventa / cambio) + '" data-precio="' + (precioventa / cambio) + '">' +
-                (precioventa / cambio) +
                 '</td>' +
                 '<td>' +
                 '<span name="subtotal' + cont + '" id="subtotal' + cont + '">' + subtotal + '</span>' +
@@ -427,11 +423,25 @@ function modificarSubtotales() {
         var precio = $('#precio' + i).val();
         subtotal = parseInt(cantidad) * parseFloat(precio);
         iva = parseInt(cantidad) * parseFloat(precio) * 0.12;
-        $('#subtotal' + i).html(subtotal);
-        $('#iva' + i).html(iva);
+        $('#subtotal' + i).html(trunc(subtotal,2));
+        $('#iva' + i).html(trunc(iva,2));
     }
     calcularTotales();
 }
+
+function trunc (x, posiciones = 0) {
+    var s = x.toString()
+    var l = s.length
+    var numStr='';
+    if(s.indexOf('.')>=0){
+        var decimalLength = s.indexOf('.') + 1
+        numStr = s.substr(0, decimalLength + posiciones)
+    }else{
+        numStr=s;
+    }
+    
+    return Number(numStr)
+  }
 
 function calcularTotales() {
     var total = 0;
@@ -448,10 +458,10 @@ function calcularTotales() {
         }
     }
     console.log('total' + total);
-    $("#total").html(simbolo + ' ' + total);
-    $("#total_compra").val(total);
-    $("#totaliva").html(simbolo + ' ' + totaliva);
-    $("#total_iva").val(totaliva);
+    $("#total").html(simbolo + ' ' + trunc(total,2));
+    $("#total_compra").val(trunc(total,2));
+    $("#totaliva").html(simbolo + ' ' + trunc(totaliva,2));
+    $("#total_iva").val(trunc(totaliva,2));
 
     evaluar();
 }

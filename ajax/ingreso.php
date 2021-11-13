@@ -35,6 +35,7 @@
             $fecha = $_REQUEST["fecha"];
             $idproveedor = $_REQUEST["idproveedor"];
             $idtienda = $_REQUEST["idtienda"];
+            $precios = $_REQUEST["precios"];
             $impuesto = $_REQUEST["impuesto"];
             $usuario = $_REQUEST["usuario"];
             $moneda = $_REQUEST["moneda"];
@@ -45,8 +46,10 @@
             $to = $_REQUEST["correo"];
             if($idcompraencabezado==''){
                 //echo 'se va a insertar';
-                $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
+                $rspta=$ingreso->insertar($fecha,$idproveedor,$idtienda,$precios,$impuesto,$usuario,$moneda,$total,$articulos,$cantidad);
                 echo $rspta ? "Compra registrada" : "Compra no se pudo registrar";
+
+                $rspta=$ingreso->modificarPrecio($articulos);
 
                 $subject = "Pedido Realizado";
                 $message = 'Pedido Realizado con éxito'. "\r\n" ;

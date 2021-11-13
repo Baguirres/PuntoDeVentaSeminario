@@ -119,16 +119,16 @@
         var tiendaname=$('select[id="idtienda"] option:selected').text();
         var producto=$('#idproducto').val();
         var prodname=$('select[id="idproducto"] option:selected').text();
-        if(tienda!=0){
+        //if(tienda!=0){
           window.open("../reportes/movimientos.php?op=4&fechaini="+fechainicial+"&fechafinal="+fechafinal+"&tienda="+tienda+"&nombre="+tiendaname+"&producto="+producto+"&nombreProd="+prodname, '_blank'); 
           var usuario = $("#idusuario").val();
           $.post(
                               "../ajax/bitacora.php?op=insertar",
                               {usuario:usuario,accion:"Creó reporte de movimientos"}
                           );
-        }else{
+        /*}else{
           bootbox.alert('Debe de elegir una tienda');
-        }
+        }*/
         
       });
     });
